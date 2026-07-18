@@ -1,0 +1,10 @@
+# Obsidian workspace layout (changes constantly)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian trash bin
+.trash/
+
+# OS-specific temporary files
+.DS_Store
+Thumbs.db
