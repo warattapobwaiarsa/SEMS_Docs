@@ -1,6 +1,4 @@
 # 📋 Requirements
 
-เก็บเอกสารที่เกี่ยวกับความต้องการของระบบ (Requirements) ทั้งหมด เช่น:
-- **SRS (Software Requirement Specification):** เอกสารอ้างอิงขอบเขตและความต้องการระบบทั้งหมด
-- **User Stories:** บันทึกความต้องการในมุมมองของผู้ใช้
-- **Meeting Notes:** บันทึกสรุปการประชุมสรุปความต้องการของโครงการ
+เก็บเอกสารที่เกี่ยวกับความต้องการของระบบ (Requirements) ทั้งหมด โดยแบ่งโครงสร้างย่อยดังนี้:
+- 📁 **[Proposal](./Proposal):** เอกสารข้อเสนอโครงการ ([`SEMS-project-proposal.pdf`](./Proposal/SEMS-project-proposal.pdf))

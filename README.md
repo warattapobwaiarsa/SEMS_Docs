@@ -32,23 +32,10 @@ Repository นี้เป็นส่วนของ **เอกสารกา
 ## 📂 โครงสร้างคลังเอกสาร (Documentation Directory Structure)
 เอกสารของโครงการได้รับการจัดกลุ่มอย่างเป็นระบบตามกระบวนการพัฒนาซอฟต์แวร์ ดังนี้:
 
-* 📋 **[Requirements](./Requirements)** : เอกสารความต้องการของระบบ ประกอบด้วย:
-  * [SRS (Software Requirements Specification)](./Requirements/README.md) - ข้อกำหนดและความต้องการระบบหลัก
-  * User Stories - รายการความต้องการในมุมมองผู้ใช้และการคัดกรองคุณสมบัติ
-* 🎨 **[Design](./Design)** : เอกสารการออกแบบเชิงเทคนิค ประกอบด้วย:
-  * [System Architecture](./Design/README.md) - แผนผังสถาปัตยกรรมการรับส่งข้อมูลและการควบคุมสิทธิ์ (RBAC)
-  * Database Schema & ER Diagram - แผนผังและรายละเอียดตารางข้อมูลในระบบ
-  * API Specifications - ข้อมูลทางเทคนิคของ RESTful API ในระบบ
-* 🧪 **[Testing](./Testing)** : เอกสารตรวจสอบความถูกต้อง ประกอบด้วย:
-  * [Test Plan & Test Cases](./Testing/README.md) - แผนการทดสอบระบบและกรณีการทดสอบ (Test Scenarios)
-  * UAT Scenarios - แผนการทดสอบสำหรับผู้ใช้งานระบบและผู้ดูแลระบบ
-* 🚀 **[Deployment](./Deployment)** : เอกสารสำหรับการดูแลระบบ ประกอบด้วย:
-  * [Deployment Guide](./Deployment/README.md) - ขั้นตอนการขึ้นระบบ การจัดการ Environment Variable และฐานข้อมูล
-  * User Manual - คู่มือการใช้งานสำหรับอาจารย์ผู้ประเมินและเจ้าหน้าที่งานทุน
-
----
-
-## 🔗 โครงสร้างส่วนของ Source Code
-สำหรับการเข้าถึงส่วนของโค้ดพัฒนาแอปพลิเคชัน สามารถเข้าถึงได้ผ่านลิงก์ด้านล่างนี้ (จะถูกระบุเมื่อสร้าง Repository สำเร็จ):
-* **Frontend (Next.js):** *[ระบุลิงก์ Git Repository ของ Frontend]*
-* **Backend (NestJS):** *[ระบุลิงก์ Git Repository ของ Backend]*
+* 📋 **[Requirements](./Requirements)** : เอกสารความต้องการของระบบ
+  * [Proposal](./Requirements/Proposal) - เอกสารข้อเสนอโครงการ (`SEMS-project-proposal.pdf`)
+* 🎨 **[Design](./Design)** : เอกสารการออกแบบเชิงเทคนิคและเกณฑ์ข้อมูล
+  * [Criteria](./Design/Criteria) - เกณฑ์การให้คะแนนและการประเมิน (`Criteria.xlsx`)
+  * [Data Templates](./Design/Data_Templates) - โครงสร้างและรูปแบบตัวอย่างข้อมูลสำหรับนำเข้า (`Data_import_to_web.xlsx`)
+* 🧪 **[Testing](./Testing)** : เอกสารตรวจสอบความถูกต้อง
+* 🚀 **[Deployment](./Deployment)** : เอกสารสำหรับการดูแลระบบและคู่มือ

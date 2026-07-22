@@ -1,7 +1,5 @@
 # 🎨 Design & Architecture
 
-เก็บเอกสารที่เกี่ยวกับการออกแบบระบบเชิงสถาปัตยกรรมและหน้าตาโปรแกรม:
-- **UI/UX Design & User Flows:** รายละเอียดลิงก์ Figma, ภาพ Wireframe และเส้นทางการใช้หน้าจอของผู้ใช้
-- **System Architecture (SAD):** เอกสารอธิบายการวางโครงสร้างระบบ เครือข่าย และเซิร์ฟเวอร์
-- **Database Design:** แผนภาพความสัมพันธ์ของข้อมูล (ERD) และพจนานุกรมข้อมูล (Data Dictionary)
-- **API Specification:** เอกสารอธิบายรายการและรายละเอียดการทำงานของ API ต่างๆ
+เก็บเอกสารที่เกี่ยวกับการออกแบบระบบเชิงสถาปัตยกรรม เกณฑ์ประเมิน และหน้าตาโปรแกรม โดยแบ่งโครงสร้างย่อยดังนี้:
+- 📁 **[Criteria](./Criteria):** เกณฑ์การประเมินคัดเลือกทุน ([`Criteria.xlsx`](./Criteria/Criteria.xlsx))
+- 📁 **[Data_Templates](./Data_Templates):** โครงสร้างและแบบฟอร์มข้อมูลสำหรับนำเข้าสู่ระบบ ([`Data_import_to_web.xlsx`](./Data_Templates/Data_import_to_web.xlsx))
