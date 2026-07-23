@@ -1,9 +1,9 @@
 ---
 document_id: SEMS-SRS-001
 title: Software Requirements Specification — Scholarship Evaluation Management System (SEMS)
-version: "v2.1"
+version: "v2.2"
 status: Draft - Pending Requirement Baseline Approval
-last_updated: 2026-07-23
+last_updated: 2026-07-24
 owner: SEMS Project Team
 author: SEMS Requirements Team
 target_path: Requirements/SRS/SEMS-SRS.md
@@ -16,8 +16,8 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | 2.1-draft |
-| วันที่จัดทำ | 23 กรกฎาคม 2026 |
+| Version | 2.2-draft |
+| วันที่จัดทำ | 24 กรกฎาคม 2026 |
 | สถานะ | Draft - รอยืนยัน Requirement Baseline |
 | รูปแบบ | สอดคล้องแนวทาง ISO/IEC/IEEE 29148 ในระดับโครงสร้าง |
 | ผลลัพธ์เป้าหมาย | Requirement ที่ออกแบบ พัฒนา และทดสอบได้ |
@@ -29,6 +29,7 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | Version | Date | Change | Status |
 |---|---|---|---|
+| 2.2-draft | 2026-07-24 | Aligned all referenced error codes to the canonical allowed inventory and retained embedded-point scoring semantics | Pending Approval |
 | 2.1-draft | 2026-07-23 | Reconciled provisional round opening, Release 1 import, embedded-point scoring, canonical error contract/codes and traceability | Pending Approval |
 | 2.0-draft | 2026-07-23 | ปรับ SRS ให้ตรงกับ Proposal ล่าสุด: ผู้ประเมิน 2-3 คน, self-selection, KKU SSO, import mapping, criteria versioning, result status และ audit | Pending Approval |
 
@@ -137,7 +138,7 @@ ADMIN ปิดรอบ
 | FR-AUT-001 | Must | Confirmed | เมื่อผู้ใช้กดเข้าสู่ระบบ ระบบต้องเริ่ม OIDC Authorization Code Flow ผ่าน KKU SSO โดยอ่าน Endpoint จาก OIDC Discovery ใช้ `scope=openid profile email`, `state`, `nonce` และ PKCE `S256`. | ผู้ใช้ยังไม่มี Session | Redirect ไป KKU SSO พร้อมพารามิเตอร์ครบ และ SEMS ไม่รับ/เก็บรหัสผ่าน KKU |
 | FR-AUT-002 | Must | Confirmed | ระบบต้องตรวจ `state`, `nonce`, authorization code, PKCE verifier, issuer, audience, signature และอายุ Token ก่อนสร้าง Session. | ได้รับ Callback | Callback ผิดต้องถูกปฏิเสธและไม่มี Session |
 | FR-AUT-003 | Must | Confirmed | ระบบต้องใช้ Claim ที่คงที่ เช่น `sub` เป็นตัวระบุตัวตนหลักสำหรับเชื่อม KKU Identity กับ SEMS User. | Token ผ่านการตรวจ | ผู้ใช้เดิมเชื่อมบัญชีเดิมแม้ชื่อ/email เปลี่ยน |
-| FR-AUT-004 | Must | Confirmed | หลังยืนยันตัวตน ระบบต้องตรวจว่ามี SEMS User ที่เชื่อมและสถานะ `ACTIVE`; ถ้าไม่พบหรือ Inactive ต้องปฏิเสธ. | Identity ถูกต้อง | คืน `SEMS_ACCOUNT_NOT_FOUND` หรือ `ACCOUNT_INACTIVE` และ Audit |
+| FR-AUT-004 | Must | Confirmed | หลังยืนยันตัวตน ระบบต้องตรวจว่ามี SEMS User ที่เชื่อมและสถานะ `ACTIVE`; ถ้าไม่พบหรือ Inactive ต้องปฏิเสธ. | Identity ถูกต้อง | คืน `USER_NOT_PROVISIONED` หรือ `USER_INACTIVE` และ Audit |
 | FR-AUT-005 | Must | Confirmed | ระบบต้องรองรับ `ADMIN` และ `EVALUATOR` และตรวจสิทธิ์ Menu, Page, API และข้อมูลที่ Backend ทุกคำขอ. | มี Session | เข้าถึงเฉพาะทรัพยากรที่ Role/Ownership อนุญาต |
 | FR-AUT-006 | Must | Confirmed | EVALUATOR ต้องสร้าง แก้ Draft ยกเลิก Draft และ Submit ได้เฉพาะ Evaluation ของตน และห้ามแก้ของคนอื่น. | EVALUATOR | การเข้าถึงข้ามเจ้าของเป็น 403 `EVALUATION_NOT_OWNER` |
 | FR-AUT-007 | Must | Confirmed | ADMIN ต้องเชื่อม KKU Account กับ SEMS User กำหนด Role และเปิด/ปิดสิทธิ์ โดยไม่จัดการรหัสผ่าน KKU. | ADMIN | User/Role/Status/Identity Link ถูกบันทึกพร้อม Audit |
@@ -153,7 +154,7 @@ ADMIN ปิดรอบ
 | FR-RND-002 | Must | Confirmed | รองรับ `DRAFT`, `OPEN`, `CLOSED`, `ARCHIVED` และตรวจ State Transition ตาม Validation Rules. | รอบมีอยู่ | Transition ผิดถูกปฏิเสธ `INVALID_ROUND_STATUS_TRANSITION` |
 | FR-RND-003 | Must | Confirmed | ก่อน `OPEN` ต้องมี Criteria Version `ACTIVE` และข้อมูลจำเป็นต่อการประเมินครบ. | รอบ DRAFT | ผ่านจึงเปิด; ไม่ผ่านแสดงรายการที่ขาด |
 | FR-RND-004 | Must | Confirmed | Applicant, Document, Criteria, Evaluation, Result, Dashboard และ Report ต้องแยกตาม `round_id`. | อ่าน/เขียนข้อมูล | ไม่มีข้อมูลข้ามรอบ |
-| FR-RND-005 | Must | Confirmed | รอบ `CLOSED` ห้ามสร้าง Evaluation, บันทึก Draft ใหม่ หรือ Submit เพิ่ม เว้นแต่เปิดใหม่ตามกระบวนการอนุมัติ. | รอบ CLOSED | ปฏิเสธ `ROUND_CLOSED` |
+| FR-RND-005 | Must | Confirmed | รอบ `CLOSED` ห้ามสร้าง Evaluation, บันทึก Draft ใหม่ หรือ Submit เพิ่ม เว้นแต่เปิดใหม่ตามกระบวนการอนุมัติ. | รอบ CLOSED | ปฏิเสธ `ROUND_NOT_OPEN` |
 | FR-RND-006 | Must | Confirmed | เมื่อปิดรอบ ผู้มี Submitted >=2 เป็น `FINALIZED`; น้อยกว่า 2 เป็น `CLOSED_INCOMPLETE` และไม่มี Final Score. | ADMIN ปิดรอบ | สถานะทุก Applicant ถูกประมวลผลถูกต้อง |
 | FR-RND-007 | Must | Confirmed | ห้าม Hard Delete รอบที่มี Evaluation; จำกัดการแก้ข้อมูลที่กระทบผล และใช้ `ARCHIVED` เพื่อเก็บย้อนหลัง. | มี Evaluation | ข้อมูลเดิมยังตรวจสอบได้ |
 | FR-RND-008 | Should | Provisional | การเปิด CLOSED กลับ OPEN ต้องเป็น Controlled Reopen พร้อมผู้มีสิทธิ์ เหตุผล และ Audit. | รอบ CLOSED | ไม่มีการเปิดตรงโดยไม่มี Audit |
@@ -171,7 +172,7 @@ ADMIN ปิดรอบ
 | FR-IMP-006 | Must | Confirmed | Normalize: Trim, Blank/Whitespace/`-` ทั้ง Cell -> NULL โดยคง 0, แปลง พ.ศ.-ค.ศ., Decimal และพิกัด. | Mapping เสร็จ | Preview แสดง Raw และ Normalized |
 | FR-IMP-007 | Must | Confirmed | ตรวจ Field/Row/Cross-row/Duplicate และสร้าง `{row, field, code, severity, message}`. | Normalize เสร็จ | ข้อผิดพลาดระบุแถวและฟิลด์ |
 | FR-IMP-008 | Must | Confirmed | Duplicate ภายในไฟล์ตาม Business Key เป็น Blocking Error. | พบ Key ซ้ำ | ปิด Confirm และ `DUPLICATE_STUDENT_IN_FILE` |
-| FR-IMP-009 | Must | Provisional | Duplicate กับฐานข้อมูลให้ Skip ค่าเริ่มต้น; Update ได้เฉพาะก่อนมี Evaluation และเฉพาะฟิลด์ที่อนุมัติ. | พบ Existing Applicant | หลังเริ่มประเมินปฏิเสธ `UPDATE_NOT_ALLOWED_AFTER_EVALUATION` |
+| FR-IMP-009 | Must | Provisional | Duplicate กับฐานข้อมูลให้ Skip ค่าเริ่มต้น; Update ได้เฉพาะก่อนมี Evaluation และเฉพาะฟิลด์ที่อนุมัติ. | พบ Existing Applicant | หลังเริ่มประเมินปฏิเสธ `IMPORT_STATE_INVALID` |
 | FR-IMP-010 | Must | Confirmed | Preview ต้องไม่สร้าง/แก้ข้อมูลธุรกิจ. | Validation เสร็จ | ยกเลิก Preview แล้วข้อมูลไม่เปลี่ยน |
 | FR-IMP-011 | Must | Confirmed | ถ้ามี severity ERROR ต้องปิด Confirm; Warning อนุญาตตาม Policy. | มี Validation Result | Blocking Error Import ไม่ได้ |
 | FR-IMP-012 | Must | Confirmed | Confirm ต้องบันทึก Applicant/Child Records ใน Transaction; DB Error ต้อง Rollback ทั้ง Batch ที่ยืนยัน. | Batch ผ่าน | ไม่มีข้อมูลครึ่งชุด |
@@ -207,7 +208,7 @@ ADMIN ปิดรอบ
 | FR-CRI-004 | Must | Open | Scoring Rule ต้องระบุ `weight_type` ว่า POINT หรือ PERCENT; ห้าม Activate หากกฎน้ำหนักไม่ชัดหรือผลรวมผิด. | Activate Criteria | ผ่าน Weight Validation เท่านั้น |
 | FR-CRI-005 | Must | Confirmed | ก่อน Activate ต้องมี >=1 Item; ทุก Item มี Code/Name/Min/Max/Order/Required และ Total Full Score ตรง Rule. | Criteria DRAFT | ผ่านจึง ACTIVE |
 | FR-CRI-006 | Must | Confirmed | หนึ่งรอบมี Active Criteria Version สำหรับ Evaluation ใหม่ได้ไม่เกินหนึ่ง Version. | Activate | ไม่มี Active ซ้ำ |
-| FR-CRI-007 | Must | Confirmed | เมื่อมี Evaluation ที่ยังไม่ยกเลิกอ้าง Version แล้ว ต้องล็อกฟิลด์ที่กระทบคะแนน. | มี Evaluation | ปฏิเสธ `CRITERIA_IN_USE` |
+| FR-CRI-007 | Must | Confirmed | เมื่อมี Evaluation ที่ยังไม่ยกเลิกอ้าง Version แล้ว ต้องล็อกฟิลด์ที่กระทบคะแนน. | มี Evaluation | ปฏิเสธ `CRITERIA_LOCKED` |
 | FR-CRI-008 | Must | Confirmed | การเปลี่ยนเกณฑ์ที่กระทบคะแนนต้องสร้าง Version ใหม่และรักษา Version เดิม. | สร้าง Revision | Evaluation เดิมยังใช้ Version เดิม |
 | FR-CRI-009 | Must | Confirmed | Evaluation ทุกตัวต้องเก็บ criteria_version_id และ Snapshot กฎที่จำเป็นต่อ Audit/Recalculation. | สร้าง Evaluation | ระบุ Version ที่ใช้ได้ |
 | FR-CRI-010 | Should | Provisional | คะแนนดุลพินิจควรเป็นจำนวนเต็ม 0-10; จะจำกัด 0/5/10 หรือไม่เป็น RD-013. | กรอกคะแนน | ค่านอกช่วง/step ถูกปฏิเสธ |
@@ -229,7 +230,7 @@ ADMIN ปิดรอบ
 | FR-EVA-009 | Must | Confirmed | บันทึก Draft ได้แม้ไม่ครบ โดยค่าที่กรอกต้อง valid และ Draft ห้ามใช้คำนวณ. | Evaluation DRAFT | บันทึก updated_at; Summary ไม่เปลี่ยน |
 | FR-EVA-010 | Must | Confirmed | ก่อน Submit ต้องแสดง Review Summary ของคะแนน ความคิดเห็น Outcome และ Total ที่คาด. | ข้อมูลพร้อม | ผู้ประเมินเห็นและยืนยันอีกครั้ง |
 | FR-EVA-011 | Must | Confirmed | Submit ได้เมื่อ Required Criteria และข้อมูลบังคับครบและถูกต้อง. | ยืนยัน Submit | สถานะ SUBMITTED และ submitted_at |
-| FR-EVA-012 | Must | Open | ระบบต้องรองรับ comment_required; หาก Rule บังคับแต่ความคิดเห็นว่างต้องปฏิเสธ `COMMENT_REQUIRED`. | Rule บังคับ | Submit ไม่สำเร็จเมื่อว่าง |
+| FR-EVA-012 | Must | Open | ระบบต้องรองรับ comment_required; หาก Rule บังคับแต่ความคิดเห็นว่างต้องปฏิเสธ `EVALUATION_INCOMPLETE`. | Rule บังคับ | Submit ไม่สำเร็จเมื่อว่าง |
 | FR-EVA-013 | Must | Confirmed | หลัง Submit ผู้ประเมินแก้โดยตรงไม่ได้ และผลต้องเข้าสู่การคำนวณทันที. | SUBMITTED | UI Read-only/API Update ปฏิเสธ |
 | FR-EVA-014 | Should | Provisional | เจ้าของยกเลิก Draft ก่อน Submit ได้โดยยืนยันและเหตุผล; เปลี่ยน CANCELLED ไม่ลบจริง และคืน Slot ใน Transaction. | เจ้าของ Draft | ไม่นับ Capacity และมี Audit |
 | FR-EVA-015 | Should | Provisional | แก้ Submitted ต้อง Controlled Reopen: Request+Reason+Approval ก่อนปิดรอบ เก็บ Snapshot และคำนวณใหม่หลัง Resubmit. | Submitted; รอบยังไม่ปิด | Revision เดิมไม่สูญหาย |
@@ -469,27 +470,25 @@ Source of Truth: [`SEMS_Error_Code_Catalog.md`](../../Design/API/SEMS_Error_Code
 | Code | HTTP | Meaning |
 | --- | --- | --- |
 | AUTH_REQUIRED | 401 | ไม่มี Session/หมดอายุ |
-| OIDC_VALIDATION_FAILED | 401 | Callback/Token KKU ไม่ผ่าน |
-| SEMS_ACCOUNT_NOT_FOUND | 403 | ยังไม่เชื่อม SEMS |
-| ACCOUNT_INACTIVE | 403 | บัญชีปิด |
+| TOKEN_VALIDATION_FAILED | 401 | Callback/Token KKU ไม่ผ่าน |
+| USER_NOT_PROVISIONED | 403 | ยังไม่เชื่อม SEMS |
+| USER_INACTIVE | 403 | บัญชีปิด |
 | ACCESS_DENIED | 403 | ไม่มีสิทธิ์ |
 | ROUND_NOT_FOUND | 404 | ไม่พบรอบ |
 | ROUND_NOT_OPEN | 409 | รอบไม่ OPEN |
-| ROUND_CLOSED | 409 | รอบปิด |
 | INVALID_ROUND_STATUS_TRANSITION | 409 | Transition ผิด |
 | ACTIVE_CRITERIA_REQUIRED | 409 | ไม่มี Active Criteria |
-| CRITERIA_IN_USE | 409 | เกณฑ์ถูกใช้ |
+| CRITERIA_LOCKED | 409 | เกณฑ์ถูกใช้ |
 | DUPLICATE_EVALUATION | 409 | ผู้ประเมินซ้ำ |
 | EVALUATOR_LIMIT_REACHED | 409 | ครบ 3 คน |
 | EVALUATION_NOT_OWNER | 403 | ไม่ใช่เจ้าของ |
 | EVALUATION_ALREADY_SUBMITTED | 409 | ส่งแล้ว |
 | SCORE_OUT_OF_RANGE | 422 | คะแนนนอกช่วง |
-| REQUIRED_SCORE_MISSING | 422 | คะแนนบังคับไม่ครบ |
-| COMMENT_REQUIRED | 422 | ความคิดเห็นบังคับว่าง |
-| RESULT_NOT_READY | 409 | Submitted ไม่ครบ 2 |
+| EVALUATION_INCOMPLETE | 422 | คะแนนหรือความคิดเห็นบังคับไม่ครบ |
+| SUMMARY_NOT_AVAILABLE | 409 | Submitted ไม่ครบ 2 |
 | REQUIRED_FIELD_MISSING | 422 | ข้อมูลบังคับหาย |
 | INVALID_STUDENT_ID | 422 | รหัสผิด |
-| SCIENTIFIC_NOTATION_DETECTED | 422 | Identifier เป็น Scientific Notation |
+| VALIDATION_ERROR | 422 | รูปแบบข้อมูลไม่ผ่านกฎ เช่น Scientific Notation หรือ Continuation Row ผิดรูปแบบ |
 | INVALID_GPA | 422 | GPA ผิด |
 | INVALID_DATE | 422 | วันที่ผิด |
 | INVALID_PHONE | 422 | เบอร์โทรศัพท์ผิด |
@@ -498,15 +497,14 @@ Source of Truth: [`SEMS_Error_Code_Catalog.md`](../../Design/API/SEMS_Error_Code
 | DUPLICATE_STUDENT_IN_FILE | 422 | ซ้ำในไฟล์ |
 | DUPLICATE_STUDENT_IN_ROUND | 409 | ซ้ำในรอบ |
 | ORPHAN_CONTINUATION_ROW | 422 | Continuation ไม่มีเจ้าของ |
-| CONTINUATION_ROW_HAS_APPLICANT_DATA | 422 | Continuation มีข้อมูลหลัก |
-| INVALID_LOAN_FORMAT | 422 | รูปแบบ กยศ. ผิด |
-| INVALID_SCHOLARSHIP_FORMAT | 422 | รูปแบบทุนผิด |
-| UPDATE_NOT_ALLOWED_AFTER_EVALUATION | 409 | ห้าม Update หลัง Evaluation |
+| IMPORT_STATE_INVALID | 409 | สถานะ Import หรือข้อมูลปลายทางไม่อนุญาตให้ดำเนินการ |
 | UNSUPPORTED_FILE_TYPE | 415 | ชนิดไฟล์ไม่รองรับ |
-| FILE_TOO_LARGE | 413 | ไฟล์ใหญ่เกิน |
+| IMPORT_FILE_TOO_LARGE | 413 | ไฟล์ Import ใหญ่เกิน |
+| DOCUMENT_TYPE_UNSUPPORTED | 415 | ชนิด Applicant Document ไม่รองรับ |
+| DOCUMENT_TOO_LARGE | 413 | Applicant Document ใหญ่เกิน |
+| REPORT_FORMAT_UNSUPPORTED | 415 | รูปแบบ Report Export ไม่รองรับ |
 | IMPORT_HAS_BLOCKING_ERRORS | 409 | Batch ยังมี Error |
-| IMPORT_TRANSACTION_FAILED | 500 | Import ล้มเหลว |
-| EXPORT_FAILED | 500 | Export ล้มเหลว |
+| FILE_STORAGE_ERROR | 500 | จัดเก็บไฟล์ Import/Document/Report ไม่สำเร็จ |
 
 # 9. Audit Requirements
 
@@ -554,18 +552,18 @@ Upload -> Read & Detect -> Header Mapping -> Row Classification
 | AC ID | Scenario | Given / When / Then | Linked Requirements |
 | --- | --- | --- | --- |
 | AC-AUT-001 | Login ผ่าน KKU SSO | Given KKU ถูกต้องและ SEMS Active; When Login; Then ได้ Session และเมนูตาม Role. | FR-AUT-001..009 |
-| AC-AUT-002 | บัญชี Inactive | Given KKU Auth สำเร็จแต่ SEMS Inactive; When Callback; Then 403 `ACCOUNT_INACTIVE` และไม่มี Session. | FR-AUT-004 |
+| AC-AUT-002 | บัญชี Inactive | Given KKU Auth สำเร็จแต่ SEMS Inactive; When Callback; Then 403 `USER_INACTIVE` และไม่มี Session. | FR-AUT-004 |
 | AC-AUT-003 | RBAC | Given EVALUATOR; When เรียก Admin API; Then 403 และ ACCESS_DENIED Audit. | FR-AUT-005..006 |
 | AC-RND-001 | เปิดรอบไม่มีเกณฑ์ | Given DRAFT ไม่มี Active Criteria; When Open; Then `ACTIVE_CRITERIA_REQUIRED`. | FR-RND-003 |
 | AC-IMP-001 | นำเข้าถูกต้อง | Given XLSX/CSV Mapping/Required ถูก; When Preview+Confirm; Then Applicant/Child/Counts ถูกต้อง. | FR-IMP-001..013 |
 | AC-IMP-002 | Missing Required | Given แถวขาดฟิลด์บังคับ; When Validate; Then `REQUIRED_FIELD_MISSING`, Reject และ Blocking. | FR-IMP-007,011 |
-| AC-IMP-003 | Scientific Notation | Given student_id `6.6304E+09`; When Validate; Then `SCIENTIFIC_NOTATION_DETECTED`. | FR-IMP-002 |
+| AC-IMP-003 | Scientific Notation | Given student_id `6.6304E+09`; When Validate; Then `INVALID_STUDENT_ID`. | FR-IMP-002 |
 | AC-IMP-004 | Continuation ถูกต้อง | Given Continuation หลัง Applicant Valid; When Import; Then History ผูก Applicant ก่อนหน้า. | FR-IMP-004..005 |
 | AC-IMP-005 | Orphan Continuation | Given แถวแรกมีเฉพาะทุน; When Validate; Then `ORPHAN_CONTINUATION_ROW`. | FR-IMP-005 |
 | AC-IMP-006 | Duplicate ในไฟล์ | Given Key เดิม 2 Applicant Rows; When Validate; Then `DUPLICATE_STUDENT_IN_FILE`. | FR-IMP-008 |
 | AC-IMP-007 | Rollback | Given DB Error ระหว่าง Confirm; When Import; Thenไม่มีข้อมูลครึ่งชุดและ Batch FAILED. | FR-IMP-012 |
 | AC-DOC-001 | สิทธิ์เอกสาร | Given EVALUATOR ไม่มี Evaluation; When ขอไฟล์; Then 403 และไม่เปิด Storage Path. | FR-DOC-003..004 |
-| AC-CRI-001 | ล็อกเกณฑ์ | Given Version มี Active Evaluation; When แก้ max_score; Then `CRITERIA_IN_USE`. | FR-CRI-007 |
+| AC-CRI-001 | ล็อกเกณฑ์ | Given Version มี Active Evaluation; When แก้ max_score; Then `CRITERIA_LOCKED`. | FR-CRI-007 |
 | AC-CRI-002 | Versioning | Given ต้องเปลี่ยนเกณฑ์ที่ใช้แล้ว; When สร้าง Version ใหม่; Thenเดิมยังอ้าง Version เดิม. | FR-CRI-008..009 |
 | AC-EVA-001 | สร้าง Evaluation | Given Open+Active+Capacity<3+ไม่ซ้ำ; When เลือก Applicant; Thenสร้าง Draft 1 รายการ. | FR-EVA-001 |
 | AC-EVA-002 | ผู้ประเมินซ้ำ | Givenมี Draft; When เลือก Applicant เดิม; Then 409 `DUPLICATE_EVALUATION`. | FR-EVA-002 |
@@ -575,7 +573,7 @@ Upload -> Read & Detect -> Header Mapping -> Row Classification
 | AC-EVA-006 | กลับมาแก้ Draft | Givenมี Draft แล้ว Active=3; Whenเปิด Draft เดิม; Thenแก้/Submit ได้. | FR-EVA-006 |
 | AC-EVA-007 | คะแนนนอกช่วง | Given Criterion 0-10; Whenส่ง 11; Then `SCORE_OUT_OF_RANGE`. | FR-EVA-008 |
 | AC-EVA-008 | Draft ไม่คำนวณ | Given Submitted=1 Draft=2; Whenดู Summary; Then score NULL/count=1. | FR-EVA-009, FR-SCO-001,005 |
-| AC-EVA-009 | Submit ไม่ครบ | Given Required ว่าง; When Submit; Then `REQUIRED_SCORE_MISSING` และยัง DRAFT. | FR-EVA-011 |
+| AC-EVA-009 | Submit ไม่ครบ | Given Required ว่าง; When Submit; Then `EVALUATION_INCOMPLETE` และยัง DRAFT. | FR-EVA-011 |
 | AC-SCO-001 | ครบ 2 คน | Givenคนแรก Submitted; Whenคนที่ 2 Submit; Then Count=2, MINIMUM_COMPLETE, มี Latest Score. | FR-SCO-006 |
 | AC-SCO-002 | ครบ 3 คน | Given MINIMUM_COMPLETE; Whenคนที่ 3 Submit; Thenคำนวณ 3 คนและ FULLY_COMPLETE. | FR-SCO-007 |
 | AC-SCO-003 | ปัดเศษ | Given Boundary Score; Whenคำนวณ; Then ROUND_HALF_UP เฉพาะ Final 2 ตำแหน่ง. | FR-SCO-004 |

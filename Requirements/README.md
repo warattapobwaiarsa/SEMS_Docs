@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.7** |
-| Last Updated | **2026-07-23** |
+| Current Version | **v1.8** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | PRD, SRS, proposals, user stories, and meeting notes |
 
@@ -23,12 +23,12 @@
 | Document | Version | Last Updated | Status |
 | :--- | :---: | :---: | :--- |
 | [`PRD/SEMS-PRD.md`](./PRD/SEMS-PRD.md) | v0.1 | 2026-07-23 | Draft — Pending Stakeholder Approval |
-| [`SRS/SEMS-SRS.md`](./SRS/SEMS-SRS.md) | v2.1 | 2026-07-23 | Draft — Pending Baseline |
-| [`User_Stories/README.md`](./User_Stories/README.md) | v1.1 | 2026-07-23 | Current Index |
-| [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.2 | 2026-07-23 | Draft |
+| [`SRS/SEMS-SRS.md`](./SRS/SEMS-SRS.md) | v2.2 | 2026-07-24 | Draft — Pending Baseline |
+| [`User_Stories/README.md`](./User_Stories/README.md) | v1.2 | 2026-07-24 | Current Index |
+| [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.3 | 2026-07-24 | Draft |
 | [`SEMS_Requirement_Decision_Analysis.md`](./SEMS_Requirement_Decision_Analysis.md) | v1.1 | 2026-07-23 | Draft — Pending Approval |
-| [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v1.2 | 2026-07-23 | Provisional Baseline — Pending Ratification |
-| [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.1 | 2026-07-23 | Draft — Partial Coverage |
+| [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v1.3 | 2026-07-24 | Provisional Baseline — Pending Ratification |
+| [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.2 | 2026-07-24 | Draft — Partial Coverage |
 | [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md) | v0.1 | 2026-07-23 | Template — Pending |
 | [`Approvals/System_Design_Approval_Record.md`](./Approvals/System_Design_Approval_Record.md) | v0.1 | 2026-07-23 | Template — Pending |
 | [`Meeting_Notes/README.md`](./Meeting_Notes/README.md) | v0.1 | 2026-07-23 | Template Index |
@@ -40,6 +40,7 @@
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.8 | 2026-07-24 | SEMS Documentation Team | Synchronized embedded-point decisions, canonical error codes, traceability evidence states and affected requirement document versions. |
 | v1.7 | 2026-07-23 | SEMS Documentation Team | Added PRD, traceability, approval/meeting templates and reconciled SRS, User Stories and Decision Register versions/statuses. |
 | v1.6 | 2026-07-23 | SEMS Documentation Team | Replaced folder-only links with cross-compatible links to the SRS and User Stories index. |
 | v1.5 | 2026-07-23 | SEMS Documentation Team | Added the GitHub-readable Markdown conversion of the project proposal. |

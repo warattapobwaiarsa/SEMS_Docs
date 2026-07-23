@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -25,7 +25,7 @@
 | U-EVA-02 | Evaluator | Active | ผู้ประเมินคนที่ 2 |
 | U-EVA-03 | Evaluator | Active | ผู้ประเมินคนที่ 3 |
 | U-EVA-04 | Evaluator | Active | ผู้ประเมินคนที่ 4/คำขอแข่งขัน |
-| U-EVA-05 | Evaluator | Inactive | ทดสอบ ACCOUNT_INACTIVE |
+| U-EVA-05 | Evaluator | Inactive | ทดสอบ USER_INACTIVE |
 | U-NONE-01 | No SEMS role | N/A | KKU ยืนยันตัวตนได้แต่ไม่มีสิทธิ์ SEMS |
 
 ## 3. Scholarship Round Dataset
@@ -110,7 +110,7 @@ Criteria sample มีหัวข้อคะแนนเต็มรวม 100
 | F-JPG-01 | valid JPG | upload/view |
 | F-PNG-01 | valid PNG | upload/view |
 | F-EXE-01 | executable renamed `.pdf` | reject MIME mismatch |
-| F-BIG-01 | file > configured max | FILE_TOO_LARGE |
+| F-BIG-01 | file > configured max | DOCUMENT_TOO_LARGE |
 | F-PATH-01 | filename `../../secret.pdf` | sanitized/reject; no traversal |
 | F-CORRUPT-01 | corrupt PDF | reject or store with clear unsupported-preview state per policy |
 
@@ -134,3 +134,10 @@ Criteria sample มีหัวข้อคะแนนเต็มรวม 100
 - [ ] Log redaction เปิดใช้งาน
 - [ ] Backup ก่อน destructive test
 - [ ] Reset script ผ่านหลัง test run
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document size fixtures with canonical error codes. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial test data and environment plan draft. |

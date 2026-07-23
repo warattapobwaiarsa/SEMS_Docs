@@ -4,8 +4,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.12** |
-| Last Updated | **2026-07-23** |
+| Current Version | **v1.13** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
 
@@ -38,7 +38,7 @@
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.1 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) |
 | 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.2), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and approval templates | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.1 Draft, SRS v2.1 Draft, [Traceability](./Requirements/SEMS_Traceability_Matrix.md) v0.1 Draft |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and approval templates | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.1 Draft, SRS v2.2 Draft, [Traceability](./Requirements/SEMS_Traceability_Matrix.md) v0.2 Draft |
 | 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
 | 🧪 **[Testing](./Testing/README.md)** | Test plans, cases and synthetic reference data | P0 catalog with linked requirements/decisions and [scoring reference cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) |
 | 🚀 **[Deployment](./Deployment/README.md)** | Deployment index and architecture considerations | Setup/operations guides remain pending |
@@ -55,6 +55,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.13 | 2026-07-24 | SEMS Documentation Team | Clarified pre-baseline status and synchronized embedded-point, canonical error-code, traceability and validation-document updates. |
 | v1.12 | 2026-07-23 | SEMS Documentation Team | Reconciled pre-baseline requirements/design/testing indexes and linked review, traceability, architecture and governance deliverables. |
 | v1.11 | 2026-07-23 | SEMS Documentation Team | Added `START_HERE.md` as the recommended entry point for GitHub and Obsidian readers. |
 | v1.10 | 2026-07-23 | SEMS Documentation Team | Updated the wireframe overview with readable English captions. |

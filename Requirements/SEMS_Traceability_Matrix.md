@@ -3,8 +3,8 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-TRACE-001` |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Status | **Draft — Partial Coverage; Not Baseline Complete** |
 
 Source order follows Proposal → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB → Tests. `Provisional` means stakeholder confirmation is still required.
@@ -36,8 +36,23 @@ Source order follows Proposal → confirmed decisions → Decision Register → 
 - Baseline completeness: **Not complete** because scoring, reopen, round-open applicant rule, database business key/required fields/PII storage, export fields and retention remain Provisional/Open.
 - This table does not claim every SRS requirement or every AC is fully traced; detailed row-level completion remains a baseline action.
 
+## Decision, Approval and Test Evidence Status
+
+| Scope | Open Decision | Approval Evidence | Test Specification | Test Execution Status |
+|---|---|---|---|---|
+| Core flows TRC-001–TRC-017 | RD-008–RD-014 and RD-023–RD-029 remain Provisional/Open where referenced | Pending; no approver name/date or signed baseline evidence recorded | Defined for all 17 core flows | Not Yet; no system execution evidence is recorded |
+
+| Lifecycle State | Current Value |
+|---|---|
+| Test Case Defined | Yes |
+| Test Automated | No/Partial |
+| Test Executed | Not Yet |
+| Test Passed | Not Claimed |
+| UAT Accepted | No |
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Documentation Team | Separated decision/approval evidence and test definition, automation, execution, pass and UAT states without changing 17/17 core-flow coverage. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Created core-flow traceability matrix with explicit partial/provisional status. |

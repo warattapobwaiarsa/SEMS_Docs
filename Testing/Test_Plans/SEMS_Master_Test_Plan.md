@@ -3,8 +3,8 @@
 | รายการ | ค่า |
 |---|---|
 | Document ID | SEMS-TP-001 |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft for Design Baseline** |
 | System | Scholarship Evaluation Management System (SEMS) |
@@ -217,7 +217,7 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 | Error Code | HTTP ที่แนะนำ | ความหมาย |
 |---|---:|---|
 | AUTH_REQUIRED | 401 | ไม่มี session/token ที่ใช้ได้ |
-| ACCOUNT_INACTIVE | 403 | บัญชี SEMS ไม่ Active |
+| USER_INACTIVE | 403 | บัญชี SEMS ไม่ Active |
 | ACCESS_DENIED | 403 | Role หรือ ownership ไม่อนุญาต |
 | ROUND_NOT_OPEN | 409 | รอบทุนไม่อยู่สถานะ Open |
 | DUPLICATE_EVALUATION | 409 | Evaluator เดิมมี active evaluation อยู่แล้ว |
@@ -231,7 +231,8 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 | INVALID_COORDINATE | 422 | พิกัดผิดรูปแบบหรือเกินช่วง |
 | ORPHAN_CONTINUATION_ROW | 422 | continuation row ไม่มี base row ก่อนหน้า |
 | UNSUPPORTED_FILE_TYPE | 415 | ชนิดไฟล์ไม่รองรับ |
-| FILE_TOO_LARGE | 413 | ไฟล์เกินขนาด |
+| IMPORT_FILE_TOO_LARGE | 413 | ไฟล์ Import เกินขนาด |
+| DOCUMENT_TOO_LARGE | 413 | Applicant Document เกินขนาด |
 | CRITERIA_LOCKED | 409 | เกณฑ์เริ่มถูกใช้งานแล้ว |
 
 ## 16. Decision Pending ก่อน Freeze Expected Result
@@ -266,5 +267,6 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and module-specific size errors with the canonical inventory. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Aligned canonical evaluation error code and pre-baseline documentation checks. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial master test plan draft. |

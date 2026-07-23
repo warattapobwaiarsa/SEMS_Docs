@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -319,7 +319,7 @@
 
 **Expected Result**
 
-- ทุก key/value ตรง DB ตาม approved template
+- ทุก key/value ตรง DB ตาม provisional RD-021 template
 - Draft/Cancelled ไม่ถูกนำไปคำนวณ
 - ไม่มี row หาย/ซ้ำ
 - Excel และ CSV ให้ข้อมูลเชิงสาระเหมือนกัน
@@ -416,5 +416,6 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report reconciliation still follows the provisional RD-021 template. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Canonicalized duplicate error code and added embedded-point and rollback P0 cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial high-risk test cases. |

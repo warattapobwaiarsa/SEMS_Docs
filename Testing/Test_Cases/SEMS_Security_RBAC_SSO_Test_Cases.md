@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -35,7 +35,7 @@
 
 ### SEC-AUTH-007 SEMS Account Inactive
 
-**Expected:** แม้ KKU auth สำเร็จ ต้องปฏิเสธ `ACCOUNT_INACTIVE`
+**Expected:** แม้ KKU auth สำเร็จ ต้องปฏิเสธ `USER_INACTIVE`
 
 ### SEC-AUTH-008 Logout
 
@@ -60,7 +60,7 @@
 | RBAC-D-005 | Evaluator | Export report | 403 |
 | RBAC-D-006 | Evaluator | View audit log | 403 |
 | RBAC-D-007 | Admin | Submit evaluation แทน evaluator | ปฏิเสธ เว้นแต่นโยบายระบุชัด |
-| RBAC-D-008 | Inactive user | Protected API ใด ๆ | 403 `ACCOUNT_INACTIVE` |
+| RBAC-D-008 | Inactive user | Protected API ใด ๆ | 403 `USER_INACTIVE` |
 
 ทุกกรณีต้องทดสอบทั้ง UI route และ direct API request
 
@@ -179,3 +179,10 @@
 ### SEC-AUD-004 Audit Integrity/Authorization
 
 **Expected:** evaluator แก้/ลบ audit ไม่ได้; Admin access ตามหน้าที่; timestamps และ actor traceable
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS QA Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial security, RBAC and SSO test cases. |

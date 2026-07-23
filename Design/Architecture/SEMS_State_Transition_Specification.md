@@ -3,8 +3,8 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-STS-001` |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pending Reopen Policy Approval** |
 
@@ -410,7 +410,6 @@ metadata
 |---|---:|---|
 | `INVALID_ROUND_STATUS_TRANSITION` | 409 | สถานะต้นทางไม่อนุญาตให้ไปสถานะเป้าหมาย |
 | `ROUND_NOT_OPEN` | 409 | พยายามสร้าง แก้ไข หรือ Submit ขณะรอบไม่ Open |
-| `ROUND_CLOSED` | 409 | ปิดรอบซ้ำหรือทำกิจกรรมที่ปิดรับแล้ว |
 | `ROUND_ARCHIVED_READ_ONLY` | 409 | พยายามแก้ข้อมูลรอบ Archived |
 | `ROUND_NOT_READY_TO_OPEN` | 422 | ข้อมูลหรือ Criteria ยังไม่พร้อม |
 | `EVALUATOR_ACCOUNT_INACTIVE` | 403 | บัญชีผู้ประเมินไม่ Active |
@@ -615,5 +614,6 @@ State Transition Specification ถือว่าพร้อมล็อกเ�
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| `v0.3` | 2026-07-24 | SEMS Design Team | Removed the redundant `ROUND_CLOSED` error; closed-round mutations use canonical `ROUND_NOT_OPEN` while `ROUND_CLOSED` remains an audit event. |
 | `v0.2` | 2026-07-23 | SEMS Design Team | ทำ Round baseline ให้เป็น DRAFT→OPEN→CLOSED→ARCHIVED, กำหนด Applicant ≥1 เป็น Provisional blocking และใช้ canonical error contract/code |
 | `v0.1` | 2026-07-23 | SEMS Requirements Team / AI-assisted draft | จัดทำ State Machine สำหรับรอบทุน Evaluation ผู้สมัคร และ Result Summary พร้อม Transition, Guard, Audit, Error Code และ Test Scenario |

@@ -2,8 +2,8 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v1.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | Status | **Provisional Baseline — Pending Stakeholder Ratification** |
 
@@ -33,7 +33,7 @@
 | RD-007 | ปิดรอบแต่ผลไม่ครบ | Confirmed | Submitted น้อยกว่า 2 รายการให้เป็น `Closed Incomplete` และไม่มี Final Score | งานทุน |
 | RD-008 | การแก้ไขหลัง Submit | Selected (Provisional) | ผู้ประเมินร้องขอ Reopen ผลของตนพร้อมเหตุผลและเลขอ้างอิง; หัวหน้างานทุนอนุมัติ; แก้ได้ก่อนปิดรอบเท่านั้น; เก็บ Revision/Audit Snapshot เดิม และคำนวณผลใหม่เมื่อ Submit อีกครั้ง | หัวหน้างานทุน |
 | RD-009 | การยกเลิก Evaluation | Selected (Provisional) | ผู้ประเมินยกเลิก Draft ของตนก่อน Submit ได้ ระบบบันทึกประวัติและคืนช่องทันที; รายการ Submitted ต้องใช้ Reopen Policy | งานทุน |
-| RD-010 | สูตรคะแนนสรุป | Selected (Provisional) | เฉลี่ยคะแนน Submitted รายเกณฑ์จากผู้ประเมินไม่ซ้ำ 2–3 คน โดยผู้ประเมินมีน้ำหนักเท่ากัน แล้วรวมตามน้ำหนักเกณฑ์ | งานทุน |
+| RD-010 | สูตรคะแนนสรุป | Selected (Provisional) | คะแนนรวมรายผู้ประเมินเป็นผลรวม Embedded Point ของเกณฑ์ที่มีผลต่อคะแนนทั้ง 10 ข้อ โดยไม่คูณ `weight_percent` ซ้ำ คะแนนสรุปผู้สมัครเป็นค่าเฉลี่ยเลขคณิตของคะแนนรวมจาก Evaluation สถานะ `Submitted` ของผู้ประเมินไม่ซ้ำกัน 2–3 คน และต้องคำนวณใหม่เมื่อผู้ประเมินคนที่ 3 Submit | งานทุน |
 | RD-011 | การปัดเศษ | Selected (Provisional) | เก็บค่าคำนวณเต็มความละเอียดและปัดเฉพาะ Final Score เป็นทศนิยม 2 ตำแหน่งด้วย `ROUND_HALF_UP` | งานทุน |
 | RD-012 | โครงสร้างเกณฑ์ | Selected (Provisional) | ใช้เกณฑ์ 10 หัวข้อรวม 100 คะแนนเป็น Template เริ่มต้น แก้ได้ก่อนเปิดรอบ; เมื่อมี Evaluation แล้วให้ล็อก Version และสร้าง Version ใหม่เมื่อต้องเปลี่ยน | งานทุน / ผู้ประเมิน |
 | RD-013 | คะแนนที่กรอกเองได้ | Selected (Provisional) | หัวข้อดุลพินิจรับคะแนนจำนวนเต็ม 0–10 และต้องมีคำอธิบายแนวทางให้คะแนนแต่ละช่วง | ผู้ประเมิน |
@@ -115,14 +115,22 @@ Proposal กำหนด Milestone แรกเป็น `Requirement Baseline A
 
 ## ขั้นตอนถัดไป
 
-หลังจาก Requirement Decision Register ได้รับอนุมัติแล้ว ให้ดำเนินการจัดทำ:
+หลัง Requirement Decision Register ได้รับการยืนยัน ให้ปรับ Data Dictionary, Import Mapping, SRS, User Stories, State Transition, Permission Matrix, API, Database Schema และ Test Cases ให้ตรงกับ Final Decisions จากนั้นจึงจัดทำ Requirement Baseline Approval
 
-**Data Dictionary และ Import Column Mapping จากไฟล์ข้อมูลจริง**
+1. ยืนยัน RD-008–RD-014
+2. ยืนยัน RD-023–RD-029
+3. บันทึกชื่อผู้ตัดสินใจ วันที่ และหลักฐาน
+4. ปรับเอกสารที่ได้รับผลกระทบ
+5. รัน Documentation Check
+6. ตรวจ Traceability
+7. อนุมัติ Requirement Baseline
+8. ทบทวนและอนุมัติ System Design
 
 ## Revision History
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.3 | 2026-07-24 | SEMS Requirements Team | Clarified RD-010 as embedded-point aggregation without duplicate weighting and aligned the pre-baseline decision-to-approval sequence. |
 | v1.2 | 2026-07-23 | SEMS Requirements Team | เพิ่ม RD-023 กฎเปิดรอบแบบ Provisional และ RD-024–RD-029 Database Freeze Blockers โดยคงสถานะ Open/Pending |
 | v1.1 | 2026-07-23 | Codex (AI), user-authorized | เลือกคำตอบชั่วคราว RD-008–RD-022 จากเอกสารวิเคราะห์ และเพิ่ม Decision Log สำหรับตรวจสอบ/แก้ไขย้อนหลัง |
 | v1.0 | 2026-07-23 | SEMS Requirements Team | สร้างทะเบียน Requirement Decision ฉบับเริ่มต้นและจัดเก็บในหมวด Requirements |

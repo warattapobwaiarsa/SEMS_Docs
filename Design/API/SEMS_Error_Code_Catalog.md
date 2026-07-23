@@ -3,8 +3,8 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-ERR-001` |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Status | **Draft — System-wide Source of Truth** |
 
 ทุก SRS, User Story, API, OpenAPI, UI และ Test Case ต้องอ้าง code จากไฟล์นี้ ห้ามสร้าง alias ใหม่โดยไม่แก้ catalog และ revision history
@@ -45,7 +45,6 @@
 | `CSRF_INVALID` | 403 | CSRF token หายหรือไม่ถูกต้อง |
 | `ROUND_NOT_FOUND` | 404 | ไม่พบรอบทุน |
 | `ROUND_NOT_OPEN` | 409 | กิจกรรมนี้ต้องใช้รอบ OPEN |
-| `ROUND_CLOSED` | 409 | รอบปิดแล้ว |
 | `INVALID_ROUND_STATUS_TRANSITION` | 409 | Transition ไม่อยู่ใน state machine |
 | `ACTIVE_CRITERIA_REQUIRED` | 409 | ไม่มี Active Criteria Set |
 | `NO_APPLICANTS` | 422 | ไม่มีผู้สมัครก่อนเปิดรอบ; **Provisional blocking rule** |
@@ -67,8 +66,11 @@
 | `SCORE_OUT_OF_RANGE` | 422 | คะแนนอยู่นอกช่วง criteria version |
 | `CRITERION_VERSION_MISMATCH` | 409 | Criterion ไม่ตรง version ที่ evaluation ผูกไว้ |
 | `CONCURRENCY_CONFLICT` | 409 | ข้อมูล/version เปลี่ยนพร้อมกัน |
-| `UNSUPPORTED_FILE_TYPE` | 415 | Release 1 รับเฉพาะ `.xlsx` และ `.csv` |
-| `FILE_TOO_LARGE` | 413 | ไฟล์เกิน configuration |
+| `UNSUPPORTED_FILE_TYPE` | 415 | Import Release 1 รับเฉพาะ `.xlsx` และ `.csv` |
+| `DOCUMENT_TYPE_UNSUPPORTED` | 415 | ชนิด Applicant Document ไม่รองรับ |
+| `IMPORT_FILE_TOO_LARGE` | 413 | ไฟล์ Import เกิน configuration |
+| `DOCUMENT_TOO_LARGE` | 413 | Applicant Document เกิน configuration |
+| `REPORT_FORMAT_UNSUPPORTED` | 415 | รูปแบบ Report Export ไม่รองรับ |
 | `IMPORT_HAS_BLOCKING_ERRORS` | 409 | Import ยังมี blocking errors |
 
 ## Retired Aliases
@@ -91,4 +93,5 @@ Retired aliases ห้ามปรากฏใน contract ใหม่ แล�
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Design Team | Removed unused generic/round-state error codes and documented module-specific import, document and report codes already present in the allowed inventory. |
 | v0.1 | 2026-07-23 | SEMS Design Team | Established canonical error envelope, code names and retired aliases. |

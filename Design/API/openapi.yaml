@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: SEMS REST API
-  version: 1.1.0-draft
+  version: 1.2.0-draft
   summary: Scholarship Evaluation Management System API Specification
   description: 'API Specification สำหรับระบบบริหารจัดการการประเมินทุนการศึกษา (SEMS)
 
@@ -2364,9 +2364,10 @@ paths:
       x-validation:
       - confirmation ต้อง true
       - ใช้เฉพาะคะแนนครบถ้วน
-      - คำนวณ total ตาม criterion version
+      - total เป็นผลรวม Embedded Point ของเกณฑ์ที่มีผลต่อคะแนนทั้ง 10 ข้อ
+      - weight_percent เป็น metadata และห้ามคูณซ้ำ
       - เปลี่ยนเป็น SUBMITTED แบบ atomic
-      - หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณ Result Summary ใหม่อัตโนมัติ
+      - หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณค่าเฉลี่ยเลขคณิตจาก evaluator total ใหม่อัตโนมัติ
       x-audit-events:
       - EVALUATION_SUBMITTED
       - RESULT_SUMMARY_RECALCULATED
@@ -2567,7 +2568,9 @@ paths:
       - SCORING_RULE_INVALID
       - CSRF_INVALID
       x-validation:
-      - ใช้เฉพาะ Submitted จาก evaluator ไม่ซ้ำกัน สูงสุด 3 คน
+      - ใช้เฉพาะ Submitted จาก evaluator ไม่ซ้ำกัน 2–3 คน
+      - evaluator total เป็นผลรวม Embedded Point โดยไม่คูณ weight_percent ซ้ำ
+      - summary เป็นค่าเฉลี่ยเลขคณิตของ evaluator total
       - มี Result Summary ได้หนึ่งรายการต่อ applicantRoundId
       - ใช้เพื่อ recovery/verification ไม่ใช่ flow ปกติ
       x-audit-events:
@@ -2924,6 +2927,7 @@ components:
       required:
       - code
       - message
+      - details
       - traceId
       - timestamp
       properties:
@@ -3163,7 +3167,6 @@ components:
           enum:
           - CSV
           - XLSX
-          - XLS
         status:
           $ref: '#/components/schemas/ImportStatus'
         totalRows:

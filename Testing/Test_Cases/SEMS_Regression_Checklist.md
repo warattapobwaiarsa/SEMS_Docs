@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -66,7 +66,7 @@
 - [ ] required criteria ก่อน submit
 - [ ] server recalculates evaluator total
 - [ ] criteria locked/versioned หลังเริ่มใช้
-- [ ] rounding ตรง approved rule ทุก layer
+- [ ] rounding ตรง provisional RD-011 rule ทุก layer
 
 ## Dashboard/Report
 
@@ -85,3 +85,10 @@
 - [ ] constraints/indexes อยู่ครบหลัง migration
 - [ ] backup/restore retains evaluations, summary, audit and document references
 - [ ] environment secrets ไม่อยู่ใน source/build artifact
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS QA Team | Retained provisional approval status for the RD-011 rounding regression. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial regression checklist. |

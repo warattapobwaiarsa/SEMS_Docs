@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -15,7 +15,7 @@
 |---|---|:---:|---|---|---|---|
 | AUTH-001 | Admin login ผ่าน KKU SSO และบัญชี SEMS Active | P1 | API/E2E | session ถูกสร้างและ role=Admin | FR-AUT-001..010 | — |
 | AUTH-002 | Evaluator login ผ่าน KKU SSO และ Active | P1 | API/E2E | เข้า evaluator landing page | FR-AUT-001..010 | — |
-| AUTH-003 | KKU login สำเร็จแต่บัญชี SEMS Inactive | P0 | API/E2E | 403 `ACCOUNT_INACTIVE`, ไม่มี session ใช้งาน | FR-AUT-001..010 | — |
+| AUTH-003 | KKU login สำเร็จแต่บัญชี SEMS Inactive | P0 | API/E2E | 403 `USER_INACTIVE`, ไม่มี session ใช้งาน | FR-AUT-001..010 | — |
 | AUTH-004 | KKU identity ไม่มีบัญชี/role SEMS | P0 | API/E2E | ปฏิเสธและไม่ auto-provision โดยไม่มีนโยบาย | FR-AUT-001..010 | — |
 | AUTH-005 | callback state ไม่ตรง | P0 | API/Security | ปฏิเสธ ไม่แลก token/สร้าง session | FR-AUT-001..010 | — |
 | AUTH-006 | nonce ไม่ตรงหรือ ID token invalid | P0 | API/Security | ปฏิเสธและ audit login failure | FR-AUT-001..010 | — |
@@ -65,8 +65,8 @@
 | ID | Scenario | P | Level | Expected Result | Linked Requirement | Linked Decision |
 |---|---|:---:|---|---|---|---|
 | DOC-001 | Admin upload PDF/JPG/PNG valid | P1 | API/E2E | metadata + storage reference ถูกต้อง | FR-DOC-001..006 | RD-022 |
-| DOC-002 | Unsupported extension/MIME | P0 | Security | 415 `UNSUPPORTED_FILE_TYPE` | FR-DOC-001..006 | RD-022 |
-| DOC-003 | File เกินขนาด | P1 | API | 413 `FILE_TOO_LARGE` | FR-DOC-001..006 | RD-022 |
+| DOC-002 | Unsupported extension/MIME | P0 | Security | 415 `DOCUMENT_TYPE_UNSUPPORTED` | FR-DOC-001..006 | RD-022 |
+| DOC-003 | File เกินขนาด | P1 | API | 413 `DOCUMENT_TOO_LARGE` | FR-DOC-001..006 | RD-022 |
 | DOC-004 | Evaluator ดูเอกสาร applicant ที่เลือก | P1 | API/E2E | สำเร็จผ่าน backend auth | FR-DOC-001..006 | RD-022 |
 | DOC-005 | Evaluator ดูเอกสาร applicant ที่ไม่เลือก | P0 | Security | 403/404 | FR-DOC-001..006 | RD-022 |
 | DOC-006 | Direct storage URL/path | P0 | Security | เข้าไม่ได้โดยข้าม backend | FR-DOC-001..006 | RD-022 |
@@ -97,7 +97,7 @@
 | SEL-002 | double-click จาก evaluator เดิม | P0 | Concurrency | record เดียว | FR-EVA-001..003 | RD-001..005 |
 | SEL-003 | คนที่ 4 เลือก | P0 | DB/API | `EVALUATOR_LIMIT_REACHED` | FR-EVA-001..003 | RD-001..005 |
 | SEL-004 | สองคนแย่ง slot ที่ 3 | P0 | Concurrency | สำเร็จ 1, reject 1 | FR-EVA-001..003 | RD-001..005 |
-| SEL-005 | inactive evaluator เลือก | P0 | API | `ACCOUNT_INACTIVE` | FR-EVA-001..003 | RD-001..005 |
+| SEL-005 | inactive evaluator เลือก | P0 | API | `USER_INACTIVE` | FR-EVA-001..003 | RD-001..005 |
 | SEL-006 | existing Draft เปิดกลับมา | P1 | E2E | edit record เดิม | FR-EVA-001..003 | RD-001..005 |
 | SEL-007 | cancel Draft ที่อนุญาต | P1 | API | record inactive + audit | FR-EVA-001..003 | RD-001..005 |
 | SEL-008 | cancelled record คืน slot | P0 | DB/API | evaluator ใหม่เลือกได้ | FR-EVA-001..003 | RD-001..005 |
@@ -127,7 +127,7 @@
 | SCR-005 | 3rd Submitted recalculates | P0 | Integration | Fully Complete + new score | FR-SCO-001..012 | RD-004..014 |
 | SCR-006 | ผู้ประเมินไม่ซ้ำกันเท่านั้น | P0 | DB/Unit | duplicate ไม่เพิ่ม count | FR-SCO-001..012 | RD-004..014 |
 | SCR-007 | one ResultSummary/applicant/round | P0 | DB | unique constraint | FR-SCO-001..012 | RD-004..014 |
-| SCR-008 | rounding boundary | P0 | Unit | ตรง approved rule | FR-SCO-001..012 | RD-004..014 |
+| SCR-008 | rounding boundary | P0 | Unit | ตรง provisional RD-011 rule | FR-SCO-001..012 | RD-004..014 |
 | SCR-009 | criteria version binding | P0 | Unit/DB | score from correct version | FR-SCO-001..012 | RD-004..014 |
 | SCR-010 | concurrent submissions update summary | P0 | Concurrency | no lost update | FR-SCO-001..012 | RD-004..014 |
 | STA-001 | 0 active = Not Started | P1 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
@@ -172,5 +172,6 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document errors with the canonical inventory and retained provisional scoring status. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Added Linked Requirement/Linked Decision columns, canonical duplicate code and corrected scoring range to 5–100. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial functional test catalog draft. |

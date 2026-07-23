@@ -1,9 +1,9 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.2"
+version: "v0.3"
 status: "Draft — รอยืนยัน Requirement Baseline"
-last_updated: 2026-07-23
+last_updated: 2026-07-24
 owner: SEMS Project Team
 author: SEMS Requirements Team
 source_sections: "Proposal 5.1–5.5; Requirement Decision Register; Import Mapping; KKU OAuth Summary"
@@ -602,7 +602,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** Continuation Row ไม่มี Applicant เจ้าของหรือมีข้อมูล Applicant อื่นปะปน
 - **When:** ระบบ Validate
-- **Then:** ต้องแสดง `ORPHAN_CONTINUATION_ROW` หรือ `CONTINUATION_ROW_HAS_APPLICANT_DATA` และไม่ถือว่าแถว Valid
+- **Then:** ต้องแสดง `ORPHAN_CONTINUATION_ROW` หรือ `VALIDATION_ERROR` และไม่ถือว่าแถว Valid
 #### US-IMP-002-AC-04
 
 - **Given:** มีรหัสผู้สมัครซ้ำภายในไฟล์
@@ -655,7 +655,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** เกิด Database/File Processing Error ระหว่าง Commit
 - **When:** Transaction ล้มเหลว
-- **Then:** ระบบต้อง Rollback ข้อมูลทั้ง Batch ตามโหมด All-or-Nothing และบันทึก `IMPORT_TRANSACTION_FAILED`
+- **Then:** ระบบต้อง Rollback ข้อมูลทั้ง Batch ตามโหมด All-or-Nothing และบันทึก `IMPORT_STATE_INVALID` เมื่อ state ไม่อนุญาตให้ commit
 #### US-IMP-003-AC-03
 
 - **Given:** ผู้สมัครซ้ำกับฐานข้อมูลในรอบเดียวกัน
@@ -665,7 +665,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** ผู้สมัครซ้ำและมี Evaluation แล้ว
 - **When:** Admin พยายาม Update ผ่าน Import
-- **Then:** ระบบต้องปฏิเสธด้วย `UPDATE_NOT_ALLOWED_AFTER_EVALUATION` เพื่อป้องกันข้อมูลที่ใช้ประกอบการประเมินเปลี่ยนย้อนหลัง
+- **Then:** ระบบต้องปฏิเสธด้วย `IMPORT_STATE_INVALID` เพื่อป้องกันข้อมูลที่ใช้ประกอบการประเมินเปลี่ยนย้อนหลัง
 #### US-IMP-003-AC-05
 
 - **Given:** Commit สำเร็จ
@@ -1915,5 +1915,6 @@ Story ถือว่าเสร็จเมื่อ:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Requirements Team | Replaced retired/non-canonical import aliases with the central allowed error-code inventory. |
 | v0.2 | 2026-07-23 | SEMS Requirements Team | Replaced nonexistent per-module files with stable section anchors, linked the central traceability matrix, limited Release 1 import, and aligned provisional round opening. |
 | v0.1 | 2026-07-23 | SEMS Requirements Team | Initial consolidated user stories and acceptance criteria draft. |

@@ -3,14 +3,19 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-DOC-REVIEW-001` |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Status | **Draft — Pending Stakeholder Review** |
 | Review Scope | Requirements, Design, API/OpenAPI, Database, UI/UX, Testing, Deployment, binary reference files and repository indexes |
+| Current Branch | `main` |
+| Current Commit SHA | `feed2c1c2854857634f9a59a9aebbfa55b9a5e1d` (review-start baseline; follow-up SHA is reported after commit) |
+| Review Date | **2026-07-24** |
+| Validation Status | **Partial — local links, versions, JSON, structural OpenAPI metadata and error inventory passed; Redocly execution unavailable** |
+| Approval Status | **Pending** |
 
 ## Executive Summary
 
-Repository ได้รับการ reconcile สำหรับ pre-baseline แล้ว: เอกสารใหม่เชื่อมจาก index, version mismatch หลักได้รับการแก้, User Stories ใช้ consolidated source พร้อม stable anchors, error contract/code เป็นมาตรฐานเดียว, round/import/scoring rules ตรงกันในเอกสารที่เกี่ยวข้อง และ core traceability มี test link ครบ 17/17 flows
+การปรับปรุงเอกสารชุดนี้อยู่บน Branch `main` แล้ว การมีเอกสารบน `main` ไม่ได้หมายความว่า Requirement Baseline, System Design หรือ Production Readiness ได้รับการอนุมัติ เอกสารยังเป็น pre-baseline: User Stories ใช้ consolidated source พร้อม stable anchors, error contract/code ใช้มาตรฐานเดียว, round/import/scoring rules ตรงกันในเอกสารที่เกี่ยวข้อง และ core traceability มี test link ครบ 17/17 flows
 
 **ยังไม่พร้อม Freeze/Approve** เพราะพบไฟล์ที่อาจมี PII จริง, Open Decisions ด้านคะแนน/ฐานข้อมูล/การเปิดรอบยังไม่อนุมัติ และยังไม่ได้ผลจาก independent OpenAPI 3.1 validator ในเครื่องนี้
 
@@ -20,18 +25,20 @@ Repository ได้รับการ reconcile สำหรับ pre-baseline
 
 ห้าม Push/Public ต่อจนเจ้าของข้อมูลยืนยันและอนุมัติ remediation:
 
-| File | Location | Finding |
-|---|---|---|
-| `README.md` | lines 23–24 | ชื่อบุคคลและรหัสนักศึกษา |
-| `Requirements/Proposal/SEMS-project-proposal.md` | lines 34–35 | ชื่อผู้จัดทำและรหัสนักศึกษา |
-| `Requirements/Proposal/SEMS-project-proposal.pdf` | page 1 | ชื่อผู้จัดทำและรหัสนักศึกษา; ตรวจภาพยืนยันแล้ว |
-| `Design/Criteria/Criteria.xlsx` | `Assessment!A2,E2,B3`; `Sheet3!B4:B8`; `Data!B3:B7,I4,L3:L7` | รูปแบบรหัสนักศึกษา เลขบัตรประชาชน และอีเมลใน workbook; ต้องให้เจ้าของข้อมูลยืนยันว่าเป็นจริงหรือ synthetic |
+| File | Data Type | Likely Real/Synthetic/Unknown | Public Risk | Required Action | Owner |
+|---|---|---|---|---|---|
+| `README.md` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or redact from the public copy | Project Authors |
+| `Requirements/Proposal/SEMS-project-proposal.md` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or redact from the public copy | Project Authors |
+| `Requirements/Proposal/SEMS-project-proposal.pdf` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or replace the public PDF after approval; do not overwrite the source binary automatically | Project Authors |
+| `Design/Criteria/Criteria.xlsx` | Applicant-like student ID, national ID and email | Unknown — Requires Data Owner Confirmation | Critical | Temporarily make the repository private until confirmed synthetic or an approved sanitized public copy replaces it | Data Owner / Scholarship Office |
+| Data Dictionary and Import Mapping Markdown/workbooks | Applicant-like ID, phone, email, address, coordinates, income, financial and family examples | Unknown — Requires Data Owner Confirmation | Critical | Confirm all examples are synthetic before public release; sanitize an approved copy if not | Data Owner |
+| UI placeholder/reference data | Applicant-like names and profile attributes | Unknown — Requires Data Owner Confirmation | Critical | Confirm the source is synthetic before public release | Product Owner / Data Owner |
 
-ไม่ได้ลบหรือแก้ไฟล์ต้นฉบับตามข้อห้ามของงานนี้ ข้อเสนอ: หยุดเผยแพร่ไฟล์, จำกัดสิทธิ์, ทำสำเนาสำรองที่ควบคุมการเข้าถึง และแทน public copy ด้วย synthetic names/IDs/national ID/phone/email/address/coordinates/income/financial/family data หลังได้รับอนุญาต
+ไม่ได้ลบหรือแก้ไฟล์ต้นฉบับตามข้อห้ามของงานนี้ และไม่มีหลักฐานเพียงพอให้กล่าวว่าเกิด Data Breach ข้อเสนอ: หยุดเผยแพร่ไฟล์ที่อาจเป็นข้อมูลผู้สมัครจริง, จำกัดสิทธิ์, ทำสำเนาสำรองที่ควบคุมการเข้าถึง และแทน public copy ด้วย synthetic names/IDs/national ID/phone/email/address/coordinates/income/financial/family data หลังได้รับอนุญาต
 
 ## High
 
-- **H-01 OpenAPI independent validation pending:** structural audit พบ 60 operations, 60 unique `operationId`, ทุก endpoint มี `x-roles`, และทุก mutation มี CSRF + audit metadata; แต่การรัน Redocly ในเครื่องถูกบล็อกเพราะ external package execution ไม่ได้รับอนุมัติ จึงห้ามระบุว่า OpenAPI ผ่าน 3.1 validator จน CI/ผู้ใช้รัน workflow สำเร็จ
+- **H-01 OpenAPI independent validation pending:** structural audit วันที่ 2026-07-24 พบ 60 operations, 60 unique `operationId`, ทุก endpoint มี `x-roles`, ทุก mutation 33 รายการมี CSRF + audit metadata และ OpenAPI/endpoint matrix ใช้ Allowed Inventory ตรงกัน 90 codes; แต่ Redocly CLI รันไม่ได้เพราะการอนุมัติ external package execution ถูกปฏิเสธ จึงห้ามระบุว่า OpenAPI ผ่าน Redocly/OpenAPI 3.1 validator จน CI หรือผู้ใช้รันคำสั่งสำเร็จ
 - **H-02 Database Freeze Blockers open:** RD-024–RD-029 ยังไม่มีข้อสรุป; schema คง Draft
 - **H-03 Scoring rule provisional:** EMBEDDED_POINT, 5–100, arithmetic mean, third evaluator recalculation, Decimal/HALF_UP ยังรอ Scholarship Office approval
 - **H-04 Round opening provisional:** Applicant ≥1 เป็น Blocking Error ชั่วคราวตาม RD-023; งานทุนต้องเลือกระหว่าง Blocking กับ Warning
@@ -80,13 +87,14 @@ Repository ได้รับการ reconcile สำหรับ pre-baseline
 
 | Check | Before | After / Current Result |
 |---|---|---|
-| Broken relative file paths | 0 | 0 after final script run |
+| Broken relative file paths | 0 | PASS — checked 62 Markdown files; 0 link/path/anchor errors |
 | Broken internal anchors | 10 converted Data Dictionary anchor mismatches found by strict checker | 0 after stable anchors |
 | Index references to nonexistent User Story files | 14 conceptual file references | 0; replaced by stable sections |
-| Version consistency | Decision Register v1.1 vs indexes v1.0 plus changed-document drift | Automated version check: 0 errors after reconciliation |
-| JSON | Not recorded | Tracked JSON 2/2 files parse successfully |
-| YAML/OpenAPI syntax | Existing file readable | Structural checks pass; Redocly 3.1 result **Pending** |
-| OpenAPI metadata | Not recorded | 60/60 operations have unique operationId/roles; all mutations have CSRF and audit metadata |
+| Version consistency | Decision Register v1.1 vs indexes v1.0 plus changed-document drift | PASS — checked 58 versioned Markdown documents; 0 errors |
+| JSON | Not recorded | PASS — tracked JSON 2/2 files parse successfully |
+| YAML/OpenAPI syntax | Existing file readable | Structural inspection passes; independent YAML/Redocly parse **Pending** because external CLI execution was rejected |
+| OpenAPI metadata | Not recorded | PASS — 60/60 operations have unique operationId/roles; 33/33 mutations have CSRF and audit metadata |
+| Error code consistency | Generic codes and aliases present in older documents | PASS — 90/90 Allowed Inventory codes match OpenAPI and endpoint matrix; retired aliases remain only in Retired Aliases |
 | Secret pattern review | Not recorded | No committed credential value detected; placeholders/references only |
 | PII review | Not recorded | Critical potential PII locations listed above; no source binary modified |
 
@@ -119,7 +127,7 @@ Root/index/governance: `.gitignore`, `README.md`, `START_HERE.md`, `REPOSITORY_T
 
 ## Files Moved or Deleted
 
-**None.** Source files and binary references were preserved; no branch, push or merge was performed.
+**None.** Source files and binary references were preserved. งานแก้ไขอยู่บน Branch `main`; รอบติดตามนี้ยังไม่ Push และไม่ได้สร้างหรือเปลี่ยน Branch
 
 ## Recommendations Before Requirement Baseline Approval
 
@@ -128,6 +136,8 @@ Root/index/governance: `.gitignore`, `README.md`, `START_HERE.md`, `REPOSITORY_T
 3. Run documentation workflow, require Redocly success and attach output.
 4. Expand traceability from core-flow level to every Must SRS/AC and attach test execution evidence.
 5. Complete UAT and use the pending approval template only after evidence exists.
+
+> Commit message เดิมเป็นเพียงประวัติการเปลี่ยนแปลง ไม่ใช่หลักฐานการอนุมัติ Requirement Baseline, System Design หรือ Production Readiness
 
 ## Recommendations Before System Design Approval
 
@@ -141,5 +151,6 @@ Root/index/governance: `.gitignore`, `README.md`, `START_HERE.md`, `REPOSITORY_T
 
 | Version | Date | Author | Change |
 |---|---|---|---|
-| v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline repository reconciliation report; open findings and pending approvals retained. |
+| v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded factual main-branch metadata, pre-baseline/approval status, PII classification and current validation evidence/limitations. |
 | v0.2 | 2026-07-23 | SEMS Documentation Team | Record final link/version/JSON/table checks, generated-cache exclusion, and independent OpenAPI validator limitation. |
+| v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline repository reconciliation report; open findings and pending approvals retained. |

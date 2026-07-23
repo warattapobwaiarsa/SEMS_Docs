@@ -11,6 +11,7 @@ permissions:
 jobs:
   documentation:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +25,9 @@ jobs:
       - name: Document version consistency
         run: python scripts/check-document-versions.py
       - name: JSON syntax
-        run: python -m json.tool Design/Criteria/SEMS_Criteria_Config.json >/dev/null
+        run: |
+          python -m json.tool Design/Criteria/SEMS_Criteria_Config.json >/dev/null
+          python -m json.tool Design/UI_UX/screen_manifest.json >/dev/null
       - name: OpenAPI 3.1 and YAML validation
         run: npx --yes @redocly/cli@2.0.8 lint Design/API/openapi.yaml
       - name: Secret scanning

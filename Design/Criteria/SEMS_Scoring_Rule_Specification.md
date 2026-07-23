@@ -3,8 +3,8 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pending Stakeholder Approval** |
 | Sources | [`Criteria.xlsx`](./Criteria.xlsx), [`SEMS-project-proposal.pdf`](../../Requirements/Proposal/SEMS-project-proposal.pdf) |
@@ -276,7 +276,7 @@ DRAFT -> ACTIVE -> RETIRED
 | `INVALID_SCORE_OPTION` | Option Code ไม่อยู่ใน Criteria Version ของ Evaluation |
 | `INVALID_MANUAL_SCORE` | คะแนนกรอกเองไม่ใช่จำนวนเต็ม 0–10 หรือไม่มีเหตุผลประกอบ |
 | `SCORE_OUT_OF_RANGE` | คะแนนต่ำกว่าค่าต่ำสุดหรือสูงกว่าคะแนนเต็ม |
-| `COMMENT_REQUIRED` | เลือกตัวเลือกที่ต้องมีเหตุผล แต่ไม่มีความคิดเห็นหรือสั้นกว่าเกณฑ์ |
+| `EVALUATION_INCOMPLETE` | เลือกตัวเลือกที่ต้องมีเหตุผล แต่ไม่มีความคิดเห็นหรือสั้นกว่าเกณฑ์ |
 | `CRITERIA_VERSION_LOCKED` | พยายามแก้ไขเกณฑ์ที่มี Evaluation แล้ว |
 | `CRITERIA_VERSION_MISMATCH` | Evaluation ส่งคะแนนด้วย Criteria Version ที่ไม่ตรงกับตอนสร้างรายการ |
 | `INSUFFICIENT_SUBMITTED_EVALUATIONS` | พยายามสร้างผลสรุปเมื่อ Submitted น้อยกว่า 2 คน |
@@ -366,7 +366,7 @@ ResultSummary
 | `SCR-006` | คนที่ 3 Submit หลังจากมีผล 2 คน | คำนวณ Result Summary ใหม่อัตโนมัติ |
 | `SCR-007` | ผู้ประเมินคนเดิม Submit ซ้ำ | ปฏิเสธด้วย `DUPLICATE_EVALUATOR` |
 | `SCR-008` | ไม่กรอกเกณฑ์บังคับ | ปฏิเสธ Submit ด้วย `SCORE_REQUIRED` |
-| `SCR-009` | เลือก “อื่น ๆ ที่จำเป็น” แต่ไม่ระบุเหตุผล | ปฏิเสธด้วย `COMMENT_REQUIRED` |
+| `SCR-009` | เลือก “อื่น ๆ ที่จำเป็น” แต่ไม่ระบุเหตุผล | ปฏิเสธด้วย `EVALUATION_INCOMPLETE` |
 | `SCR-010` | แก้ไขคะแนนตัวเลือกหลังมี Draft แล้ว | ปฏิเสธด้วย `CRITERIA_VERSION_LOCKED` |
 | `SCR-011` | ปิดรอบเมื่อมี Submitted อย่างน้อย 2 คน | ผลล่าสุดเป็น Finalized |
 | `SCR-012` | ปิดรอบเมื่อ Submitted น้อยกว่า 2 คน | Closed Incomplete และไม่มีคะแนนสุดท้าย |
@@ -395,5 +395,6 @@ Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/S
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.2 | 2026-07-24 | SEMS Design Team | Aligned incomplete scoring/comment validation with canonical `EVALUATION_INCOMPLETE`. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Marked all formula rules provisional, linked the actual machine-readable config and scoring reference dataset. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial scoring rule draft derived from Criteria workbook. |

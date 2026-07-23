@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — System Design Review** |
 | Base URL | `/api/v1` |
@@ -14,7 +14,8 @@
 - Authentication ใช้ KKU OAuth 2.1 / OpenID Connect แบบ Authorization Code + PKCE (S256); SEMS ไม่รับหรือจัดเก็บรหัสผ่าน KKU
 - Authorization ใช้ RBAC (`ADMIN`, `EVALUATOR`) ร่วมกับ Object-level authorization โดย Evaluator เข้าถึงรายละเอียดผู้สมัคร เอกสาร และ Evaluation ได้เฉพาะรายการที่ตนเลือกและเป็นเจ้าของ
 - ผู้สมัครหนึ่งรายต่อรอบมี Evaluation ที่ใช้งานอยู่ได้สูงสุด 3 รายการ และผู้ประเมินคนเดิมมีได้ไม่เกินหนึ่งรายการ
-- Result Summary ใช้เฉพาะ Evaluation สถานะ `SUBMITTED`; เมื่อคนที่ 3 Submit ต้องคำนวณใหม่อัตโนมัติ
+- คะแนนรวมรายผู้ประเมินเป็นผลรวม Embedded Point ของเกณฑ์ที่มีผลต่อคะแนนทั้ง 10 ข้อ; `weight_percent` เป็น metadata และห้ามคูณซ้ำ
+- Result Summary เป็นค่าเฉลี่ยเลขคณิตของคะแนนรวมจาก Evaluation สถานะ `SUBMITTED` ของผู้ประเมินไม่ซ้ำกัน 2–3 คน; เมื่อคนที่ 3 Submit ต้องคำนวณใหม่อัตโนมัติ
 - Response error ใช้ `{ code, message, details, traceId, timestamp }` และทุก operation ระบุ Error Code กับ Audit Event
 
 ## 2. Endpoint Specification
@@ -472,7 +473,7 @@
 - **Role:** EVALUATOR
 - **Request:** confirmation=true + version
 - **Response:** Evaluation + optional ResultSummary
-- **Validation:** confirmation ต้อง true; ใช้เฉพาะคะแนนครบถ้วน; คำนวณ total ตาม criterion version; เปลี่ยนเป็น SUBMITTED แบบ atomic; หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณ Result Summary ใหม่อัตโนมัติ
+- **Validation:** confirmation ต้อง true; ใช้เฉพาะคะแนนครบถ้วน; total เป็นผลรวม Embedded Point ของ 10 เกณฑ์โดยไม่คูณ `weight_percent` ซ้ำ; เปลี่ยนเป็น SUBMITTED แบบ atomic; หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณค่าเฉลี่ยเลขคณิตจาก evaluator total ใหม่อัตโนมัติ
 - **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_ALREADY_SUBMITTED, EVALUATION_INCOMPLETE, ROUND_NOT_OPEN, SCORE_OUT_OF_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** EVALUATION_SUBMITTED, RESULT_SUMMARY_RECALCULATED
 
@@ -519,7 +520,7 @@
 - **Role:** ADMIN
 - **Request:** Path + CSRF
 - **Response:** ResultSummary
-- **Validation:** ใช้เฉพาะ Submitted จาก evaluator ไม่ซ้ำกัน สูงสุด 3 คน; มี Result Summary ได้หนึ่งรายการต่อ applicantRoundId; ใช้เพื่อ recovery/verification ไม่ใช่ flow ปกติ
+- **Validation:** ใช้เฉพาะ Submitted จาก evaluator ไม่ซ้ำกัน 2–3 คน; evaluator total เป็นผลรวม Embedded Point โดยไม่คูณ `weight_percent` ซ้ำ; summary เป็นค่าเฉลี่ยเลขคณิต; มี Result Summary ได้หนึ่งรายการต่อ applicantRoundId; ใช้เพื่อ recovery/verification ไม่ใช่ flow ปกติ
 - **Error Code:** APPLICANT_NOT_FOUND, SUMMARY_NOT_AVAILABLE, ROUND_ARCHIVED, SCORING_RULE_INVALID, CSRF_INVALID
 - **Audit Event:** RESULT_SUMMARY_MANUALLY_RECALCULATED
 
@@ -615,5 +616,6 @@ Endpoint ต้องใช้ชื่อ canonical ใน catalog โดยเ
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.3 | 2026-07-24 | SEMS Design Team | Made the embedded-point total and arithmetic-mean summary formula explicit across submit and recalculation operations. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Standardized error catalog/aliases, Release 1 import types and provisional round-opening validation. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Initial API draft indexed for System Design Review. |

@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
 | Primary Roles | `ADMIN`, `EVALUATOR` |
@@ -217,7 +217,7 @@ AND currentUser.status == ACTIVE
 | กรณี | HTTP Status | Error Code ที่แนะนำ |
 |---|---:|---|
 | ไม่มี Session หรือ Session หมดอายุ | 401 | `AUTHENTICATION_REQUIRED` |
-| บัญชี SEMS ไม่ Active | 403 | `ACCOUNT_INACTIVE` |
+| บัญชี SEMS ไม่ Active | 403 | `USER_INACTIVE` |
 | บทบาทไม่อนุญาต | 403 | `ROLE_FORBIDDEN` |
 | ไม่ใช่เจ้าของ Evaluation | 403 | `EVALUATION_NOT_OWNER` |
 | พยายามเปิดเอกสารผู้สมัครที่ไม่ได้เลือก | 403 หรือ 404 | `DOCUMENT_ACCESS_DENIED` |
@@ -330,5 +330,6 @@ Authentication
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.2 | 2026-07-24 | SEMS Design Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`; audit-event names remain unchanged. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Aligned canonical evaluation error codes and made controlled reopen explicitly provisional. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial permission matrix draft. |

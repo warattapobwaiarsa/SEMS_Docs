@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -164,7 +164,7 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 ### REP-D-001 Excel Column and Order
 
-ตรวจ approved template: applicant identity, evaluator names, criterion scores, evaluator totals, comments, evaluator count, submitted count, state, summary score และ round metadata
+ตรวจ provisional RD-021 template: applicant identity, evaluator names, criterion scores, evaluator totals, comments, evaluator count, submitted count, state, summary score และ round metadata
 
 ### REP-D-002 CSV Encoding and Escaping
 
@@ -217,5 +217,6 @@ For each row compare:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report-template expectations remain provisional under RD-021. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Corrected minimum total to 5 and added embedded-point and Decimal HALF_UP regression cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial scoring, state, dashboard and report test draft. |

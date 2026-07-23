@@ -4,8 +4,8 @@
 |---|---|
 | ชื่อระบบ | Scholarship Evaluation Management System (SEMS) |
 | รหัสเอกสาร | SEMS-DES-FLOW-001 |
-| Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft for Review** |
 | ตำแหน่งไฟล์ | `Design/Architecture/SEMS_Process_Flows.md` |
@@ -138,7 +138,7 @@ flowchart TD
     D -- ไม่ --> E["ปฏิเสธและแจ้งสถานะรอบที่รองรับ"]
     D -- ใช่ --> F["อัปโหลดไฟล์ CSV หรือ Excel"]
     F --> G{"ชนิดไฟล์และขนาดไฟล์ถูกต้องหรือไม่"}
-    G -- ไม่ --> H["แจ้ง INVALID_FILE_TYPE<br/>หรือ FILE_TOO_LARGE"]
+    G -- ไม่ --> H["แจ้ง UNSUPPORTED_FILE_TYPE<br/>หรือ IMPORT_FILE_TOO_LARGE"]
     G -- ใช่ --> I["สร้าง Import Batch สถานะ Uploaded"]
     I --> J["อ่าน Header และตัวอย่างข้อมูล"]
     J --> K["แสดง Column Mapping"]
@@ -229,8 +229,8 @@ flowchart TD
 | `DUPLICATE_STUDENT_IN_FILE` | ผู้สมัครซ้ำภายในไฟล์ |
 | `DUPLICATE_STUDENT` | ผู้สมัครซ้ำในรอบทุน |
 | `ORPHAN_CONTINUATION_ROW` | แถวต่อเนื่องไม่มีแถวหลัก |
-| `INVALID_FILE_TYPE` | ชนิดไฟล์ไม่รองรับ |
-| `FILE_TOO_LARGE` | ขนาดไฟล์เกินกำหนด |
+| `UNSUPPORTED_FILE_TYPE` | ชนิดไฟล์ Import ไม่รองรับ |
+| `IMPORT_FILE_TOO_LARGE` | ขนาดไฟล์ Import เกินกำหนด |
 
 ---
 
@@ -514,7 +514,7 @@ flowchart TD
     F -- ไม่ --> G["ปฏิเสธและบันทึกเหตุผล"]
     F -- ใช่ --> H{"รอบทุนอยู่ในสถานะ Open หรือไม่"}
     H -- ไม่ --> I{"มีการอนุมัติเปิดรอบ<br/>หรือ Exception Process หรือไม่"}
-    I -- ไม่ --> J["ปฏิเสธ ROUND_CLOSED"]
+    I -- ไม่ --> J["ปฏิเสธ ROUND_NOT_OPEN"]
     I -- ใช่ --> K["เปิดรอบ/สิทธิ์ชั่วคราวตามนโยบาย"]
     H -- ใช่ --> L["เริ่ม Transaction"]
     K --> L
@@ -625,5 +625,6 @@ flowchart TD
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.2 | 2026-07-24 | SEMS Design Team | Aligned import and closed-round errors with module-specific canonical codes. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Standardized observability correlation on `traceId`. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial process flow specification draft. |
