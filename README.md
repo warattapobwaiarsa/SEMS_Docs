@@ -4,12 +4,19 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.7** |
+| Current Version | **v1.11** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
 
 คลังเอกสารสำหรับการวิเคราะห์ ออกแบบ ทดสอบ และนำระบบ SEMS ขึ้นใช้งาน โดยจัดเอกสารตามวงจรการพัฒนาระบบ
+
+## 🚦 เริ่มต้นอ่านเอกสาร
+
+หากเพิ่งเข้ามาใน repository นี้ ให้เริ่มที่  
+👉 [`START_HERE.md`](./START_HERE.md)
+
+หน้านี้มีลำดับการอ่านตามบทบาท พร้อมลิงก์ไปยังเอกสารทั้งหมด
 
 ## 👥 คณะผู้จัดทำ
 
@@ -27,13 +34,14 @@
 
 ดูเส้นทางทั้งหมดและเวอร์ชันรายไฟล์ได้ที่ [REPOSITORY_TREE.md](./REPOSITORY_TREE.md)
 
-| Category | Scope | Key Documents |
-| :--- | :--- | :--- |
-| 📖 **Repository Governance** | Documentation versioning, Commit, Branch, Pull Request, and safety rules | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.1), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, proposals, user stories, meeting notes | `SEMS_Requirement_Decision_Register.md` (v1.0 Draft), `SEMS_Requirement_Decision_Analysis.md` (v1.1 Draft), `SEMS-project-proposal.pdf` (v1.0) |
-| 🎨 **[Design](./Design/README.md)** | Architecture, APIs, database, scoring criteria, import templates, UI/UX | `kku-oauth-summary.md` (v1.0), `Criteria.xlsx` (v1.0), `Data_import_to_web.xlsx` (v1.0), Data Dictionary/Import Mapping (v0.1 Draft), `SEMS_Data_Dictionary.xlsx` (v1.0 Draft) |
-| 🧪 **[Testing](./Testing/README.md)** | Test plans, test cases, UAT | No documents indexed yet |
-| 🚀 **[Deployment](./Deployment/README.md)** | Setup guides, system administration, user manuals | No documents indexed yet |
+| Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
+| :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🚦 **Recommended Entry Point**                  | Reading order, role-based paths, complete file index, and Obsidian setup | [`START_HERE.md`](./START_HERE.md) (v1.0 Current)                                                                                                                                                                                                         |
+| 📖 **Repository Governance**                    | Documentation versioning, Commit, Branch, Pull Request, and safety rules | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.1), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0)                                                                                                                                              |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, proposals, user stories, meeting notes                         | SRS (v2.0 Draft), User Stories (v0.1 Draft), Decision Register/Analysis, [Proposal Markdown](./Requirements/Proposal/SEMS-project-proposal.md)                                                                                                            |
+| 🎨 **[Design](./Design/README.md)**             | Architecture, APIs, database, scoring criteria, import templates, UI/UX  | API/OpenAPI, Process Flows, Permission Matrix, State Transitions, Scoring Rules, [Data Dictionary](./Design/Database/SEMS_Data_Dictionary/README.md), [Import Mapping](./Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md), Wireframes |
+| 🧪 **[Testing](./Testing/README.md)**           | Test plans, test cases, UAT                                              | 3 Test Plans and 6 Test Case documents (v0.1 Draft)                                                                                                                                                                                                       |
+| 🚀 **[Deployment](./Deployment/README.md)**     | Setup guides, system administration, user manuals                        | No documents indexed yet                                                                                                                                                                                                                                  |
 
 ## 🛠️ Technology Stack
 
@@ -47,6 +55,10 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.11 | 2026-07-23 | SEMS Documentation Team | Added `START_HERE.md` as the recommended entry point for GitHub and Obsidian readers. |
+| v1.10 | 2026-07-23 | SEMS Documentation Team | Updated the wireframe overview with readable English captions. |
+| v1.9 | 2026-07-23 | SEMS Documentation Team | Added GitHub-readable PDF and spreadsheet conversions and linked embedded design images and reference artifacts. |
+| v1.8 | 2026-07-23 | SEMS Documentation Team | Reorganized and indexed the SRS, User Stories, full Design package, UI/UX wireframes, and deduplicated Testing package. |
 | v1.7 | 2026-07-23 | SEMS Documentation Team | Added and indexed `Design/Database/SEMS_Data_Dictionary.xlsx` v1.0 (Draft). |
 | v1.6 | 2026-07-23 | SEMS Documentation Team | Added and indexed the Data Dictionary/Import Mapping workbook and guide v0.1 (Draft). |
 | v1.5 | 2026-07-23 | SEMS Documentation Team | Added and indexed `Requirements/SEMS_Requirement_Decision_Analysis.md` v1.1 (Draft). |

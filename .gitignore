@@ -11,6 +11,8 @@ Thumbs.db
 # Microsoft Office temporary files
 ~$*
 
-# Temporary inspect files
+# Temporary inspect and build files
 .tmp-sheet-inspect/
+tmp/
+
 

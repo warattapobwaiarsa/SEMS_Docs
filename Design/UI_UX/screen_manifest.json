@@ -1,0 +1,92 @@
+[
+  {
+    "id": "login",
+    "number": "01",
+    "title": "Login",
+    "role": "ทุกบทบาท"
+  },
+  {
+    "id": "dashboard",
+    "number": "02",
+    "title": "Admin Dashboard",
+    "role": "Admin"
+  },
+  {
+    "id": "rounds",
+    "number": "03",
+    "title": "จัดการรอบทุน",
+    "role": "Admin"
+  },
+  {
+    "id": "upload",
+    "number": "04",
+    "title": "Import Upload",
+    "role": "Admin"
+  },
+  {
+    "id": "mapping",
+    "number": "05",
+    "title": "Column Mapping",
+    "role": "Admin"
+  },
+  {
+    "id": "preview",
+    "number": "06",
+    "title": "Import Preview",
+    "role": "Admin"
+  },
+  {
+    "id": "errors",
+    "number": "07",
+    "title": "Import Error Report",
+    "role": "Admin"
+  },
+  {
+    "id": "applicants",
+    "number": "08",
+    "title": "รายชื่อผู้สมัคร",
+    "role": "Admin"
+  },
+  {
+    "id": "applicant-detail",
+    "number": "09",
+    "title": "รายละเอียดผู้สมัคร",
+    "role": "Admin"
+  },
+  {
+    "id": "criteria",
+    "number": "10",
+    "title": "จัดการเกณฑ์",
+    "role": "Admin"
+  },
+  {
+    "id": "select-applicant",
+    "number": "11",
+    "title": "เลือกผู้สมัคร",
+    "role": "Evaluator"
+  },
+  {
+    "id": "evaluation",
+    "number": "12",
+    "title": "ประเมินหน้าเดียว",
+    "role": "Evaluator"
+  },
+  {
+    "id": "review",
+    "number": "13",
+    "title": "Review Before Submit",
+    "role": "Evaluator"
+  },
+  {
+    "id": "summary",
+    "number": "14",
+    "title": "สรุปผล",
+    "role": "Admin"
+  },
+  {
+    "id": "export",
+    "number": "15",
+    "title": "ส่งออกรายงาน",
+    "role": "Admin"
+  }
+]

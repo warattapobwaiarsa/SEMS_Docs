@@ -1,0 +1,443 @@
+{
+  "specification_id": "SEMS-SCORING-RULE-001",
+  "name": "SEMS Scholarship Evaluation Scoring Rules",
+  "version": "1.0.0",
+  "status": "DRAFT_PENDING_STAKEHOLDER_APPROVAL",
+  "source_files": [
+    "Criteria.xlsx",
+    "SEMS-project-proposal.pdf"
+  ],
+  "criteria_set": {
+    "criteria_set_code": "SEMS-DEFAULT-100",
+    "criteria_set_name": "เกณฑ์ประเมินทุนการศึกษา คะแนนเต็ม 100",
+    "criteria_version": "1.0.0",
+    "scholarship_round_id": "TBD_BY_ADMIN",
+    "score_mode": "EMBEDDED_POINT",
+    "total_min_score": 5,
+    "total_max_score": 100,
+    "weight_total_percent": 100,
+    "criteria_count": 10,
+    "is_active": false
+  },
+  "calculation_rules": {
+    "evaluator_total_formula": "SUM(item_score for all 10 required scored criteria)",
+    "weight_interpretation": "คะแนนของแต่ละตัวเลือกเป็นคะแนนถ่วงน้ำหนักสำเร็จแล้ว; weight_percent ใช้เป็น metadata และไม่คูณซ้ำ",
+    "eligible_evaluation_status": [
+      "SUBMITTED"
+    ],
+    "minimum_submitted_evaluators": 2,
+    "maximum_evaluators": 3,
+    "unique_evaluator_required": true,
+    "applicant_summary_formula": "ARITHMETIC_MEAN(evaluator_total of eligible unique evaluators)",
+    "recalculate_on_third_submission": true,
+    "rounding": {
+      "scale": 2,
+      "mode": "HALF_UP",
+      "stage": "FINAL_APPLICANT_SUMMARY_ONLY",
+      "use_decimal_not_binary_float": true
+    },
+    "summary_available_when": "submitted_evaluator_count >= 2",
+    "finalized_when": "scholarship_round.status == CLOSED and submitted_evaluator_count >= 2"
+  },
+  "comment_rules": {
+    "overall_comment_required": false,
+    "conditional_comment_required": [
+      "CRT-04 option USE-OTHER-NECESSARY",
+      "CRT-09 option JUDGMENT-URGENT",
+      "CRT-09 option JUDGMENT-OTHER",
+      "CRT-09 option JUDGMENT-CUSTOM"
+    ],
+    "minimum_comment_length_when_required": 10
+  },
+  "versioning_rules": {
+    "lock_trigger": "เมื่อมี Evaluation ที่ยังไม่ถูกยกเลิกอย่างน้อย 1 รายการ ไม่ว่าจะเป็น DRAFT หรือ SUBMITTED",
+    "direct_edit_after_lock": false,
+    "change_method": "สร้าง Criteria Version ใหม่",
+    "evaluation_stores_criteria_version_snapshot": true,
+    "current_round_switch_after_lock": "ห้ามสลับเวอร์ชันในรอบเดิมโดยตรง; ต้องยกเลิกรายการประเมินทั้งหมดและดำเนินการตามกระบวนการอนุมัติเท่านั้น"
+  },
+  "criteria": [
+    {
+      "criterion_code": "CRT-01",
+      "name": "ค่าเทอม",
+      "description": "ประเมินระดับการมีผู้สนับสนุนหรือแหล่งเงินสำหรับค่าเทอมของผู้สมัคร",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 1,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "TUITION-NONE",
+          "label": "ไม่มีผู้อื่นส่งเสียค่าเทอม",
+          "score": 10
+        },
+        {
+          "option_code": "TUITION-PARTIAL",
+          "label": "มีผู้อื่นหรือแหล่งทุนอื่นส่งเสียค่าเทอมบางส่วน หรือกู้ยืม หรือกู้ กยศ. ไม่ผ่าน",
+          "score": 5
+        },
+        {
+          "option_code": "TUITION-FULL",
+          "label": "มีผู้อื่นส่งเสียค่าเทอมทั้งหมด",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-02",
+      "name": "การสนับสนุนค่าใช้จ่ายประจำวัน",
+      "description": "ประเมินระดับการมีผู้สนับสนุนค่าใช้จ่ายประจำวันและความเพียงพอของการสนับสนุน",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 2,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "LIVING-NONE",
+          "label": "ไม่มีผู้อื่นส่งเสียค่าใช้จ่ายประจำวัน",
+          "score": 10
+        },
+        {
+          "option_code": "LIVING-PARTIAL",
+          "label": "มีผู้อื่นหรือแหล่งทุนอื่นส่งเสียค่าใช้จ่ายประจำวัน แต่ไม่เพียงพอ หรือได้รับจากการกู้ยืม",
+          "score": 5
+        },
+        {
+          "option_code": "LIVING-SUFFICIENT",
+          "label": "มีผู้อื่นส่งเสียค่าใช้จ่ายประจำวันอย่างเพียงพอ",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-03",
+      "name": "การทำงานพิเศษ",
+      "description": "ประเมินความพยายามหรือข้อจำกัดในการหารายได้เพื่อเลี้ยงตนเอง",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 3,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "WORK-CURRENT",
+          "label": "ปัจจุบันทำงานหาเลี้ยงตนเอง หรือทำงานที่ไม่ได้มีรายรับ",
+          "score": 10
+        },
+        {
+          "option_code": "WORK-PAST-OR-SEEKING",
+          "label": "เคยทำงานพิเศษ กำลังมองหางานพิเศษ หรือมีเหตุอันควรให้ไม่สามารถทำงานพิเศษได้",
+          "score": 5
+        },
+        {
+          "option_code": "WORK-NONE",
+          "label": "ไม่ทำงานหาเลี้ยงตนเอง",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-04",
+      "name": "การนำทุนไปใช้ประโยชน์",
+      "description": "ประเมินวัตถุประสงค์หลักที่ผู้สมัครจะนำเงินทุนไปใช้",
+      "min_score": 5,
+      "max_score": 20,
+      "weight_percent": 20,
+      "display_order": 4,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "USE-CORE-EXPENSE",
+          "label": "ใช้เป็นค่าเทอม หรือค่าใช้จ่ายประจำวัน",
+          "score": 20
+        },
+        {
+          "option_code": "USE-SUPPLEMENT-CORE",
+          "label": "ค่าเทอม หรือค่าใช้จ่าย เพิ่มจากที่ได้จากผู้อื่นหรือแหล่งทุนอื่น",
+          "score": 15
+        },
+        {
+          "option_code": "USE-DEBT-FAMILY",
+          "label": "ชำระหนี้สิน เงินกู้ยืมมาจ่ายค่าเทอม ค่ากินอยู่ หรือต้องส่งเสียครอบครัว",
+          "score": 10
+        },
+        {
+          "option_code": "USE-MISSING-EQUIPMENT",
+          "label": "ซื้ออุปกรณ์การเรียนที่ขาดแคลน",
+          "score": 5
+        },
+        {
+          "option_code": "USE-EMERGENCY-SAVING",
+          "label": "เงินสะสมฉุกเฉิน หรือไม่อยากรบกวนครอบครัว",
+          "score": 5
+        },
+        {
+          "option_code": "USE-SKILL-DEVELOPMENT",
+          "label": "พัฒนาทักษะเพิ่มเติม ซื้ออุปกรณ์การเรียนเพิ่มเติม หรือค่าใช้จ่ายเพิ่มเติมจากสหกิจ",
+          "score": 5
+        },
+        {
+          "option_code": "USE-OTHER-NECESSARY",
+          "label": "อื่น ๆ ที่จำเป็น",
+          "score": 5,
+          "comment_required": true
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-05",
+      "name": "ระดับค่าใช้จ่ายประจำวันต่อเดือน",
+      "description": "ประเมินระดับค่าใช้จ่ายประจำวันของผู้สมัครต่อเดือน โดยปรับชื่อจากหัวข้อซ้ำในไฟล์ต้นฉบับให้ชัดเจนขึ้น",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 5,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "EXPENSE-LE-5000",
+          "label": "ไม่เกิน 5,000 บาทต่อเดือน",
+          "score": 10
+        },
+        {
+          "option_code": "EXPENSE-5001-10000",
+          "label": "มากกว่า 5,000 ถึง 10,000 บาทต่อเดือน",
+          "score": 5
+        },
+        {
+          "option_code": "EXPENSE-GT-10000",
+          "label": "มากกว่า 10,000 บาทต่อเดือน",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-06",
+      "name": "ค่าที่พัก",
+      "description": "ประเมินภาระค่าที่พัก ค่าเช่า ค่าน้ำ และค่าไฟของผู้สมัคร",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 6,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "HOUSING-LOW",
+          "label": "หอในมหาวิทยาลัย นอนวัด หรือค่าเช่าต่ำกว่า 2,000 บาทต่อเดือน",
+          "score": 10
+        },
+        {
+          "option_code": "HOUSING-MID",
+          "label": "พักอยู่กับครอบครัว/ญาติ หรือค่าที่พัก 2,001–4,000 บาทต่อเดือน",
+          "score": 5
+        },
+        {
+          "option_code": "HOUSING-HIGH",
+          "label": "ค่าที่พักมากกว่า 4,000 บาทต่อเดือน",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-07",
+      "name": "การเดินทางมาเรียน",
+      "description": "ประเมินลักษณะและต้นทุนโดยประมาณของการเดินทางมาเรียน",
+      "min_score": 0,
+      "max_score": 5,
+      "weight_percent": 5,
+      "display_order": 7,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "TRAVEL-PUBLIC-NONMOTOR",
+          "label": "รถสาธารณะ รถจักรยาน เดิน หรือติดรถผู้อื่นมา",
+          "score": 5
+        },
+        {
+          "option_code": "TRAVEL-MOTORCYCLE",
+          "label": "รถมอเตอร์ไซค์",
+          "score": 2
+        },
+        {
+          "option_code": "TRAVEL-CAR-PRIVATE",
+          "label": "รถยนต์หรือรถรับส่งเอกชน (เช่น Grab)",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-08",
+      "name": "ผลการเรียน",
+      "description": "ให้คะแนนตามช่วง GPA ของผู้สมัคร",
+      "min_score": 0,
+      "max_score": 5,
+      "weight_percent": 5,
+      "display_order": 8,
+      "required": true,
+      "input_type": "DERIVED_OR_SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "GPA-GE-3",
+          "label": "GPA ตั้งแต่ 3.00 ขึ้นไป",
+          "score": 5,
+          "condition": "gpa >= 3.00"
+        },
+        {
+          "option_code": "GPA-2_50-2_99",
+          "label": "GPA 2.50–2.99",
+          "score": 3,
+          "condition": "2.50 <= gpa < 3.00"
+        },
+        {
+          "option_code": "GPA-2_00-2_49",
+          "label": "GPA 2.00–2.49",
+          "score": 1,
+          "condition": "2.00 <= gpa < 2.50"
+        },
+        {
+          "option_code": "GPA-LT-2",
+          "label": "GPA ต่ำกว่า 2.00",
+          "score": 0,
+          "condition": "gpa < 2.00"
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-09",
+      "name": "ดุลพินิจของอาจารย์",
+      "description": "ประเมินความจำเป็นพิเศษจากเหตุการณ์หรือบริบทที่เกณฑ์อื่นไม่ครอบคลุม",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 9,
+      "required": true,
+      "input_type": "SELECT_OR_MANUAL_SCORE",
+      "manual_score": {
+        "allowed": true,
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "comment_required": true
+      },
+      "options": [
+        {
+          "option_code": "JUDGMENT-URGENT",
+          "label": "จำเป็นมาก เช่น อุบัติเหตุร้ายแรง อุบัติภัย ผู้อุปการะเจ็บป่วย หรือล้มละลาย",
+          "score": 10,
+          "comment_required": true
+        },
+        {
+          "option_code": "JUDGMENT-OTHER",
+          "label": "จำเป็นอื่น ๆ ตามความเห็นอาจารย์",
+          "score": 5,
+          "comment_required": true
+        },
+        {
+          "option_code": "JUDGMENT-NONE",
+          "label": "ไม่จำเป็น",
+          "score": 0
+        },
+        {
+          "option_code": "JUDGMENT-CUSTOM",
+          "label": "กำหนดคะแนนอื่น 0–10 คะแนน",
+          "score": null,
+          "manual_score_required": true,
+          "comment_required": true
+        }
+      ]
+    },
+    {
+      "criterion_code": "CRT-10",
+      "name": "ส่วนร่วมกับคณะหรือมหาวิทยาลัย",
+      "description": "ประเมินบทบาทผู้นำ การเป็นกรรมการ กิจกรรม กีฬา หรือรางวัลในระดับที่กำหนด",
+      "min_score": 0,
+      "max_score": 10,
+      "weight_percent": 10,
+      "display_order": 10,
+      "required": true,
+      "input_type": "SINGLE_SELECT",
+      "options": [
+        {
+          "option_code": "ACTIVITY-QUALIFIED",
+          "label": "มีส่วนร่วมตามเกณฑ์ เช่น เป็นกรรมการ/ผู้นำโครงการ/หัวหน้าสาขาหรือชั้นปี/นักกีฬาตัวแทน/ได้รับรางวัล",
+          "score": 10
+        },
+        {
+          "option_code": "ACTIVITY-NONE",
+          "label": "ไม่มีส่วนร่วมตามเกณฑ์",
+          "score": 0,
+          "normalization_note": "เพิ่มแทนเครื่องหมาย '-' ในไฟล์ เพื่อให้ระบบเก็บค่าชัดเจน"
+        }
+      ]
+    }
+  ],
+  "supplementary_fields": [
+    {
+      "field_code": "DEC-01",
+      "name": "การรับทุนต่อเนื่อง",
+      "affects_score": false,
+      "required": true,
+      "input_type": "BOOLEAN",
+      "values": [
+        {
+          "value": true,
+          "label": "สมควรได้รับทุนต่อเนื่อง 2 ภาคการศึกษา"
+        },
+        {
+          "value": false,
+          "label": "ไม่เสนอให้รับทุนต่อเนื่อง"
+        }
+      ]
+    },
+    {
+      "field_code": "DEC-02",
+      "name": "มูลค่าทุนที่สมควรได้รับ",
+      "affects_score": false,
+      "required": true,
+      "input_type": "SELECT_OR_CUSTOM_AMOUNT_OR_NONE",
+      "allowed_amounts_thb": [
+        5000,
+        10000,
+        15000,
+        20000,
+        25000
+      ],
+      "allow_custom_amount": true,
+      "custom_amount_rule": "positive integer THB; must not exceed scholarship_round.max_recommended_amount",
+      "comment_required_for_custom_amount": true,
+      "allow_none": true
+    },
+    {
+      "field_code": "CMT-01",
+      "name": "ความคิดเห็นเพิ่มเติม",
+      "affects_score": false,
+      "required": false,
+      "input_type": "TEXTAREA",
+      "max_length": 2000
+    }
+  ],
+  "validation_error_codes": [
+    "CRITERIA_SET_INCOMPLETE",
+    "SCORE_REQUIRED",
+    "INVALID_SCORE_OPTION",
+    "INVALID_MANUAL_SCORE",
+    "SCORE_OUT_OF_RANGE",
+    "COMMENT_REQUIRED",
+    "CRITERIA_VERSION_LOCKED",
+    "CRITERIA_VERSION_MISMATCH",
+    "INSUFFICIENT_SUBMITTED_EVALUATIONS",
+    "DUPLICATE_EVALUATOR",
+    "EVALUATOR_LIMIT_EXCEEDED",
+    "ROUND_NOT_OPEN",
+    "INVALID_RECOMMENDED_AMOUNT"
+  ]
+}

@@ -2,27 +2,35 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.1** |
+| Current Version | **v1.2** |
 | Last Updated | **2026-07-23** |
-| Scope | Test plans, test cases, and user acceptance testing |
-
-เอกสารสำหรับตรวจสอบความถูกต้องและการยอมรับระบบ SEMS
+| Author | **SEMS Documentation Team** |
+| Scope | Test plans, test cases, regression, security, and UAT |
 
 ## Directory Index
 
-- **Test_Plans/** — Test strategies and master test plans
-- **Test_Cases/** — Test cases and test scripts
+- **Test_Plans/** — Master plan, risk coverage, test data, and environments
+- **Test_Cases/** — Functional, high-risk, import, scoring, security, and regression cases
 - **UAT/** — User Acceptance Testing documents and sign-off records
 
 ## Document Register
 
-| Document | Version | Last Updated | Status |
-| :--- | :---: | :---: | :--- |
-| _No testing documents indexed yet_ | — | 2026-07-23 | Awaiting documents |
+| Document | Version | Status |
+| :--- | :---: | :--- |
+| [`Test_Plans/SEMS_Master_Test_Plan.md`](./Test_Plans/SEMS_Master_Test_Plan.md) | v0.1 | Draft |
+| [`Test_Plans/SEMS_Risk_and_Coverage_Matrix.md`](./Test_Plans/SEMS_Risk_and_Coverage_Matrix.md) | v0.1 | Draft |
+| [`Test_Plans/SEMS_Test_Data_and_Environment_Plan.md`](./Test_Plans/SEMS_Test_Data_and_Environment_Plan.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_Functional_Test_Case_Catalog.md`](./Test_Cases/SEMS_Functional_Test_Case_Catalog.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_High_Risk_Test_Cases.md`](./Test_Cases/SEMS_High_Risk_Test_Cases.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_Import_Test_Cases.md`](./Test_Cases/SEMS_Import_Test_Cases.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md`](./Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md`](./Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md) | v0.1 | Draft |
+| [`Test_Cases/SEMS_Regression_Checklist.md`](./Test_Cases/SEMS_Regression_Checklist.md) | v0.1 | Draft |
 
 ## Revision History
 
-| Version | Date | Document / Change |
-| :--- | :--- | :--- |
-| v1.1 | 2026-07-23 | Re-indexed the Testing directory and recorded the current empty-document state. |
-| v1.0 | 2026-07-22 | Established Test Plans, Test Cases, and UAT categories. |
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-23 | SEMS Documentation Team | Added and deduplicated the SEMS testing package: three test plans and six test-case documents. |
+| v1.1 | 2026-07-23 | SEMS Documentation Team | Re-indexed the Testing directory and recorded the empty-document state. |
+| v1.0 | 2026-07-22 | SEMS Documentation Team | Established Test Plans, Test Cases, and UAT categories. |

@@ -1,0 +1,4209 @@
+openapi: 3.1.0
+info:
+  title: SEMS REST API
+  version: 1.0.0-draft
+  summary: Scholarship Evaluation Management System API Specification
+  description: 'API Specification สำหรับระบบบริหารจัดการการประเมินทุนการศึกษา (SEMS)
+
+
+    หลักการสำคัญ:
+
+    - ใช้ KKU OAuth 2.1 / OpenID Connect สำหรับ Authentication และใช้ SEMS Session cookie หลัง callback
+
+    - ใช้ RBAC สองบทบาท: ADMIN และ EVALUATOR พร้อม Object-level authorization
+
+    - State-changing API ต้องใช้ CSRF token
+
+    - ใช้เฉพาะ Evaluation สถานะ SUBMITTED ในการคำนวณผลสรุป
+
+    - ผู้สมัครหนึ่งรายต่อรอบมี active Evaluation ได้สูงสุด 3 รายการ และผู้ประเมินคนเดิมห้ามซ้ำ
+
+    - Error response ใช้รูปแบบเดียวกันทุก endpoint และทุกเหตุการณ์สำคัญต้องบันทึก Audit Event
+
+
+    เอกสารนี้เป็น Draft สำหรับ System Design Review; ค่าที่ยังต้องยืนยัน เช่น สูตรคะแนน การปัดเศษ
+
+    ขนาดไฟล์สูงสุด Rate Limit และ Reopen Policy ถูกระบุให้เป็น configuration/policy แทนการ hard-code'
+  contact:
+    name: SEMS Project Team
+servers:
+- url: https://sems.example.kku.ac.th/api/v1
+  description: Production (placeholder)
+- url: http://localhost:3001/api/v1
+  description: Local development
+tags:
+- name: Auth
+  description: KKU SSO, SEMS Session และข้อมูลผู้ใช้ปัจจุบัน
+- name: Users
+  description: การเชื่อมโยง KKU Account, Role และสถานะบัญชี SEMS
+- name: Scholarship Rounds
+  description: วงจร Draft → Open → Closed → Archived
+- name: Imports
+  description: อัปโหลด Mapping Preview Validation และ Confirm ข้อมูลผู้สมัคร
+- name: Applicants
+  description: ค้นหาและจัดการข้อมูลผู้สมัครแยกตามรอบทุน
+- name: Documents
+  description: Metadata และ content ของ PDF/JPG/PNG ผ่าน Backend authorization
+- name: Criteria Sets
+  description: ชุดเกณฑ์ เวอร์ชัน และการเปิดใช้งาน
+- name: Evaluations
+  description: เลือกผู้สมัคร Draft Review Submit Cancel และ Reopen
+- name: Result Summaries
+  description: ผลสรุปจาก Submitted 2–3 คน และ Dashboard
+- name: Reports
+  description: สร้างและดาวน์โหลด Excel/CSV
+- name: Audit Logs
+  description: ค้นหาเหตุการณ์สำคัญโดยไม่บันทึก secret/token
+security:
+- cookieAuth: []
+paths:
+  /auth/login:
+    get:
+      tags:
+      - Auth
+      summary: เริ่มเข้าสู่ระบบด้วย KKU SSO
+      operationId: startLogin
+      responses:
+        '302':
+          description: Redirect ไปยัง KKU authorization endpoint
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-roles: []
+      x-error-codes:
+      - SSO_UNAVAILABLE
+      - INVALID_RETURN_URL
+      x-validation:
+      - returnUrl ต้องเป็น path ภายในระบบเท่านั้น
+      x-audit-events:
+      - AUTH_LOGIN_STARTED
+      description: Backend สร้าง state, nonce, PKCE code_verifier/code_challenge และ Redirect ไป KKU OAuth 2.1/OIDC
+      parameters:
+      - name: returnUrl
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2048
+        description: URL ภายใน SEMS ที่จะกลับหลังเข้าสู่ระบบ
+      security: []
+  /auth/callback:
+    get:
+      tags:
+      - Auth
+      summary: รับ Callback จาก KKU SSO
+      operationId: handleLoginCallback
+      responses:
+        '302':
+          description: สร้าง SEMS Session สำเร็จและ Redirect กลับระบบ
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: Frontend URL
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-roles: []
+      x-error-codes:
+      - AUTH_CALLBACK_INVALID
+      - STATE_MISMATCH
+      - NONCE_MISMATCH
+      - TOKEN_VALIDATION_FAILED
+      - USER_NOT_PROVISIONED
+      - USER_INACTIVE
+      - SSO_UNAVAILABLE
+      x-validation:
+      - ตรวจ state และ nonce
+      - แลก authorization code ด้วย PKCE verifier
+      - ตรวจลายเซ็น/issuer/audience/expiry ของ id_token
+      - ใช้ KKU sub เป็นตัวระบุถาวร
+      x-audit-events:
+      - AUTH_LOGIN_SUCCESS
+      - AUTH_LOGIN_FAILURE
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: error
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: error_description
+        in: query
+        required: false
+        schema:
+          type: string
+      security: []
+  /auth/me:
+    get:
+      tags:
+      - Auth
+      summary: อ่านข้อมูลผู้ใช้ปัจจุบัน
+      operationId: getCurrentUser
+      responses:
+        '200':
+          description: ข้อมูลผู้ใช้และสิทธิ์ปัจจุบัน
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: &id001
+      - ADMIN
+      - EVALUATOR
+      x-error-codes:
+      - AUTH_REQUIRED
+      - USER_INACTIVE
+      x-validation:
+      - Session ต้องยังไม่หมดอายุและบัญชี SEMS ต้อง ACTIVE
+      x-audit-events: []
+  /auth/logout:
+    post:
+      tags:
+      - Auth
+      summary: ออกจากระบบ SEMS
+      operationId: logout
+      responses:
+        '204':
+          description: ยกเลิก SEMS Session สำเร็จ
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-roles: *id001
+      x-error-codes:
+      - AUTH_REQUIRED
+      - CSRF_INVALID
+      - SSO_LOGOUT_FAILED
+      x-validation:
+      - ยกเลิก Session ฝั่ง SEMS เสมอ
+      - การออกจาก KKU SSO ทั้งหมดขึ้นกับ logout mode ที่กำหนด
+      x-audit-events:
+      - AUTH_LOGOUT
+      parameters:
+      - &id003
+        name: X-CSRF-Token
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 16
+        description: CSRF token สำหรับคำขอที่เปลี่ยนแปลงข้อมูล
+  /users:
+    get:
+      tags:
+      - Users
+      summary: ค้นหาและแสดงผู้ใช้งาน SEMS
+      operationId: listUsers
+      responses:
+        '200':
+          description: รายการผู้ใช้งาน
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - items
+                - meta
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: &id002
+      - ADMIN
+      x-error-codes:
+      - AUTH_REQUIRED
+      - FORBIDDEN
+      x-validation:
+      - pageSize ไม่เกิน 100
+      x-audit-events: []
+      parameters:
+      - &id004
+        name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: หน้าปัจจุบัน
+      - &id005
+        name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        description: จำนวนรายการต่อหน้า
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 200
+      - name: role
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Role'
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/UserStatus'
+    post:
+      tags:
+      - Users
+      summary: เชื่อมโยง KKU Account และสร้างบัญชี SEMS
+      operationId: createUser
+      responses:
+        '201':
+          description: สร้างบัญชีสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - VALIDATION_ERROR
+      - DUPLICATE_KKU_SUB
+      - DUPLICATE_EMAIL
+      - CSRF_INVALID
+      x-validation:
+      - kkuSub และ email ต้องไม่ซ้ำ
+      - ระบบไม่รับหรือจัดเก็บรหัสผ่าน KKU
+      x-audit-events:
+      - USER_CREATED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+  /users/{userId}:
+    get:
+      tags:
+      - Users
+      summary: อ่านรายละเอียดผู้ใช้งาน
+      operationId: getUser
+      responses:
+        '200':
+          description: รายละเอียดผู้ใช้งาน
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - USER_NOT_FOUND
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสผู้ใช้
+    patch:
+      tags:
+      - Users
+      summary: แก้ไขชื่อหรือบทบาทผู้ใช้งาน
+      operationId: updateUser
+      responses:
+        '200':
+          description: แก้ไขสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - USER_NOT_FOUND
+      - VALIDATION_ERROR
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - ห้ามลดสิทธิ์ผู้ดูแลระบบคนสุดท้าย
+      - If-Match ต้องตรงเมื่อส่งมา
+      x-audit-events:
+      - USER_UPDATED
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสผู้ใช้
+      - *id003
+      - &id006
+        name: If-Match
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Optimistic concurrency token เช่น W/"7"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+  /users/{userId}/activate:
+    post:
+      tags:
+      - Users
+      summary: เปิดสิทธิ์ใช้งาน SEMS
+      operationId: setUserStatusActivate
+      responses:
+        '200':
+          description: ปรับสถานะสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - USER_NOT_FOUND
+      - LAST_ACTIVE_ADMIN
+      - CSRF_INVALID
+      x-validation:
+      - ห้ามปิดสิทธิ์ผู้ดูแลระบบ ACTIVE คนสุดท้าย
+      x-audit-events:
+      - USER_ACTIVATED
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสผู้ใช้
+      - *id003
+  /users/{userId}/deactivate:
+    post:
+      tags:
+      - Users
+      summary: ปิดสิทธิ์ใช้งาน SEMS
+      operationId: setUserStatusDeactivate
+      responses:
+        '200':
+          description: ปรับสถานะสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - USER_NOT_FOUND
+      - LAST_ACTIVE_ADMIN
+      - CSRF_INVALID
+      x-validation:
+      - ห้ามปิดสิทธิ์ผู้ดูแลระบบ ACTIVE คนสุดท้าย
+      x-audit-events:
+      - USER_DEACTIVATED
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสผู้ใช้
+      - *id003
+  /scholarship-rounds:
+    get:
+      tags:
+      - Scholarship Rounds
+      summary: แสดงรอบทุน
+      operationId: listScholarshipRounds
+      responses:
+        '200':
+          description: รายการรอบทุน
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScholarshipRound'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id001
+      x-error-codes:
+      - AUTH_REQUIRED
+      x-validation:
+      - Evaluator เห็นเฉพาะรอบที่เกี่ยวข้อง โดยค่าเริ่มต้นคือ OPEN
+      x-audit-events: []
+      parameters:
+      - *id004
+      - *id005
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/RoundStatus'
+    post:
+      tags:
+      - Scholarship Rounds
+      summary: สร้างรอบทุน
+      operationId: createScholarshipRound
+      responses:
+        '201':
+          description: สร้างรอบทุนสถานะ DRAFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - VALIDATION_ERROR
+      - DUPLICATE_ROUND_CODE
+      - INVALID_DATE_RANGE
+      - CSRF_INVALID
+      x-validation:
+      - startDate ต้องไม่เกิน endDate
+      - code ต้องไม่ซ้ำ
+      x-audit-events:
+      - ROUND_CREATED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoundRequest'
+  /scholarship-rounds/{roundId}:
+    get:
+      tags:
+      - Scholarship Rounds
+      summary: อ่านรายละเอียดรอบทุน
+      operationId: getScholarshipRound
+      responses:
+        '200':
+          description: รายละเอียดรอบทุน
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ACCESS_DENIED
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: roundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสรอบทุน
+    patch:
+      tags:
+      - Scholarship Rounds
+      summary: แก้ไขรอบทุนสถานะ DRAFT
+      operationId: updateScholarshipRound
+      responses:
+        '200':
+          description: แก้ไขสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - ROUND_HAS_EVALUATIONS
+      - INVALID_DATE_RANGE
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - แก้ไขข้อมูลหลักได้เมื่อ DRAFT
+      - หากมี Evaluation แล้วห้ามเปลี่ยนข้อมูลที่กระทบผล
+      x-audit-events:
+      - ROUND_UPDATED
+      parameters:
+      - name: roundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสรอบทุน
+      - *id003
+      - *id006
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoundRequest'
+  /scholarship-rounds/{roundId}/open:
+    post:
+      tags:
+      - Scholarship Rounds
+      summary: เปิดรอบทุน
+      operationId: setRoundOpen
+      responses:
+        '200':
+          description: เปลี่ยนสถานะเป็น OPEN
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - CRITERIA_REQUIRED
+      - CRITERIA_INVALID
+      - NO_APPLICANTS
+      - CSRF_INVALID
+      x-validation:
+      - สถานะเดิมต้อง DRAFT
+      - ต้องมี Criteria Set ACTIVE และมีผู้สมัครอย่างน้อย 1 ราย
+      x-audit-events:
+      - ROUND_OPENED
+      parameters:
+      - name: roundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสรอบทุน
+      - *id003
+  /scholarship-rounds/{roundId}/close:
+    post:
+      tags:
+      - Scholarship Rounds
+      summary: ปิดรอบทุน
+      operationId: setRoundClose
+      responses:
+        '200':
+          description: เปลี่ยนสถานะเป็น CLOSED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - CSRF_INVALID
+      x-validation:
+      - สถานะเดิมต้อง OPEN
+      - ปิดการสร้าง/Submit Evaluation ใหม่
+      - ผู้สมัคร Submitted >=2 เป็น FINALIZED; น้อยกว่า 2 เป็น CLOSED_INCOMPLETE
+      x-audit-events:
+      - ROUND_CLOSED
+      parameters:
+      - name: roundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสรอบทุน
+      - *id003
+  /scholarship-rounds/{roundId}/archive:
+    post:
+      tags:
+      - Scholarship Rounds
+      summary: จัดเก็บรอบทุน
+      operationId: setRoundArchive
+      responses:
+        '200':
+          description: เปลี่ยนสถานะเป็น ARCHIVED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScholarshipRound'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - CSRF_INVALID
+      x-validation:
+      - สถานะเดิมต้อง CLOSED
+      - ข้อมูลยังอ่านได้แต่แก้ไขไม่ได้
+      x-audit-events:
+      - ROUND_ARCHIVED
+      parameters:
+      - name: roundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสรอบทุน
+      - *id003
+  /imports:
+    get:
+      tags:
+      - Imports
+      summary: แสดงประวัติการนำเข้า
+      operationId: listImports
+      responses:
+        '200':
+          description: รายการ Import Batch
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ImportBatch'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id002
+      x-error-codes:
+      - FORBIDDEN
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - *id004
+      - *id005
+      - name: roundId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ImportStatus'
+    post:
+      tags:
+      - Imports
+      summary: อัปโหลดไฟล์ผู้สมัคร
+      operationId: createImport
+      responses:
+        '201':
+          description: สร้าง Import Batch สถานะ UPLOADED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - IMPORT_FILE_UNSUPPORTED
+      - IMPORT_FILE_EMPTY
+      - IMPORT_FILE_TOO_LARGE
+      - CSRF_INVALID
+      x-validation:
+      - รองรับ CSV/XLS/XLSX
+      - รอบทุนต้อง DRAFT หรือ OPEN ตามนโยบายที่กำหนด
+      - ขนาดไฟล์ใช้ค่าจาก configuration
+      x-audit-events:
+      - IMPORT_UPLOADED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - roundId
+              - file
+              properties:
+                roundId:
+                  type: string
+                  format: uuid
+                file:
+                  type: string
+                  format: binary
+  /imports/{importId}:
+    get:
+      tags:
+      - Imports
+      summary: อ่านสถานะ Import Batch
+      operationId: getImport
+      responses:
+        '200':
+          description: รายละเอียด Import Batch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+  /imports/{importId}/mapping:
+    put:
+      tags:
+      - Imports
+      summary: บันทึก Column Mapping
+      operationId: saveImportMapping
+      responses:
+        '200':
+          description: บันทึก Mapping และเปลี่ยนสถานะเป็น MAPPED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      - IMPORT_STATE_INVALID
+      - IMPORT_MAPPING_INCOMPLETE
+      - DUPLICATE_TARGET_FIELD
+      - UNKNOWN_TARGET_FIELD
+      - CSRF_INVALID
+      x-validation:
+      - ทุกฟิลด์บังคับต้องมี Mapping
+      - หนึ่ง targetField รับได้ไม่เกินหนึ่ง sourceColumn เว้นแต่ระบุ multi-row transform
+      x-audit-events:
+      - IMPORT_MAPPING_SAVED
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportMappingRequest'
+  /imports/{importId}/validate:
+    post:
+      tags:
+      - Imports
+      summary: ตรวจสอบและแปลงข้อมูลนำเข้า
+      operationId: validateImport
+      responses:
+        '200':
+          description: ผลการตรวจสอบ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  batch:
+                    $ref: '#/components/schemas/ImportBatch'
+                  topErrors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ImportError'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      - IMPORT_STATE_INVALID
+      - IMPORT_MAPPING_INCOMPLETE
+      - REQUIRED_FIELD_MISSING
+      - INVALID_STUDENT_ID
+      - INVALID_GPA
+      - INVALID_DATE
+      - INVALID_PHONE
+      - INVALID_EMAIL
+      - INVALID_COORDINATE
+      - DUPLICATE_STUDENT
+      - ORPHAN_CONTINUATION_ROW
+      - CSRF_INVALID
+      x-validation:
+      - รหัสนักศึกษาใช้รูปแบบ ^\d{9}-\d$ (check digit เป็นกฎแยก)
+      - GPA 0.00-4.00
+      - วันที่ไทยต้องแปลง พ.ศ. เป็น ค.ศ.
+      - พิกัด latitude/longitude อยู่ในช่วงมาตรฐาน
+      - รองรับข้อมูล กยศ./ทุนหลายแถวและตรวจ orphan continuation row
+      x-audit-events:
+      - IMPORT_VALIDATED
+      - IMPORT_VALIDATION_FAILED
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id003
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportValidationRequest'
+  /imports/{importId}/preview:
+    get:
+      tags:
+      - Imports
+      summary: ดูตัวอย่างข้อมูลหลังแปลง
+      operationId: getImportPreview
+      responses:
+        '200':
+          description: ตัวอย่างข้อมูล
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ImportPreviewRow'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      - IMPORT_NOT_MAPPED
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id004
+      - *id005
+      - name: onlyIssues
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+  /imports/{importId}/errors:
+    get:
+      tags:
+      - Imports
+      summary: ดาวน์โหลด/อ่านรายการข้อผิดพลาด
+      operationId: getImportErrors
+      responses:
+        '200':
+          description: รายการข้อผิดพลาด
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ImportError'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id004
+      - *id005
+      - name: severity
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+  /imports/{importId}/confirm:
+    post:
+      tags:
+      - Imports
+      summary: ยืนยันนำเข้าข้อมูลเข้าสู่รอบทุน
+      operationId: confirmImport
+      responses:
+        '200':
+          description: นำเข้าสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      - IMPORT_NOT_VALIDATED
+      - IMPORT_HAS_ERRORS
+      - IMPORT_ALREADY_CONFIRMED
+      - ROUND_STATE_INVALID
+      - DUPLICATE_STUDENT
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - ต้องผ่าน Validation และไม่มี ERROR
+      - ใช้ Database Transaction
+      - Applicant ต่อรอบต้องไม่ซ้ำตาม studentId
+      x-audit-events:
+      - IMPORT_CONFIRMED
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id003
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportConfirmRequest'
+  /imports/{importId}/cancel:
+    post:
+      tags:
+      - Imports
+      summary: ยกเลิก Import Batch ที่ยังไม่ Confirm
+      operationId: cancelImport
+      responses:
+        '200':
+          description: ยกเลิกสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - IMPORT_NOT_FOUND
+      - IMPORT_ALREADY_CONFIRMED
+      - CSRF_INVALID
+      x-validation:
+      - ยกเลิกได้ก่อน CONFIRMED เท่านั้น
+      x-audit-events:
+      - IMPORT_CANCELLED
+      parameters:
+      - name: importId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Import Batch
+      - *id003
+  /applicants:
+    get:
+      tags:
+      - Applicants
+      summary: ค้นหาและแสดงผู้สมัคร
+      operationId: listApplicants
+      responses:
+        '200':
+          description: รายการผู้สมัคร
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApplicantSummary'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id001
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ACCESS_DENIED
+      x-validation:
+      - Evaluator ค้นหาได้เฉพาะรอบ OPEN
+      - Evaluator ได้เฉพาะข้อมูลขั้นต่ำสำหรับค้นหา/เลือกผู้สมัคร
+      x-audit-events:
+      - APPLICANT_LIST_VIEWED
+      parameters:
+      - *id004
+      - *id005
+      - name: roundId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 200
+        description: ค้นหารหัส ชื่อ หรือนามสกุล
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ApplicantEvaluationStatus'
+      - name: submittedCount
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 3
+      x-object-authorization: ADMIN เห็นข้อมูลตามหน้าที่; EVALUATOR เห็นเฉพาะรายการรอบ OPEN และข้อมูลสรุปที่ไม่ละเอียดอ่อน
+  /applicants/{applicantRoundId}:
+    get:
+      tags:
+      - Applicants
+      summary: อ่านรายละเอียดผู้สมัคร
+      operationId: getApplicant
+      responses:
+        '200':
+          description: รายละเอียดผู้สมัครตามสิทธิ์
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicantDetail'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - APPLICANT_ACCESS_DENIED
+      - ROUND_NOT_OPEN
+      x-validation:
+      - Evaluator ต้องมี Evaluation ที่ใช้งานอยู่ของตนสำหรับผู้สมัครนี้
+      - ปกปิด field ที่ไม่จำเป็นตามบทบาท
+      x-audit-events:
+      - APPLICANT_DETAIL_VIEWED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+      x-object-authorization: EVALUATOR เข้าถึงได้เมื่อเป็นเจ้าของ Evaluation ที่ยังใช้งานอยู่เท่านั้น
+    patch:
+      tags:
+      - Applicants
+      summary: แก้ไขข้อมูลผู้สมัคร
+      operationId: updateApplicant
+      responses:
+        '200':
+          description: แก้ไขสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicantDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - VALIDATION_ERROR
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - ข้อมูลต้องผ่าน validation เดียวกับ Import
+      - การแก้ไขหลัง Finalized ต้องเป็นไปตามนโยบายและมีเหตุผล
+      x-audit-events:
+      - APPLICANT_UPDATED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+      - *id003
+      - *id006
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApplicantRequest'
+  /applicants/{applicantRoundId}/documents:
+    get:
+      tags:
+      - Documents
+      summary: แสดงเอกสารของผู้สมัคร
+      operationId: listApplicantDocuments
+      responses:
+        '200':
+          description: รายการเอกสาร
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - DOCUMENT_ACCESS_DENIED
+      x-validation:
+      - Evaluator ต้องเป็นเจ้าของ Evaluation ของผู้สมัคร
+      x-audit-events:
+      - DOCUMENT_LIST_VIEWED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+      x-object-authorization: เหมือนสิทธิ์อ่าน Applicant Detail
+    post:
+      tags:
+      - Documents
+      summary: อัปโหลดเอกสารประกอบ
+      operationId: uploadApplicantDocument
+      responses:
+        '201':
+          description: อัปโหลดสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - DOCUMENT_TYPE_UNSUPPORTED
+      - DOCUMENT_TOO_LARGE
+      - FILE_STORAGE_ERROR
+      - CSRF_INVALID
+      x-validation:
+      - รองรับ PDF/JPG/PNG
+      - ตรวจ MIME จริง ไม่เชื่อเฉพาะนามสกุล
+      - ชื่อไฟล์ต้อง sanitize
+      - ขนาดสูงสุดมาจาก configuration
+      x-audit-events:
+      - DOCUMENT_UPLOADED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+      - *id003
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                documentType:
+                  type: string
+                  maxLength: 100
+                description:
+                  type: string
+                  maxLength: 1000
+  /documents/{documentId}:
+    get:
+      tags:
+      - Documents
+      summary: อ่าน metadata เอกสาร
+      operationId: getDocument
+      responses:
+        '200':
+          description: Metadata เอกสาร
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - DOCUMENT_NOT_FOUND
+      - DOCUMENT_ACCESS_DENIED
+      x-validation: []
+      x-audit-events:
+      - DOCUMENT_METADATA_VIEWED
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสเอกสาร
+      x-object-authorization: Evaluator ต้องเป็นเจ้าของ Evaluation ที่เชื่อมกับผู้สมัครของเอกสาร
+    delete:
+      tags:
+      - Documents
+      summary: ลบเอกสารประกอบ
+      operationId: deleteDocument
+      responses:
+        '204':
+          description: ลบเอกสารสำเร็จ
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - DOCUMENT_NOT_FOUND
+      - DOCUMENT_IN_USE
+      - FILE_STORAGE_ERROR
+      - CSRF_INVALID
+      x-validation:
+      - ต้องลบ metadata และไฟล์ตาม transaction/outbox policy
+      - อาจใช้ soft delete เพื่อ auditability
+      x-audit-events:
+      - DOCUMENT_DELETED
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสเอกสาร
+      - *id003
+  /documents/{documentId}/content:
+    get:
+      tags:
+      - Documents
+      summary: เปิดดูหรือดาวน์โหลดเอกสาร
+      operationId: downloadDocument
+      responses:
+        '200':
+          description: Binary file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - DOCUMENT_NOT_FOUND
+      - DOCUMENT_ACCESS_DENIED
+      - FILE_STORAGE_ERROR
+      x-validation:
+      - ตรวจสิทธิ์ทุกครั้งผ่าน Backend
+      - ห้ามเปิดเผย storage path โดยตรง
+      x-audit-events:
+      - DOCUMENT_OPENED
+      - DOCUMENT_DOWNLOADED
+      parameters:
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสเอกสาร
+      - name: disposition
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - inline
+          - attachment
+          default: inline
+      x-object-authorization: Evaluator ต้องเป็นเจ้าของ Evaluation ที่เชื่อมกับผู้สมัครของเอกสาร
+  /criteria-sets:
+    get:
+      tags:
+      - Criteria Sets
+      summary: แสดงชุดเกณฑ์
+      operationId: listCriteriaSets
+      responses:
+        '200':
+          description: รายการชุดเกณฑ์
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CriteriaSet'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id002
+      x-error-codes:
+      - FORBIDDEN
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - *id004
+      - *id005
+      - name: roundId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - DRAFT
+          - ACTIVE
+          - RETIRED
+    post:
+      tags:
+      - Criteria Sets
+      summary: สร้างชุดเกณฑ์และรายการเกณฑ์
+      operationId: createCriteriaSet
+      responses:
+        '201':
+          description: สร้างชุดเกณฑ์สถานะ DRAFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriteriaSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - DUPLICATE_CRITERION_CODE
+      - INVALID_SCORE_RANGE
+      - INVALID_WEIGHT
+      - VALIDATION_ERROR
+      - CSRF_INVALID
+      x-validation:
+      - minScore <= maxScore
+      - code และ displayOrder ไม่ซ้ำในชุด
+      - น้ำหนัก/คะแนนเต็มต้องเป็นไปตาม Scoring Rule ที่อนุมัติ
+      x-audit-events:
+      - CRITERIA_SET_CREATED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCriteriaSetRequest'
+  /criteria-sets/{criteriaSetId}:
+    get:
+      tags:
+      - Criteria Sets
+      summary: อ่านรายละเอียดชุดเกณฑ์
+      operationId: getCriteriaSet
+      responses:
+        '200':
+          description: ชุดเกณฑ์
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriteriaSet'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - ACCESS_DENIED
+      x-validation:
+      - Evaluator อ่านได้เฉพาะชุด ACTIVE ของรอบที่ตนกำลังประเมิน
+      x-audit-events: []
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+    patch:
+      tags:
+      - Criteria Sets
+      summary: แก้ไขข้อมูลชุดเกณฑ์ DRAFT
+      operationId: updateCriteriaSet
+      responses:
+        '200':
+          description: แก้ไขสำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriteriaSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - CRITERIA_LOCKED
+      - CONCURRENCY_CONFLICT
+      - VALIDATION_ERROR
+      - CSRF_INVALID
+      x-validation:
+      - แก้ไขได้เมื่อยังไม่มี Evaluation อ้างอิง
+      - การเปลี่ยนกฎคะแนนที่กระทบผลต้องสร้าง version ใหม่
+      x-audit-events:
+      - CRITERIA_SET_UPDATED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+      - *id003
+      - *id006
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCriteriaSetRequest'
+  /criteria-sets/{criteriaSetId}/criteria:
+    post:
+      tags:
+      - Criteria Sets
+      summary: เพิ่มเกณฑ์ในชุด DRAFT
+      operationId: addCriterion
+      responses:
+        '201':
+          description: เพิ่มเกณฑ์สำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Criterion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - CRITERIA_LOCKED
+      - DUPLICATE_CRITERION_CODE
+      - INVALID_SCORE_RANGE
+      - INVALID_WEIGHT
+      - CSRF_INVALID
+      x-validation:
+      - ชุดต้อง DRAFT
+      - code/displayOrder ไม่ซ้ำ
+      - minScore <= maxScore
+      x-audit-events:
+      - CRITERION_ADDED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriterionInput'
+  /criteria-sets/{criteriaSetId}/criteria/{criterionId}:
+    patch:
+      tags:
+      - Criteria Sets
+      summary: แก้ไขเกณฑ์ในชุด DRAFT
+      operationId: updateCriterion
+      responses:
+        '200':
+          description: แก้ไขเกณฑ์สำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Criterion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - CRITERION_NOT_FOUND
+      - CRITERIA_LOCKED
+      - DUPLICATE_CRITERION_CODE
+      - INVALID_SCORE_RANGE
+      - INVALID_WEIGHT
+      - CSRF_INVALID
+      x-validation:
+      - ชุดต้อง DRAFT และยังไม่ถูกใช้งาน
+      x-audit-events:
+      - CRITERION_UPDATED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+      - name: criterionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสเกณฑ์
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriterionInput'
+    delete:
+      tags:
+      - Criteria Sets
+      summary: ลบเกณฑ์จากชุด DRAFT
+      operationId: deleteCriterion
+      responses:
+        '204':
+          description: ลบเกณฑ์สำเร็จ
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - CRITERION_NOT_FOUND
+      - CRITERIA_LOCKED
+      - CRITERIA_MINIMUM_REQUIRED
+      - CSRF_INVALID
+      x-validation:
+      - ต้องเหลือเกณฑ์อย่างน้อย 1 รายการ
+      x-audit-events:
+      - CRITERION_DELETED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+      - name: criterionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสเกณฑ์
+      - *id003
+  /criteria-sets/{criteriaSetId}/activate:
+    post:
+      tags:
+      - Criteria Sets
+      summary: ตรวจสอบและเปิดใช้ชุดเกณฑ์
+      operationId: activateCriteriaSet
+      responses:
+        '200':
+          description: เปิดใช้สำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriteriaSet'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - CRITERIA_STATE_INVALID
+      - CRITERIA_INVALID
+      - DUPLICATE_ACTIVE_CRITERIA_SET
+      - CSRF_INVALID
+      x-validation:
+      - เกณฑ์ครบถ้วน
+      - คะแนน/น้ำหนักรวมตรงกฎที่อนุมัติ
+      - หนึ่งรอบมีชุด ACTIVE ได้หนึ่งชุด
+      x-audit-events:
+      - CRITERIA_SET_ACTIVATED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์
+      - *id003
+  /criteria-sets/{criteriaSetId}/versions:
+    post:
+      tags:
+      - Criteria Sets
+      summary: สร้างเวอร์ชันใหม่จากชุดเกณฑ์เดิม
+      operationId: createCriteriaVersion
+      responses:
+        '201':
+          description: สร้างชุด DRAFT เวอร์ชันใหม่
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriteriaSet'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - CRITERIA_SET_NOT_FOUND
+      - ROUND_STATE_INVALID
+      - VERSION_ALREADY_EXISTS
+      - CSRF_INVALID
+      x-validation:
+      - reason บังคับ
+      - Evaluation เดิมต้องยังอ้างอิง version เดิมเสมอ
+      x-audit-events:
+      - CRITERIA_VERSION_CREATED
+      parameters:
+      - name: criteriaSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสชุดเกณฑ์ต้นทาง
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCriteriaVersionRequest'
+  /evaluations:
+    get:
+      tags:
+      - Evaluations
+      summary: แสดงรายการประเมิน
+      operationId: listEvaluations
+      responses:
+        '200':
+          description: รายการ Evaluation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Evaluation'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id001
+      x-error-codes:
+      - ACCESS_DENIED
+      x-validation:
+      - Evaluator ถูกบังคับ mine=true และเห็นเฉพาะของตน
+      x-audit-events: []
+      parameters:
+      - *id004
+      - *id005
+      - name: roundId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: applicantRoundId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/EvaluationStatus'
+      - name: mine
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+    post:
+      tags:
+      - Evaluations
+      summary: เลือกผู้สมัครและสร้าง Evaluation Draft
+      operationId: createEvaluation
+      responses:
+        '201':
+          description: สร้าง Evaluation DRAFT สำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: &id007
+      - EVALUATOR
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - USER_INACTIVE
+      - ROUND_NOT_OPEN
+      - CRITERIA_NOT_ACTIVE
+      - DUPLICATE_EVALUATION
+      - MAX_EVALUATORS_REACHED
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - บัญชี ACTIVE
+      - รอบ OPEN
+      - ผู้ประเมินคนเดิมไม่มี Evaluation ที่ยังไม่ถูกยกเลิก
+      - ผู้สมัครมี active Evaluation < 3
+      - ใช้ transaction/row lock ป้องกันเลือกพร้อมกันเกิน 3 คน
+      x-audit-events:
+      - EVALUATION_CREATED
+      - EVALUATION_CREATE_REJECTED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEvaluationRequest'
+  /evaluations/{evaluationId}:
+    get:
+      tags:
+      - Evaluations
+      summary: อ่านรายการประเมิน
+      operationId: getEvaluation
+      responses:
+        '200':
+          description: Evaluation พร้อมเกณฑ์และคะแนน
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id001
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_ACCESS_DENIED
+      x-validation:
+      - Evaluator อ่านได้เฉพาะของตน
+      - Admin อ่านได้เพื่อการตรวจสอบตามหน้าที่
+      x-audit-events:
+      - EVALUATION_VIEWED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      x-object-authorization: 'EVALUATOR: evaluatorId ต้องเท่ากับ current user id'
+    patch:
+      tags:
+      - Evaluations
+      summary: บันทึกหรือแก้ไข Draft
+      operationId: updateEvaluationDraft
+      responses:
+        '200':
+          description: บันทึก Draft สำเร็จ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id007
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_EDITABLE
+      - ROUND_NOT_OPEN
+      - SCORE_OUT_OF_RANGE
+      - CRITERION_VERSION_MISMATCH
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - เจ้าของ Evaluation เท่านั้น
+      - สถานะ DRAFT หรือ REOPENED
+      - คะแนนทุกค่าต้องอยู่ใน min/max ของ criterion version ที่ผูกไว้
+      - version ต้องตรง
+      x-audit-events:
+      - EVALUATION_DRAFT_SAVED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEvaluationRequest'
+    delete:
+      tags:
+      - Evaluations
+      summary: ยกเลิกการเลือกผู้สมัครก่อน Submit
+      operationId: cancelEvaluation
+      responses:
+        '204':
+          description: ยกเลิก Evaluation สำเร็จ
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id007
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_NOT_OWNED
+      - EVALUATION_ALREADY_SUBMITTED
+      - ROUND_NOT_OPEN
+      - CSRF_INVALID
+      x-validation:
+      - ยกเลิกได้เฉพาะ DRAFT/REOPENED ก่อน Submit
+      - ใช้ soft-cancel และไม่นับใน activeEvaluationCount
+      x-audit-events:
+      - EVALUATION_CANCELLED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      - *id003
+  /evaluations/{evaluationId}/review:
+    post:
+      tags:
+      - Evaluations
+      summary: ตรวจความครบถ้วนก่อน Submit
+      operationId: reviewEvaluation
+      responses:
+        '200':
+          description: ผลการตรวจสอบก่อน Submit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationReview'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id007
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_EDITABLE
+      - ROUND_NOT_OPEN
+      - EVALUATION_INCOMPLETE
+      - SCORE_OUT_OF_RANGE
+      - CSRF_INVALID
+      x-validation:
+      - เกณฑ์ required ต้องมีคะแนนครบ
+      - ความคิดเห็นบังคับตาม Scoring Rule
+      - ไม่เปลี่ยนสถานะ Evaluation
+      x-audit-events:
+      - EVALUATION_REVIEWED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      - *id003
+  /evaluations/{evaluationId}/submit:
+    post:
+      tags:
+      - Evaluations
+      summary: ยืนยันส่งผลประเมิน
+      operationId: submitEvaluation
+      responses:
+        '200':
+          description: Submit สำเร็จและอาจคำนวณ Result Summary ใหม่
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluation:
+                    $ref: '#/components/schemas/Evaluation'
+                  resultSummary:
+                    oneOf:
+                    - $ref: '#/components/schemas/ResultSummary'
+                    - type: 'null'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id007
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_NOT_OWNED
+      - EVALUATION_ALREADY_SUBMITTED
+      - EVALUATION_INCOMPLETE
+      - ROUND_NOT_OPEN
+      - SCORE_OUT_OF_RANGE
+      - CONCURRENCY_CONFLICT
+      - CSRF_INVALID
+      x-validation:
+      - confirmation ต้อง true
+      - ใช้เฉพาะคะแนนครบถ้วน
+      - คำนวณ total ตาม criterion version
+      - เปลี่ยนเป็น SUBMITTED แบบ atomic
+      - หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณ Result Summary ใหม่อัตโนมัติ
+      x-audit-events:
+      - EVALUATION_SUBMITTED
+      - RESULT_SUMMARY_RECALCULATED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitEvaluationRequest'
+  /evaluations/{evaluationId}/reopen:
+    post:
+      tags:
+      - Evaluations
+      summary: เปิดผล Submitted ให้แก้ไขตามนโยบาย
+      operationId: reopenEvaluation
+      responses:
+        '200':
+          description: เปลี่ยนสถานะเป็น REOPENED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - EVALUATION_NOT_FOUND
+      - EVALUATION_NOT_SUBMITTED
+      - REOPEN_NOT_ALLOWED
+      - ROUND_STATE_INVALID
+      - CSRF_INVALID
+      x-validation:
+      - ต้องมีเหตุผล
+      - ต้องเป็นไปตาม Reopen Policy
+      - ผลสรุปเดิมต้องถูกทำเครื่องหมาย stale และคำนวณใหม่เมื่อ Submit ซ้ำ
+      x-audit-events:
+      - EVALUATION_REOPENED
+      parameters:
+      - name: evaluationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Evaluation
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReopenEvaluationRequest'
+  /result-summaries:
+    get:
+      tags:
+      - Result Summaries
+      summary: ค้นหาและแสดงผลสรุป
+      operationId: listResultSummaries
+      responses:
+        '200':
+          description: รายการผลสรุป
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResultSummary'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - FORBIDDEN
+      x-validation:
+      - คะแนนและกราฟใช้เฉพาะ Evaluation SUBMITTED
+      x-audit-events:
+      - RESULT_SUMMARY_LIST_VIEWED
+      parameters:
+      - *id004
+      - *id005
+      - name: roundId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ApplicantEvaluationStatus'
+      - name: submittedCount
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - studentId
+          - fullName
+          - summaryScore
+          - submittedCount
+          - status
+  /result-summaries/{applicantRoundId}:
+    get:
+      tags:
+      - Result Summaries
+      summary: อ่านผลสรุปของผู้สมัคร
+      operationId: getResultSummary
+      responses:
+        '200':
+          description: ผลสรุปพร้อมผลรายผู้ประเมิน
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultSummary'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - SUMMARY_NOT_AVAILABLE
+      x-validation:
+      - Draft/Cancelled ไม่ถูกนำมาคำนวณ
+      - Submitted <2 อาจคืน summaryScore=null พร้อมสถานะปัจจุบัน
+      x-audit-events:
+      - RESULT_SUMMARY_VIEWED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+  /result-summaries/{applicantRoundId}/recalculate:
+    post:
+      tags:
+      - Result Summaries
+      summary: คำนวณผลสรุปใหม่ด้วยตนเอง
+      operationId: recalculateResultSummary
+      responses:
+        '200':
+          description: ผลสรุปล่าสุด
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultSummary'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - APPLICANT_NOT_FOUND
+      - SUMMARY_NOT_AVAILABLE
+      - ROUND_ARCHIVED
+      - SCORING_RULE_INVALID
+      - CSRF_INVALID
+      x-validation:
+      - ใช้เฉพาะ Submitted จาก evaluator ไม่ซ้ำกัน สูงสุด 3 คน
+      - มี Result Summary ได้หนึ่งรายการต่อ applicantRoundId
+      - ใช้เพื่อ recovery/verification ไม่ใช่ flow ปกติ
+      x-audit-events:
+      - RESULT_SUMMARY_MANUALLY_RECALCULATED
+      parameters:
+      - name: applicantRoundId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัสความสัมพันธ์ผู้สมัครกับรอบทุน
+      - *id003
+  /result-summaries/dashboard:
+    get:
+      tags:
+      - Result Summaries
+      summary: อ่านข้อมูล Simple Dashboard
+      operationId: getDashboardSummary
+      responses:
+        '200':
+          description: ข้อมูล Dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardSummary'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      x-validation:
+      - กราฟคะแนนใช้เฉพาะผล Submitted
+      - count status ต้องสอดคล้องกับ Round status และ submittedCount
+      x-audit-events:
+      - DASHBOARD_VIEWED
+      parameters:
+      - name: roundId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /reports/exports:
+    post:
+      tags:
+      - Reports
+      summary: สร้างงานส่งออกรายงาน
+      operationId: createReportExport
+      responses:
+        '202':
+          description: รับคำขอและสร้าง Export Job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportExport'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+      x-roles: *id002
+      x-error-codes:
+      - ROUND_NOT_FOUND
+      - REPORT_FORMAT_UNSUPPORTED
+      - REPORT_DATA_INCONSISTENT
+      - EXPORT_IN_PROGRESS
+      - CSRF_INVALID
+      x-validation:
+      - รองรับ XLSX/CSV
+      - ข้อมูลต้องมาจาก Result Summary และ Evaluation SUBMITTED เท่านั้น
+      - Closed Incomplete ต้องไม่มี final summaryScore
+      x-audit-events:
+      - REPORT_EXPORT_REQUESTED
+      parameters:
+      - *id003
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportExportRequest'
+  /reports/exports/{exportId}:
+    get:
+      tags:
+      - Reports
+      summary: อ่านสถานะงานส่งออก
+      operationId: getReportExport
+      responses:
+        '200':
+          description: สถานะ Export Job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportExport'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - REPORT_EXPORT_NOT_FOUND
+      x-validation: []
+      x-audit-events: []
+      parameters:
+      - name: exportId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Export Job
+  /reports/exports/{exportId}/download:
+    get:
+      tags:
+      - Reports
+      summary: ดาวน์โหลดไฟล์รายงาน
+      operationId: downloadReportExport
+      responses:
+        '200':
+          description: ไฟล์ XLSX หรือ CSV
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+      x-roles: *id002
+      x-error-codes:
+      - REPORT_EXPORT_NOT_FOUND
+      - REPORT_NOT_READY
+      - REPORT_EXPIRED
+      - FILE_STORAGE_ERROR
+      x-validation:
+      - สถานะต้อง READY และยังไม่หมดอายุ
+      - ตรวจสิทธิ์ผู้ใช้งานก่อนดาวน์โหลด
+      x-audit-events:
+      - REPORT_EXPORTED
+      parameters:
+      - name: exportId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Export Job
+  /audit-logs:
+    get:
+      tags:
+      - Audit Logs
+      summary: ค้นหา Audit Log
+      operationId: listAuditLogs
+      responses:
+        '200':
+          description: รายการ Audit Log
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuditLog'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-roles: *id002
+      x-error-codes:
+      - FORBIDDEN
+      - INVALID_DATE_RANGE
+      x-validation:
+      - ช่วงเวลาต้องไม่เกินค่าที่กำหนดเพื่อควบคุมประสิทธิภาพ
+      - ผลลัพธ์ต้องปกปิดข้อมูลลับและข้อมูลส่วนบุคคลที่ไม่จำเป็น
+      x-audit-events:
+      - AUDIT_LOG_SEARCHED
+      parameters:
+      - *id004
+      - *id005
+      - name: eventType
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: actorId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: roundId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: targetType
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: targetId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: result
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          - DENIED
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+  /audit-logs/{auditLogId}:
+    get:
+      tags:
+      - Audit Logs
+      summary: อ่าน Audit Log รายการเดียว
+      operationId: getAuditLog
+      responses:
+        '200':
+          description: รายละเอียด Audit Log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLog'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-roles: *id002
+      x-error-codes:
+      - AUDIT_LOG_NOT_FOUND
+      x-validation:
+      - ปกปิด secret/token เสมอ
+      x-audit-events:
+      - AUDIT_LOG_VIEWED
+      parameters:
+      - name: auditLogId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: รหัส Audit Log
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sems_session
+      description: HttpOnly, Secure, SameSite session cookie ที่ SEMS สร้างหลัง KKU OIDC callback
+  schemas:
+    Role:
+      type: string
+      enum:
+      - ADMIN
+      - EVALUATOR
+    UserStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+    RoundStatus:
+      type: string
+      enum:
+      - DRAFT
+      - OPEN
+      - CLOSED
+      - ARCHIVED
+    EvaluationStatus:
+      type: string
+      enum:
+      - DRAFT
+      - REOPENED
+      - SUBMITTED
+      - CANCELLED
+    ApplicantEvaluationStatus:
+      type: string
+      enum:
+      - NOT_STARTED
+      - IN_PROGRESS
+      - MINIMUM_COMPLETE
+      - FULLY_COMPLETE
+      - FINALIZED
+      - CLOSED_INCOMPLETE
+    ImportStatus:
+      type: string
+      enum:
+      - UPLOADED
+      - MAPPED
+      - VALIDATED
+      - VALIDATION_FAILED
+      - CONFIRMED
+      - CANCELLED
+    ReportStatus:
+      type: string
+      enum:
+      - QUEUED
+      - PROCESSING
+      - READY
+      - FAILED
+      - EXPIRED
+    ErrorDetail:
+      type: object
+      additionalProperties: true
+      properties:
+        field:
+          type: string
+        reason:
+          type: string
+        rowNumber:
+          type: integer
+        value: {}
+        constraint:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+      - code
+      - message
+      - traceId
+      - timestamp
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: ข้อมูลที่ส่งมาไม่ถูกต้อง
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        traceId:
+          type: string
+          example: 01J2Y7QY8M8F6QK1J8N9P0ABCD
+        timestamp:
+          type: string
+          format: date-time
+    PaginationMeta:
+      type: object
+      required:
+      - page
+      - pageSize
+      - totalItems
+      - totalPages
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalItems:
+          type: integer
+        totalPages:
+          type: integer
+    SuccessMessage:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+    User:
+      type: object
+      required:
+      - id
+      - kkuSub
+      - email
+      - displayName
+      - role
+      - status
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        kkuSub:
+          type: string
+        email:
+          type: string
+          format: email
+        displayName:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        version:
+          type: integer
+          minimum: 1
+    CreateUserRequest:
+      type: object
+      required:
+      - kkuSub
+      - email
+      - displayName
+      - role
+      additionalProperties: false
+      properties:
+        kkuSub:
+          type: string
+          minLength: 1
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 320
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 200
+        role:
+          $ref: '#/components/schemas/Role'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+    UpdateUserRequest:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 200
+        role:
+          $ref: '#/components/schemas/Role'
+    ScholarshipRound:
+      type: object
+      required:
+      - id
+      - code
+      - name
+      - status
+      - startDate
+      - endDate
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        status:
+          $ref: '#/components/schemas/RoundStatus'
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        criteriaSetId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        applicantCount:
+          type: integer
+          minimum: 0
+        evaluationCount:
+          type: integer
+          minimum: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        version:
+          type: integer
+          minimum: 1
+    CreateRoundRequest:
+      type: object
+      required:
+      - code
+      - name
+      - startDate
+      - endDate
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          pattern: ^[A-Z0-9_-]{2,30}$
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    UpdateRoundRequest:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    ImportBatch:
+      type: object
+      required:
+      - id
+      - roundId
+      - fileName
+      - status
+      - uploadedBy
+      - uploadedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        fileName:
+          type: string
+        fileType:
+          type: string
+          enum:
+          - CSV
+          - XLSX
+          - XLS
+        status:
+          $ref: '#/components/schemas/ImportStatus'
+        totalRows:
+          type: integer
+          minimum: 0
+        validRows:
+          type: integer
+          minimum: 0
+        errorRows:
+          type: integer
+          minimum: 0
+        warningRows:
+          type: integer
+          minimum: 0
+        uploadedBy:
+          type: string
+          format: uuid
+        uploadedAt:
+          type: string
+          format: date-time
+        confirmedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    ImportMappingItem:
+      type: object
+      required:
+      - sourceColumn
+      - targetField
+      additionalProperties: false
+      properties:
+        sourceColumn:
+          type: string
+          minLength: 1
+        targetField:
+          type: string
+          minLength: 1
+        transform:
+          type:
+          - string
+          - 'null'
+          enum:
+          - TRIM
+          - THAI_DATE_TO_ISO
+          - DECIMAL
+          - PHONE_NORMALIZE
+          - EMAIL_LOWERCASE
+          - COORDINATE_SPLIT
+          - MULTIROW_MERGE
+          - null
+        required:
+          type: boolean
+          default: false
+    ImportMappingRequest:
+      type: object
+      required:
+      - mappings
+      additionalProperties: false
+      properties:
+        mappings:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ImportMappingItem'
+    ImportValidationRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        duplicatePolicy:
+          type: string
+          enum:
+          - REJECT
+          - SKIP
+          default: REJECT
+    ImportConfirmRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        allowWarnings:
+          type: boolean
+          default: true
+    ImportError:
+      type: object
+      required:
+      - rowNumber
+      - code
+      - message
+      - severity
+      properties:
+        rowNumber:
+          type: integer
+          minimum: 2
+        column:
+          type:
+          - string
+          - 'null'
+        code:
+          type: string
+        message:
+          type: string
+        severity:
+          type: string
+          enum:
+          - ERROR
+          - WARNING
+        rawValue: {}
+    ImportPreviewRow:
+      type: object
+      required:
+      - rowNumber
+      - normalizedData
+      - issues
+      properties:
+        rowNumber:
+          type: integer
+        normalizedData:
+          type: object
+          additionalProperties: true
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportError'
+    ApplicantSummary:
+      type: object
+      required:
+      - applicantRoundId
+      - roundId
+      - studentId
+      - fullName
+      - faculty
+      - program
+      - yearLevel
+      - evaluationStatus
+      - submittedCount
+      - activeEvaluationCount
+      properties:
+        applicantRoundId:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        studentId:
+          type: string
+          pattern: ^\d{9}-\d$
+        fullName:
+          type: string
+        faculty:
+          type: string
+        program:
+          type: string
+        yearLevel:
+          type: integer
+          minimum: 1
+          maximum: 8
+        evaluationStatus:
+          $ref: '#/components/schemas/ApplicantEvaluationStatus'
+        submittedCount:
+          type: integer
+          minimum: 0
+          maximum: 3
+        activeEvaluationCount:
+          type: integer
+          minimum: 0
+          maximum: 3
+        myEvaluationId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        myEvaluationStatus:
+          oneOf:
+          - $ref: '#/components/schemas/EvaluationStatus'
+          - type: 'null'
+    ApplicantDetail:
+      allOf:
+      - $ref: '#/components/schemas/ApplicantSummary'
+      - type: object
+        properties:
+          title:
+            type:
+            - string
+            - 'null'
+          firstName:
+            type: string
+          lastName:
+            type: string
+          applicationDate:
+            type: string
+            format: date-time
+          gpa:
+            type: number
+            minimum: 0
+            maximum: 4
+          phone:
+            type:
+            - string
+            - 'null'
+          email:
+            type:
+            - string
+            - 'null'
+            format: email
+          residence:
+            type:
+            - string
+            - 'null'
+          expenses:
+            type: object
+            additionalProperties:
+              type:
+              - number
+              - 'null'
+          family:
+            type: object
+            additionalProperties: true
+          loanHistory:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+          scholarshipHistory:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+          location:
+            type:
+            - object
+            - 'null'
+            properties:
+              latitude:
+                type: number
+                minimum: -90
+                maximum: 90
+              longitude:
+                type: number
+                minimum: -180
+                maximum: 180
+          documentCount:
+            type: integer
+            minimum: 0
+          updatedAt:
+            type: string
+            format: date-time
+          version:
+            type: integer
+            minimum: 1
+    UpdateApplicantRequest:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        gpa:
+          type: number
+          minimum: 0
+          maximum: 4
+        phone:
+          type:
+          - string
+          - 'null'
+          maxLength: 30
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+        residence:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        latitude:
+          type:
+          - number
+          - 'null'
+          minimum: -90
+          maximum: 90
+        longitude:
+          type:
+          - number
+          - 'null'
+          minimum: -180
+          maximum: 180
+    Document:
+      type: object
+      required:
+      - id
+      - applicantRoundId
+      - fileName
+      - mimeType
+      - sizeBytes
+      - uploadedBy
+      - uploadedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicantRoundId:
+          type: string
+          format: uuid
+        fileName:
+          type: string
+        mimeType:
+          type: string
+          enum:
+          - application/pdf
+          - image/jpeg
+          - image/png
+        sizeBytes:
+          type: integer
+          minimum: 1
+        documentType:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        uploadedBy:
+          type: string
+          format: uuid
+        uploadedAt:
+          type: string
+          format: date-time
+    Criterion:
+      type: object
+      required:
+      - id
+      - code
+      - name
+      - minScore
+      - maxScore
+      - weight
+      - displayOrder
+      - required
+      - version
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        minScore:
+          type: number
+        maxScore:
+          type: number
+        weight:
+          type: number
+          minimum: 0
+        displayOrder:
+          type: integer
+          minimum: 1
+        required:
+          type: boolean
+        version:
+          type: integer
+          minimum: 1
+        active:
+          type: boolean
+    CriterionInput:
+      type: object
+      required:
+      - code
+      - name
+      - minScore
+      - maxScore
+      - weight
+      - displayOrder
+      - required
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          pattern: ^[A-Z0-9_-]{1,30}$
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        minScore:
+          type: number
+        maxScore:
+          type: number
+        weight:
+          type: number
+          minimum: 0
+        displayOrder:
+          type: integer
+          minimum: 1
+        required:
+          type: boolean
+    CriteriaSet:
+      type: object
+      required:
+      - id
+      - roundId
+      - name
+      - version
+      - status
+      - criteria
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        version:
+          type: integer
+          minimum: 1
+        status:
+          type: string
+          enum:
+          - DRAFT
+          - ACTIVE
+          - RETIRED
+        scoringMethod:
+          type: string
+          enum:
+          - WEIGHTED_SUM
+          - SUM
+          default: WEIGHTED_SUM
+        roundingScale:
+          type: integer
+          minimum: 0
+          maximum: 6
+        criteria:
+          type: array
+          items:
+            $ref: '#/components/schemas/Criterion'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        versionToken:
+          type: integer
+          minimum: 1
+    CreateCriteriaSetRequest:
+      type: object
+      required:
+      - roundId
+      - name
+      - criteria
+      additionalProperties: false
+      properties:
+        roundId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        scoringMethod:
+          type: string
+          enum:
+          - WEIGHTED_SUM
+          - SUM
+        roundingScale:
+          type: integer
+          minimum: 0
+          maximum: 6
+        criteria:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CriterionInput'
+    UpdateCriteriaSetRequest:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 2000
+        scoringMethod:
+          type: string
+          enum:
+          - WEIGHTED_SUM
+          - SUM
+        roundingScale:
+          type: integer
+          minimum: 0
+          maximum: 6
+    CreateCriteriaVersionRequest:
+      type: object
+      required:
+      - reason
+      additionalProperties: false
+      properties:
+        reason:
+          type: string
+          minLength: 5
+          maxLength: 1000
+        copyCriteria:
+          type: boolean
+          default: true
+    EvaluationScoreInput:
+      type: object
+      required:
+      - criterionId
+      - score
+      additionalProperties: false
+      properties:
+        criterionId:
+          type: string
+          format: uuid
+        score:
+          type: number
+        comment:
+          type:
+          - string
+          - 'null'
+          maxLength: 1000
+    CreateEvaluationRequest:
+      type: object
+      required:
+      - applicantRoundId
+      additionalProperties: false
+      properties:
+        applicantRoundId:
+          type: string
+          format: uuid
+    UpdateEvaluationRequest:
+      type: object
+      required:
+      - scores
+      - version
+      additionalProperties: false
+      properties:
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationScoreInput'
+        overallComment:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        version:
+          type: integer
+          minimum: 1
+    SubmitEvaluationRequest:
+      type: object
+      required:
+      - confirmation
+      - version
+      additionalProperties: false
+      properties:
+        confirmation:
+          type: boolean
+          const: true
+        version:
+          type: integer
+          minimum: 1
+    ReopenEvaluationRequest:
+      type: object
+      required:
+      - reason
+      additionalProperties: false
+      properties:
+        reason:
+          type: string
+          minLength: 5
+          maxLength: 2000
+    Evaluation:
+      type: object
+      required:
+      - id
+      - applicantRoundId
+      - roundId
+      - evaluatorId
+      - criteriaSetId
+      - criteriaVersion
+      - status
+      - scores
+      - version
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        applicantRoundId:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        evaluatorId:
+          type: string
+          format: uuid
+        criteriaSetId:
+          type: string
+          format: uuid
+        criteriaVersion:
+          type: integer
+          minimum: 1
+        status:
+          $ref: '#/components/schemas/EvaluationStatus'
+        scores:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/EvaluationScoreInput'
+            - type: object
+              properties:
+                criterionCode:
+                  type: string
+                criterionName:
+                  type: string
+                maxScore:
+                  type: number
+        overallComment:
+          type:
+          - string
+          - 'null'
+        calculatedTotal:
+          type:
+          - number
+          - 'null'
+        submittedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reopenedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reopenReason:
+          type:
+          - string
+          - 'null'
+        version:
+          type: integer
+          minimum: 1
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    EvaluationReview:
+      type: object
+      required:
+      - evaluation
+      - complete
+      - issues
+      properties:
+        evaluation:
+          $ref: '#/components/schemas/Evaluation'
+        complete:
+          type: boolean
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    EvaluatorResult:
+      type: object
+      required:
+      - evaluationId
+      - evaluatorId
+      - evaluatorName
+      - status
+      - totalScore
+      properties:
+        evaluationId:
+          type: string
+          format: uuid
+        evaluatorId:
+          type: string
+          format: uuid
+        evaluatorName:
+          type: string
+        status:
+          $ref: '#/components/schemas/EvaluationStatus'
+        totalScore:
+          type: number
+        submittedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        overallComment:
+          type:
+          - string
+          - 'null'
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationScoreInput'
+    ResultSummary:
+      type: object
+      required:
+      - applicantRoundId
+      - roundId
+      - studentId
+      - fullName
+      - status
+      - submittedCount
+      - evaluatorResults
+      - isFinal
+      properties:
+        applicantRoundId:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        studentId:
+          type: string
+        fullName:
+          type: string
+        status:
+          $ref: '#/components/schemas/ApplicantEvaluationStatus'
+        submittedCount:
+          type: integer
+          minimum: 0
+          maximum: 3
+        summaryScore:
+          type:
+          - number
+          - 'null'
+        isFinal:
+          type: boolean
+        calculatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        evaluatorResults:
+          type: array
+          maxItems: 3
+          items:
+            $ref: '#/components/schemas/EvaluatorResult'
+    DashboardSummary:
+      type: object
+      required:
+      - roundId
+      - totalApplicants
+      - submittedCounts
+      - statusCounts
+      properties:
+        roundId:
+          type: string
+          format: uuid
+        totalApplicants:
+          type: integer
+        submittedCounts:
+          type: object
+          properties:
+            zero:
+              type: integer
+            one:
+              type: integer
+            two:
+              type: integer
+            three:
+              type: integer
+        statusCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        scoreDistribution:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              count:
+                type: integer
+    CreateReportExportRequest:
+      type: object
+      required:
+      - roundId
+      - format
+      additionalProperties: false
+      properties:
+        roundId:
+          type: string
+          format: uuid
+        format:
+          type: string
+          enum:
+          - XLSX
+          - CSV
+        statusFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicantEvaluationStatus'
+        includeEvaluatorComments:
+          type: boolean
+          default: true
+    ReportExport:
+      type: object
+      required:
+      - id
+      - roundId
+      - format
+      - status
+      - requestedBy
+      - requestedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        roundId:
+          type: string
+          format: uuid
+        format:
+          type: string
+          enum:
+          - XLSX
+          - CSV
+        status:
+          $ref: '#/components/schemas/ReportStatus'
+        fileName:
+          type:
+          - string
+          - 'null'
+        sizeBytes:
+          type:
+          - integer
+          - 'null'
+        requestedBy:
+          type: string
+          format: uuid
+        requestedAt:
+          type: string
+          format: date-time
+        readyAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        expiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        failureReason:
+          type:
+          - string
+          - 'null'
+    AuditLog:
+      type: object
+      required:
+      - id
+      - eventType
+      - actorId
+      - actorRole
+      - occurredAt
+      - traceId
+      properties:
+        id:
+          type: string
+          format: uuid
+        eventType:
+          type: string
+        actorId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        actorRole:
+          oneOf:
+          - $ref: '#/components/schemas/Role'
+          - type: 'null'
+        targetType:
+          type:
+          - string
+          - 'null'
+        targetId:
+          type:
+          - string
+          - 'null'
+        roundId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        result:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          - DENIED
+        ipAddress:
+          type:
+          - string
+          - 'null'
+        userAgent:
+          type:
+          - string
+          - 'null'
+        metadata:
+          type: object
+          additionalProperties: true
+        traceId:
+          type: string
+        occurredAt:
+          type: string
+          format: date-time
+      description: ห้ามบันทึกรหัสผ่าน, access token, refresh token, id_token, client secret หรือข้อมูลลับลงใน metadata
+  responses:
+    BadRequest:
+      description: คำขอไม่ถูกต้อง
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthenticated:
+      description: ยังไม่ได้เข้าสู่ระบบหรือ Session หมดอายุ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: ไม่มีสิทธิ์ตามบทบาทหรือไม่ผ่าน Object-level authorization
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: ไม่พบทรัพยากร
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: สถานะหรือข้อมูลชนกัน เช่น เลือกผู้สมัครซ้ำ/ผู้ประเมินครบ 3 คน/Version ไม่ตรง
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    PayloadTooLarge:
+      description: ไฟล์มีขนาดเกินค่าที่ระบบกำหนด
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnsupportedMediaType:
+      description: ชนิดไฟล์หรือ Content-Type ไม่รองรับ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: โครงสร้างถูกต้องแต่ไม่ผ่านกฎธุรกิจหรือ Validation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: เรียกใช้งานเกิน Rate Limit
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: ข้อผิดพลาดภายในระบบ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadGateway:
+      description: บริการภายนอกตอบกลับไม่ถูกต้อง
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: บริการภายนอกหรือระบบชั่วคราวไม่พร้อมใช้งาน
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+x-api-conventions:
+  basePath: /api/v1
+  contentType: application/json; charset=utf-8
+  idFormat: UUID
+  dateTimeFormat: RFC 3339 UTC
+  pagination: page/pageSize; maximum pageSize=100
+  csrf: X-CSRF-Token required for state-changing requests
+  optimisticConcurrency: version field or If-Match header
+  errorEnvelope: ErrorResponse
+  sensitiveData: Never log passwords, OAuth tokens, client secrets, session ids or raw document content
+x-source-basis:
+- 'SEMS Project Proposal: roles, RBAC, round lifecycle, import, applicant/document, evaluation 2-3 people, submitted-only
+  aggregation, reporting and audit requirements'
+- 'KKU OAuth 2.1/OIDC summary: Authorization Code + PKCE S256, state, nonce, discovery, userinfo, JWKS and logout behavior'
+- 'Data_import_to_web sample: 37 columns including applicant, expenses, family, student loan, scholarship history and coordinates'
