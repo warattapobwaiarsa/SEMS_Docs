@@ -4,7 +4,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.6** |
+| Current Version | **v1.7** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
@@ -31,7 +31,7 @@
 | :--- | :--- | :--- |
 | 📖 **Repository Governance** | Documentation versioning, Commit, Branch, Pull Request, and safety rules | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.1), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
 | 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, proposals, user stories, meeting notes | `SEMS_Requirement_Decision_Register.md` (v1.0 Draft), `SEMS_Requirement_Decision_Analysis.md` (v1.1 Draft), `SEMS-project-proposal.pdf` (v1.0) |
-| 🎨 **[Design](./Design/README.md)** | Architecture, APIs, database, scoring criteria, import templates, UI/UX | `kku-oauth-summary.md` (v1.0), `Criteria.xlsx` (v1.0), `Data_import_to_web.xlsx` (v1.0), Data Dictionary/Import Mapping (v0.1 Draft) |
+| 🎨 **[Design](./Design/README.md)** | Architecture, APIs, database, scoring criteria, import templates, UI/UX | `kku-oauth-summary.md` (v1.0), `Criteria.xlsx` (v1.0), `Data_import_to_web.xlsx` (v1.0), Data Dictionary/Import Mapping (v0.1 Draft), `SEMS_Data_Dictionary.xlsx` (v1.0 Draft) |
 | 🧪 **[Testing](./Testing/README.md)** | Test plans, test cases, UAT | No documents indexed yet |
 | 🚀 **[Deployment](./Deployment/README.md)** | Setup guides, system administration, user manuals | No documents indexed yet |
 
@@ -47,6 +47,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.7 | 2026-07-23 | SEMS Documentation Team | Added and indexed `Design/Database/SEMS_Data_Dictionary.xlsx` v1.0 (Draft). |
 | v1.6 | 2026-07-23 | SEMS Documentation Team | Added and indexed the Data Dictionary/Import Mapping workbook and guide v0.1 (Draft). |
 | v1.5 | 2026-07-23 | SEMS Documentation Team | Added and indexed `Requirements/SEMS_Requirement_Decision_Analysis.md` v1.1 (Draft). |
 | v1.4 | 2026-07-23 | SEMS Documentation Team | Added and indexed `Requirements/SEMS_Requirement_Decision_Register.md` v1.0 (Draft). |

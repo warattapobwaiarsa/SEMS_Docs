@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.2** |
+| Current Version | **v1.3** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Scope | Architecture, APIs, database, scoring criteria, data templates, and UI/UX |
@@ -27,11 +27,13 @@
 | [`Data_Templates/Data_import_to_web.xlsx`](./Data_Templates/Data_import_to_web.xlsx) | v1.0 | 2026-07-22 | Current |
 | [`Data_Templates/SEMS_Data_Dictionary_Import_Mapping.xlsx`](./Data_Templates/SEMS_Data_Dictionary_Import_Mapping.xlsx) | v0.1 | 2026-07-23 | Draft — Pre-Baseline |
 | [`Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md`](./Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md) | v0.1 | 2026-07-23 | Draft — Pre-Baseline |
+| [`Database/SEMS_Data_Dictionary.xlsx`](./Database/SEMS_Data_Dictionary.xlsx) | v1.0 | 2026-07-23 | Draft — Pending Validation |
 
 ## Revision History
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.3 | 2026-07-23 | SEMS Documentation Team | Added `Database/SEMS_Data_Dictionary.xlsx` (document v1.0, Draft). |
 | v1.2 | 2026-07-23 | SEMS Documentation Team | Added the Data Dictionary/Import Mapping workbook and guide (v0.1 Draft). |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Moved and indexed `API/kku-oauth-summary.md` (document v1.0); added version metadata for all Design documents. |
 | v1.0 | 2026-07-22 | SEMS Documentation Team | Added `Criteria/Criteria.xlsx` and `Data_Templates/Data_import_to_web.xlsx` (document v1.0). |
