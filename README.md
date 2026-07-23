@@ -1,41 +1,52 @@
 # Scholarship Evaluation Management System (SEMS)
+
 > **ระบบบริหารจัดการการประเมินทุนการศึกษา คณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น**
 
-Repository นี้เป็นส่วนของ **เอกสารการวิเคราะห์และออกแบบระบบ (Documentation Repository)** สำหรับโครงการ SEMS โดยมีรายละเอียดขอบเขตการทำงาน สถาปัตยกรรมระบบ และแผนการทดสอบ ดังต่อไปนี้
+| Metadata | Value |
+| :--- | :--- |
+| Current Version | **v1.3** |
+| Last Updated | **2026-07-23** |
+| Repository Type | Documentation |
 
----
+คลังเอกสารสำหรับการวิเคราะห์ ออกแบบ ทดสอบ และนำระบบ SEMS ขึ้นใช้งาน โดยจัดเอกสารตามวงจรการพัฒนาระบบ
 
 ## 👥 คณะผู้จัดทำ
+
 1. **นายลัญจปรัชญ์ ทัศนียพงค์** (รหัสนักศึกษา: 663040664-8)
 2. **นายวรัทภพ ไวอาสา** (รหัสนักศึกษา: 663040665-6)
 
----
+## 🎯 วัตถุประสงค์
 
-## 🎯 วัตถุประสงค์ของโครงการ
-* **ศูนย์กลางข้อมูลผู้สมัคร:** รวบรวมข้อมูลผู้สมัคร เอกสารประกอบการพิจารณา และประวัติการรับทุนย้อนหลังไว้ในระบบเดียว
-* **การกรอกและประเมินคะแนนแบบเรียลไทม์:** อำนวยความสะดวกให้อาจารย์ผู้ประเมินสามารถตรวจสอบข้อมูลเอกสาร และประเมินคะแนนผ่านเว็บแอปพลิเคชันได้โดยตรง
-* **คำนวณผลและสรุปรายงานอัตโนมัติ:** ระบบจะคำนวณคะแนนตามน้ำหนักและเกณฑ์ของรอบทุนนั้นๆ พร้อมส่งออกรายงานในรูปแบบ Excel (xlsx) หรือ CSV ได้ทันที
-* **ลดความซ้ำซ้อนและข้อผิดพลาด:** ป้องกันปัญหารุ่นของไฟล์ทับซ้อนกัน คะแนนสูญหาย และลดขั้นตอนการจัดเก็บข้อมูลแบบแมนนวลผ่าน Excel
+- รวบรวมข้อมูลผู้สมัคร เอกสารประกอบ และประวัติทุนไว้ในระบบเดียว
+- รองรับการตรวจเอกสารและให้คะแนนผ่านเว็บ
+- คำนวณผลและส่งออกรายงาน Excel หรือ CSV
+- ลดความซ้ำซ้อนและข้อผิดพลาดจากการจัดการไฟล์ด้วยตนเอง
 
----
+## 📂 โครงสร้างคลังเอกสาร
 
-## 🛠️ เทคโนโลยีที่ใช้ในระบบ (Technology Stack)
-* **Frontend:** Next.js (React Framework) + TypeScript + Tailwind CSS
-* **Backend:** NestJS (Node.js Framework) + TypeScript
-* **Database & ORM:** PostgreSQL + Prisma ORM
-* **Authentication:** KKU SSO (Single Sign-On ของมหาวิทยาลัยขอนแก่น)
-* **Testing Tools:** Jest (Unit Testing), Playwright (End-to-End Testing)
-* **API Testing:** Postman
+ดูเส้นทางทั้งหมดและเวอร์ชันรายไฟล์ได้ที่ [REPOSITORY_TREE.md](./REPOSITORY_TREE.md)
 
----
+| Category | Scope | Key Documents |
+| :--- | :--- | :--- |
+| 📖 **Repository Governance** | Documentation versioning, Commit, Branch, Pull Request, and safety rules | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.1), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, proposals, user stories, meeting notes | `SEMS-project-proposal.pdf` (v1.0) |
+| 🎨 **[Design](./Design/README.md)** | Architecture, APIs, database, scoring criteria, import templates, UI/UX | `kku-oauth-summary.md` (v1.0), `Criteria.xlsx` (v1.0), `Data_import_to_web.xlsx` (v1.0) |
+| 🧪 **[Testing](./Testing/README.md)** | Test plans, test cases, UAT | No documents indexed yet |
+| 🚀 **[Deployment](./Deployment/README.md)** | Setup guides, system administration, user manuals | No documents indexed yet |
 
-## 📂 โครงสร้างคลังเอกสาร (Documentation Directory Structure)
-เอกสารของโครงการได้รับการจัดกลุ่มอย่างเป็นระบบตามกระบวนการพัฒนาซอฟต์แวร์ ดังนี้:
+## 🛠️ Technology Stack
 
-* 📋 **[Requirements](./Requirements)** : เอกสารความต้องการของระบบ
-  * [Proposal](./Requirements/Proposal) - เอกสารข้อเสนอโครงการ (`SEMS-project-proposal.pdf`)
-* 🎨 **[Design](./Design)** : เอกสารการออกแบบเชิงเทคนิคและเกณฑ์ข้อมูล
-  * [Criteria](./Design/Criteria) - เกณฑ์การให้คะแนนและการประเมิน (`Criteria.xlsx`)
-  * [Data Templates](./Design/Data_Templates) - โครงสร้างและรูปแบบตัวอย่างข้อมูลสำหรับนำเข้า (`Data_import_to_web.xlsx`)
-* 🧪 **[Testing](./Testing)** : เอกสารตรวจสอบความถูกต้อง
-* 🚀 **[Deployment](./Deployment)** : เอกสารสำหรับการดูแลระบบและคู่มือ
+- **Frontend:** Next.js, TypeScript, Tailwind CSS
+- **Backend:** NestJS, TypeScript
+- **Database:** PostgreSQL, Prisma ORM
+- **Authentication:** KKU SSO / OAuth 2.1 / OpenID Connect
+- **Testing:** Jest, Playwright, Postman
+
+## Revision History
+
+| Version | Date | Change |
+| :--- | :--- | :--- |
+| v1.3 | 2026-07-23 | Added `CONTRIBUTING.md` v1.0 and updated the documentation policy to v1.1. |
+| v1.2 | 2026-07-23 | Added `DOCUMENTATION_POLICY.md` v1.0 and indexed the repository governance rules. |
+| v1.1 | 2026-07-23 | Re-indexed all categories, added document version metadata, and moved the KKU OAuth summary into `Design/API/`. |
+| v1.0 | 2026-07-22 | Established the four-category SEMS documentation structure and indexed the proposal, scoring criteria, and data-import template. |
