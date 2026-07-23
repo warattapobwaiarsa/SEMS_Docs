@@ -2,8 +2,9 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.3** |
+| Current Version | **v1.5** |
 | Last Updated | **2026-07-23** |
+| Author | **SEMS Documentation Team** |
 | Scope | Versioned documentation and standard SEMS directories |
 
 ## Directory Tree
@@ -16,7 +17,9 @@ SEMS_Docs/
 │   │   └── SEMS-project-proposal.pdf [v1.0]
 │   ├── SRS/
 │   ├── User_Stories/
-│   └── README.md [v1.1]
+│   ├── README.md [v1.3]
+│   ├── SEMS_Requirement_Decision_Analysis.md [v1.1 Draft]
+│   └── SEMS_Requirement_Decision_Register.md [v1.0 Draft]
 ├── 🎨 Design/
 │   ├── API/
 │   │   └── kku-oauth-summary.md [v1.0]
@@ -40,8 +43,8 @@ SEMS_Docs/
 ├── .gitignore
 ├── CONTRIBUTING.md [v1.0]
 ├── DOCUMENTATION_POLICY.md [v1.1]
-├── README.md [v1.3]
-└── REPOSITORY_TREE.md [v1.3]
+├── README.md [v1.5]
+└── REPOSITORY_TREE.md [v1.5]
 ```
 
 Ignored local workspace metadata (`.git/` and `.obsidian/`) and internal agent state (`.agents/`) are intentionally excluded from the documentation tree.
@@ -50,11 +53,13 @@ Ignored local workspace metadata (`.git/` and `.obsidian/`) and internal agent s
 
 | Category | File | Version | Last Updated |
 | :--- | :--- | :---: | :---: |
-| Repository | [`README.md`](./README.md) | v1.3 | 2026-07-23 |
+| Repository | [`README.md`](./README.md) | v1.5 | 2026-07-23 |
 | Repository | [`CONTRIBUTING.md`](./CONTRIBUTING.md) | v1.0 | 2026-07-23 |
 | Repository | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) | v1.1 | 2026-07-23 |
-| Repository | `REPOSITORY_TREE.md` | v1.3 | 2026-07-23 |
-| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.1 | 2026-07-23 |
+| Repository | `REPOSITORY_TREE.md` | v1.5 | 2026-07-23 |
+| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.3 | 2026-07-23 |
+| Requirements | [`Requirements/SEMS_Requirement_Decision_Analysis.md`](./Requirements/SEMS_Requirement_Decision_Analysis.md) | v1.1 (Draft) | 2026-07-23 |
+| Requirements | [`Requirements/SEMS_Requirement_Decision_Register.md`](./Requirements/SEMS_Requirement_Decision_Register.md) | v1.0 (Draft) | 2026-07-23 |
 | Requirements | [`Requirements/Proposal/SEMS-project-proposal.pdf`](./Requirements/Proposal/SEMS-project-proposal.pdf) | v1.0 | 2026-07-20 |
 | Design | [`Design/README.md`](./Design/README.md) | v1.1 | 2026-07-23 |
 | Design | [`Design/API/kku-oauth-summary.md`](./Design/API/kku-oauth-summary.md) | v1.0 | 2026-07-23 |
@@ -65,9 +70,11 @@ Ignored local workspace metadata (`.git/` and `.obsidian/`) and internal agent s
 
 ## Revision History
 
-| Version | Date | Change |
-| :--- | :--- | :--- |
-| v1.3 | 2026-07-23 | Added `CONTRIBUTING.md` v1.0 and updated `DOCUMENTATION_POLICY.md` to v1.1. |
-| v1.2 | 2026-07-23 | Added and indexed `DOCUMENTATION_POLICY.md` v1.0. |
-| v1.1 | 2026-07-23 | Added file version tags, indexed the KKU OAuth design reference, and synchronized all paths with the current repository. |
-| v1.0 | 2026-07-22 | Established the official Requirements, Design, Testing, and Deployment hierarchy. |
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.5 | 2026-07-23 | SEMS Documentation Team | Added `Requirements/SEMS_Requirement_Decision_Analysis.md` v1.1 (Draft) and synchronized Requirements indexes. |
+| v1.4 | 2026-07-23 | SEMS Documentation Team | Added `Requirements/SEMS_Requirement_Decision_Register.md` v1.0 (Draft) and synchronized Requirements indexes. |
+| v1.3 | 2026-07-23 | SEMS Documentation Team | Added `CONTRIBUTING.md` v1.0 and updated `DOCUMENTATION_POLICY.md` to v1.1. |
+| v1.2 | 2026-07-23 | SEMS Documentation Team | Added and indexed `DOCUMENTATION_POLICY.md` v1.0. |
+| v1.1 | 2026-07-23 | SEMS Documentation Team | Added file version tags, indexed the KKU OAuth design reference, and synchronized all paths with the current repository. |
+| v1.0 | 2026-07-22 | SEMS Documentation Team | Established the official Requirements, Design, Testing, and Deployment hierarchy. |
