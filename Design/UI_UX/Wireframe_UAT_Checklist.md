@@ -2,12 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Ready for UAT** |
 
-**วัตถุประสงค์:** ใช้ให้ตัวแทนผู้ใช้งานตรวจ Wireframe ก่อนเริ่มพัฒนา Frontend  
+**วัตถุประสงค์:** ใช้ให้ตัวแทนผู้ใช้งานตรวจ Wireframe ก่อนเริ่มพัฒนา Frontend
 **ผู้ทดสอบที่แนะนำ:** Admin อย่างน้อย 2 คน และ Evaluator อย่างน้อย 2 คน
 
 ## วิธีทดสอบ
@@ -82,3 +82,10 @@
 - [ ] Requirement Owner Approved
 - [ ] Open Decisions ได้รับคำตอบหรือมีผู้รับผิดชอบ/กำหนดเวลา
 - [ ] Critical และ Major Issues ถูกแก้ใน Wireframe รุ่นถัดไป
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.1 | 2026-07-23 | SEMS Design Team | Removed trailing whitespace for automated documentation checks; approval remains pending. |
+| v1.0 | 2026-07-23 | SEMS Design Team | Initial wireframe UAT checklist draft. |

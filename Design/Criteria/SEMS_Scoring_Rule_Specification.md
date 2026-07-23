@@ -3,13 +3,15 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pending Stakeholder Approval** |
 | Sources | [`Criteria.xlsx`](./Criteria.xlsx), [`SEMS-project-proposal.pdf`](../../Requirements/Proposal/SEMS-project-proposal.pdf) |
 
 > เอกสารนี้ถอดข้อมูลจากไฟล์ Criteria ให้เป็นกฎที่ระบบสามารถนำไปพัฒนาได้ พร้อมกำหนดค่ามาตรฐานในประเด็นที่ไฟล์ต้นฉบับยังไม่ได้ระบุชัดเจน ค่าที่เป็นข้อเสนอแนะต้องได้รับการอนุมัติก่อนเปลี่ยนสถานะชุดเกณฑ์เป็น Active
+
+> **Baseline Status:** สูตรทั้งหมดในเอกสารนี้เป็น Draft Provisional จนกว่างานทุนจะอนุมัติ RD-010–RD-014
 
 ## 1. ข้อสรุปสำคัญ
 
@@ -54,9 +56,9 @@
 | CRT-09 | ดุลพินิจของอาจารย์ | 0 | 10 | 10% | 9 | ใช่ | 1.0.0 | กำหนดเมื่อผูกกับรอบทุน |
 | CRT-10 | ส่วนร่วมกับคณะหรือมหาวิทยาลัย | 0 | 10 | 10% | 10 | ใช่ | 1.0.0 | กำหนดเมื่อผูกกับรอบทุน |
 
-**ผลรวมคะแนนเต็ม:** 100  
-**ผลรวมน้ำหนัก:** 100%  
-**Criteria Version:** `1.0.0`  
+**ผลรวมคะแนนเต็ม:** 100
+**ผลรวมน้ำหนัก:** 100%
+**Criteria Version:** `1.0.0`
 **Scholarship Round:** ต้องกำหนด `scholarship_round_id` ตอนนำชุดเกณฑ์ไปใช้จริง
 
 ## 4. ตัวเลือกและคะแนนของแต่ละเกณฑ์
@@ -385,4 +387,13 @@ ResultSummary
 
 ## 13. Machine-readable Configuration
 
-ไฟล์ `SEMS_Criteria_Config_v1.json` เป็นโครงสร้างเดียวกับเอกสารนี้ สามารถใช้เป็นต้นแบบสำหรับ Seed Data, API Contract หรือ Unit Test ได้ โดยต้องแทนค่า `scholarship_round_id` และเปลี่ยนสถานะเป็น Active หลังอนุมัติเท่านั้น
+ไฟล์ [`SEMS_Criteria_Config.json`](./SEMS_Criteria_Config.json) เป็นโครงสร้างเดียวกับเอกสารนี้ สามารถใช้เป็นต้นแบบสำหรับ Seed Data, API Contract หรือ Unit Test ได้ โดยต้องแทนค่า `scholarship_round_id` และเปลี่ยนสถานะเป็น Active หลังอนุมัติเท่านั้น
+
+Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/SEMS_Scoring_Reference_Cases.md)
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.1 | 2026-07-23 | SEMS Design Team | Marked all formula rules provisional, linked the actual machine-readable config and scoring reference dataset. |
+| v1.0 | 2026-07-23 | SEMS Design Team | Initial scoring rule draft derived from Criteria workbook. |

@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Scope | Applicant Import จาก [`Data_import_to_web.xlsx`](./Data_import_to_web.xlsx) |
@@ -110,7 +110,7 @@
 
 | Code | Name | Severity | Condition | Action |
 |---|---|---|---|---|
-| `IMP-001` | `INVALID_FILE_TYPE` | ERROR | ไฟล์ไม่ใช่ .xlsx/.xls/.csv ตามที่ระบบรองรับ | Reject file |
+| `IMP-001` | `UNSUPPORTED_FILE_TYPE` | ERROR | Release 1 รับเฉพาะ `.xlsx`/`.csv`; `.xls` เป็น Optional / Out of Scope | Reject file |
 | `IMP-002` | `FILE_READ_FAILED` | ERROR | ไม่สามารถอ่าน Workbook/CSV หรือไฟล์เสียหาย | Reject file |
 | `IMP-003` | `HEADER_ROW_MISSING` | ERROR | ไม่พบแถวหัวคอลัมน์ | Reject file |
 | `IMP-004` | `REQUIRED_HEADER_MISSING` | ERROR | ไม่พบหัวคอลัมน์ที่จำเป็นหลังใช้ Alias Mapping | Reject file |
@@ -147,25 +147,25 @@
 
 ## 7. Import Flow
 
-1. **Upload** — รับไฟล์ Excel/CSV และ round_id ที่ผู้ดูแลเลือก  
+1. **Upload** — รับไฟล์ Excel/CSV และ round_id ที่ผู้ดูแลเลือก
    Audit/Constraint: import_batches: file_name, file_hash, uploaded_by, round_id
-2. **Read & Detect** — อ่าน Sheet/Encoding/Header และสร้าง raw row index  
+2. **Read & Detect** — อ่าน Sheet/Encoding/Header และสร้าง raw row index
    Audit/Constraint: ห้ามแปลง Identifier เป็น Number
-3. **Header Mapping** — จับคู่หัวคอลัมน์ด้วยชื่อจริงและ Alias; ผู้ใช้แก้ Mapping ได้  
+3. **Header Mapping** — จับคู่หัวคอลัมน์ด้วยชื่อจริงและ Alias; ผู้ใช้แก้ Mapping ได้
    Audit/Constraint: ต้องผ่าน Required Header validation
-4. **Row Classification** — จำแนก APPLICANT / CONTINUATION / BLANK / INVALID  
+4. **Row Classification** — จำแนก APPLICANT / CONTINUATION / BLANK / INVALID
    Audit/Constraint: ใช้กฎใน Sheet 03_ROW_RULES
-5. **Normalization** — Trim, NULL normalization, Date/Number parsing, Code List mapping  
+5. **Normalization** — Trim, NULL normalization, Date/Number parsing, Code List mapping
    Audit/Constraint: เก็บ raw_value และ normalized_value
-6. **Validation** — ตรวจ Field, Row, Cross-row, Duplicate ในไฟล์และฐานข้อมูล  
+6. **Validation** — ตรวจ Field, Row, Cross-row, Duplicate ในไฟล์และฐานข้อมูล
    Audit/Constraint: สร้าง messages {field, code, severity, message}
-7. **Preview** — แสดงเลขแถว ค่าหลังแปลง ผู้สมัครเจ้าของ Continuation และ Error/Warning  
+7. **Preview** — แสดงเลขแถว ค่าหลังแปลง ผู้สมัครเจ้าของ Continuation และ Error/Warning
    Audit/Constraint: ยังไม่เขียนข้อมูลจริง
-8. **Confirm Policy** — ผู้ดูแลเลือก Skip/Update สำหรับ Duplicate ที่อนุญาต  
+8. **Confirm Policy** — ผู้ดูแลเลือก Skip/Update สำหรับ Duplicate ที่อนุญาต
    Audit/Constraint: Update ได้เฉพาะก่อนมี Evaluation
-9. **Transactional Import** — บันทึก Applicant และ Child Records ภายใน Transaction  
+9. **Transactional Import** — บันทึก Applicant และ Child Records ภายใน Transaction
    Audit/Constraint: Error ระดับ Batch → Rollback
-10. **Audit Result** — บันทึกจำนวน total/valid/warning/error/skipped/imported และรายละเอียด  
+10. **Audit Result** — บันทึกจำนวน total/valid/warning/error/skipped/imported และรายละเอียด
    Audit/Constraint: รองรับตรวจสอบย้อนหลัง/Export Error Report
 
 ## 8. Minimum Test Cases
@@ -216,3 +216,10 @@
 - [`SEMS-project-proposal.pdf`](../../Requirements/Proposal/SEMS-project-proposal.pdf)
 - `SEMS_Data_Dictionary.xlsx`
 - [`SEMS_Requirement_Decision_Analysis.md`](../../Requirements/SEMS_Requirement_Decision_Analysis.md)
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-23 | SEMS Design Team | Limited Release 1 import to `.xlsx`/`.csv` and aligned canonical file-type error code. |
+| v0.1 | 2026-07-23 | SEMS Design Team | Initial applicant import mapping draft. |

@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pre-Implementation Review** |
@@ -685,7 +685,7 @@ model AuditLog {
   entityType         String       @map("entity_type") @db.VarChar(100)
   entityId           String?      @map("entity_id") @db.VarChar(100)
   outcome            AuditOutcome @default(SUCCESS)
-  requestId          String?      @map("request_id") @db.VarChar(100)
+  traceId            String?      @map("trace_id") @db.VarChar(100)
   ipAddress          String?      @map("ip_address") @db.Inet
   userAgent          String?      @map("user_agent")
   metadata           Json?
@@ -790,7 +790,7 @@ model AuditLog {
 | ImportError | rowNumber / columnName / fieldName | Mixed | Mixed |  | Location of validation issue in source file | rowNumber > 0 | 3 / gpa / gpa | Internal |
 | ImportError | errorCode | VARCHAR(100) | No |  | Machine-readable validation code | Examples: REQUIRED_FIELD_MISSING, INVALID_GPA, INVALID_DATE, DUPLICATE_STUDENT, INVALID_COORDINATE, ORPHAN_CONTINUATION_ROW | INVALID_GPA | Internal |
 | AuditLog | actorId / action / entityType / entityId | Mixed | Mixed |  | Who did what to which entity | Never record password, token, secret, or full sensitive payload | user-id / EVALUATION_SUBMITTED | Restricted |
-| AuditLog | outcome / requestId / ipAddress / metadata | Mixed | Mixed |  | Traceability context | Metadata allowlist; redact secrets | SUCCESS | Restricted |
+| AuditLog | outcome / traceId / ipAddress / metadata | Mixed | Mixed |  | Traceability context | Metadata allowlist; redact secrets | SUCCESS | Restricted |
 
 ## 3. Enums
 
@@ -888,3 +888,23 @@ model AuditLog {
 - Treat applicant contact, GPA, household income, expenses, histories, coordinates, documents, scores and comments as personal/sensitive data.
 - Store document binaries in server/object storage; PostgreSQL stores only metadata and the storage key.
 - Define retention and deletion policy with the faculty before production deployment. Audit and evaluation records should normally be immutable or soft-cancelled rather than physically deleted.
+
+## 9. Database Freeze Blockers
+
+Database schema remains **Draft** and must not be declared Final until RD-024–RD-029 are decided with evidence.
+
+| Decision | Open Question | Entity | Unique Constraint | Foreign Key | Import Mapping | API | Report | Migration Impact |
+|---|---|---|---|---|---|---|---|---|
+| RD-024 | ผู้สมัครหนึ่งคนสมัครหลายประเภททุนในรอบเดียวกันได้หรือไม่ | ApplicantRound / possible Application | Cardinality changes | Possible ScholarshipType relation | ต้องมี scholarship type column | Applicant create/list filters | แยกผลต่อประเภททุน | Existing rows need type assignment |
+| RD-025 | Business key ต้องมี `scholarship_type_id` หรือไม่ | ApplicantRound/Application | `(round, student)` vs `(round, student, type)` | ScholarshipType FK if included | Duplicate rule changes | Conflict code/lookup changes | Grouping changes | Unique index migration may fail on duplicates |
+| RD-026 | Loan/Scholarship History เป็น Applicant หรือ Snapshot รายรอบ | LoanHistory, ScholarshipHistory | Parent scope changes | Applicant vs ApplicantRound FK | Child-row grouping scope | Response nesting/versioning | Historical values/as-of round | Data move and deduplication |
+| RD-027 | Duplicate Applicant update field ใดได้ | Applicant, ApplicantRound, histories | Upsert eligibility | Affected child FKs | Update/skip/error mapping | PATCH/confirm authorization | Historical consistency | Backfill audit/source version |
+| RD-028 | Required Fields ขั้นสุดท้าย | Applicant/ApplicantRound | Nullable/business checks | Required parent relation | Blocking vs warning | Request required fields | Blank/export policy | NOT NULL migration needs clean data |
+| RD-029 | ต้องจัดเก็บเลขบัตรประชาชนหรือไม่ | Applicant or restricted identity store | Unique/hash decision | Possible separate restricted entity | Column accept/reject/mask | Field exposure and authorization | Excluded by default | Encrypt/hash/remove/backfill and retention |
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.2 | 2026-07-23 | SEMS Design Team | Added Database Freeze Blockers and standardized AuditLog correlation field to `traceId`; schema remains Draft. |
+| v1.1 | 2026-07-23 | SEMS Design Team | Updated ER/Prisma/Data Dictionary pre-implementation draft. |

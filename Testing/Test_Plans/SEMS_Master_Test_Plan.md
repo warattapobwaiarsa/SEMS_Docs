@@ -3,7 +3,7 @@
 | รายการ | ค่า |
 |---|---|
 | Document ID | SEMS-TP-001 |
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS QA Team** |
 | Status | **Draft for Design Baseline** |
@@ -220,7 +220,7 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 | ACCOUNT_INACTIVE | 403 | บัญชี SEMS ไม่ Active |
 | ACCESS_DENIED | 403 | Role หรือ ownership ไม่อนุญาต |
 | ROUND_NOT_OPEN | 409 | รอบทุนไม่อยู่สถานะ Open |
-| EVALUATION_DUPLICATE | 409 | Evaluator เดิมมี active evaluation อยู่แล้ว |
+| DUPLICATE_EVALUATION | 409 | Evaluator เดิมมี active evaluation อยู่แล้ว |
 | EVALUATOR_LIMIT_REACHED | 409 | Applicant มี active evaluation ครบ 3 |
 | EVALUATION_ALREADY_SUBMITTED | 409 | ส่งผลซ้ำหรือแก้ Submitted โดยไม่ Reopen |
 | SCORE_OUT_OF_RANGE | 422 | คะแนนต่ำกว่า min หรือสูงกว่า max |
@@ -261,3 +261,10 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 - Test Execution Evidence
 - Defect Log
 - Test Summary Report และ UAT Sign-off
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-23 | SEMS QA Team | Aligned canonical evaluation error code and pre-baseline documentation checks. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial master test plan draft. |

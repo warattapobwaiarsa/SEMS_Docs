@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
@@ -219,11 +219,11 @@ AND currentUser.status == ACTIVE
 | ไม่มี Session หรือ Session หมดอายุ | 401 | `AUTHENTICATION_REQUIRED` |
 | บัญชี SEMS ไม่ Active | 403 | `ACCOUNT_INACTIVE` |
 | บทบาทไม่อนุญาต | 403 | `ROLE_FORBIDDEN` |
-| ไม่ใช่เจ้าของ Evaluation | 403 | `EVALUATION_NOT_OWNED` |
+| ไม่ใช่เจ้าของ Evaluation | 403 | `EVALUATION_NOT_OWNER` |
 | พยายามเปิดเอกสารผู้สมัครที่ไม่ได้เลือก | 403 หรือ 404 | `DOCUMENT_ACCESS_DENIED` |
 | รอบทุนไม่ Open | 409 | `ROUND_NOT_OPEN` |
 | ผู้ประเมินเลือกผู้สมัครซ้ำ | 409 | `DUPLICATE_EVALUATION` |
-| ผู้สมัครมีผู้ประเมินครบ 3 คนแล้ว | 409 | `MAX_EVALUATORS_REACHED` |
+| ผู้สมัครมีผู้ประเมินครบ 3 คนแล้ว | 409 | `EVALUATOR_LIMIT_REACHED` |
 | Evaluation ไม่อยู่ในสถานะที่แก้ไขได้ | 409 | `INVALID_EVALUATION_STATE` |
 | ข้อมูลก่อน Submit ไม่ครบ | 422 | `EVALUATION_VALIDATION_FAILED` |
 | Admin พยายาม Submit แทน | 403 | `SUBMIT_ON_BEHALF_FORBIDDEN` |
@@ -313,7 +313,7 @@ Authentication
 |---|---|---|
 | PERM-DEC-001 | Evaluator เห็นคะแนนสรุปของผู้สมัครหรือไม่ | เห็นเฉพาะสถานะความครบถ้วนและผลของตน ไม่เห็นคะแนน/ความคิดเห็นของผู้อื่น |
 | PERM-DEC-002 | Admin ยกเลิก Draft ของผู้ประเมินได้หรือไม่ | อนุญาตเฉพาะกรณีบริหารระบบ มีเหตุผล และ Audit; ห้ามแก้เนื้อหา |
-| PERM-DEC-003 | Admin เปิดรอบ Closed กลับเป็น Open ได้หรือไม่ | อนุญาตเป็นกรณีพิเศษ พร้อมเหตุผลและผู้อนุมัติ |
+| PERM-DEC-003 | Admin เปิดรอบ Closed กลับเป็น Open ได้หรือไม่ | **Provisional:** อนุญาตเป็นกรณีพิเศษ พร้อมเหตุผล ผู้อนุมัติ และ Audit |
 | PERM-DEC-004 | Reopen เปลี่ยนสถานะเป็น `Reopened` หรือกลับ `Draft` ทันที | แนะนำให้มี `Reopened` ใน Audit/Workflow แล้วเปลี่ยนเป็น Draft ที่แก้ไขได้ |
 | PERM-DEC-005 | ผู้ประเมินดูรายการของตนหลัง Archived ได้หรือไม่ | แนะนำให้ดูแบบ Read-only ได้ตามระยะเวลาเก็บข้อมูล |
 | PERM-DEC-006 | Access Denied ต่อข้อมูลละเอียดอ่อนใช้ 403 หรือ 404 | แนะนำ 404 สำหรับทรัพยากรที่ไม่ควรเปิดเผยการมีอยู่ และใช้มาตรฐานเดียวกันทั้งระบบ |
@@ -325,3 +325,10 @@ Authentication
 - **Admin:** บริหารผู้ใช้ รอบทุน Import ผู้สมัคร เอกสาร เกณฑ์ ติดตามผล ดูผลรายผู้ประเมิน ปิดรอบ Export และตรวจ Audit ตามหน้าที่ แต่ **ห้ามแก้คะแนนหรือ Submit แทนผู้ประเมิน**
 - **Evaluator:** ค้นหาและเลือกผู้สมัครในรอบ Open ดูรายละเอียดเฉพาะผู้สมัครที่เลือก บันทึก Draft Review และ Submit **เฉพาะ Evaluation ของตนเอง** และ **ห้ามดูหรือแก้ผลของผู้ประเมินคนอื่น**
 - **Backend:** ต้องบังคับใช้ Role + Active Status + Round Status + Ownership + Evaluation Status ทุกครั้ง ไม่พึ่งการซ่อนเมนูจาก Frontend
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.1 | 2026-07-23 | SEMS Design Team | Aligned canonical evaluation error codes and made controlled reopen explicitly provisional. |
+| v1.0 | 2026-07-23 | SEMS Design Team | Initial permission matrix draft. |

@@ -14,5 +14,6 @@ Thumbs.db
 # Temporary inspect and build files
 .tmp-sheet-inspect/
 tmp/
-
+__pycache__/
+*.py[cod]
 

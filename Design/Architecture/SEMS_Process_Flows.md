@@ -4,7 +4,7 @@
 |---|---|
 | ชื่อระบบ | Scholarship Evaluation Management System (SEMS) |
 | รหัสเอกสาร | SEMS-DES-FLOW-001 |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft for Review** |
@@ -588,7 +588,7 @@ flowchart TD
 
 - ข้อผิดพลาดด้าน `state`, `nonce`, signature และ token ต้องยกเลิกกระบวนการทันที
 - ข้อความที่แสดงต่อผู้ใช้ไม่ควรเปิดเผย token, stack trace, client secret หรือรายละเอียดภายใน
-- Log ควรมี `correlation_id`, เวลา, endpoint, error category และ user identifier เท่าที่จำเป็น
+- Log ควรมี `traceId`, เวลา, endpoint, error category และ user identifier เท่าที่จำเป็น
 - เมื่อ KKU SSO ไม่พร้อมใช้งาน ควรแยกจากกรณีบัญชี SEMS ไม่มีสิทธิ์ เพื่อให้ผู้ใช้แก้ปัญหาได้ถูกจุด
 
 ---
@@ -612,6 +612,7 @@ flowchart TD
 
 1. อนุญาตให้นำเข้าผู้สมัครเฉพาะรอบ `Draft` หรืออนุญาตในรอบ `Open` ด้วย
 2. Criteria Version ใหม่สามารถเริ่มใช้กลางรอบได้หรือไม่
+
 3. ผู้มีอำนาจอนุมัติ Reopen Evaluation คือใคร
 4. เมื่อรอบ `Closed` ต้องการแก้ Evaluation จะเปิดรอบกลับเป็น `Open` หรือใช้ Exception เฉพาะรายการ
 5. ความคิดเห็นเป็นข้อมูลบังคับก่อน Submit หรือไม่
@@ -619,3 +620,10 @@ flowchart TD
 7. Template และ Encoding ของ CSV
 8. ระยะเวลาจัดเก็บ Export File, Import File และ Audit Log
 9. รูปแบบ Logout ที่ใช้: ออกจาก SEMS เท่านั้น หรือ Full KKU SSO Logout
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.1 | 2026-07-23 | SEMS Design Team | Standardized observability correlation on `traceId`. |
+| v1.0 | 2026-07-23 | SEMS Design Team | Initial process flow specification draft. |

@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.0** |
+| Current Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
@@ -16,15 +16,15 @@
 
 1. [README.md](./README.md) — ภาพรวมโครงการ วัตถุประสงค์ ทีม และ technology stack
 2. [Project Proposal](./Requirements/Proposal/SEMS-project-proposal.md) — ที่มา ขอบเขต และแนวคิดของโครงการ
-3. [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md) — การวิเคราะห์ประเด็นและทางเลือกด้าน requirement
-4. [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md) — ข้อสรุปและสถานะการตัดสินใจ
-5. [Design Overview](./Design/README.md) — ดัชนีเอกสารออกแบบ
-6. เลือกอ่านเอกสารออกแบบที่เกี่ยวข้องจาก [Complete File Index](#complete-file-index)
-7. [Testing Overview](./Testing/README.md) — test plans และ test cases
-8. [Deployment Overview](./Deployment/README.md) — สถานะเอกสาร deployment และคู่มือผู้ใช้
+3. [Documentation Review Report](./DOCUMENTATION_REVIEW_REPORT.md) — Critical/Open Decisions และ readiness
+4. [PRD](./Requirements/PRD/SEMS-PRD.md) และ [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
+5. [SRS](./Requirements/SRS/SEMS-SRS.md) และ [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
+6. [System Architecture](./Design/Architecture/SEMS_System_Architecture.md) และ [Design Overview](./Design/README.md)
+7. [Testing Overview](./Testing/README.md) — test plans, test cases และ reference data
+8. [Deployment Overview](./Deployment/README.md)
 9. ก่อนแก้ไขเอกสาร อ่าน [Documentation Policy](./DOCUMENTATION_POLICY.md) และ [Contributing Guide](./CONTRIBUTING.md)
 
-> **สถานะหมวดที่ยังไม่มีเอกสาร:** `Requirements/Meeting_Notes/`, `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มีเอกสารที่จัดทำดัชนี
+> `Requirements/Meeting_Notes/` มีเฉพาะ template; `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มี deliverable ที่อนุมัติ
 
 ## เส้นทางการอ่านตามบทบาท
 
@@ -37,13 +37,14 @@
 5. [SRS](./Requirements/SRS/SEMS-SRS.md)
 6. [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
 7. [Wireframe Specification](./Design/UI_UX/SEMS_Wireframe_Specification.md)
+8. [Requirement Baseline Approval Record Template](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md)
 
 ### Developer / System Designer
 
 1. [SRS](./Requirements/SRS/SEMS-SRS.md)
 2. [Design Overview](./Design/README.md)
-3. [Process Flows](./Design/Architecture/SEMS_Process_Flows.md), [Permission Matrix](./Design/Architecture/SEMS_Permission_Matrix.md) และ [State Transition Specification](./Design/Architecture/SEMS_State_Transition_Specification.md)
-4. [API Specification](./Design/API/SEMS_API_Specification.md), [OpenAPI](./Design/API/openapi.yaml) และ [KKU OAuth Summary](./Design/API/kku-oauth-summary.md)
+3. [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Process Flows](./Design/Architecture/SEMS_Process_Flows.md), [Permission Matrix](./Design/Architecture/SEMS_Permission_Matrix.md) และ [State Transition Specification](./Design/Architecture/SEMS_State_Transition_Specification.md)
+4. [API Specification](./Design/API/SEMS_API_Specification.md), [Error Code Catalog](./Design/API/SEMS_Error_Code_Catalog.md), [OpenAPI](./Design/API/openapi.yaml) และ [KKU OAuth Summary](./Design/API/kku-oauth-summary.md)
 5. [ER / Prisma Data Dictionary](./Design/Database/SEMS_ER_Prisma_Data_Dictionary.md) และ [Data Dictionary Index](./Design/Database/SEMS_Data_Dictionary/README.md)
 6. [Scoring Rule Specification](./Design/Criteria/SEMS_Scoring_Rule_Specification.md)
 7. [Import Mapping Guide](./Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md)
@@ -84,6 +85,7 @@
 ### Requirements
 
 - [Requirements/README.md](./Requirements/README.md)
+- [PRD](./Requirements/PRD/SEMS-PRD.md)
 - [Project Proposal — Markdown](./Requirements/Proposal/SEMS-project-proposal.md)
 - [Project Proposal — PDF](./Requirements/Proposal/SEMS-project-proposal.pdf)
 - [SRS](./Requirements/SRS/SEMS-SRS.md)
@@ -91,17 +93,22 @@
 - [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
 - [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md)
 - [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
-
-`Requirements/Meeting_Notes/` ยังไม่มีเอกสาร
+- [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
+- [Requirement Baseline Approval Record Template](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md)
+- [System Design Approval Record Template](./Requirements/Approvals/System_Design_Approval_Record.md)
+- [Meeting Notes Index](./Requirements/Meeting_Notes/README.md)
+- [Meeting Note Template](./Requirements/Meeting_Notes/MEETING_NOTE_TEMPLATE.md)
 
 ### Design — API and Architecture
 
 - [Design Overview](./Design/README.md)
 - [API Specification](./Design/API/SEMS_API_Specification.md)
+- [Error Code Catalog](./Design/API/SEMS_Error_Code_Catalog.md)
 - [OpenAPI Definition](./Design/API/openapi.yaml)
 - [Endpoint Matrix](./Design/API/endpoint-matrix.csv)
 - [KKU OAuth Summary](./Design/API/kku-oauth-summary.md)
 - [Permission Matrix](./Design/Architecture/SEMS_Permission_Matrix.md)
+- [System Architecture](./Design/Architecture/SEMS_System_Architecture.md)
 - [Process Flows](./Design/Architecture/SEMS_Process_Flows.md)
 - [State Transition Specification](./Design/Architecture/SEMS_State_Transition_Specification.md)
 
@@ -177,6 +184,7 @@
 - [Regression Checklist](./Testing/Test_Cases/SEMS_Regression_Checklist.md)
 - [Scoring, State, and Report Test Cases](./Testing/Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md)
 - [Security, RBAC, and SSO Test Cases](./Testing/Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md)
+- [Scoring Reference Cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md)
 
 `Testing/UAT/` ยังไม่มีเอกสาร
 
@@ -210,4 +218,5 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-23 | SEMS Documentation Team | Added review report, PRD, traceability, architecture, error catalog, approval/meeting templates and scoring reference data. |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | Created the main onboarding guide, role-based reading paths, complete file index, and Obsidian instructions. |

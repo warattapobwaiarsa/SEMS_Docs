@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
@@ -11,13 +11,13 @@
 
 ## เอกสาร
 
-| ชีตต้นฉบับ | Markdown |
-|---|---|
-| `README` | [`00_Workbook_Overview.md`](./00_Workbook_Overview.md) |
-| `Data Dictionary` | [`01_Data_Dictionary.md`](./01_Data_Dictionary.md) |
-| `Import Column Mapping` | [`02_Import_Column_Mapping.md`](./02_Import_Column_Mapping.md) |
-| `Value Sets` | [`03_Value_Sets.md`](./03_Value_Sets.md) |
-| `Design Decisions` | [`04_Design_Decisions.md`](./04_Design_Decisions.md) |
+| ชีตต้นฉบับ | Markdown | Version |
+|---|---|---:|
+| `README` | [`00_Workbook_Overview.md`](./00_Workbook_Overview.md) | v1.0 |
+| `Data Dictionary` | [`01_Data_Dictionary.md`](./01_Data_Dictionary.md) | v1.1 |
+| `Import Column Mapping` | [`02_Import_Column_Mapping.md`](./02_Import_Column_Mapping.md) | v1.0 |
+| `Value Sets` | [`03_Value_Sets.md`](./03_Value_Sets.md) | v1.0 |
+| `Design Decisions` | [`04_Design_Decisions.md`](./04_Design_Decisions.md) | v1.0 |
 
 ## เอกสารที่เกี่ยวข้อง
 
@@ -31,4 +31,5 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-23 | SEMS Documentation Team | Added versions and stable-anchor update for the Data Dictionary conversion. |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | สร้างดัชนีและเอกสาร Markdown จาก workbook ต้นฉบับเพื่อให้อ่านบน GitHub ได้ |

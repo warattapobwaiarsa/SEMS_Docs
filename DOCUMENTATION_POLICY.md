@@ -3,7 +3,7 @@
 | รายการ | รายละเอียด |
 | :--- | :--- |
 | ชื่อเอกสาร | Documentation Governance Policy |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | สถานะ | ฉบับใช้งาน |
@@ -29,12 +29,15 @@
 
 | ประเภท | ตัวอย่าง | ใช้เมื่อ |
 | :--- | :---: | :--- |
-| **Major** | `v1.0` → `v2.0` | เปลี่ยนโครงสร้างหลัก, Scope, Business Logic หรือกระบวนการสำคัญของ SEMS เช่น ปรับเกณฑ์คะแนนหลักหรือขั้นตอนการประเมิน |
-| **Minor** | `v1.0` → `v1.1` | แก้ไขข้อความ, เพิ่มรายละเอียด, แก้คำผิด, เพิ่มตัวอย่าง, เพิ่มคู่มือ หรืออัปเดต Data Template โดยไม่เปลี่ยนสาระหลัก |
+| **Pre-baseline** | `v0.1` → `v0.2` | Working Draft / Pre-baseline ที่ยังไม่อนุมัติ |
+| **First official** | `v1.0` | First Approved หรือ First Official Release เท่านั้น |
+| **Minor** | `v1.0` → `v1.1` | แก้ไขที่ไม่เปลี่ยนสาระหลักหลังออกฉบับทางการ |
+| **Major** | `v1.x` → `v2.0` | เปลี่ยน Scope, Business Logic หรือกระบวนการสำคัญหลังออกฉบับทางการ |
 
 ข้อกำหนดเพิ่มเติม:
 
-- เอกสารใหม่เริ่มต้นที่ **`v1.0`**
+- เอกสาร Draft ก่อน Baseline เริ่มที่ **`v0.1`** และเพิ่ม `v0.x` ตามการแก้ไข
+- ห้ามเปลี่ยนเป็น `v1.0`, Current หรือ Approved จนมีหลักฐานการอนุมัติ/การออกฉบับทางการ
 - เลขเวอร์ชันของเอกสารแต่ละฉบับเป็นอิสระจากเลขเวอร์ชันของ Repository และ README
 - เมื่อเพิ่ม แก้ไข ย้าย หรือลบเอกสาร ให้ปรับ Minor Version ของ README หรือ Index ที่ได้รับผลกระทบ
 - ห้ามสร้างสำเนาชื่อเช่น `final`, `final2`, `latest` หรือ `new`; ให้ใช้เลขเวอร์ชันและ Revision History แทน
@@ -159,5 +162,6 @@ Updated: REPOSITORY_TREE.md (v1.1 → v1.2)
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-23 | SEMS Documentation Team | รองรับ `v0.x` สำหรับ Working Draft/Pre-baseline และสงวน `v1.0` สำหรับ First Approved/Official Release |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | เชื่อมโยงข้อกำหนด Commit, Branch และ Pull Request ไปยัง `CONTRIBUTING.md` |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | จัดทำนโยบายการกำกับดูแลเอกสารและการควบคุมเวอร์ชันฉบับแรก |

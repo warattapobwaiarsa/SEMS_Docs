@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: SEMS REST API
-  version: 1.0.0-draft
+  version: 1.1.0-draft
   summary: Scholarship Evaluation Management System API Specification
   description: 'API Specification สำหรับระบบบริหารจัดการการประเมินทุนการศึกษา (SEMS)
 
@@ -629,7 +629,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - ROUND_HAS_EVALUATIONS
       - INVALID_DATE_RANGE
       - CONCURRENCY_CONFLICT
@@ -681,8 +681,8 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
-      - CRITERIA_REQUIRED
+      - INVALID_ROUND_STATUS_TRANSITION
+      - ACTIVE_CRITERIA_REQUIRED
       - CRITERIA_INVALID
       - NO_APPLICANTS
       - CSRF_INVALID
@@ -726,7 +726,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - CSRF_INVALID
       x-validation:
       - สถานะเดิมต้อง OPEN
@@ -769,7 +769,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - CSRF_INVALID
       x-validation:
       - สถานะเดิมต้อง CLOSED
@@ -855,13 +855,13 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
-      - IMPORT_FILE_UNSUPPORTED
+      - INVALID_ROUND_STATUS_TRANSITION
+      - UNSUPPORTED_FILE_TYPE
       - IMPORT_FILE_EMPTY
       - IMPORT_FILE_TOO_LARGE
       - CSRF_INVALID
       x-validation:
-      - รองรับ CSV/XLS/XLSX
+      - Release 1 รองรับ CSV/XLSX เท่านั้น; XLS เป็น Optional / Out of Scope
       - รอบทุนต้อง DRAFT หรือ OPEN ตามนโยบายที่กำหนด
       - ขนาดไฟล์ใช้ค่าจาก configuration
       x-audit-events:
@@ -1011,7 +1011,7 @@ paths:
       - INVALID_PHONE
       - INVALID_EMAIL
       - INVALID_COORDINATE
-      - DUPLICATE_STUDENT
+      - DUPLICATE_STUDENT_IN_FILE
       - ORPHAN_CONTINUATION_ROW
       - CSRF_INVALID
       x-validation:
@@ -1164,10 +1164,10 @@ paths:
       x-error-codes:
       - IMPORT_NOT_FOUND
       - IMPORT_NOT_VALIDATED
-      - IMPORT_HAS_ERRORS
+      - IMPORT_HAS_BLOCKING_ERRORS
       - IMPORT_ALREADY_CONFIRMED
-      - ROUND_STATE_INVALID
-      - DUPLICATE_STUDENT
+      - INVALID_ROUND_STATUS_TRANSITION
+      - DUPLICATE_STUDENT_IN_ROUND
       - CONCURRENCY_CONFLICT
       - CSRF_INVALID
       x-validation:
@@ -1357,7 +1357,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - APPLICANT_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - VALIDATION_ERROR
       - CONCURRENCY_CONFLICT
       - CSRF_INVALID
@@ -1681,7 +1681,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - ROUND_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - DUPLICATE_CRITERION_CODE
       - INVALID_SCORE_RANGE
       - INVALID_WEIGHT
@@ -2015,7 +2015,7 @@ paths:
       x-roles: *id002
       x-error-codes:
       - CRITERIA_SET_NOT_FOUND
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - VERSION_ALREADY_EXISTS
       - CSRF_INVALID
       x-validation:
@@ -2122,9 +2122,9 @@ paths:
       - APPLICANT_NOT_FOUND
       - USER_INACTIVE
       - ROUND_NOT_OPEN
-      - CRITERIA_NOT_ACTIVE
+      - ACTIVE_CRITERIA_REQUIRED
       - DUPLICATE_EVALUATION
-      - MAX_EVALUATORS_REACHED
+      - EVALUATOR_LIMIT_REACHED
       - CONCURRENCY_CONFLICT
       - CSRF_INVALID
       x-validation:
@@ -2208,7 +2208,7 @@ paths:
       x-roles: *id007
       x-error-codes:
       - EVALUATION_NOT_FOUND
-      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_OWNER
       - EVALUATION_NOT_EDITABLE
       - ROUND_NOT_OPEN
       - SCORE_OUT_OF_RANGE
@@ -2256,7 +2256,7 @@ paths:
       x-roles: *id007
       x-error-codes:
       - EVALUATION_NOT_FOUND
-      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_OWNER
       - EVALUATION_ALREADY_SUBMITTED
       - ROUND_NOT_OPEN
       - CSRF_INVALID
@@ -2300,7 +2300,7 @@ paths:
       x-roles: *id007
       x-error-codes:
       - EVALUATION_NOT_FOUND
-      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_OWNER
       - EVALUATION_NOT_EDITABLE
       - ROUND_NOT_OPEN
       - EVALUATION_INCOMPLETE
@@ -2354,7 +2354,7 @@ paths:
       x-roles: *id007
       x-error-codes:
       - EVALUATION_NOT_FOUND
-      - EVALUATION_NOT_OWNED
+      - EVALUATION_NOT_OWNER
       - EVALUATION_ALREADY_SUBMITTED
       - EVALUATION_INCOMPLETE
       - ROUND_NOT_OPEN
@@ -2413,7 +2413,7 @@ paths:
       - EVALUATION_NOT_FOUND
       - EVALUATION_NOT_SUBMITTED
       - REOPEN_NOT_ALLOWED
-      - ROUND_STATE_INVALID
+      - INVALID_ROUND_STATUS_TRANSITION
       - CSRF_INVALID
       x-validation:
       - ต้องมีเหตุผล
@@ -2910,16 +2910,14 @@ components:
       - EXPIRED
     ErrorDetail:
       type: object
-      additionalProperties: true
+      additionalProperties: false
+      required:
+      - field
+      - reason
       properties:
         field:
           type: string
         reason:
-          type: string
-        rowNumber:
-          type: integer
-        value: {}
-        constraint:
           type: string
     ErrorResponse:
       type: object

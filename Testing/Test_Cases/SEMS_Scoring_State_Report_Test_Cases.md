@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -36,7 +36,13 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 **Input:** ทุก criterion = min
 
-**Expected:** evaluator total = 0
+**Expected:** evaluator total = 5 เพราะ `CRT-04` มีคะแนนต่ำสุด 5 และทุกเกณฑ์บังคับ
+
+### SCR-D-002A Embedded Point Is Not Weighted Twice
+
+**Input:** คะแนน 10 เกณฑ์รวม 75 และ metadata `weight_percent` รวม 100
+
+**Expected:** evaluator total = 75; ห้ามคูณคะแนน option ด้วย `weight_percent` ซ้ำ
 
 ### SCR-D-003 Mixed Lookup Options
 
@@ -106,9 +112,9 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 ### SCR-D-016 Rounding
 
-**Dataset:** totals ที่ให้เศษ เช่น 80, 81, 82 หรือ weighted decimals
+**Dataset:** Decimal totals `80.00`, `80.01` ให้ average `80.005`
 
-**Expected:** ปัดเฉพาะจุดและจำนวนตำแหน่งตาม Scoring Rule Specification; DB/UI/Export เท่ากัน
+**Expected:** ปัดเฉพาะ Applicant Summary เป็น `80.01` แบบ `HALF_UP`; DB/UI/Export เท่ากัน และห้ามใช้ binary floating point
 
 ## 4. State Transition Tests
 
@@ -206,3 +212,10 @@ For each row compare:
 **Decision:** report ต้องใช้ snapshot/transaction หรือระบุ as-of time
 
 **Expected:** file ภายในชุดเดียวกัน consistent ไม่ครึ่งเก่า/ครึ่งใหม่
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-23 | SEMS QA Team | Corrected minimum total to 5 and added embedded-point and Decimal HALF_UP regression cases. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial scoring, state, dashboard and report test draft. |

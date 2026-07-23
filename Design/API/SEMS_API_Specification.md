@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — System Design Review** |
@@ -148,7 +148,7 @@
 - **Request:** UpdateRoundRequest
 - **Response:** ScholarshipRound
 - **Validation:** แก้ไขข้อมูลหลักได้เมื่อ DRAFT; หากมี Evaluation แล้วห้ามเปลี่ยนข้อมูลที่กระทบผล
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, ROUND_HAS_EVALUATIONS, INVALID_DATE_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, ROUND_HAS_EVALUATIONS, INVALID_DATE_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** ROUND_UPDATED
 
 #### `POST /scholarship-rounds/{roundId}/open` — เปิดรอบทุน
@@ -156,8 +156,8 @@
 - **Role:** ADMIN
 - **Request:** Path + CSRF
 - **Response:** ScholarshipRound
-- **Validation:** สถานะเดิมต้อง DRAFT; ต้องมี Criteria Set ACTIVE และมีผู้สมัครอย่างน้อย 1 ราย
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, CRITERIA_REQUIRED, CRITERIA_INVALID, NO_APPLICANTS, CSRF_INVALID
+- **Validation:** สถานะเดิมต้อง DRAFT; ต้องมี Criteria Set ACTIVE, ผ่าน Pre-open Validation และมีผู้สมัครอย่างน้อย 1 ราย (**Provisional RD-023**)
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, ACTIVE_CRITERIA_REQUIRED, NO_APPLICANTS, CSRF_INVALID
 - **Audit Event:** ROUND_OPENED
 
 #### `POST /scholarship-rounds/{roundId}/close` — ปิดรอบทุน
@@ -166,7 +166,7 @@
 - **Request:** Path + CSRF
 - **Response:** ScholarshipRound
 - **Validation:** สถานะเดิมต้อง OPEN; ปิดการสร้าง/Submit Evaluation ใหม่; ผู้สมัคร Submitted >=2 เป็น FINALIZED; น้อยกว่า 2 เป็น CLOSED_INCOMPLETE
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, CSRF_INVALID
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, CSRF_INVALID
 - **Audit Event:** ROUND_CLOSED
 
 #### `POST /scholarship-rounds/{roundId}/archive` — จัดเก็บรอบทุน
@@ -175,7 +175,7 @@
 - **Request:** Path + CSRF
 - **Response:** ScholarshipRound
 - **Validation:** สถานะเดิมต้อง CLOSED; ข้อมูลยังอ่านได้แต่แก้ไขไม่ได้
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, CSRF_INVALID
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, CSRF_INVALID
 - **Audit Event:** ROUND_ARCHIVED
 
 ### Imports
@@ -194,8 +194,8 @@
 - **Role:** ADMIN
 - **Request:** multipart: roundId + file
 - **Response:** 201 ImportBatch
-- **Validation:** รองรับ CSV/XLS/XLSX; รอบทุนต้อง DRAFT หรือ OPEN ตามนโยบายที่กำหนด; ขนาดไฟล์ใช้ค่าจาก configuration
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, IMPORT_FILE_UNSUPPORTED, IMPORT_FILE_EMPTY, IMPORT_FILE_TOO_LARGE, CSRF_INVALID
+- **Validation:** Release 1 รองรับ CSV/XLSX เท่านั้น; XLS เป็น Optional / Out of Scope; รอบทุนต้อง DRAFT หรือ OPEN ตามนโยบาย; ขนาดไฟล์ใช้ configuration
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, UNSUPPORTED_FILE_TYPE, IMPORT_FILE_EMPTY, IMPORT_FILE_TOO_LARGE, CSRF_INVALID
 - **Audit Event:** IMPORT_UPLOADED
 
 #### `GET /imports/{importId}` — อ่านสถานะ Import Batch
@@ -222,7 +222,7 @@
 - **Request:** ImportValidationRequest (optional)
 - **Response:** Batch + topErrors
 - **Validation:** รหัสนักศึกษาใช้รูปแบบ ^\d{9}-\d$ (check digit เป็นกฎแยก); GPA 0.00-4.00; วันที่ไทยต้องแปลง พ.ศ. เป็น ค.ศ.; พิกัด latitude/longitude อยู่ในช่วงมาตรฐาน; รองรับข้อมูล กยศ./ทุนหลายแถวและตรวจ orphan continuation row
-- **Error Code:** IMPORT_NOT_FOUND, IMPORT_STATE_INVALID, IMPORT_MAPPING_INCOMPLETE, REQUIRED_FIELD_MISSING, INVALID_STUDENT_ID, INVALID_GPA, INVALID_DATE, INVALID_PHONE, INVALID_EMAIL, INVALID_COORDINATE, DUPLICATE_STUDENT, ORPHAN_CONTINUATION_ROW, CSRF_INVALID
+- **Error Code:** IMPORT_NOT_FOUND, IMPORT_STATE_INVALID, IMPORT_MAPPING_INCOMPLETE, REQUIRED_FIELD_MISSING, INVALID_STUDENT_ID, INVALID_GPA, INVALID_DATE, INVALID_PHONE, INVALID_EMAIL, INVALID_COORDINATE, DUPLICATE_STUDENT_IN_FILE, ORPHAN_CONTINUATION_ROW, CSRF_INVALID
 - **Audit Event:** IMPORT_VALIDATED, IMPORT_VALIDATION_FAILED
 
 #### `GET /imports/{importId}/preview` — ดูตัวอย่างข้อมูลหลังแปลง
@@ -249,7 +249,7 @@
 - **Request:** allowWarnings (optional)
 - **Response:** ImportBatch CONFIRMED
 - **Validation:** ต้องผ่าน Validation และไม่มี ERROR; ใช้ Database Transaction; Applicant ต่อรอบต้องไม่ซ้ำตาม studentId
-- **Error Code:** IMPORT_NOT_FOUND, IMPORT_NOT_VALIDATED, IMPORT_HAS_ERRORS, IMPORT_ALREADY_CONFIRMED, ROUND_STATE_INVALID, DUPLICATE_STUDENT, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** IMPORT_NOT_FOUND, IMPORT_NOT_VALIDATED, IMPORT_HAS_BLOCKING_ERRORS, IMPORT_ALREADY_CONFIRMED, INVALID_ROUND_STATUS_TRANSITION, DUPLICATE_STUDENT_IN_ROUND, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** IMPORT_CONFIRMED
 
 #### `POST /imports/{importId}/cancel` — ยกเลิก Import Batch ที่ยังไม่ Confirm
@@ -287,7 +287,7 @@
 - **Request:** UpdateApplicantRequest
 - **Response:** ApplicantDetail
 - **Validation:** ข้อมูลต้องผ่าน validation เดียวกับ Import; การแก้ไขหลัง Finalized ต้องเป็นไปตามนโยบายและมีเหตุผล
-- **Error Code:** APPLICANT_NOT_FOUND, ROUND_STATE_INVALID, VALIDATION_ERROR, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** APPLICANT_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, VALIDATION_ERROR, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** APPLICANT_UPDATED
 
 ### Documents
@@ -354,7 +354,7 @@
 - **Request:** CreateCriteriaSetRequest
 - **Response:** 201 CriteriaSet
 - **Validation:** minScore <= maxScore; code และ displayOrder ไม่ซ้ำในชุด; น้ำหนัก/คะแนนเต็มต้องเป็นไปตาม Scoring Rule ที่อนุมัติ
-- **Error Code:** ROUND_NOT_FOUND, ROUND_STATE_INVALID, DUPLICATE_CRITERION_CODE, INVALID_SCORE_RANGE, INVALID_WEIGHT, VALIDATION_ERROR, CSRF_INVALID
+- **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, DUPLICATE_CRITERION_CODE, INVALID_SCORE_RANGE, INVALID_WEIGHT, VALIDATION_ERROR, CSRF_INVALID
 - **Audit Event:** CRITERIA_SET_CREATED
 
 #### `GET /criteria-sets/{criteriaSetId}` — อ่านรายละเอียดชุดเกณฑ์
@@ -417,7 +417,7 @@
 - **Request:** reason + copyCriteria
 - **Response:** 201 CriteriaSet new version
 - **Validation:** reason บังคับ; Evaluation เดิมต้องยังอ้างอิง version เดิมเสมอ
-- **Error Code:** CRITERIA_SET_NOT_FOUND, ROUND_STATE_INVALID, VERSION_ALREADY_EXISTS, CSRF_INVALID
+- **Error Code:** CRITERIA_SET_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, VERSION_ALREADY_EXISTS, CSRF_INVALID
 - **Audit Event:** CRITERIA_VERSION_CREATED
 
 ### Evaluations
@@ -437,7 +437,7 @@
 - **Request:** CreateEvaluationRequest
 - **Response:** 201 Evaluation DRAFT
 - **Validation:** บัญชี ACTIVE; รอบ OPEN; ผู้ประเมินคนเดิมไม่มี Evaluation ที่ยังไม่ถูกยกเลิก; ผู้สมัครมี active Evaluation < 3; ใช้ transaction/row lock ป้องกันเลือกพร้อมกันเกิน 3 คน
-- **Error Code:** APPLICANT_NOT_FOUND, USER_INACTIVE, ROUND_NOT_OPEN, CRITERIA_NOT_ACTIVE, DUPLICATE_EVALUATION, MAX_EVALUATORS_REACHED, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** APPLICANT_NOT_FOUND, USER_INACTIVE, ROUND_NOT_OPEN, ACTIVE_CRITERIA_REQUIRED, DUPLICATE_EVALUATION, EVALUATOR_LIMIT_REACHED, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** EVALUATION_CREATED, EVALUATION_CREATE_REJECTED
 
 #### `GET /evaluations/{evaluationId}` — อ่านรายการประเมิน
@@ -455,7 +455,7 @@
 - **Request:** scores + comment + version
 - **Response:** Evaluation
 - **Validation:** เจ้าของ Evaluation เท่านั้น; สถานะ DRAFT หรือ REOPENED; คะแนนทุกค่าต้องอยู่ใน min/max ของ criterion version ที่ผูกไว้; version ต้องตรง
-- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNED, EVALUATION_NOT_EDITABLE, ROUND_NOT_OPEN, SCORE_OUT_OF_RANGE, CRITERION_VERSION_MISMATCH, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_NOT_EDITABLE, ROUND_NOT_OPEN, SCORE_OUT_OF_RANGE, CRITERION_VERSION_MISMATCH, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** EVALUATION_DRAFT_SAVED
 
 #### `POST /evaluations/{evaluationId}/review` — ตรวจความครบถ้วนก่อน Submit
@@ -464,7 +464,7 @@
 - **Request:** Path + CSRF
 - **Response:** EvaluationReview
 - **Validation:** เกณฑ์ required ต้องมีคะแนนครบ; ความคิดเห็นบังคับตาม Scoring Rule; ไม่เปลี่ยนสถานะ Evaluation
-- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNED, EVALUATION_NOT_EDITABLE, ROUND_NOT_OPEN, EVALUATION_INCOMPLETE, SCORE_OUT_OF_RANGE, CSRF_INVALID
+- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_NOT_EDITABLE, ROUND_NOT_OPEN, EVALUATION_INCOMPLETE, SCORE_OUT_OF_RANGE, CSRF_INVALID
 - **Audit Event:** EVALUATION_REVIEWED
 
 #### `POST /evaluations/{evaluationId}/submit` — ยืนยันส่งผลประเมิน
@@ -473,7 +473,7 @@
 - **Request:** confirmation=true + version
 - **Response:** Evaluation + optional ResultSummary
 - **Validation:** confirmation ต้อง true; ใช้เฉพาะคะแนนครบถ้วน; คำนวณ total ตาม criterion version; เปลี่ยนเป็น SUBMITTED แบบ atomic; หาก Submitted คนที่ 2 หรือ 3 ให้คำนวณ Result Summary ใหม่อัตโนมัติ
-- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNED, EVALUATION_ALREADY_SUBMITTED, EVALUATION_INCOMPLETE, ROUND_NOT_OPEN, SCORE_OUT_OF_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID
+- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_ALREADY_SUBMITTED, EVALUATION_INCOMPLETE, ROUND_NOT_OPEN, SCORE_OUT_OF_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID
 - **Audit Event:** EVALUATION_SUBMITTED, RESULT_SUMMARY_RECALCULATED
 
 #### `DELETE /evaluations/{evaluationId}` — ยกเลิกการเลือกผู้สมัครก่อน Submit
@@ -482,7 +482,7 @@
 - **Request:** Path + CSRF
 - **Response:** 204 No Content
 - **Validation:** ยกเลิกได้เฉพาะ DRAFT/REOPENED ก่อน Submit; ใช้ soft-cancel และไม่นับใน activeEvaluationCount
-- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNED, EVALUATION_ALREADY_SUBMITTED, ROUND_NOT_OPEN, CSRF_INVALID
+- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_ALREADY_SUBMITTED, ROUND_NOT_OPEN, CSRF_INVALID
 - **Audit Event:** EVALUATION_CANCELLED
 
 #### `POST /evaluations/{evaluationId}/reopen` — เปิดผล Submitted ให้แก้ไขตามนโยบาย
@@ -491,7 +491,7 @@
 - **Request:** reason
 - **Response:** Evaluation REOPENED
 - **Validation:** ต้องมีเหตุผล; ต้องเป็นไปตาม Reopen Policy; ผลสรุปเดิมต้องถูกทำเครื่องหมาย stale และคำนวณใหม่เมื่อ Submit ซ้ำ
-- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_SUBMITTED, REOPEN_NOT_ALLOWED, ROUND_STATE_INVALID, CSRF_INVALID
+- **Error Code:** EVALUATION_NOT_FOUND, EVALUATION_NOT_SUBMITTED, REOPEN_NOT_ALLOWED, INVALID_ROUND_STATUS_TRANSITION, CSRF_INVALID
 - **Audit Event:** EVALUATION_REOPENED
 
 ### Result Summaries
@@ -585,7 +585,7 @@
 
 ```json
 {
-  "code": "MAX_EVALUATORS_REACHED",
+  "code": "EVALUATOR_LIMIT_REACHED",
   "message": "ผู้สมัครมีรายการประเมินที่ใช้งานอยู่ครบ 3 รายการแล้ว",
   "details": [{ "field": "applicantRoundId", "reason": "active evaluation limit" }],
   "traceId": "01J2Y7QY8M8F6QK1J8N9P0ABCD",
@@ -595,7 +595,9 @@
 
 ## 4. รายการ Error Code สำคัญ
 
-`ACCESS_DENIED`, `APPLICANT_ACCESS_DENIED`, `APPLICANT_NOT_FOUND`, `AUDIT_LOG_NOT_FOUND`, `AUTH_CALLBACK_INVALID`, `AUTH_REQUIRED`, `CONCURRENCY_CONFLICT`, `CRITERIA_INVALID`, `CRITERIA_LOCKED`, `CRITERIA_MINIMUM_REQUIRED`, `CRITERIA_NOT_ACTIVE`, `CRITERIA_REQUIRED`, `CRITERIA_SET_NOT_FOUND`, `CRITERIA_STATE_INVALID`, `CRITERION_NOT_FOUND`, `CRITERION_VERSION_MISMATCH`, `CSRF_INVALID`, `DOCUMENT_ACCESS_DENIED`, `DOCUMENT_IN_USE`, `DOCUMENT_NOT_FOUND`, `DOCUMENT_TOO_LARGE`, `DOCUMENT_TYPE_UNSUPPORTED`, `DUPLICATE_ACTIVE_CRITERIA_SET`, `DUPLICATE_CRITERION_CODE`, `DUPLICATE_EMAIL`, `DUPLICATE_EVALUATION`, `DUPLICATE_KKU_SUB`, `DUPLICATE_ROUND_CODE`, `DUPLICATE_STUDENT`, `DUPLICATE_TARGET_FIELD`, `EVALUATION_ACCESS_DENIED`, `EVALUATION_ALREADY_SUBMITTED`, `EVALUATION_INCOMPLETE`, `EVALUATION_NOT_EDITABLE`, `EVALUATION_NOT_FOUND`, `EVALUATION_NOT_OWNED`, `EVALUATION_NOT_SUBMITTED`, `EXPORT_IN_PROGRESS`, `FILE_STORAGE_ERROR`, `FORBIDDEN`, `IMPORT_ALREADY_CONFIRMED`, `IMPORT_FILE_EMPTY`, `IMPORT_FILE_TOO_LARGE`, `IMPORT_FILE_UNSUPPORTED`, `IMPORT_HAS_ERRORS`, `IMPORT_MAPPING_INCOMPLETE`, `IMPORT_NOT_FOUND`, `IMPORT_NOT_MAPPED`, `IMPORT_NOT_VALIDATED`, `IMPORT_STATE_INVALID`, `INVALID_COORDINATE`, `INVALID_DATE`, `INVALID_DATE_RANGE`, `INVALID_EMAIL`, `INVALID_GPA`, `INVALID_PHONE`, `INVALID_RETURN_URL`, `INVALID_SCORE_RANGE`, `INVALID_STUDENT_ID`, `INVALID_WEIGHT`, `LAST_ACTIVE_ADMIN`, `MAX_EVALUATORS_REACHED`, `NONCE_MISMATCH`, `NO_APPLICANTS`, `ORPHAN_CONTINUATION_ROW`, `REOPEN_NOT_ALLOWED`, `REPORT_DATA_INCONSISTENT`, `REPORT_EXPIRED`, `REPORT_EXPORT_NOT_FOUND`, `REPORT_FORMAT_UNSUPPORTED`, `REPORT_NOT_READY`, `REQUIRED_FIELD_MISSING`, `ROUND_ARCHIVED`, `ROUND_HAS_EVALUATIONS`, `ROUND_NOT_FOUND`, `ROUND_NOT_OPEN`, `ROUND_STATE_INVALID`, `SCORE_OUT_OF_RANGE`, `SCORING_RULE_INVALID`, `SSO_LOGOUT_FAILED`, `SSO_UNAVAILABLE`, `STATE_MISMATCH`, `SUMMARY_NOT_AVAILABLE`, `TOKEN_VALIDATION_FAILED`, `UNKNOWN_TARGET_FIELD`, `USER_INACTIVE`, `USER_NOT_FOUND`, `USER_NOT_PROVISIONED`, `VALIDATION_ERROR`, `VERSION_ALREADY_EXISTS`
+Source of Truth: [`SEMS_Error_Code_Catalog.md`](./SEMS_Error_Code_Catalog.md)
+
+Endpoint ต้องใช้ชื่อ canonical ใน catalog โดยเฉพาะ `DUPLICATE_EVALUATION`, `EVALUATOR_LIMIT_REACHED`, `EVALUATION_NOT_OWNER`, `INVALID_ROUND_STATUS_TRANSITION`, `UNSUPPORTED_FILE_TYPE` และ `traceId`.
 
 ## 5. ประเด็นที่ต้องยืนยันก่อน Freeze API v1
 
@@ -608,3 +610,10 @@
 ## 6. ไฟล์ Machine-readable
 
 ดูรายละเอียด schema, request/response และ custom extensions (`x-roles`, `x-validation`, `x-error-codes`, `x-audit-events`) ใน [`openapi.yaml`](./openapi.yaml) และดูสรุป endpoint แบบตารางใน [`endpoint-matrix.csv`](./endpoint-matrix.csv)
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.2 | 2026-07-23 | SEMS Design Team | Standardized error catalog/aliases, Release 1 import types and provisional round-opening validation. |
+| v1.1 | 2026-07-23 | SEMS Design Team | Initial API draft indexed for System Design Review. |

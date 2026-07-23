@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-SRS-001
 title: Software Requirements Specification — Scholarship Evaluation Management System (SEMS)
-version: "v2.0"
+version: "v2.1"
 status: Draft - Pending Requirement Baseline Approval
 last_updated: 2026-07-23
 owner: SEMS Project Team
@@ -16,19 +16,20 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | 2.0-draft |
+| Version | 2.1-draft |
 | วันที่จัดทำ | 23 กรกฎาคม 2026 |
 | สถานะ | Draft - รอยืนยัน Requirement Baseline |
 | รูปแบบ | สอดคล้องแนวทาง ISO/IEC/IEEE 29148 ในระดับโครงสร้าง |
 | ผลลัพธ์เป้าหมาย | Requirement ที่ออกแบบ พัฒนา และทดสอบได้ |
 
-> เอกสารนี้รวมข้อกำหนดจาก Proposal, Requirement Decision Register, Data Dictionary, Applicant Import Mapping, ไฟล์ Criteria และข้อมูล KKU OAuth/OIDC  
+> เอกสารนี้รวมข้อกำหนดจาก Proposal, Requirement Decision Register, Data Dictionary, Applicant Import Mapping, ไฟล์ Criteria และข้อมูล KKU OAuth/OIDC
 > Requirement ที่ยังไม่ได้รับการยืนยันถูกติดสถานะ `Provisional` หรือ `Open` และห้ามถือเป็น Final Baseline จนกว่าผู้มีอำนาจอนุมัติ
 
 ## Document History
 
 | Version | Date | Change | Status |
 |---|---|---|---|
+| 2.1-draft | 2026-07-23 | Reconciled provisional round opening, Release 1 import, embedded-point scoring, canonical error contract/codes and traceability | Pending Approval |
 | 2.0-draft | 2026-07-23 | ปรับ SRS ให้ตรงกับ Proposal ล่าสุด: ผู้ประเมิน 2-3 คน, self-selection, KKU SSO, import mapping, criteria versioning, result status และ audit | Pending Approval |
 
 # 1. บทนำ
@@ -78,7 +79,7 @@ SEMS เป็น Web Application ภายในคณะวิศวกรร�
 - รหัส Functional Requirement ใช้ `FR-<MODULE>-NNN`
 - Priority: `Must`, `Should`, `Could`
 - Status: `Confirmed`, `Provisional`, `Open`
-- API Error ต้องส่ง `error.code`, `error.message`, `requestId`, `timestamp`
+- API Error ต้องส่ง `{code, message, details[], traceId, timestamp}` ตาม [`SEMS_Error_Code_Catalog.md`](../../Design/API/SEMS_Error_Code_Catalog.md) โดยไม่มี object `error` ครอบ
 - Backend เป็นผู้ตัดสิน Validation และ Authorization สุดท้าย
 - Requirement `Open` ห้ามนำไป Freeze เป็น Baseline โดยไม่มี Decision Record
 
@@ -156,6 +157,7 @@ ADMIN ปิดรอบ
 | FR-RND-006 | Must | Confirmed | เมื่อปิดรอบ ผู้มี Submitted >=2 เป็น `FINALIZED`; น้อยกว่า 2 เป็น `CLOSED_INCOMPLETE` และไม่มี Final Score. | ADMIN ปิดรอบ | สถานะทุก Applicant ถูกประมวลผลถูกต้อง |
 | FR-RND-007 | Must | Confirmed | ห้าม Hard Delete รอบที่มี Evaluation; จำกัดการแก้ข้อมูลที่กระทบผล และใช้ `ARCHIVED` เพื่อเก็บย้อนหลัง. | มี Evaluation | ข้อมูลเดิมยังตรวจสอบได้ |
 | FR-RND-008 | Should | Provisional | การเปิด CLOSED กลับ OPEN ต้องเป็น Controlled Reopen พร้อมผู้มีสิทธิ์ เหตุผล และ Audit. | รอบ CLOSED | ไม่มีการเปิดตรงโดยไม่มี Audit |
+| FR-RND-009 | Must | Provisional | ก่อน `DRAFT → OPEN` ต้องมี Active Criteria Set, ผ่าน Pre-open Validation และมี Applicant อย่างน้อย 1 ราย จนกว่างานทุนจะตัดสิน RD-023. | รอบ DRAFT | ไม่มี Applicant ถูกปฏิเสธ `NO_APPLICANTS` |
 
 ## 3.3 การนำเข้าข้อมูลผู้สมัคร
 
@@ -240,8 +242,8 @@ ADMIN ปิดรอบ
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
 | FR-SCO-001 | Must | Confirmed | ใช้เฉพาะ SUBMITTED ที่ยังไม่ยกเลิกและผู้ประเมินไม่ซ้ำในการคำนวณ. | Submit/Reopen/Close | Draft/Cancelled/Reopened ที่ยังไม่ Resubmit ไม่ถูกใช้ |
-| FR-SCO-002 | Must | Provisional | Total รายผู้ประเมินคำนวณตาม Rule; Draft ปัจจุบันใช้ผลรวมรายเกณฑ์ของ Version ที่คะแนนเต็มรวม 100. | พร้อม Submit | Total ตรง Reference 100% |
-| FR-SCO-003 | Must | Provisional | Summary Draft ใช้ค่าเฉลี่ยรายเกณฑ์จากผู้ประเมินน้ำหนักเท่ากัน แล้วรวม; สูตรสุดท้ายต้องยืนยัน RD-010. | Submitted 2/3 | ตรง Reference Calculation |
+| FR-SCO-002 | Must | Provisional | Total รายผู้ประเมินเป็นผลรวม `EMBEDDED_POINT` ทั้ง 10 เกณฑ์ ช่วง 5–100; คะแนน option ถ่วงน้ำหนักแล้วและห้ามคูณ `weight_percent` ซ้ำ. | พร้อม Submit | Total ตรง Reference Dataset |
+| FR-SCO-003 | Must | Provisional | Summary เป็นค่าเฉลี่ยเลขคณิตของ evaluator total จากผู้ประเมินไม่ซ้ำ 2–3 คนที่ `SUBMITTED`; สูตรสุดท้ายต้องยืนยัน RD-010. | Submitted 2/3 | ตรง Reference Calculation |
 | FR-SCO-004 | Must | Provisional | เก็บค่าคำนวณเต็ม Precision และปัดเฉพาะ Final Score 2 ตำแหน่ง `ROUND_HALF_UP`; ห้ามปัดระหว่างทาง. | คำนวณ | ผ่าน Boundary Test |
 | FR-SCO-005 | Must | Confirmed | Submitted <2 ต้องไม่มี Latest/Final Summary Score แม้แสดงคะแนนรายคนได้. | Count 0/1 | Summary score NULL |
 | FR-SCO-006 | Must | Confirmed | คนที่ 2 Submit ต้องสร้าง/อัปเดต Summary และสถานะ `MINIMUM_COMPLETE` ขณะ OPEN. | คนที่ 2 Submit | count=2 และมี Latest Score |
@@ -269,7 +271,7 @@ ADMIN ปิดรอบ
 | FR-DSH-002 | Must | Confirmed | Visualization คะแนนใช้เฉพาะ Submitted ไม่รวม Draft/Cancelled. | โหลด Dashboard | กราฟตรง Reference |
 | FR-DSH-003 | Must | Confirmed | หลัง Submit 2/3, Reopen, Resubmit หรือ Close Dashboard ต้องสะท้อนค่าล่าสุดอัตโนมัติ. | เกิดเหตุการณ์ | อัปเดตตาม SLA |
 | FR-AUD-001 | Must | Confirmed | Audit Append-only สำหรับ User/Role, Round, Import, Applicant, Document, Criteria, Selection, Cancel, Submit, Reopen, Calculation, Close และ Export. | เกิดเหตุการณ์ | มี Event แก้ย้อนหลังผ่าน UI ไม่ได้ |
-| FR-AUD-002 | Must | Confirmed | Audit มี event_type, actor, occurred_at, entity, round, result, reason, request_id และ before/after ที่ Mask. | สร้าง Event | ตอบว่าใครทำอะไรเมื่อใด |
+| FR-AUD-002 | Must | Confirmed | Audit มี event_type, actor, occurred_at, entity, round, result, reason, trace_id และ before/after ที่ Mask. | สร้าง Event | ตอบว่าใครทำอะไรเมื่อใด |
 | FR-AUD-003 | Must | Confirmed | Audit ห้าม Password/Token/Secret/Code/Session เต็ม/Binary/Document Content. | บันทึก Event | Secret Scan ไม่พบ |
 | FR-AUD-004 | Must | Confirmed | ADMIN ดู Audit พื้นฐานตามเวลา ผู้ใช้ Event Round Entity ได้. | เปิด Audit | ค้นเหตุการณ์หลักได้ |
 
@@ -293,7 +295,7 @@ ADMIN ปิดรอบ
 | NFR-MNT-001 | Maintainability | Confirmed | Frontend/Backend ใช้ TypeScript แยก Module ตาม Domain และมี Automated Test สำหรับ Business Rule สำคัญ. |
 | NFR-MNT-002 | Maintainability | Confirmed | สูตรคะแนนและสถานะต้องอยู่ใน Domain/Service เดียว ไม่ทำซ้ำใน UI, Export และ Dashboard. |
 | NFR-MNT-003 | Maintainability | Confirmed | Configuration/Environment/Secret แยก Source Code และห้าม Commit Public Repository. |
-| NFR-OBS-001 | Observability | Provisional | มี Structured Log พร้อม request_id/correlation_id และ Health Check โดยไม่ Log PII เกินจำเป็น. |
+| NFR-OBS-001 | Observability | Provisional | มี Structured Log พร้อม `traceId` และ Health Check โดยไม่ Log PII เกินจำเป็น. |
 | NFR-LOC-001 | Localization | Confirmed | แสดงเวลา Asia/Bangkok; เก็บ Timestamp แบบ UTC/Timestamptz. |
 | NFR-DEL-001 | Delivery | Confirmed | Source Code, Database Schema, Migration, Test Report, คู่มือติดตั้ง และคู่มือใช้งานครบก่อนส่งมอบ. |
 
@@ -351,7 +353,7 @@ ADMIN ปิดรอบ
 | evaluation_outcomes | ผลประกอบ | continuing_support; recommended_amount; overall_comment |
 | result_summaries | ผลสรุป | Unique(round,application); evaluator_count; rule_version; unrounded/rounded; status |
 | import_batches / rows | การนำเข้า | file metadata/counts/status; raw/normalized row; validation messages |
-| audit_events | ประวัติ | event_type; actor; entity; round; before/after masked; reason; request_id; time |
+| audit_events | ประวัติ | event_type; actor; entity; round; before/after masked; reason; trace_id; time |
 
 ## 6.3 Enumeration ขั้นต่ำ
 
@@ -403,7 +405,7 @@ ADMIN ปิดรอบ
 
 | Current | Allowed Next | เงื่อนไข |
 |---|---|---|
-| DRAFT | OPEN, ARCHIVED | OPEN ต้องมี Active Criteria และผ่าน Pre-open Validation |
+| DRAFT | OPEN | OPEN ต้องมี Active Criteria, ผ่าน Pre-open Validation และมี Applicant ≥1 (**Provisional RD-023**) |
 | OPEN | CLOSED | ADMIN ปิดและประมวลผลสถานะสุดท้าย |
 | CLOSED | ARCHIVED | เก็บอ่านย้อนหลัง |
 | CLOSED | OPEN | เฉพาะ Controlled Reopen ที่อนุมัติ (Provisional) |
@@ -427,12 +429,10 @@ ADMIN ปิดรอบ
 
 ```json
 {
-  "error": {
-    "code": "EVALUATOR_LIMIT_REACHED",
-    "message": "ผู้สมัครมีรายการประเมินครบ 3 คนแล้ว",
-    "details": [{"field": "applicantId", "reason": "ACTIVE_EVALUATION_COUNT_IS_3"}]
-  },
-  "requestId": "req_...",
+  "code": "EVALUATOR_LIMIT_REACHED",
+  "message": "ผู้สมัครมีรายการประเมินครบ 3 คนแล้ว",
+  "details": [{"field": "applicantId", "reason": "ACTIVE_EVALUATION_COUNT_IS_3"}],
+  "traceId": "trace-id",
   "timestamp": "2026-07-23T12:00:00Z"
 }
 ```
@@ -456,13 +456,15 @@ ADMIN ปิดรอบ
 ## 8.3 หลักการ
 
 1. ห้ามแสดง Stack Trace, SQL, Secret, Internal Path หรือ Token
-2. ทุก Error มี Request ID
+2. ทุก Error มี `traceId`
 3. Validation หลายรายการควรรวมส่งครั้งเดียวเมื่อปลอดภัย
 4. Transaction Error ต้อง Rollback
 5. Frontend ใช้ Error Code ไม่ใช้การ Parse ข้อความเพื่อควบคุม Logic
 6. Error Code ที่เผยแพร่แล้วห้ามเปลี่ยนความหมายโดยไม่มี Version/Change Log
 
 ## 8.4 Error Code Catalog ขั้นต่ำ
+
+Source of Truth: [`SEMS_Error_Code_Catalog.md`](../../Design/API/SEMS_Error_Code_Catalog.md)
 
 | Code | HTTP | Meaning |
 | --- | --- | --- |
@@ -490,6 +492,8 @@ ADMIN ปิดรอบ
 | SCIENTIFIC_NOTATION_DETECTED | 422 | Identifier เป็น Scientific Notation |
 | INVALID_GPA | 422 | GPA ผิด |
 | INVALID_DATE | 422 | วันที่ผิด |
+| INVALID_PHONE | 422 | เบอร์โทรศัพท์ผิด |
+| INVALID_EMAIL | 422 | อีเมลผิด |
 | INVALID_COORDINATE | 422 | พิกัดผิด |
 | DUPLICATE_STUDENT_IN_FILE | 422 | ซ้ำในไฟล์ |
 | DUPLICATE_STUDENT_IN_ROUND | 409 | ซ้ำในรอบ |
@@ -510,7 +514,7 @@ ADMIN ปิดรอบ
 2. Event สำคัญต้องมี Success/Failure
 3. Before/After เก็บเฉพาะจำเป็นและ Mask PII
 4. Reopen, Cancel, Override, Restricted Export และ Close Round ต้องมี Reason
-5. เชื่อม `request_id`; System Job ใช้ Actor `SYSTEM`
+5. เชื่อม `trace_id`; System Job ใช้ Actor `SYSTEM`
 6. เวลาใช้ Timestamptz และแสดง Asia/Bangkok
 7. Retention Audit ต้องยืนยันก่อน Production
 8. Minimal Audit Viewer เป็น Core; Advanced Viewer เป็น Optional
@@ -623,8 +627,14 @@ Upload -> Read & Detect -> Header Mapping -> Row Classification
 | OD-16 / DD-OD-005 | Code List ทางการ | งานทุน |
 | OD-17 / DD-OD-009 | ประวัติ กยศ./ทุนระดับ Applicant หรือ Snapshot รอบ | งานทุน/ทีมพัฒนา |
 | OD-18 | Session timeout, File Size, Capacity, Availability, Retention | Infrastructure/เจ้าของระบบ |
+| OD-19 / RD-023 | ไม่มีผู้สมัครก่อนเปิดรอบเป็น Blocking Error หรือ Warning | งานทุน |
+| OD-20 / RD-024–RD-025 | ผู้สมัครหลายประเภททุนและ Business Key รวม scholarship_type_id หรือไม่ | งานทุน/ทีมข้อมูล |
+| OD-21 / RD-026 | ประวัติ กยศ./ทุนเป็น Applicant-level หรือ Snapshot รายรอบ | งานทุน |
+| OD-22 / RD-027 | Duplicate Applicant update field ใดได้ | งานทุน |
+| OD-23 / RD-028 | Required Fields ขั้นสุดท้าย | งานทุน |
+| OD-24 / RD-029 | ความจำเป็น/ฐานกฎหมายในการเก็บเลขบัตรประชาชน | ผู้รับผิดชอบข้อมูล |
 
-> การ Freeze Baseline ต้องเปลี่ยน `Provisional/Open` เป็นข้อสรุปที่มี Decision ID, ผู้อนุมัติ และวันที่อนุมัติ  
+> การ Freeze Baseline ต้องเปลี่ยน `Provisional/Open` เป็นข้อสรุปที่มี Decision ID, ผู้อนุมัติ และวันที่อนุมัติ
 > หากคำตอบเปลี่ยน Formula, Data Model, Permission หรือ Report Template ต้องทำ Impact Assessment และปรับ Test Case/Traceability พร้อมกัน
 
 # 13. Traceability Summary
@@ -632,7 +642,8 @@ Upload -> Read & Detect -> Header Mapping -> Row Classification
 | Source | SRS Section |
 |---|---|
 | Proposal: ผู้ใช้ SSO/RBAC รอบทุน Import Applicant Document Criteria Evaluation 2-3 คน Scoring Report Audit | Sections 2-11 |
-| Requirement Decision Register RD-001 ถึง RD-022 | FR-EVA, FR-SCO, FR-CRI, FR-IMP, FR-RPT และ Section 12 |
+| Requirement Decision Register RD-001 ถึง RD-029 | FR-EVA, FR-SCO, FR-CRI, FR-IMP, FR-RPT, FR-RND และ Section 12 |
+| Traceability Matrix | [`SEMS_Traceability_Matrix.md`](../SEMS_Traceability_Matrix.md) |
 | Applicant Import Mapping | FR-IMP, Validation, Error Codes, Import Acceptance |
 | Data Dictionary | Section 6, Validation, Security/PII |
 | Criteria Workbook | FR-CRI, FR-EVA, FR-SCO, RD-012-014 |

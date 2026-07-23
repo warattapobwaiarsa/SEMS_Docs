@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -30,7 +30,7 @@
 **Expected Result**
 
 - UI ไม่สร้างรายการซ้ำและแสดงข้อความเหมาะสม
-- API ตอบ `409 EVALUATION_DUPLICATE`
+- API ตอบ `409 DUPLICATE_EVALUATION`
 - มี active Evaluation ของ evaluator/applicant/round เพียง 1 รายการ
 - unique constraint หรือ business transaction ป้องกันได้แม้ bypass UI
 - ไม่มีการนับ evaluator เพิ่ม และไม่มี Result Summary เปลี่ยน
@@ -104,7 +104,7 @@
 **Expected Result**
 
 - มี active Evaluation เพียง 1 รายการ
-- คำขอที่สองตอบ `409 EVALUATION_DUPLICATE` หรือคืน resource เดิมตาม idempotency contract ที่อนุมัติ
+- คำขอที่สองตอบ `409 DUPLICATE_EVALUATION` หรือคืน resource เดิมตาม idempotency contract ที่อนุมัติ
 - จำนวน evaluator ไม่เพิ่มสองครั้ง
 - Audit ไม่ทำให้เข้าใจผิดว่าเกิด evaluation สองรายการ
 
@@ -389,3 +389,32 @@
 - ระบบไม่พยายามสร้าง Evaluation ใหม่
 - evaluator คนอื่นที่ไม่มี record ถูกปฏิเสธเพราะครบ 3
 - Save Draft ไม่เปลี่ยน submitted count หรือ state เป็น Fully Complete
+
+---
+
+## HR-SCR-003 Embedded Point ห้ามคูณ Weight ซ้ำ
+
+| Field | Value |
+|---|---|
+| Priority | P0 |
+| Linked Requirement | FR-SCO-002 |
+| Linked Decision | RD-010, RD-012 |
+
+**Expected Result:** คะแนน option ทั้ง 10 ข้อรวม 75 ต้องได้ evaluator total 75 ไม่ใช่ผลจากการคูณ `weight_percent` ซ้ำ
+
+## HR-IMP-004 Transaction Rollback
+
+| Field | Value |
+|---|---|
+| Priority | P0 |
+| Linked Requirement | FR-IMP-013 |
+| Linked Decision | RD-018 |
+
+**Expected Result:** เมื่อ Confirm Import ล้มเหลวกลาง transaction ต้องไม่มี Applicant/History บางส่วนค้าง และ batch/audit ระบุ failure โดยไม่เปิดเผยข้อมูลลับ
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-23 | SEMS QA Team | Canonicalized duplicate error code and added embedded-point and rollback P0 cases. |
+| v0.1 | 2026-07-23 | SEMS QA Team | Initial high-risk test cases. |

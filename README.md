@@ -4,7 +4,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.11** |
+| Current Version | **v1.12** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
@@ -13,7 +13,7 @@
 
 ## 🚦 เริ่มต้นอ่านเอกสาร
 
-หากเพิ่งเข้ามาใน repository นี้ ให้เริ่มที่  
+หากเพิ่งเข้ามาใน repository นี้ ให้เริ่มที่
 👉 [`START_HERE.md`](./START_HERE.md)
 
 หน้านี้มีลำดับการอ่านตามบทบาท พร้อมลิงก์ไปยังเอกสารทั้งหมด
@@ -36,12 +36,12 @@
 
 | Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🚦 **Recommended Entry Point**                  | Reading order, role-based paths, complete file index, and Obsidian setup | [`START_HERE.md`](./START_HERE.md) (v1.0 Current)                                                                                                                                                                                                         |
-| 📖 **Repository Governance**                    | Documentation versioning, Commit, Branch, Pull Request, and safety rules | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.1), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0)                                                                                                                                              |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, proposals, user stories, meeting notes                         | SRS (v2.0 Draft), User Stories (v0.1 Draft), Decision Register/Analysis, [Proposal Markdown](./Requirements/Proposal/SEMS-project-proposal.md)                                                                                                            |
-| 🎨 **[Design](./Design/README.md)**             | Architecture, APIs, database, scoring criteria, import templates, UI/UX  | API/OpenAPI, Process Flows, Permission Matrix, State Transitions, Scoring Rules, [Data Dictionary](./Design/Database/SEMS_Data_Dictionary/README.md), [Import Mapping](./Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md), Wireframes |
-| 🧪 **[Testing](./Testing/README.md)**           | Test plans, test cases, UAT                                              | 3 Test Plans and 6 Test Case documents (v0.1 Draft)                                                                                                                                                                                                       |
-| 🚀 **[Deployment](./Deployment/README.md)**     | Setup guides, system administration, user manuals                        | No documents indexed yet                                                                                                                                                                                                                                  |
+| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.1 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) |
+| 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.2), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and approval templates | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.1 Draft, SRS v2.1 Draft, [Traceability](./Requirements/SEMS_Traceability_Matrix.md) v0.1 Draft |
+| 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
+| 🧪 **[Testing](./Testing/README.md)** | Test plans, cases and synthetic reference data | P0 catalog with linked requirements/decisions and [scoring reference cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) |
+| 🚀 **[Deployment](./Deployment/README.md)** | Deployment index and architecture considerations | Setup/operations guides remain pending |
 
 ## 🛠️ Technology Stack
 
@@ -55,6 +55,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.12 | 2026-07-23 | SEMS Documentation Team | Reconciled pre-baseline requirements/design/testing indexes and linked review, traceability, architecture and governance deliverables. |
 | v1.11 | 2026-07-23 | SEMS Documentation Team | Added `START_HERE.md` as the recommended entry point for GitHub and Obsidian readers. |
 | v1.10 | 2026-07-23 | SEMS Documentation Team | Updated the wireframe overview with readable English captions. |
 | v1.9 | 2026-07-23 | SEMS Documentation Team | Added GitHub-readable PDF and spreadsheet conversions and linked embedded design images and reference artifacts. |

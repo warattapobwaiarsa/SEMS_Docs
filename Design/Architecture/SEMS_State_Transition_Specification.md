@@ -3,7 +3,7 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-STS-001` |
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pending Reopen Policy Approval** |
@@ -82,7 +82,7 @@ stateDiagram-v2
 | Transition ID | From | To | ผู้ดำเนินการ | Guard Conditions | System Effects |
 |---|---|---|---|---|---|
 | `TR-RND-001` | ไม่มี | `Draft` | ผู้ดูแลระบบ | ผู้ใช้ Active และมีสิทธิ์จัดการรอบทุน | สร้าง `round_id`, กำหนด `created_at`, บันทึก Audit |
-| `TR-RND-002` | `Draft` | `Open` | ผู้ดูแลระบบ | ข้อมูลรอบทุนครบ, วันที่ถูกต้อง, มี Criteria Version ที่ผ่าน Validation และ Active, ไม่มี Critical Configuration Error | กำหนด `opened_at`, เปิดการค้นหาและเลือกผู้สมัคร, ล็อก Criteria Version ที่ใช้งาน |
+| `TR-RND-002` | `Draft` | `Open` | ผู้ดูแลระบบ | ข้อมูลรอบทุนครบ, วันที่ถูกต้อง, มี Criteria Version ที่ผ่าน Validation และ Active, ไม่มี Critical Configuration Error และมี Applicant ≥1 (**Provisional RD-023**) | กำหนด `opened_at`, เปิดการค้นหาและเลือกผู้สมัคร, ล็อก Criteria Version ที่ใช้งาน |
 | `TR-RND-003` | `Open` | `Closed` | ผู้ดูแลระบบ/ผู้มีสิทธิ์ปิดรอบ | ยืนยันการปิดรอบ, ไม่มี Transition อื่นกำลังทำงาน, ผ่านการตรวจสอบรายการค้างที่ระบบแสดง | กำหนด `closed_at`, ห้ามสร้าง/Submit Evaluation ใหม่, คำนวณสถานะผู้สมัครทุกคน, Finalize ผู้สมัครที่ Submitted ≥ 2 |
 | `TR-RND-004` | `Closed` | `Archived` | ผู้ดูแลระบบ | ผลสรุปและรายงานผ่านการตรวจสอบ, ไม่มีคำขอ Reopen ค้าง, ยืนยันการ Archive | กำหนด `archived_at`, เปลี่ยนเป็น Read-only, คง Audit และข้อมูลทั้งหมด |
 | `TR-RND-005` | `Closed` | `Open` | ผู้อนุมัติที่ได้รับมอบหมาย | **[Recommended Baseline]** มีคำขอพร้อมเหตุผล, ระบุช่วงเวลาที่เปิดใหม่, ยังไม่ Archived, ผู้อนุมัติมีสิทธิ์ | กำหนด `reopened_at`, ยกเลิก Final Flag ชั่วคราว, คำนวณ Applicant Status ใหม่, เปิดเฉพาะกิจกรรมที่ได้รับอนุมัติ |
@@ -94,11 +94,12 @@ stateDiagram-v2
 - ชื่อและรหัสรอบทุนไม่ว่างและไม่ซ้ำตามกฎที่กำหนด
 - วันเริ่มต้นไม่มากกว่าวันสิ้นสุด
 - มี Criteria Version ที่ Active และผ่าน Validation
+- มีผู้สมัครอย่างน้อย 1 ราย (**Provisional blocking rule — RD-023**)
 - คะแนนต่ำสุด คะแนนเต็ม น้ำหนัก และลำดับของทุกเกณฑ์ถูกต้อง
 - ผู้ดูแลยืนยันว่าข้อมูลรอบทุนพร้อมใช้งาน
 - ไม่มีการเปลี่ยนแปลง Criteria ที่ยังไม่ได้บันทึกหรือ Publish
 
-**[Recommended Baseline]** การมีผู้สมัครอย่างน้อยหนึ่งคนควรเป็น Warning ไม่ใช่ Blocking Error เพื่อให้ผู้ดูแลสามารถเปิดรอบก่อน Import เพิ่มเติมได้ หากกระบวนการจริงอนุญาต
+**[Provisional — RD-023]** Baseline ชั่วคราวกำหนดให้ไม่มีผู้สมัครเป็น Blocking Error `NO_APPLICANTS`; งานทุนต้องยืนยันว่าจะคง Blocking หรือเปลี่ยนเป็น Warning และ Import ภายหลัง
 
 ## 4.5 การดำเนินการที่อนุญาตตามสถานะรอบทุน
 
@@ -114,8 +115,8 @@ stateDiagram-v2
 | Export รายงาน | Preview | Yes | Yes | Yes |
 | Archive | No | No | Yes | No |
 
-`*` การแก้ไขข้อมูลที่ไม่กระทบผล เช่นคำอธิบาย อาจอนุญาตตามสิทธิ์และต้อง Audit  
-`**` ต้องไม่ทำให้ข้อมูลผู้สมัครที่มี Evaluation อยู่แล้วเปลี่ยนตัวตนหรือความสัมพันธ์  
+`*` การแก้ไขข้อมูลที่ไม่กระทบผล เช่นคำอธิบาย อาจอนุญาตตามสิทธิ์และต้อง Audit
+`**` ต้องไม่ทำให้ข้อมูลผู้สมัครที่มี Evaluation อยู่แล้วเปลี่ยนตัวตนหรือความสัมพันธ์
 `***` Draft เดิมอ่านได้ แต่ห้ามแก้ไข เว้นแต่มีการ Controlled Reopen รอบทุน
 
 ---
@@ -348,9 +349,9 @@ Result Summary ไม่จำเป็นต้องมี State Machine ท�
 | อนุมัติ Reopen | No | No**** | Yes |
 | ดูผลของผู้อื่น | No | Yes | ตามสิทธิ์ |
 
-`*` ต้องกำหนดสิทธิ์เฉพาะและบันทึก Audit  
-`**` Admin ไม่ควรสร้าง Evaluation แทนอาจารย์ เว้นแต่นโยบายระบุเป็นกรณีพิเศษ  
-`***` [Recommended Baseline] อนุญาตก่อน Submit พร้อม Confirmation  
+`*` ต้องกำหนดสิทธิ์เฉพาะและบันทึก Audit
+`**` Admin ไม่ควรสร้าง Evaluation แทนอาจารย์ เว้นแต่นโยบายระบุเป็นกรณีพิเศษ
+`***` [Recommended Baseline] อนุญาตก่อน Submit พร้อม Confirmation
 `****` หากองค์กรไม่มีบทบาท Approver แยก อาจมอบหมาย Admin บางบัญชีได้ แต่ต้องแยก Permission
 
 ---
@@ -395,7 +396,7 @@ new_state
 reason
 request_reference
 occurred_at
-correlation_id
+trace_id
 metadata
 ```
 
@@ -407,13 +408,13 @@ metadata
 
 | Error Code | HTTP แนวทาง | เงื่อนไข |
 |---|---:|---|
-| `INVALID_STATE_TRANSITION` | 409 | สถานะต้นทางไม่อนุญาตให้ไปสถานะเป้าหมาย |
+| `INVALID_ROUND_STATUS_TRANSITION` | 409 | สถานะต้นทางไม่อนุญาตให้ไปสถานะเป้าหมาย |
 | `ROUND_NOT_OPEN` | 409 | พยายามสร้าง แก้ไข หรือ Submit ขณะรอบไม่ Open |
-| `ROUND_ALREADY_CLOSED` | 409 | ปิดรอบซ้ำหรือทำกิจกรรมที่ปิดรับแล้ว |
+| `ROUND_CLOSED` | 409 | ปิดรอบซ้ำหรือทำกิจกรรมที่ปิดรับแล้ว |
 | `ROUND_ARCHIVED_READ_ONLY` | 409 | พยายามแก้ข้อมูลรอบ Archived |
 | `ROUND_NOT_READY_TO_OPEN` | 422 | ข้อมูลหรือ Criteria ยังไม่พร้อม |
 | `EVALUATOR_ACCOUNT_INACTIVE` | 403 | บัญชีผู้ประเมินไม่ Active |
-| `EVALUATION_NOT_OWNED` | 403 | แก้หรือ Submit รายการของผู้อื่น |
+| `EVALUATION_NOT_OWNER` | 403 | แก้หรือ Submit รายการของผู้อื่น |
 | `DUPLICATE_EVALUATION` | 409 | ผู้ประเมินคนเดิมมี Active Evaluation อยู่แล้ว |
 | `EVALUATOR_LIMIT_REACHED` | 409 | ผู้สมัครมี Active Evaluation ครบ 3 |
 | `EVALUATION_ALREADY_SUBMITTED` | 409 | Submit รายการที่ Submitted แล้ว |
@@ -422,10 +423,10 @@ metadata
 | `REOPEN_APPROVAL_REQUIRED` | 403 | พยายามแก้ Submitted โดยไม่มีอนุมัติ |
 | `REOPEN_NOT_ALLOWED_AFTER_CLOSE` | 409 | ขอ Reopen Evaluation ขณะรอบ Closed โดยยังไม่เปิดรอบ |
 | `REOPEN_WINDOW_EXPIRED` | 409 | คำอนุมัติ Reopen หมดอายุ |
-| `CONCURRENT_EVALUATION_CONFLICT` | 409 | มีการแข่งขันเลือกผู้สมัครพร้อมกัน |
+| `CONCURRENCY_CONFLICT` | 409 | มีการแข่งขันเลือกผู้สมัครพร้อมกัน |
 | `RESULT_SUMMARY_NOT_AVAILABLE` | 422 | Submitted ยังไม่ครบ 2 |
 
-Error Response ควรประกอบด้วย `code`, `message`, `details`, `correlation_id` และข้อมูลสถานะปัจจุบันที่เหมาะสม
+Error Response ใช้ `{code, message, details[], traceId, timestamp}` จาก [`SEMS_Error_Code_Catalog.md`](../API/SEMS_Error_Code_Catalog.md)
 
 ---
 
@@ -495,7 +496,7 @@ version
 ### Reopen Request
 
 ```text
-request_id
+id
 evaluation_id
 requested_by
 requested_at
@@ -614,4 +615,5 @@ State Transition Specification ถือว่าพร้อมล็อกเ�
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| `v0.2` | 2026-07-23 | SEMS Design Team | ทำ Round baseline ให้เป็น DRAFT→OPEN→CLOSED→ARCHIVED, กำหนด Applicant ≥1 เป็น Provisional blocking และใช้ canonical error contract/code |
 | `v0.1` | 2026-07-23 | SEMS Requirements Team / AI-assisted draft | จัดทำ State Machine สำหรับรอบทุน Evaluation ผู้สมัคร และ Result Summary พร้อม Transition, Guard, Audit, Error Code และ Test Scenario |

@@ -1,0 +1,31 @@
+name: Documentation Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Internal Markdown links, anchors, paths and whitespace
+        run: python scripts/check-documentation-links.py
+      - name: Document version consistency
+        run: python scripts/check-document-versions.py
+      - name: JSON syntax
+        run: python -m json.tool Design/Criteria/SEMS_Criteria_Config.json >/dev/null
+      - name: OpenAPI 3.1 and YAML validation
+        run: npx --yes @redocly/cli@2.0.8 lint Design/API/openapi.yaml
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2

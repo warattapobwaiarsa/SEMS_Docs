@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — User Validation** |
@@ -142,7 +142,7 @@ flowchart TD
 **องค์ประกอบ**
 - Stepper: 1 Upload -> 2 Mapping -> 3 Preview -> 4 Import Result
 - เลือกรอบทุนปลายทาง
-- Drag & Drop รองรับ .xlsx, .xls, .csv
+- Drag & Drop รองรับ `.xlsx` และ `.csv` ใน Release 1; `.xls` แสดงเป็น Optional / Out of Scope
 - แสดงชื่อไฟล์ ขนาด และ Sheet ที่ตรวจพบ
 - ตัวเลือก Header row และ Encoding สำหรับ CSV
 - ประวัติ Import ล่าสุด
@@ -330,3 +330,10 @@ Wireframe ถือว่าผ่านเมื่อผู้แทน Admin 
 - ระบุได้ว่าจุดใดเป็นการกระทำย้อนกลับไม่ได้
 - พบและเข้าใจ Error ใน Import และแบบประเมิน
 - ให้คะแนนความสะดวกเฉลี่ยไม่น้อยกว่า 4.00/5.00 หรือระบุรายการแก้ไขที่ตกลงร่วมกัน
+
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.2 | 2026-07-23 | SEMS Design Team | Aligned Release 1 import file types with SRS/API. |
+| v1.1 | 2026-07-23 | SEMS Design Team | Updated wireframe specification for user validation. |

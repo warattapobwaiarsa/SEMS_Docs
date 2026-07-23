@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.1"
+version: "v0.2"
 status: "Draft — รอยืนยัน Requirement Baseline"
 last_updated: 2026-07-23
 owner: SEMS Project Team
@@ -14,22 +14,22 @@ source_sections: "Proposal 5.1–5.5; Requirement Decision Register; Import Mapp
 
 ## ขอบเขตเอกสาร
 
-| โมดูล | ไฟล์ | Story IDs |
+| โมดูล | Section | Story IDs |
 |---|---|---|
-| Login และสิทธิ์ | `01_Login_and_Access.md` | `US-AUTH-*` |
-| จัดการผู้ใช้ | `02_User_Management.md` | `US-USR-*` |
-| จัดการรอบทุน | `03_Scholarship_Round.md` | `US-RND-*` |
-| Import ผู้สมัคร | `04_Applicant_Import.md` | `US-IMP-*` |
-| เอกสารผู้สมัคร | `05_Applicant_Documents.md` | `US-DOC-*` |
-| เกณฑ์คะแนน | `06_Criteria_Management.md` | `US-CRI-*` |
-| เลือกผู้สมัคร | `07_Applicant_Selection.md` | `US-SEL-*` |
-| บันทึก Draft | `08_Evaluation_Draft.md` | `US-DRF-*` |
-| Review และ Submit | `09_Review_and_Submit.md` | `US-SUB-*` |
-| คำนวณคะแนน | `10_Score_Calculation.md` | `US-SCR-*` |
-| ปิดรอบทุน | `11_Close_Round.md` | `US-CLS-*` |
-| Dashboard | `12_Dashboard.md` | `US-DSH-*` |
-| Export รายงาน | `13_Report_Export.md` | `US-RPT-*` |
-| Traceability | `14_Traceability_Matrix.md` | Story → Requirement/Decision/Test |
+| Login และสิทธิ์ | [01 Login and Access](#login-and-access) | `US-AUTH-*` |
+| จัดการผู้ใช้ | [02 User Management](#user-management) | `US-USR-*` |
+| จัดการรอบทุน | [03 Scholarship Round](#scholarship-round) | `US-RND-*` |
+| Import ผู้สมัคร | [04 Applicant Import](#applicant-import) | `US-IMP-*` |
+| เอกสารผู้สมัคร | [05 Applicant Documents](#applicant-documents) | `US-DOC-*` |
+| เกณฑ์คะแนน | [06 Criteria Management](#criteria-management) | `US-CRI-*` |
+| เลือกผู้สมัคร | [07 Applicant Selection](#applicant-selection) | `US-SEL-*` |
+| บันทึก Draft | [08 Evaluation Draft](#evaluation-draft) | `US-DRF-*` |
+| Review และ Submit | [09 Review and Submit](#review-and-submit) | `US-SUB-*` |
+| คำนวณคะแนน | [10 Score Calculation](#score-calculation) | `US-SCR-*` |
+| ปิดรอบทุน | [11 Close Round](#close-round) | `US-CLS-*` |
+| Dashboard | [12 Dashboard](#dashboard) | `US-DSH-*` |
+| Export รายงาน | [13 Report Export](#report-export) | `US-RPT-*` |
+| Traceability | [Traceability Matrix](../SEMS_Traceability_Matrix.md) | Story → Requirement/Decision/Test |
 
 ## รูปแบบ Acceptance Criteria
 
@@ -87,6 +87,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="login-and-access"></a>
 # 01 — Login และการควบคุมการเข้าถึง
 
 ## US-AUTH-001 — เข้าสู่ระบบด้วย KKU Account
@@ -237,6 +238,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="user-management"></a>
 # 02 — จัดการผู้ใช้งาน
 
 ## US-USR-001 — ค้นหาและดูบัญชี SEMS
@@ -377,6 +379,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="scholarship-round"></a>
 # 03 — จัดการรอบทุน
 
 ## US-RND-001 — สร้างรอบทุน
@@ -455,7 +458,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** เงื่อนไขเปิดรอบครบ
 - **When:** Admin ยืนยันเปลี่ยนเป็น Open
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Open` และอนุญาต Evaluator ที่ Active ค้นหาและเลือกผู้สมัคร
+- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Open` และอนุญาต Evaluator ที่ Active ค้นหาและเลือกผู้สมัคร โดย Baseline ชั่วคราวกำหนดให้มี Applicant ≥1 (**Provisional RD-023**)
 #### US-RND-002-AC-04
 
 - **Given:** รอบเป็น Open
@@ -515,6 +518,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="applicant-import"></a>
 # 04 — Import ข้อมูลผู้สมัคร
 
 ## US-IMP-001 — อัปโหลดไฟล์และจับคู่คอลัมน์
@@ -532,7 +536,7 @@ Story ถือว่าเสร็จเมื่อ:
 ### Preconditions
 
 - Admin เลือกรอบทุนปลายทางแล้ว
-- ไฟล์เป็น `.xlsx`, `.xls` ที่รองรับ หรือ `.csv` ตามนโยบายที่กำหนด
+- Release 1 รับเฉพาะ `.xlsx` หรือ `.csv`; `.xls` เป็น Optional / Out of Scope
 
 ### Acceptance Criteria
 
@@ -679,6 +683,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="applicant-documents"></a>
 # 05 — อัปโหลดและเข้าถึงเอกสารผู้สมัคร
 
 ## US-DOC-001 — อัปโหลดเอกสารให้ผู้สมัคร
@@ -783,6 +788,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="criteria-management"></a>
 # 06 — จัดการเกณฑ์คะแนน
 
 ## US-CRI-001 — สร้างชุดเกณฑ์สำหรับรอบทุน
@@ -935,6 +941,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="applicant-selection"></a>
 # 07 — ค้นหาและเลือกผู้สมัคร
 
 ## US-SEL-001 — ค้นหาผู้สมัครในรอบที่เปิด
@@ -1095,6 +1102,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="evaluation-draft"></a>
 # 08 — บันทึกผลการประเมินแบบ Draft
 
 ## US-DRF-001 — ดูข้อมูลประกอบการประเมินในหน้าเดียว
@@ -1253,6 +1261,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="review-and-submit"></a>
 # 09 — Review และ Submit ผลการประเมิน
 
 ## US-SUB-001 — ตรวจสอบผลก่อนส่ง
@@ -1417,6 +1426,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="score-calculation"></a>
 # 10 — คำนวณคะแนนและสรุปผล
 
 ## US-SCR-001 — คำนวณคะแนนรวมรายผู้ประเมิน
@@ -1572,6 +1582,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="close-round"></a>
 # 11 — ปิดรอบทุน
 
 ## US-CLS-001 — ตรวจสอบและปิดรอบทุน
@@ -1677,6 +1688,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="dashboard"></a>
 # 12 — Dashboard
 
 ## US-DSH-001 — ดูภาพรวมสถานะการประเมิน
@@ -1776,6 +1788,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="report-export"></a>
 # 13 — รายงานและ Export
 
 ## US-RPT-001 — ส่งออกรายงาน Excel/CSV
@@ -1893,51 +1906,14 @@ Story ถือว่าเสร็จเมื่อ:
 
 <div style="page-break-after: always;"></div>
 
+<a id="traceability"></a>
 # 14 — Traceability Matrix
 
-## Story → Source → Test Level
+ใช้ไฟล์กลาง [SEMS Traceability Matrix](../SEMS_Traceability_Matrix.md) เป็น Source of Truth เพื่อไม่ทำสำเนาตาราง traceability ซ้ำในเอกสารนี้
 
-| Story ID | โมดูล | Proposal / Source | Decision / Rule | Test Level หลัก |
-|---|---|---|---|---|
-| US-AUTH-001 | KKU SSO Login | 5.2.1, KKU OAuth Summary | KKU Claims/Logout Pending | Integration, Security, E2E |
-| US-AUTH-002 | RBAC | 5.2.1, 5.5 | Ownership/Role Rules | Unit, API Security, E2E |
-| US-AUTH-003 | Logout | 5.2.1 | Logout Policy Pending | Integration, Security |
-| US-USR-001–003 | User Management | 5.1.2, 5.2.1 | Active/Inactive, Role | Unit, API, E2E |
-| US-RND-001–003 | Round Management | 5.2.2 | Lifecycle Rules | Unit, Integration, E2E |
-| US-IMP-001 | Upload/Mapping | 5.2.3 | Mapping Spec | Unit, Integration |
-| US-IMP-002 | Validation/Preview | 5.2.3 | RD-015,17,19,20 | Unit, Data-driven, E2E |
-| US-IMP-003 | Confirm Import | 5.2.3 | RD-018 | Transaction, Integration, E2E |
-| US-DOC-001–002 | Documents | 5.2.5, 5.5 | File Policy Pending | Security, Integration, E2E |
-| US-CRI-001–003 | Criteria | 5.2.7 | RD-010–014 | Unit, Integration, E2E |
-| US-SEL-001–003 | Selection | 5.2.8 | RD-001–005, RD-009 | Concurrency, Integration, E2E |
-| US-DRF-001–003 | Draft | 5.2.9 | Criteria Metadata | Unit, E2E |
-| US-SUB-001–003 | Review/Submit | 5.2.9 | RD-008 | Unit, Transaction, E2E |
-| US-SCR-001–003 | Calculation | 5.2.10 | RD-004–007, RD-010–011 | Unit, Property/Data-driven, Integration |
-| US-CLS-001–002 | Close Round | 5.2.8, 5.2.10 | RD-006–008 | Transaction, E2E |
-| US-DSH-001–002 | Dashboard | 5.4.1 | Status Definitions | Integration, E2E |
-| US-RPT-001–002 | Report/Export | 5.2.11 | RD-021–022 | Data Reconciliation, Security, E2E |
+## Revision History
 
-## Core End-to-End Scenarios
-
-| Scenario ID | Flow | Expected Outcome |
-|---|---|---|
-| E2E-CORE-001 | Admin Login → Create Round → Create/Activate Criteria → Import Applicants → Upload Document → Open Round | รอบ Open พร้อมข้อมูลและเกณฑ์ที่ถูกต้อง |
-| E2E-CORE-002 | Evaluator 1 Search/Select → Save Draft → Review → Submit | ผู้สมัคร In Progress, Submitted = 1/3, Draft ไม่ถูกใช้สรุป |
-| E2E-CORE-003 | Evaluator 2 Select → Submit | ผู้สมัคร Minimum Complete, Submitted = 2/3, Result Summary ถูกสร้าง |
-| E2E-CORE-004 | Evaluator 3 Select หลังครบขั้นต่ำ → Submit | ผู้สมัคร Fully Complete, Summary/Dashboard/Report คำนวณใหม่ |
-| E2E-CORE-005 | Evaluator 4 หรือคำขอพร้อมกันเกินช่อง | ระบบปฏิเสธและ Active Evaluation ไม่เกิน 3 |
-| E2E-CORE-006 | Admin Close Round ที่ผู้สมัครมี Submitted ≥2 | ผู้สมัคร Finalized และไม่รับผลเพิ่ม |
-| E2E-CORE-007 | Admin Close Round ที่ผู้สมัครมี Submitted <2 | ผู้สมัคร Closed Incomplete และไม่มี Final Score |
-| E2E-CORE-008 | Export Excel/CSV หลังปิดรอบ | ข้อมูลตรงฐานข้อมูล/Result Summary และมี Audit Log |
-
-## Suggested Test Case ID Mapping
-
-ใช้รูปแบบ `TC-<MODULE>-<NNN>` และระบุ Story/AC ในคอลัมน์ Traceability เช่น:
-
-```text
-TC-SEL-004 → US-SEL-002-AC-06
-TC-SCR-007 → US-SCR-003-AC-03
-TC-CLS-003 → US-CLS-002-AC-02
-```
-
-Acceptance Criteria หนึ่งข้ออาจมีหลาย Test Case เมื่อมี Positive, Negative, Boundary, Permission และ Concurrency Variant
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v0.2 | 2026-07-23 | SEMS Requirements Team | Replaced nonexistent per-module files with stable section anchors, linked the central traceability matrix, limited Release 1 import, and aligned provisional round opening. |
+| v0.1 | 2026-07-23 | SEMS Requirements Team | Initial consolidated user stories and acceptance criteria draft. |

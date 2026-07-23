@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
+| Version | **v1.1** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
@@ -293,6 +293,13 @@
 - **สถานะข้อกำหนด:** ข้อเสนอแนะ
 - **หมายเหตุ:** -
 
+## Revision History
+
+| Version | Date | Author | Change |
+|---|---|---|---|
+| v1.1 | 2026-07-23 | SEMS Documentation Team | Added stable GitHub anchors for entity sections; converted workbook content unchanged. |
+| v1.0 | 2026-07-23 | SEMS Documentation Team | Initial workbook conversion. |
+
 ### `updated_at`
 
 - **กลุ่มข้อมูล:** Applicant
@@ -308,6 +315,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="applicant-expenses"></a>
 ## `applicant_expenses`
 
 ### `id`
@@ -423,6 +431,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="parent-information"></a>
 ## `parent_information`
 
 ### `id`
@@ -552,6 +561,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="education-support"></a>
 ## `education_support`
 
 ### `id`
@@ -681,6 +691,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="sibling-summaries"></a>
 ## `sibling_summaries`
 
 ### `id`
@@ -796,6 +807,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="education-loan-histories"></a>
 ## `education_loan_histories`
 
 ### `id`
@@ -911,6 +923,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="scholarship-histories"></a>
 ## `scholarship_histories`
 
 ### `id`
@@ -1040,6 +1053,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="applicant-documents"></a>
 ## `applicant_documents`
 
 ### `id`
@@ -1211,6 +1225,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="address-coordinates"></a>
 ## `address_coordinates`
 
 ### `id`
@@ -1326,6 +1341,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="import-batches"></a>
 ## `import_batches`
 
 ### `id`
@@ -1525,6 +1541,7 @@
 - **หมายเหตุ:** -
 
 
+<a id="import-rows"></a>
 ## `import_rows`
 
 ### `id`

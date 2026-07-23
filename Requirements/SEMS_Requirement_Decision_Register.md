@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Requirements Team** |
 | Status | **Provisional Baseline — Pending Stakeholder Ratification** |
@@ -46,6 +46,13 @@
 | RD-020 | รูปแบบวันที่และตัวเลข | Selected (Provisional) | Template ใหม่ใช้วันที่ ISO; Importer รองรับรูปแบบที่ประกาศ รวม Excel Serial และปี พ.ศ. พร้อม Preview; ช่องว่างหรือ `-` เป็น NULL และค่าที่ตีความไม่ได้เป็น Error | งานทุน / ทีมพัฒนา |
 | RD-021 | รูปแบบรายงาน | Selected (Provisional) | Excel ใช้ Summary (หนึ่งผู้สมัครต่อแถว) และ Evaluator Detail (หนึ่ง Evaluation ต่อแถว); CSV แยกสองไฟล์; เรียง Final Score มากไปน้อย แล้วรหัสนักศึกษาน้อยไปมาก; `Closed Incomplete` อยู่ท้าย | ผู้ใช้รายงาน |
 | RD-022 | ข้อมูลส่วนบุคคลในรายงาน | Selected (Provisional) | จำกัดรายงานรวมไว้ที่ผู้ดูแลระบบ แยก Template ตามวัตถุประสงค์ ไม่ส่งออกเลขบัตรประชาชนโดยค่าเริ่มต้น และบันทึก Audit Log ทุกครั้ง | งานทุน / ผู้รับผิดชอบข้อมูล |
+| RD-023 | เปิดรอบโดยไม่มีผู้สมัคร | Selected (Provisional) | Baseline ชั่วคราวกำหนดให้ `DRAFT → OPEN` ต้องมี Active Criteria Set, ผ่าน Pre-open Validation และมีผู้สมัครอย่างน้อย 1 ราย; ต้องให้งานทุนยืนยันว่าจะเป็น Blocking Error หรือ Warning และ Import ภายหลังได้ | งานทุน |
+| RD-024 | ผู้สมัครหลายประเภททุนในรอบเดียว | Open Decision | ต้องยืนยันว่าผู้สมัครหนึ่งคนสมัครหลาย `scholarship_type` ในรอบเดียวกันได้หรือไม่ | งานทุน |
+| RD-025 | Business Key กับประเภททุน | Open Decision | ต้องยืนยันว่า unique business key ต้องรวม `scholarship_type_id` หรือไม่ | งานทุน / ทีมข้อมูล |
+| RD-026 | ประวัติ กยศ./ทุน | Open Decision | ต้องยืนยันว่าเป็นข้อมูลระดับ Applicant หรือ Snapshot รายรอบ | งานทุน / ผู้รับผิดชอบข้อมูล |
+| RD-027 | Duplicate update policy | Open Decision | ต้องระบุ field ที่แก้ได้เมื่อ Import พบผู้สมัครเดิม และจุดที่ต้องห้ามแก้หลังเริ่ม Evaluation | งานทุน |
+| RD-028 | Required fields ขั้นสุดท้าย | Open Decision | ต้องยืนยัน hard-required, pre-open-required และ optional fields | งานทุน |
+| RD-029 | เลขบัตรประชาชน | Open Decision | ต้องยืนยันความจำเป็น ฐานกฎหมาย ระยะเวลาเก็บ การปกปิด และสิทธิ์เข้าถึงก่อนออกแบบ field จริง | ผู้รับผิดชอบข้อมูล / งานทุน |
 
 ---
 
@@ -116,5 +123,6 @@ Proposal กำหนด Milestone แรกเป็น `Requirement Baseline A
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-23 | SEMS Requirements Team | เพิ่ม RD-023 กฎเปิดรอบแบบ Provisional และ RD-024–RD-029 Database Freeze Blockers โดยคงสถานะ Open/Pending |
 | v1.1 | 2026-07-23 | Codex (AI), user-authorized | เลือกคำตอบชั่วคราว RD-008–RD-022 จากเอกสารวิเคราะห์ และเพิ่ม Decision Log สำหรับตรวจสอบ/แก้ไขย้อนหลัง |
 | v1.0 | 2026-07-23 | SEMS Requirements Team | สร้างทะเบียน Requirement Decision ฉบับเริ่มต้นและจัดเก็บในหมวด Requirements |

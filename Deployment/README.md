@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.1** |
+| Current Version | **v1.2** |
 | Last Updated | **2026-07-23** |
 | Scope | Setup guides, system administration, and user manuals |
 
@@ -18,10 +18,12 @@
 | Document | Version | Last Updated | Status |
 | :--- | :---: | :---: | :--- |
 | _No deployment documents indexed yet_ | — | 2026-07-23 | Awaiting documents |
+| [`../Design/Architecture/SEMS_System_Architecture.md`](../Design/Architecture/SEMS_System_Architecture.md) | v0.1 | 2026-07-23 | Draft deployment considerations |
 
 ## Revision History
 
 | Version | Date | Document / Change |
 | :--- | :--- | :--- |
+| v1.2 | 2026-07-23 | Linked the draft system architecture deployment, failure and backup/restore considerations; deployment guides remain pending. |
 | v1.1 | 2026-07-23 | Re-indexed the Deployment directory and recorded the current empty-document state. |
 | v1.0 | 2026-07-22 | Established Guides and User Manuals categories. |
