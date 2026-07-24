@@ -79,7 +79,7 @@ SEMS เป็น Web Application ภายในคณะวิศวกรร�
 ## 1.5 กติกาการเขียน Requirement
 
 - รหัส Functional Requirement ใช้ `FR-<MODULE>-NNN`
-- Priority: `Must`, `Should`, `Could`
+- Priority: `Must have`, `Should have`, `Nice to have`
 - Status: `Confirmed`, `Provisional`, `Open`
 - API Error ต้องส่ง `{code, message, details[], traceId, timestamp}` ตาม [`SEMS_Error_Code_Catalog.md`](../../Design/API/SEMS_Error_Code_Catalog.md) โดยไม่มี object `error` ครอบ
 - Backend เป็นผู้ตัดสิน Validation และ Authorization สุดท้าย
@@ -136,146 +136,146 @@ ADMIN ปิดรอบ
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-AUT-001 | Must | Confirmed | เมื่อผู้ใช้กดเข้าสู่ระบบ ระบบต้องเริ่ม OIDC Authorization Code Flow ผ่าน KKU SSO โดยอ่าน Endpoint จาก OIDC Discovery ใช้ `scope=openid profile email`, `state`, `nonce` และ PKCE `S256`. | ผู้ใช้ยังไม่มี Session | Redirect ไป KKU SSO พร้อมพารามิเตอร์ครบ และ SEMS ไม่รับ/เก็บรหัสผ่าน KKU |
-| FR-AUT-002 | Must | Confirmed | ระบบต้องตรวจ `state`, `nonce`, authorization code, PKCE verifier, issuer, audience, signature และอายุ Token ก่อนสร้าง Session. | ได้รับ Callback | Callback ผิดต้องถูกปฏิเสธและไม่มี Session |
-| FR-AUT-003 | Must | Confirmed | ระบบต้องใช้ Claim ที่คงที่ เช่น `sub` เป็นตัวระบุตัวตนหลักสำหรับเชื่อม KKU Identity กับ SEMS User. | Token ผ่านการตรวจ | ผู้ใช้เดิมเชื่อมบัญชีเดิมแม้ชื่อ/email เปลี่ยน |
-| FR-AUT-004 | Must | Confirmed | หลังยืนยันตัวตน ระบบต้องตรวจว่ามี SEMS User ที่เชื่อมและสถานะ `ACTIVE`; ถ้าไม่พบหรือ Inactive ต้องปฏิเสธ. | Identity ถูกต้อง | คืน `USER_NOT_PROVISIONED` หรือ `USER_INACTIVE` และ Audit |
-| FR-AUT-005 | Must | Confirmed | ระบบต้องรองรับ `ADMIN` และ `EVALUATOR` และตรวจสิทธิ์ Menu, Page, API และข้อมูลที่ Backend ทุกคำขอ. | มี Session | เข้าถึงเฉพาะทรัพยากรที่ Role/Ownership อนุญาต |
-| FR-AUT-006 | Must | Confirmed | EVALUATOR ต้องสร้าง แก้ Draft ยกเลิก Draft และ Submit ได้เฉพาะ Evaluation ของตน และห้ามแก้ของคนอื่น. | EVALUATOR | การเข้าถึงข้ามเจ้าของเป็น 403 `EVALUATION_NOT_OWNER` |
-| FR-AUT-007 | Must | Confirmed | ADMIN ต้องเชื่อม KKU Account กับ SEMS User กำหนด Role และเปิด/ปิดสิทธิ์ โดยไม่จัดการรหัสผ่าน KKU. | ADMIN | User/Role/Status/Identity Link ถูกบันทึกพร้อม Audit |
-| FR-AUT-008 | Must | Confirmed Response | Session ใช้ Secure, HttpOnly, appropriate SameSite Cookie; idle 30 นาที, absolute 8 ชั่วโมง และ Admin revoke ได้. | Login สำเร็จ | Session หมดอายุตามกฎและ Token ไม่เปิดแก่ JavaScript |
-| FR-AUT-009 | Must | Confirmed | Logout ต้องยกเลิก Session SEMS และใช้ Revocation/KKU Logout ตามนโยบายที่อนุมัติ. | มี Session | Session เดิมเรียก API ไม่ได้ |
-| FR-AUT-010 | Must | Confirmed | บันทึก `LOGIN_SUCCESS`, `LOGIN_FAILURE`, `LOGOUT`, `ACCESS_DENIED`, Activation/Deactivation โดยห้ามบันทึก Password, Token, Secret หรือ Code. | เกิดเหตุการณ์ | Audit มีผู้ใช้ เวลา ผล และ Request ID โดยไม่มีข้อมูลลับ |
+| FR-AUT-001 | Must have | Confirmed | เมื่อผู้ใช้กดเข้าสู่ระบบ ระบบต้องเริ่ม OIDC Authorization Code Flow ผ่าน KKU SSO โดยอ่าน Endpoint จาก OIDC Discovery ใช้ `scope=openid profile email`, `state`, `nonce` และ PKCE `S256`. | ผู้ใช้ยังไม่มี Session | Redirect ไป KKU SSO พร้อมพารามิเตอร์ครบ และ SEMS ไม่รับ/เก็บรหัสผ่าน KKU |
+| FR-AUT-002 | Must have | Confirmed | ระบบต้องตรวจ `state`, `nonce`, authorization code, PKCE verifier, issuer, audience, signature และอายุ Token ก่อนสร้าง Session. | ได้รับ Callback | Callback ผิดต้องถูกปฏิเสธและไม่มี Session |
+| FR-AUT-003 | Must have | Confirmed | ระบบต้องใช้ Claim ที่คงที่ เช่น `sub` เป็นตัวระบุตัวตนหลักสำหรับเชื่อม KKU Identity กับ SEMS User. | Token ผ่านการตรวจ | ผู้ใช้เดิมเชื่อมบัญชีเดิมแม้ชื่อ/email เปลี่ยน |
+| FR-AUT-004 | Must have | Confirmed | หลังยืนยันตัวตน ระบบต้องตรวจว่ามี SEMS User ที่เชื่อมและสถานะ `ACTIVE`; ถ้าไม่พบหรือ Inactive ต้องปฏิเสธ. | Identity ถูกต้อง | คืน `USER_NOT_PROVISIONED` หรือ `USER_INACTIVE` และ Audit |
+| FR-AUT-005 | Must have | Confirmed | ระบบต้องรองรับ `ADMIN` และ `EVALUATOR` และตรวจสิทธิ์ Menu, Page, API และข้อมูลที่ Backend ทุกคำขอ. | มี Session | เข้าถึงเฉพาะทรัพยากรที่ Role/Ownership อนุญาต |
+| FR-AUT-006 | Must have | Confirmed | EVALUATOR ต้องสร้าง แก้ Draft ยกเลิก Draft และ Submit ได้เฉพาะ Evaluation ของตน และห้ามแก้ของคนอื่น. | EVALUATOR | การเข้าถึงข้ามเจ้าของเป็น 403 `EVALUATION_NOT_OWNER` |
+| FR-AUT-007 | Must have | Confirmed | ADMIN ต้องเชื่อม KKU Account กับ SEMS User กำหนด Role และเปิด/ปิดสิทธิ์ โดยไม่จัดการรหัสผ่าน KKU. | ADMIN | User/Role/Status/Identity Link ถูกบันทึกพร้อม Audit |
+| FR-AUT-008 | Must have | Confirmed Response | Session ใช้ Secure, HttpOnly, appropriate SameSite Cookie; idle 30 นาที, absolute 8 ชั่วโมง และ Admin revoke ได้. | Login สำเร็จ | Session หมดอายุตามกฎและ Token ไม่เปิดแก่ JavaScript |
+| FR-AUT-009 | Must have | Confirmed | Logout ต้องยกเลิก Session SEMS และใช้ Revocation/KKU Logout ตามนโยบายที่อนุมัติ. | มี Session | Session เดิมเรียก API ไม่ได้ |
+| FR-AUT-010 | Must have | Confirmed | บันทึก `LOGIN_SUCCESS`, `LOGIN_FAILURE`, `LOGOUT`, `ACCESS_DENIED`, Activation/Deactivation โดยห้ามบันทึก Password, Token, Secret หรือ Code. | เกิดเหตุการณ์ | Audit มีผู้ใช้ เวลา ผล และ Request ID โดยไม่มีข้อมูลลับ |
 
 ## 3.2 การจัดการรอบทุน
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-RND-001 | Must | Confirmed | ADMIN ต้องสร้างรอบทุนด้วยรหัส ชื่อ ปีการศึกษา ช่วงเวลา และสถานะเริ่ม `DRAFT`. | ข้อมูลถูกต้อง | สร้างสำเร็จและรหัสไม่ซ้ำ |
-| FR-RND-002 | Must | Confirmed | รองรับ `DRAFT`, `OPEN`, `CLOSED`, `ARCHIVED` และตรวจ State Transition ตาม Validation Rules. | รอบมีอยู่ | Transition ผิดถูกปฏิเสธ `INVALID_ROUND_STATUS_TRANSITION` |
-| FR-RND-003 | Must | Confirmed | ก่อน `OPEN` ต้องมี Criteria Version `ACTIVE` และข้อมูลจำเป็นต่อการประเมินครบ. | รอบ DRAFT | ผ่านจึงเปิด; ไม่ผ่านแสดงรายการที่ขาด |
-| FR-RND-004 | Must | Confirmed | Applicant, Document, Criteria, Evaluation, Result, Dashboard และ Report ต้องแยกตาม `round_id`. | อ่าน/เขียนข้อมูล | ไม่มีข้อมูลข้ามรอบ |
-| FR-RND-005 | Must | Confirmed | รอบ `CLOSED` ห้ามสร้าง Evaluation, บันทึก Draft ใหม่ หรือ Submit เพิ่ม เว้นแต่เปิดใหม่ตามกระบวนการอนุมัติ. | รอบ CLOSED | ปฏิเสธ `ROUND_NOT_OPEN` |
-| FR-RND-006 | Must | Confirmed | เมื่อปิดรอบ ผู้มี Submitted >=2 เป็น `FINALIZED`; น้อยกว่า 2 เป็น `CLOSED_INCOMPLETE` และไม่มี Final Score. | ADMIN ปิดรอบ | สถานะทุก Applicant ถูกประมวลผลถูกต้อง |
-| FR-RND-007 | Must | Confirmed | ห้าม Hard Delete รอบที่มี Evaluation; จำกัดการแก้ข้อมูลที่กระทบผล และใช้ `ARCHIVED` เพื่อเก็บย้อนหลัง. | มี Evaluation | ข้อมูลเดิมยังตรวจสอบได้ |
-| FR-RND-008 | Must | Confirmed Response | การเปิด CLOSED กลับ OPEN เป็น exceptional Controlled Reopen: ต้องมีคำขอ เหตุผล เลขอ้างอิง ผู้อนุมัติ Audit และรายงานเดิมเป็น immutable `Superseded`; `ARCHIVED` เปิดไม่ได้. | รอบ CLOSED | เปิดเฉพาะรายการอนุมัติและสร้างรายงาน Final ใหม่ |
-| FR-RND-009 | Must | Confirmed Response | ก่อน `DRAFT → OPEN` ต้องมี Active Criteria Set, ผ่าน Pre-open Validation และมี Application อย่างน้อย 1 ราย. | รอบ DRAFT | ไม่มี Application เป็น Blocking Error `NO_APPLICANTS` |
+| FR-RND-001 | Must have | Confirmed | ADMIN ต้องสร้างรอบทุนด้วยรหัส ชื่อ ปีการศึกษา ช่วงเวลา และสถานะเริ่ม `DRAFT`. | ข้อมูลถูกต้อง | สร้างสำเร็จและรหัสไม่ซ้ำ |
+| FR-RND-002 | Must have | Confirmed | รองรับ `DRAFT`, `OPEN`, `CLOSED`, `ARCHIVED` และตรวจ State Transition ตาม Validation Rules. | รอบมีอยู่ | Transition ผิดถูกปฏิเสธ `INVALID_ROUND_STATUS_TRANSITION` |
+| FR-RND-003 | Must have | Confirmed | ก่อน `OPEN` ต้องมี Criteria Version `ACTIVE` และข้อมูลจำเป็นต่อการประเมินครบ. | รอบ DRAFT | ผ่านจึงเปิด; ไม่ผ่านแสดงรายการที่ขาด |
+| FR-RND-004 | Must have | Confirmed | Applicant, Document, Criteria, Evaluation, Result, Dashboard และ Report ต้องแยกตาม `round_id`. | อ่าน/เขียนข้อมูล | ไม่มีข้อมูลข้ามรอบ |
+| FR-RND-005 | Must have | Confirmed | รอบ `CLOSED` ห้ามสร้าง Evaluation, บันทึก Draft ใหม่ หรือ Submit เพิ่ม เว้นแต่เปิดใหม่ตามกระบวนการอนุมัติ. | รอบ CLOSED | ปฏิเสธ `ROUND_NOT_OPEN` |
+| FR-RND-006 | Must have | Confirmed | เมื่อปิดรอบ ผู้มี Submitted >=2 เป็น `FINALIZED`; น้อยกว่า 2 เป็น `CLOSED_INCOMPLETE` และไม่มี Final Score. | ADMIN ปิดรอบ | สถานะทุก Applicant ถูกประมวลผลถูกต้อง |
+| FR-RND-007 | Must have | Confirmed | ห้าม Hard Delete รอบที่มี Evaluation; จำกัดการแก้ข้อมูลที่กระทบผล และใช้ `ARCHIVED` เพื่อเก็บย้อนหลัง. | มี Evaluation | ข้อมูลเดิมยังตรวจสอบได้ |
+| FR-RND-008 | Must have | Confirmed Response | การเปิด CLOSED กลับ OPEN เป็น exceptional Controlled Reopen: ต้องมีคำขอ เหตุผล เลขอ้างอิง ผู้อนุมัติ Audit และรายงานเดิมเป็น immutable `Superseded`; `ARCHIVED` เปิดไม่ได้. | รอบ CLOSED | เปิดเฉพาะรายการอนุมัติและสร้างรายงาน Final ใหม่ |
+| FR-RND-009 | Must have | Confirmed Response | ก่อน `DRAFT → OPEN` ต้องมี Active Criteria Set, ผ่าน Pre-open Validation และมี Application อย่างน้อย 1 ราย. | รอบ DRAFT | ไม่มี Application เป็น Blocking Error `NO_APPLICANTS` |
 
 ## 3.3 การนำเข้าข้อมูลผู้สมัคร
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-IMP-001 | Must | Confirmed | ADMIN ต้องเลือกรอบและอัปโหลด `.xlsx`/`.csv`; ชนิดอื่นและรอบ CLOSED/ARCHIVED ต้องถูกปฏิเสธ. | ADMIN; รอบ DRAFT/OPEN | สร้าง Import Batch พร้อม metadata |
-| FR-IMP-002 | Must | Confirmed Response | `student_id` และโทรศัพท์ต้องอ่านเป็น Text และตรวจ Scientific Notation; national ID ต้องถูกปฏิเสธจาก Release 1 standard import. | อ่านไฟล์ | เลขศูนย์ไม่หาย; national ID ไม่ถูก persist/log |
-| FR-IMP-003 | Must | Confirmed | ตรวจ Header และจับคู่คอลัมน์ด้วยชื่อจริง Alias และ Mapping ที่ผู้ดูแลแก้ได้. | มี Header | Required Header ครบ; Missing/Duplicate ถูกแจ้ง |
-| FR-IMP-004 | Must | Confirmed | จำแนกแถวเป็น `APPLICANT`, `CONTINUATION`, `BLANK`, `INVALID`. | อ่านแถว | ทุกแถวมี row_type และ source row |
-| FR-IMP-005 | Must | Confirmed | CONTINUATION ต้องไม่มี student_id มีเฉพาะ กยศ./ทุน และผูก Applicant Valid ก่อนหน้า; ห้ามข้าม Invalid Context. | แถวไม่มี student_id | ผูก Child Record หรือ `ORPHAN_CONTINUATION_ROW` |
-| FR-IMP-006 | Must | Confirmed | Normalize: Trim, Blank/Whitespace/`-` ทั้ง Cell -> NULL โดยคง 0, แปลง พ.ศ.-ค.ศ., Decimal และพิกัด. | Mapping เสร็จ | Preview แสดง Raw และ Normalized |
-| FR-IMP-007 | Must | Confirmed | ตรวจ Field/Row/Cross-row/Duplicate และสร้าง `{row, field, code, severity, message}`. | Normalize เสร็จ | ข้อผิดพลาดระบุแถวและฟิลด์ |
-| FR-IMP-008 | Must | Confirmed | Duplicate ภายในไฟล์ตาม Business Key เป็น Blocking Error. | พบ Key ซ้ำ | ปิด Confirm และ `DUPLICATE_STUDENT_IN_FILE` |
-| FR-IMP-009 | Must | Confirmed Response | Duplicate กับฐานข้อมูลให้ Skip ค่าเริ่มต้น; never auto-Upsert; explicit Update เฉพาะก่อนมี Evaluation; หลังจากนั้นใช้ Controlled Correction. | พบ Existing Application | หลังเริ่มประเมินปฏิเสธ normal update `IMPORT_STATE_INVALID` |
-| FR-IMP-010 | Must | Confirmed | Preview ต้องไม่สร้าง/แก้ข้อมูลธุรกิจ. | Validation เสร็จ | ยกเลิก Preview แล้วข้อมูลไม่เปลี่ยน |
-| FR-IMP-011 | Must | Confirmed | ถ้ามี severity ERROR ต้องปิด Confirm; Warning อนุญาตตาม Policy. | มี Validation Result | Blocking Error Import ไม่ได้ |
-| FR-IMP-012 | Must | Confirmed | Confirm ต้องบันทึก Applicant/Child Records ใน Transaction; DB Error ต้อง Rollback ทั้ง Batch ที่ยืนยัน. | Batch ผ่าน | ไม่มีข้อมูลครึ่งชุด |
-| FR-IMP-013 | Must | Confirmed | บันทึก Counts total/applicant/continuation/valid/warning/error/skipped/imported และรายละเอียดรายแถว. | Import จบ | ตรวจย้อนหลังได้ |
-| FR-IMP-014 | Must | Confirmed | ส่งออก Import Error CSV ที่มี source_row, student, field, code, severity, raw_value, message. | มี Error/Warning | ไฟล์ตรง Preview |
-| FR-IMP-015 | Must | Confirmed Response | รองรับไฟล์ประวัติทุนแยก เชื่อม application business key และบันทึก source เป็น Snapshot ต่อ application/round. | ADMIN อัปโหลด History | ข้อมูลเชื่อมไม่ได้ไม่สร้าง Orphan |
+| FR-IMP-001 | Must have | Confirmed | ADMIN ต้องเลือกรอบและอัปโหลด `.xlsx`/`.csv`; ชนิดอื่นและรอบ CLOSED/ARCHIVED ต้องถูกปฏิเสธ. | ADMIN; รอบ DRAFT/OPEN | สร้าง Import Batch พร้อม metadata |
+| FR-IMP-002 | Must have | Confirmed Response | `student_id` และโทรศัพท์ต้องอ่านเป็น Text และตรวจ Scientific Notation; national ID ต้องถูกปฏิเสธจาก Release 1 standard import. | อ่านไฟล์ | เลขศูนย์ไม่หาย; national ID ไม่ถูก persist/log |
+| FR-IMP-003 | Must have | Confirmed | ตรวจ Header และจับคู่คอลัมน์ด้วยชื่อจริง Alias และ Mapping ที่ผู้ดูแลแก้ได้. | มี Header | Required Header ครบ; Missing/Duplicate ถูกแจ้ง |
+| FR-IMP-004 | Must have | Confirmed | จำแนกแถวเป็น `APPLICANT`, `CONTINUATION`, `BLANK`, `INVALID`. | อ่านแถว | ทุกแถวมี row_type และ source row |
+| FR-IMP-005 | Must have | Confirmed | CONTINUATION ต้องไม่มี student_id มีเฉพาะ กยศ./ทุน และผูก Applicant Valid ก่อนหน้า; ห้ามข้าม Invalid Context. | แถวไม่มี student_id | ผูก Child Record หรือ `ORPHAN_CONTINUATION_ROW` |
+| FR-IMP-006 | Must have | Confirmed | Normalize: Trim, Blank/Whitespace/`-` ทั้ง Cell -> NULL โดยคง 0, แปลง พ.ศ.-ค.ศ., Decimal และพิกัด. | Mapping เสร็จ | Preview แสดง Raw และ Normalized |
+| FR-IMP-007 | Must have | Confirmed | ตรวจ Field/Row/Cross-row/Duplicate และสร้าง `{row, field, code, severity, message}`. | Normalize เสร็จ | ข้อผิดพลาดระบุแถวและฟิลด์ |
+| FR-IMP-008 | Must have | Confirmed | Duplicate ภายในไฟล์ตาม Business Key เป็น Blocking Error. | พบ Key ซ้ำ | ปิด Confirm และ `DUPLICATE_STUDENT_IN_FILE` |
+| FR-IMP-009 | Must have | Confirmed Response | Duplicate กับฐานข้อมูลให้ Skip ค่าเริ่มต้น; never auto-Upsert; explicit Update เฉพาะก่อนมี Evaluation; หลังจากนั้นใช้ Controlled Correction. | พบ Existing Application | หลังเริ่มประเมินปฏิเสธ normal update `IMPORT_STATE_INVALID` |
+| FR-IMP-010 | Must have | Confirmed | Preview ต้องไม่สร้าง/แก้ข้อมูลธุรกิจ. | Validation เสร็จ | ยกเลิก Preview แล้วข้อมูลไม่เปลี่ยน |
+| FR-IMP-011 | Must have | Confirmed | ถ้ามี severity ERROR ต้องปิด Confirm; Warning อนุญาตตาม Policy. | มี Validation Result | Blocking Error Import ไม่ได้ |
+| FR-IMP-012 | Must have | Confirmed | Confirm ต้องบันทึก Applicant/Child Records ใน Transaction; DB Error ต้อง Rollback ทั้ง Batch ที่ยืนยัน. | Batch ผ่าน | ไม่มีข้อมูลครึ่งชุด |
+| FR-IMP-013 | Must have | Confirmed | บันทึก Counts total/applicant/continuation/valid/warning/error/skipped/imported และรายละเอียดรายแถว. | Import จบ | ตรวจย้อนหลังได้ |
+| FR-IMP-014 | Must have | Confirmed | ส่งออก Import Error CSV ที่มี source_row, student, field, code, severity, raw_value, message. | มี Error/Warning | ไฟล์ตรง Preview |
+| FR-IMP-015 | Must have | Confirmed Response | รองรับไฟล์ประวัติทุนแยก เชื่อม application business key และบันทึก source เป็น Snapshot ต่อ application/round. | ADMIN อัปโหลด History | ข้อมูลเชื่อมไม่ได้ไม่สร้าง Orphan |
 
 ## 3.4 ข้อมูลผู้สมัครและเอกสาร
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-APP-001 | Must | Confirmed | ADMIN ต้องดู ค้นหา กรอง และเรียง Applicant ตามรอบ รหัส ชื่อ สาขา ชั้นปี และสถานะ. | ADMIN เลือกรอบ | ผลถูกจำกัดตามรอบและมี Pagination |
-| FR-APP-002 | Must | Confirmed | EVALUATOR ต้องค้นหาผู้สมัครในรอบ OPEN ด้วยรหัส/ชื่อ/นามสกุล โดยก่อนสร้าง Evaluation แสดงเฉพาะข้อมูลขั้นต่ำ. | EVALUATOR Active | ไม่ส่งข้อมูลละเอียดอ่อนก่อนมี Evaluation |
-| FR-APP-003 | Must | Confirmed | หลังสร้าง Evaluation ผู้ประเมินต้องดูข้อมูลผู้สมัคร เอกสาร ประวัติทุน และข้อมูลประกอบที่จำเป็นได้. | มี Active Evaluation ของผู้ใช้ | Backend ตรวจ Ownership ก่อนคืนข้อมูล |
-| FR-APP-004 | Must | Confirmed Response | Application อ้าง round/type/student ชัดเจน; business key คือ `round_id + scholarship_type_id + student_id`; UUID เป็น internal PK. | บันทึก Application | Unique triplet |
-| FR-APP-005 | Must | Confirmed Response | ADMIN แก้ mutable data ได้ก่อนมี Evaluation; หลัง Draft/Submitted ฟิลด์ที่กระทบคะแนน/รายงานใช้ Controlled Correction พร้อม reason, approval, before/after and audit. | ADMIN แก้ Application | identity triplet เปลี่ยนไม่ได้และไม่มีการเปลี่ยนสำคัญโดยไร้ประวัติ |
-| FR-APP-006 | Must | Confirmed | แสดงประวัติ กยศ./ทุนแบบหลายรายการ มีปี ชื่อ/ประเภท จำนวนเงิน และแหล่งที่มา. | มี History | รายการไม่ถูกทับ |
-| FR-APP-007 | Must | Confirmed | Applicant ต้องมี Result Summary ไม่เกินหนึ่งรายการต่อรอบ. | คำนวณผล | Unique Constraint ป้องกัน Summary ซ้ำ |
-| FR-DOC-001 | Must | Confirmed | ADMIN อัปโหลดเอกสารได้เฉพาะ PDF/JPG/PNG และขนาดสูงสุดจาก Configuration. | Applicant มีอยู่ | ชนิด/ขนาดไม่ผ่านถูกปฏิเสธ |
-| FR-DOC-002 | Must | Confirmed | Binary เก็บ Private File/Object Storage; PostgreSQL เก็บ metadata เช่น name, MIME, size, storage_key, checksum, uploader/time. | อัปโหลดผ่าน | ไม่มี Binary ใหญ่ใน DB ธุรกิจ |
-| FR-DOC-003 | Must | Confirmed | เปิด/ดาวน์โหลดต้องผ่าน Backend Authorization; ห้ามเปิด Storage Path/Public URL ถาวร. | ขอไฟล์ | ผู้ไม่มีสิทธิ์ได้ 403 |
-| FR-DOC-004 | Must | Confirmed | EVALUATOR เข้าถึงเอกสารเฉพาะ Applicant ที่มี Active Evaluation ของตน; ADMIN ตามหน้าที่. | ขอเอกสาร | สิทธิ์ระดับไฟล์ตรงสิทธิ์ Applicant |
-| FR-DOC-005 | Must | Confirmed | รองรับ Preview PDF/JPG/PNG และ Download เมื่อ Preview ไม่ได้. | ไฟล์/สิทธิ์ถูกต้อง | Content-Type/Disposition ถูกต้อง |
-| FR-DOC-006 | Must | Confirmed Response | ตรวจ signature/MIME/extension/size, ทำชื่อปลอดภัย และ Malware Scan ทุก production file; scanner unavailable คง Quarantine. | อัปโหลด | ไฟล์ไม่ Clean ไม่ถูกดู/ดาวน์โหลด |
+| FR-APP-001 | Must have | Confirmed | ADMIN ต้องดู ค้นหา กรอง และเรียง Applicant ตามรอบ รหัส ชื่อ สาขา ชั้นปี และสถานะ. | ADMIN เลือกรอบ | ผลถูกจำกัดตามรอบและมี Pagination |
+| FR-APP-002 | Must have | Confirmed | EVALUATOR ต้องค้นหาผู้สมัครในรอบ OPEN ด้วยรหัส/ชื่อ/นามสกุล โดยก่อนสร้าง Evaluation แสดงเฉพาะข้อมูลขั้นต่ำ. | EVALUATOR Active | ไม่ส่งข้อมูลละเอียดอ่อนก่อนมี Evaluation |
+| FR-APP-003 | Must have | Confirmed | หลังสร้าง Evaluation ผู้ประเมินต้องดูข้อมูลผู้สมัคร เอกสาร ประวัติทุน และข้อมูลประกอบที่จำเป็นได้. | มี Active Evaluation ของผู้ใช้ | Backend ตรวจ Ownership ก่อนคืนข้อมูล |
+| FR-APP-004 | Must have | Confirmed Response | Application อ้าง round/type/student ชัดเจน; business key คือ `round_id + scholarship_type_id + student_id`; UUID เป็น internal PK. | บันทึก Application | Unique triplet |
+| FR-APP-005 | Must have | Confirmed Response | ADMIN แก้ mutable data ได้ก่อนมี Evaluation; หลัง Draft/Submitted ฟิลด์ที่กระทบคะแนน/รายงานใช้ Controlled Correction พร้อม reason, approval, before/after and audit. | ADMIN แก้ Application | identity triplet เปลี่ยนไม่ได้และไม่มีการเปลี่ยนสำคัญโดยไร้ประวัติ |
+| FR-APP-006 | Must have | Confirmed | แสดงประวัติ กยศ./ทุนแบบหลายรายการ มีปี ชื่อ/ประเภท จำนวนเงิน และแหล่งที่มา. | มี History | รายการไม่ถูกทับ |
+| FR-APP-007 | Must have | Confirmed | Applicant ต้องมี Result Summary ไม่เกินหนึ่งรายการต่อรอบ. | คำนวณผล | Unique Constraint ป้องกัน Summary ซ้ำ |
+| FR-DOC-001 | Must have | Confirmed | ADMIN อัปโหลดเอกสารได้เฉพาะ PDF/JPG/PNG และขนาดสูงสุดจาก Configuration. | Applicant มีอยู่ | ชนิด/ขนาดไม่ผ่านถูกปฏิเสธ |
+| FR-DOC-002 | Must have | Confirmed | Binary เก็บ Private File/Object Storage; PostgreSQL เก็บ metadata เช่น name, MIME, size, storage_key, checksum, uploader/time. | อัปโหลดผ่าน | ไม่มี Binary ใหญ่ใน DB ธุรกิจ |
+| FR-DOC-003 | Must have | Confirmed | เปิด/ดาวน์โหลดต้องผ่าน Backend Authorization; ห้ามเปิด Storage Path/Public URL ถาวร. | ขอไฟล์ | ผู้ไม่มีสิทธิ์ได้ 403 |
+| FR-DOC-004 | Must have | Confirmed | EVALUATOR เข้าถึงเอกสารเฉพาะ Applicant ที่มี Active Evaluation ของตน; ADMIN ตามหน้าที่. | ขอเอกสาร | สิทธิ์ระดับไฟล์ตรงสิทธิ์ Applicant |
+| FR-DOC-005 | Must have | Confirmed | รองรับ Preview PDF/JPG/PNG และ Download เมื่อ Preview ไม่ได้. | ไฟล์/สิทธิ์ถูกต้อง | Content-Type/Disposition ถูกต้อง |
+| FR-DOC-006 | Must have | Confirmed Response | ตรวจ signature/MIME/extension/size, ทำชื่อปลอดภัย และ Malware Scan ทุก production file; scanner unavailable คง Quarantine. | อัปโหลด | ไฟล์ไม่ Clean ไม่ถูกดู/ดาวน์โหลด |
 
 ## 3.5 การจัดการเกณฑ์คะแนน
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-CRI-001 | Must | Confirmed | ADMIN ต้องสร้าง Criteria Set แยกตามรอบและกำหนด criterion_code, ชื่อ, คำอธิบาย, คะแนนต่ำสุด/เต็ม, น้ำหนัก, ลำดับ, required, version และ round. | ADMIN; รอบ DRAFT | Item ถูกบันทึกครบ |
-| FR-CRI-002 | Must | Confirmed | ภายใน Version เดียว code และ display_order ห้ามซ้ำ และ min_score <= max_score. | บันทึก Item | ข้อมูลผิดถูกปฏิเสธ |
-| FR-CRI-003 | Must | Confirmed Response | Template เริ่มต้นมี 10 scoring criteria รวม 100; ใช้ชื่อที่ RD-014 ยืนยันและ unique immutable `criterion_code`. | สร้าง Template | ได้ 10 Items, Total=100 และ code ไม่ซ้ำ |
-| FR-CRI-004 | Must | Open | Scoring Rule ต้องระบุ `weight_type` ว่า POINT หรือ PERCENT; ห้าม Activate หากกฎน้ำหนักไม่ชัดหรือผลรวมผิด. | Activate Criteria | ผ่าน Weight Validation เท่านั้น |
-| FR-CRI-005 | Must | Confirmed | ก่อน Activate ต้องมี >=1 Item; ทุก Item มี Code/Name/Min/Max/Order/Required และ Total Full Score ตรง Rule. | Criteria DRAFT | ผ่านจึง ACTIVE |
-| FR-CRI-006 | Must | Confirmed | หนึ่งรอบมี Active Criteria Version สำหรับ Evaluation ใหม่ได้ไม่เกินหนึ่ง Version. | Activate | ไม่มี Active ซ้ำ |
-| FR-CRI-007 | Must | Confirmed | เมื่อมี Evaluation ที่ยังไม่ยกเลิกอ้าง Version แล้ว ต้องล็อกฟิลด์ที่กระทบคะแนน. | มี Evaluation | ปฏิเสธ `CRITERIA_LOCKED` |
-| FR-CRI-008 | Must | Confirmed | การเปลี่ยนเกณฑ์ที่กระทบคะแนนต้องสร้าง Version ใหม่และรักษา Version เดิม. | สร้าง Revision | Evaluation เดิมยังใช้ Version เดิม |
-| FR-CRI-009 | Must | Confirmed | Evaluation ทุกตัวต้องเก็บ criteria_version_id และ Snapshot กฎที่จำเป็นต่อ Audit/Recalculation. | สร้าง Evaluation | ระบุ Version ที่ใช้ได้ |
-| FR-CRI-010 | Must | Confirmed Response | คะแนนดุลพินิจเป็นจำนวนเต็ม 0-10; ค่านอก standard options ต้องมีเหตุผล. | กรอกคะแนน | decimal/out-of-range/reason missing ถูกปฏิเสธ |
-| FR-CRI-011 | Must | Confirmed Response | ทุนต่อเนื่อง มูลค่าทุน และความเห็นเพิ่มเติมเป็น Outcome Fields แยกจาก 100 points; Custom Amount requires reason and ceiling. | กำหนดแบบฟอร์ม | Outcome ไม่ถูกรวมคะแนน |
-| FR-CRI-012 | Could | Confirmed | อาจคัดลอก Criteria รอบเดิมเป็น DRAFT ใหม่ โดยไม่แก้ต้นทาง. | ADMIN เลือกรอบต้นทาง | สร้างชุดใหม่แก้ได้ก่อน Activate |
+| FR-CRI-001 | Must have | Confirmed | ADMIN ต้องสร้าง Criteria Set แยกตามรอบและกำหนด criterion_code, ชื่อ, คำอธิบาย, คะแนนต่ำสุด/เต็ม, น้ำหนัก, ลำดับ, required, version และ round. | ADMIN; รอบ DRAFT | Item ถูกบันทึกครบ |
+| FR-CRI-002 | Must have | Confirmed | ภายใน Version เดียว code และ display_order ห้ามซ้ำ และ min_score <= max_score. | บันทึก Item | ข้อมูลผิดถูกปฏิเสธ |
+| FR-CRI-003 | Must have | Confirmed Response | Template เริ่มต้นมี 10 scoring criteria รวม 100; ใช้ชื่อที่ RD-014 ยืนยันและ unique immutable `criterion_code`. | สร้าง Template | ได้ 10 Items, Total=100 และ code ไม่ซ้ำ |
+| FR-CRI-004 | Must have | Open | Scoring Rule ต้องระบุ `weight_type` ว่า POINT หรือ PERCENT; ห้าม Activate หากกฎน้ำหนักไม่ชัดหรือผลรวมผิด. | Activate Criteria | ผ่าน Weight Validation เท่านั้น |
+| FR-CRI-005 | Must have | Confirmed | ก่อน Activate ต้องมี >=1 Item; ทุก Item มี Code/Name/Min/Max/Order/Required และ Total Full Score ตรง Rule. | Criteria DRAFT | ผ่านจึง ACTIVE |
+| FR-CRI-006 | Must have | Confirmed | หนึ่งรอบมี Active Criteria Version สำหรับ Evaluation ใหม่ได้ไม่เกินหนึ่ง Version. | Activate | ไม่มี Active ซ้ำ |
+| FR-CRI-007 | Must have | Confirmed | เมื่อมี Evaluation ที่ยังไม่ยกเลิกอ้าง Version แล้ว ต้องล็อกฟิลด์ที่กระทบคะแนน. | มี Evaluation | ปฏิเสธ `CRITERIA_LOCKED` |
+| FR-CRI-008 | Must have | Confirmed | การเปลี่ยนเกณฑ์ที่กระทบคะแนนต้องสร้าง Version ใหม่และรักษา Version เดิม. | สร้าง Revision | Evaluation เดิมยังใช้ Version เดิม |
+| FR-CRI-009 | Must have | Confirmed | Evaluation ทุกตัวต้องเก็บ criteria_version_id และ Snapshot กฎที่จำเป็นต่อ Audit/Recalculation. | สร้าง Evaluation | ระบุ Version ที่ใช้ได้ |
+| FR-CRI-010 | Must have | Confirmed Response | คะแนนดุลพินิจเป็นจำนวนเต็ม 0-10; ค่านอก standard options ต้องมีเหตุผล. | กรอกคะแนน | decimal/out-of-range/reason missing ถูกปฏิเสธ |
+| FR-CRI-011 | Must have | Confirmed Response | ทุนต่อเนื่อง มูลค่าทุน และความเห็นเพิ่มเติมเป็น Outcome Fields แยกจาก 100 points; Custom Amount requires reason and ceiling. | กำหนดแบบฟอร์ม | Outcome ไม่ถูกรวมคะแนน |
+| FR-CRI-012 | Nice to have | Confirmed | อาจคัดลอก Criteria รอบเดิมเป็น DRAFT ใหม่ โดยไม่แก้ต้นทาง. | ADMIN เลือกรอบต้นทาง | สร้างชุดใหม่แก้ได้ก่อน Activate |
 
 ## 3.6 การเลือกผู้สมัครและ Workflow การประเมิน
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-EVA-001 | Must | Confirmed | อนุญาตสร้าง Evaluation เมื่อรอบ OPEN, บัญชี ACTIVE, Applicant อยู่ในรอบ, มี Active Criteria, คนเดิมไม่มี Active Evaluation และ Active Count <3. | EVALUATOR เลือก Applicant | สร้าง DRAFT อ้าง Applicant/Round/Evaluator/Criteria Version |
-| FR-EVA-002 | Must | Confirmed | หากคนเดิมมี Evaluation ที่ยังไม่ยกเลิกสำหรับ Applicant/Round เดิม ต้องปฏิเสธ. | มีรายการเดิม | 409 `DUPLICATE_EVALUATION` |
-| FR-EVA-003 | Must | Confirmed | ต้องปฏิเสธคนที่ 4 โดยนับ Draft และ Submitted ที่ยังไม่ยกเลิก. | Active Count=3 | 409 `EVALUATOR_LIMIT_REACHED` |
-| FR-EVA-004 | Must | Confirmed | การตรวจเงื่อนไขและเพิ่ม Evaluation ต้องใช้ Transaction + Lock/Serializable หรือเทียบเท่า ป้องกัน Race. | คำขอพร้อมกัน | หลัง Commit Active Count <=3 |
-| FR-EVA-005 | Must | Confirmed | เมื่อ Submitted ครบ 2 คน ยังอนุญาตคนที่ 3 เริ่ม/Submit ก่อนปิดรอบ ถ้า Capacity ยังมี. | Submitted=2; OPEN | คนที่ 3 ทำ Flow ได้ |
-| FR-EVA-006 | Must | Confirmed | เจ้าของ Draft เดิมต้องกลับมาแก้ได้แม้ภายหลัง Active Count=3. | มี Draft เดิม | เปิด Draft เดิม ไม่สร้างใหม่ |
-| FR-EVA-007 | Must | Confirmed | หน้า Evaluation ต้องแสดงข้อมูล ผู้สมัคร เอกสาร ประวัติ เกณฑ์ คะแนน และความคิดเห็นอย่างต่อเนื่อง. | มี Active Evaluation | ทำ Core Flow โดยไม่ใช้ Excel คะแนน |
-| FR-EVA-008 | Must | Confirmed | กรอกคะแนนตาม min/max/step และตรวจทั้ง Client/Server; Server เป็นตัวตัดสิน. | กรอกคะแนน | นอกช่วงเป็น `SCORE_OUT_OF_RANGE` |
-| FR-EVA-009 | Must | Confirmed | บันทึก Draft ได้แม้ไม่ครบ โดยค่าที่กรอกต้อง valid และ Draft ห้ามใช้คำนวณ. | Evaluation DRAFT | บันทึก updated_at; Summary ไม่เปลี่ยน |
-| FR-EVA-010 | Must | Confirmed | ก่อน Submit ต้องแสดง Review Summary ของคะแนน ความคิดเห็น Outcome และ Total ที่คาด. | ข้อมูลพร้อม | ผู้ประเมินเห็นและยืนยันอีกครั้ง |
-| FR-EVA-011 | Must | Confirmed | Submit ได้เมื่อ Required Criteria และข้อมูลบังคับครบและถูกต้อง. | ยืนยัน Submit | สถานะ SUBMITTED และ submitted_at |
-| FR-EVA-012 | Must | Open | ระบบต้องรองรับ comment_required; หาก Rule บังคับแต่ความคิดเห็นว่างต้องปฏิเสธ `EVALUATION_INCOMPLETE`. | Rule บังคับ | Submit ไม่สำเร็จเมื่อว่าง |
-| FR-EVA-013 | Must | Confirmed | หลัง Submit ผู้ประเมินแก้โดยตรงไม่ได้ และผลต้องเข้าสู่การคำนวณทันที. | SUBMITTED | UI Read-only/API Update ปฏิเสธ |
-| FR-EVA-014 | Must | Confirmed Response | เจ้าของยกเลิก Draft ได้โดยยืนยันและเหตุผล; `CANCELLED` ไม่ลบจริง คืน Slot ใน Transaction และ Audit. | เจ้าของ Draft | ไม่นับ Capacity และมี Audit |
-| FR-EVA-015 | Must | Confirmed Response | แก้ Submitted ผ่าน request/on-behalf + independent Head/delegate approval; normally before close; technical Admin cannot self-approve; preserve immutable revision and recalculate after Resubmit. | Submitted | Revision เดิมไม่สูญหาย |
-| FR-EVA-016 | Must | Confirmed | Cancelled ไม่นับ Capacity และไม่อยู่ใน Calculation/Dashboard/Report. | CANCELLED | Slot เปิดทันที |
-| FR-EVA-017 | Must | Confirmed | ผู้ประเมินหนึ่งคนประเมินหลาย Applicant ได้; Unique เฉพาะคู่ Evaluator-Applicant-Round. | เลือกหลายคน | สร้างได้ตาม Capacity แต่ละ Applicant |
-| FR-EVA-018 | Must | Confirmed | SEMS ไม่จัดคิวสัมภาษณ์ สร้างห้อง หรือดึงผู้ใช้เข้า Zoom/ระบบประชุม. | ใช้งานระบบ | ไม่มีฟังก์ชันดังกล่าวใน Core |
+| FR-EVA-001 | Must have | Confirmed | อนุญาตสร้าง Evaluation เมื่อรอบ OPEN, บัญชี ACTIVE, Applicant อยู่ในรอบ, มี Active Criteria, คนเดิมไม่มี Active Evaluation และ Active Count <3. | EVALUATOR เลือก Applicant | สร้าง DRAFT อ้าง Applicant/Round/Evaluator/Criteria Version |
+| FR-EVA-002 | Must have | Confirmed | หากคนเดิมมี Evaluation ที่ยังไม่ยกเลิกสำหรับ Applicant/Round เดิม ต้องปฏิเสธ. | มีรายการเดิม | 409 `DUPLICATE_EVALUATION` |
+| FR-EVA-003 | Must have | Confirmed | ต้องปฏิเสธคนที่ 4 โดยนับ Draft และ Submitted ที่ยังไม่ยกเลิก. | Active Count=3 | 409 `EVALUATOR_LIMIT_REACHED` |
+| FR-EVA-004 | Must have | Confirmed | การตรวจเงื่อนไขและเพิ่ม Evaluation ต้องใช้ Transaction + Lock/Serializable หรือเทียบเท่า ป้องกัน Race. | คำขอพร้อมกัน | หลัง Commit Active Count <=3 |
+| FR-EVA-005 | Must have | Confirmed | เมื่อ Submitted ครบ 2 คน ยังอนุญาตคนที่ 3 เริ่ม/Submit ก่อนปิดรอบ ถ้า Capacity ยังมี. | Submitted=2; OPEN | คนที่ 3 ทำ Flow ได้ |
+| FR-EVA-006 | Must have | Confirmed | เจ้าของ Draft เดิมต้องกลับมาแก้ได้แม้ภายหลัง Active Count=3. | มี Draft เดิม | เปิด Draft เดิม ไม่สร้างใหม่ |
+| FR-EVA-007 | Must have | Confirmed | หน้า Evaluation ต้องแสดงข้อมูล ผู้สมัคร เอกสาร ประวัติ เกณฑ์ คะแนน และความคิดเห็นอย่างต่อเนื่อง. | มี Active Evaluation | ทำ Core Flow โดยไม่ใช้ Excel คะแนน |
+| FR-EVA-008 | Must have | Confirmed | กรอกคะแนนตาม min/max/step และตรวจทั้ง Client/Server; Server เป็นตัวตัดสิน. | กรอกคะแนน | นอกช่วงเป็น `SCORE_OUT_OF_RANGE` |
+| FR-EVA-009 | Must have | Confirmed | บันทึก Draft ได้แม้ไม่ครบ โดยค่าที่กรอกต้อง valid และ Draft ห้ามใช้คำนวณ. | Evaluation DRAFT | บันทึก updated_at; Summary ไม่เปลี่ยน |
+| FR-EVA-010 | Must have | Confirmed | ก่อน Submit ต้องแสดง Review Summary ของคะแนน ความคิดเห็น Outcome และ Total ที่คาด. | ข้อมูลพร้อม | ผู้ประเมินเห็นและยืนยันอีกครั้ง |
+| FR-EVA-011 | Must have | Confirmed | Submit ได้เมื่อ Required Criteria และข้อมูลบังคับครบและถูกต้อง. | ยืนยัน Submit | สถานะ SUBMITTED และ submitted_at |
+| FR-EVA-012 | Must have | Open | ระบบต้องรองรับ comment_required; หาก Rule บังคับแต่ความคิดเห็นว่างต้องปฏิเสธ `EVALUATION_INCOMPLETE`. | Rule บังคับ | Submit ไม่สำเร็จเมื่อว่าง |
+| FR-EVA-013 | Must have | Confirmed | หลัง Submit ผู้ประเมินแก้โดยตรงไม่ได้ และผลต้องเข้าสู่การคำนวณทันที. | SUBMITTED | UI Read-only/API Update ปฏิเสธ |
+| FR-EVA-014 | Must have | Confirmed Response | เจ้าของยกเลิก Draft ได้โดยยืนยันและเหตุผล; `CANCELLED` ไม่ลบจริง คืน Slot ใน Transaction และ Audit. | เจ้าของ Draft | ไม่นับ Capacity และมี Audit |
+| FR-EVA-015 | Must have | Confirmed Response | แก้ Submitted ผ่าน request/on-behalf + independent Head/delegate approval; normally before close; technical Admin cannot self-approve; preserve immutable revision and recalculate after Resubmit. | Submitted | Revision เดิมไม่สูญหาย |
+| FR-EVA-016 | Must have | Confirmed | Cancelled ไม่นับ Capacity และไม่อยู่ใน Calculation/Dashboard/Report. | CANCELLED | Slot เปิดทันที |
+| FR-EVA-017 | Must have | Confirmed | ผู้ประเมินหนึ่งคนประเมินหลาย Applicant ได้; Unique เฉพาะคู่ Evaluator-Applicant-Round. | เลือกหลายคน | สร้างได้ตาม Capacity แต่ละ Applicant |
+| FR-EVA-018 | Must have | Confirmed | SEMS ไม่จัดคิวสัมภาษณ์ สร้างห้อง หรือดึงผู้ใช้เข้า Zoom/ระบบประชุม. | ใช้งานระบบ | ไม่มีฟังก์ชันดังกล่าวใน Core |
 
 ## 3.7 การคำนวณคะแนน สถานะ และผลสรุป
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-SCO-001 | Must | Confirmed | ใช้เฉพาะ SUBMITTED ที่ยังไม่ยกเลิกและผู้ประเมินไม่ซ้ำในการคำนวณ. | Submit/Reopen/Close | Draft/Cancelled/Reopened ที่ยังไม่ Resubmit ไม่ถูกใช้ |
-| FR-SCO-002 | Must | Confirmed Response | Total รายผู้ประเมินเป็นผลรวม `EMBEDDED_POINT` ทั้ง 10 เกณฑ์ สูงสุด 100; ห้ามคูณ `weight_percent` ซ้ำ. | พร้อม Submit | Total ตรง Reference Dataset |
-| FR-SCO-003 | Must | Confirmed Response | Summary เป็นค่าเฉลี่ยเลขคณิตแบบ equal weight ของ evaluator total จากผู้ประเมินไม่ซ้ำ 2–3 คนที่ `SUBMITTED`; คนที่ 3 trigger recalculate. | Submitted 2/3 | ตรง Reference Calculation |
-| FR-SCO-004 | Must | Confirmed Response | เก็บค่าคำนวณเต็ม Precision และปัดเฉพาะ applicant summary 2 ตำแหน่ง `ROUND_HALF_UP`; ห้ามปัดระหว่างทาง. | คำนวณ | ผ่าน Boundary Test |
-| FR-SCO-005 | Must | Confirmed | Submitted <2 ต้องไม่มี Latest/Final Summary Score แม้แสดงคะแนนรายคนได้. | Count 0/1 | Summary score NULL |
-| FR-SCO-006 | Must | Confirmed | คนที่ 2 Submit ต้องสร้าง/อัปเดต Summary และสถานะ `MINIMUM_COMPLETE` ขณะ OPEN. | คนที่ 2 Submit | count=2 และมี Latest Score |
-| FR-SCO-007 | Must | Confirmed | คนที่ 3 Submit ต้องคำนวณทั้ง 3 คนใหม่และเป็น `FULLY_COMPLETE` ขณะ OPEN. | คนที่ 3 Submit | Summary/Dashboard/Report ค่าใหม่ตรงกัน |
-| FR-SCO-008 | Must | Confirmed | แสดง Submitted 0/3,1/3,2/3,3/3 และสถานะ 6 ค่า ตาม State Table. | อ่านรายการ | สถานะตรง Round/Count |
-| FR-SCO-009 | Must | Confirmed | ปิดรอบ: Submitted>=2 เป็น FINALIZED/Final Score; <2 เป็น CLOSED_INCOMPLETE/Final Score NULL. | Close Round | ไม่มี Closed Incomplete ที่มี Final Score |
-| FR-SCO-010 | Must | Confirmed | Result Summary หนึ่งรายการต่อ Applicant/Round เก็บ evaluator_count, criteria_version, rule_version, unrounded/rounded score, calculated_at. | คำนวณ | Audit Input/Rule ได้ |
-| FR-SCO-011 | Must | Confirmed | เมื่อ Reopen/Resubmit/เปลี่ยนสถานะ Input ต้องทำ Summary Stale หรือคำนวณใหม่ ไม่แสดงค่าเก่า. | Input เปลี่ยน | ค่าล่าสุดถูกต้อง |
-| FR-SCO-012 | Must | Confirmed | UI, Export และ DB ต้องใช้ชุด Input/Rule เดียวกันสำหรับคะแนน Count Comment และสถานะ. | อ่าน/Export | ค่าตรง 100% |
+| FR-SCO-001 | Must have | Confirmed | ใช้เฉพาะ SUBMITTED ที่ยังไม่ยกเลิกและผู้ประเมินไม่ซ้ำในการคำนวณ. | Submit/Reopen/Close | Draft/Cancelled/Reopened ที่ยังไม่ Resubmit ไม่ถูกใช้ |
+| FR-SCO-002 | Must have | Confirmed Response | Total รายผู้ประเมินเป็นผลรวม `EMBEDDED_POINT` ทั้ง 10 เกณฑ์ สูงสุด 100; ห้ามคูณ `weight_percent` ซ้ำ. | พร้อม Submit | Total ตรง Reference Dataset |
+| FR-SCO-003 | Must have | Confirmed Response | Summary เป็นค่าเฉลี่ยเลขคณิตแบบ equal weight ของ evaluator total จากผู้ประเมินไม่ซ้ำ 2–3 คนที่ `SUBMITTED`; คนที่ 3 trigger recalculate. | Submitted 2/3 | ตรง Reference Calculation |
+| FR-SCO-004 | Must have | Confirmed Response | เก็บค่าคำนวณเต็ม Precision และปัดเฉพาะ applicant summary 2 ตำแหน่ง `ROUND_HALF_UP`; ห้ามปัดระหว่างทาง. | คำนวณ | ผ่าน Boundary Test |
+| FR-SCO-005 | Must have | Confirmed | Submitted <2 ต้องไม่มี Latest/Final Summary Score แม้แสดงคะแนนรายคนได้. | Count 0/1 | Summary score NULL |
+| FR-SCO-006 | Must have | Confirmed | คนที่ 2 Submit ต้องสร้าง/อัปเดต Summary และสถานะ `MINIMUM_COMPLETE` ขณะ OPEN. | คนที่ 2 Submit | count=2 และมี Latest Score |
+| FR-SCO-007 | Must have | Confirmed | คนที่ 3 Submit ต้องคำนวณทั้ง 3 คนใหม่และเป็น `FULLY_COMPLETE` ขณะ OPEN. | คนที่ 3 Submit | Summary/Dashboard/Report ค่าใหม่ตรงกัน |
+| FR-SCO-008 | Must have | Confirmed | แสดง Submitted 0/3,1/3,2/3,3/3 และสถานะ 6 ค่า ตาม State Table. | อ่านรายการ | สถานะตรง Round/Count |
+| FR-SCO-009 | Must have | Confirmed | ปิดรอบ: Submitted>=2 เป็น FINALIZED/Final Score; <2 เป็น CLOSED_INCOMPLETE/Final Score NULL. | Close Round | ไม่มี Closed Incomplete ที่มี Final Score |
+| FR-SCO-010 | Must have | Confirmed | Result Summary หนึ่งรายการต่อ Applicant/Round เก็บ evaluator_count, criteria_version, rule_version, unrounded/rounded score, calculated_at. | คำนวณ | Audit Input/Rule ได้ |
+| FR-SCO-011 | Must have | Confirmed | เมื่อ Reopen/Resubmit/เปลี่ยนสถานะ Input ต้องทำ Summary Stale หรือคำนวณใหม่ ไม่แสดงค่าเก่า. | Input เปลี่ยน | ค่าล่าสุดถูกต้อง |
+| FR-SCO-012 | Must have | Confirmed | UI, Export และ DB ต้องใช้ชุด Input/Rule เดียวกันสำหรับคะแนน Count Comment และสถานะ. | อ่าน/Export | ค่าตรง 100% |
 
 ## 3.8 รายงาน Dashboard และ Audit
 
 | ID | Priority | Status | Requirement ที่ทดสอบได้ | Precondition / Trigger | Expected Result |
 | --- | --- | --- | --- | --- | --- |
-| FR-RPT-001 | Must | Confirmed | ADMIN ดูผลตามรอบ ค้นหา/กรอง/เรียงตามรหัส ชื่อ Count สถานะ คะแนน. | เลือก Round | รายการมี Pagination/ไม่ข้ามรอบ |
-| FR-RPT-002 | Must | Confirmed | รายละเอียดผลแสดง Submitted Evaluators, scores, totals, comments, outcomes, count, status, summary ตามสิทธิ์. | เปิด Result | Draft คนอื่นไม่เป็นผลสุดท้าย |
-| FR-RPT-003 | Must | Confirmed | ส่งออก Excel/CSV Fixed Template และค่าต้องตรง Result Summary/DB. | ADMIN Export | ไฟล์เปิดได้และตรง 100% |
-| FR-RPT-004 | Must | Confirmed | Export ใช้เฉพาะ Submitted ที่ยังไม่ยกเลิก; Draft/Cancelled ไม่คำนวณ. | สร้าง Report | ตรง Scoring Rule |
-| FR-RPT-005 | Must | Confirmed | Report แสดง Minimum/Fully ขณะ OPEN และ Finalized/Closed Incomplete หลัง CLOSED ตามกฎเดียวกัน. | Export | สถานะตรง UI |
-| FR-RPT-006 | Must | Confirmed Response | Excel มี `Summary` และ `Evaluator Detail`; CSV แยกสองไฟล์และอาจ ZIP; profile เป็น INTERNAL_FULL/SUMMARY_MASKED. | Export | ข้อมูลหลายระดับไม่กำกวมและ evaluator isolation ถูกต้อง |
-| FR-RPT-007 | Must | Confirmed | Standard Export ใช้ Least Privilege และไม่รวมเลขบัตร/Contact/Restricted Field โดย Default. | Export | ไม่มี Restricted PII |
-| FR-RPT-008 | Must | Confirmed | ทุก Export บันทึกผู้ใช้ รอบ Template Filter จำนวน เวลา และผล. | Export | Audit `REPORT_EXPORTED` |
-| FR-RPT-009 | Could | Confirmed | PDF/Custom Template เป็น Optional ไม่ใช่ Core Acceptance. | ทดสอบ Core | ไม่มี PDF ไม่ทำให้ Core Fail |
-| FR-DSH-001 | Must | Confirmed | Dashboard แสดง Applicant ทั้งหมด Submitted 0/1/2/3 และจำนวนตาม 6 สถานะ. | เลือก Round | Counts ตรง DB |
-| FR-DSH-002 | Must | Confirmed | Visualization คะแนนใช้เฉพาะ Submitted ไม่รวม Draft/Cancelled. | โหลด Dashboard | กราฟตรง Reference |
-| FR-DSH-003 | Must | Confirmed | หลัง Submit 2/3, Reopen, Resubmit หรือ Close Dashboard ต้องสะท้อนค่าล่าสุดอัตโนมัติ. | เกิดเหตุการณ์ | อัปเดตตาม SLA |
-| FR-AUD-001 | Must | Confirmed | Audit Append-only สำหรับ User/Role, Round, Import, Applicant, Document, Criteria, Selection, Cancel, Submit, Reopen, Calculation, Close และ Export. | เกิดเหตุการณ์ | มี Event แก้ย้อนหลังผ่าน UI ไม่ได้ |
-| FR-AUD-002 | Must | Confirmed | Audit มี event_type, actor, occurred_at, entity, round, result, reason, trace_id และ before/after ที่ Mask. | สร้าง Event | ตอบว่าใครทำอะไรเมื่อใด |
-| FR-AUD-003 | Must | Confirmed | Audit ห้าม Password/Token/Secret/Code/Session เต็ม/Binary/Document Content. | บันทึก Event | Secret Scan ไม่พบ |
-| FR-AUD-004 | Must | Confirmed | ADMIN ดู Audit พื้นฐานตามเวลา ผู้ใช้ Event Round Entity ได้. | เปิด Audit | ค้นเหตุการณ์หลักได้ |
+| FR-RPT-001 | Must have | Confirmed | ADMIN ดูผลตามรอบ ค้นหา/กรอง/เรียงตามรหัส ชื่อ Count สถานะ คะแนน. | เลือก Round | รายการมี Pagination/ไม่ข้ามรอบ |
+| FR-RPT-002 | Must have | Confirmed | รายละเอียดผลแสดง Submitted Evaluators, scores, totals, comments, outcomes, count, status, summary ตามสิทธิ์. | เปิด Result | Draft คนอื่นไม่เป็นผลสุดท้าย |
+| FR-RPT-003 | Must have | Confirmed | ส่งออก Excel/CSV Fixed Template และค่าต้องตรง Result Summary/DB. | ADMIN Export | ไฟล์เปิดได้และตรง 100% |
+| FR-RPT-004 | Must have | Confirmed | Export ใช้เฉพาะ Submitted ที่ยังไม่ยกเลิก; Draft/Cancelled ไม่คำนวณ. | สร้าง Report | ตรง Scoring Rule |
+| FR-RPT-005 | Must have | Confirmed | Report แสดง Minimum/Fully ขณะ OPEN และ Finalized/Closed Incomplete หลัง CLOSED ตามกฎเดียวกัน. | Export | สถานะตรง UI |
+| FR-RPT-006 | Must have | Confirmed Response | Excel มี `Summary` และ `Evaluator Detail`; CSV แยกสองไฟล์และอาจ ZIP; profile เป็น INTERNAL_FULL/SUMMARY_MASKED. | Export | ข้อมูลหลายระดับไม่กำกวมและ evaluator isolation ถูกต้อง |
+| FR-RPT-007 | Must have | Confirmed | Standard Export ใช้ Least Privilege และไม่รวมเลขบัตร/Contact/Restricted Field โดย Default. | Export | ไม่มี Restricted PII |
+| FR-RPT-008 | Must have | Confirmed | ทุก Export บันทึกผู้ใช้ รอบ Template Filter จำนวน เวลา และผล. | Export | Audit `REPORT_EXPORTED` |
+| FR-RPT-009 | Nice to have | Confirmed | PDF/Custom Template เป็น Optional ไม่ใช่ Core Acceptance. | ทดสอบ Core | ไม่มี PDF ไม่ทำให้ Core Fail |
+| FR-DSH-001 | Must have | Confirmed | Dashboard แสดง Applicant ทั้งหมด Submitted 0/1/2/3 และจำนวนตาม 6 สถานะ. | เลือก Round | Counts ตรง DB |
+| FR-DSH-002 | Must have | Confirmed | Visualization คะแนนใช้เฉพาะ Submitted ไม่รวม Draft/Cancelled. | โหลด Dashboard | กราฟตรง Reference |
+| FR-DSH-003 | Must have | Confirmed | หลัง Submit 2/3, Reopen, Resubmit หรือ Close Dashboard ต้องสะท้อนค่าล่าสุดอัตโนมัติ. | เกิดเหตุการณ์ | อัปเดตตาม SLA |
+| FR-AUD-001 | Must have | Confirmed | Audit Append-only สำหรับ User/Role, Round, Import, Applicant, Document, Criteria, Selection, Cancel, Submit, Reopen, Calculation, Close และ Export. | เกิดเหตุการณ์ | มี Event แก้ย้อนหลังผ่าน UI ไม่ได้ |
+| FR-AUD-002 | Must have | Confirmed | Audit มี event_type, actor, occurred_at, entity, round, result, reason, trace_id และ before/after ที่ Mask. | สร้าง Event | ตอบว่าใครทำอะไรเมื่อใด |
+| FR-AUD-003 | Must have | Confirmed | Audit ห้าม Password/Token/Secret/Code/Session เต็ม/Binary/Document Content. | บันทึก Event | Secret Scan ไม่พบ |
+| FR-AUD-004 | Must have | Confirmed | ADMIN ดู Audit พื้นฐานตามเวลา ผู้ใช้ Event Round Entity ได้. | เปิด Audit | ค้นเหตุการณ์หลักได้ |
 
 # 4. Non-functional Requirements
 
@@ -608,26 +608,26 @@ Upload -> Read & Detect -> Header Mapping -> Row Classification
 
 | ID | Priority | Requirement / measurable acceptance criterion | Decision |
 |---|---|---|---|
-| FR-APP-008 | Must | One student may have separate applications for multiple scholarship types in one round; uniqueness is `(scholarship_round_id, scholarship_type_id, student_id)` and each has independent status, documents, Evaluations and Result Summary. Duplicate same-triplet creation returns conflict. | RD-015, RD-024–RD-025 |
-| FR-APP-009 | Must | Before any Evaluation, Admin may update mutable application fields. After any Draft/Submitted Evaluation, score-affecting change requires Controlled Correction with authorization, reason, before/after snapshot and audit; normal update cannot change student, round or scholarship type. | RD-027 |
-| FR-EVA-017 | Must | Evaluation owner may request reopen; staff may request on behalf with actor/reason. Head or official delegate approves; technical Admin cannot self-approve. Reopen returns work to Draft, retains immutable submitted revision and recalculates only after resubmit. | RD-008 |
-| FR-EVA-018 | Must | Owner may cancel Draft with reason; cancellation is soft, audited and atomically releases the active slot. | RD-009 |
-| FR-SCO-013 | Must | `evaluator_total = SUM(10 embedded-point scores)`, maximum 100, with no second `weight_percent` multiplication. `raw_summary = SUM(2–3 distinct Submitted totals)/count`; equal weights; third submission recalculates. | RD-010 |
-| FR-SCO-014 | Must | Preserve full precision and apply `ROUND_HALF_UP(raw_summary, 2)` only to applicant summary. Draft, Reopened and Cancelled records are excluded. | RD-011 |
-| FR-SCO-015 | Must | Custom discretion score is integer 0–10; reason required only when outside standard options or criterion config requires it. Custom Amount is outside the 100 points, requires reason and cannot exceed round/type ceiling. | RD-013, RD-047 |
-| FR-CRI-013 | Must | First Evaluation creation, including Draft, locks the Criteria Version; every Evaluation retains its original version. `criterion_code` is immutable and unique. | RD-012, RD-014 |
-| FR-RND-010 | Must | Close with fewer than two Submitted results shows affected applications, requires explicit Admin confirmation and reason, creates `Closed Incomplete`, and assigns no Final Score. | RD-007 |
-| FR-RND-011 | Must | Closed-round reopen is exceptional and audited; Archived is read-only. A replacement final report never overwrites the old immutable snapshot and marks it `Superseded`. | RD-048–RD-049 |
-| FR-IMP-016 | Must | Duplicate file rows are errors; existing application defaults Skip; never auto-Upsert. Legacy continuation rows end after UAT/first production transition round. Blank/`-`→NULL, zero stays zero, ISO new dates and normalized Preview for declared legacy dates. | RD-017–RD-020 |
-| FR-IMP-017 | Must | Hard Import fields: student ID, names, faculty, program/major, year level and scholarship type in multi-type rounds. Before Evaluation: title, application date, GPA, phone or email, criteria data/documents and Admin validation. Optional fields follow RD-028; config may add pre-evaluation fields without code change. | RD-028 |
-| FR-DOC-007 | Must | Release 1 limits: PDF 20 MB, JPG/PNG 10 MB, 10 applicant files, XLSX/CSV import 20 MB. Reject executable/archive/macro and MIME/extension/signature mismatch. Production files remain Quarantined and unavailable until malware scan passes. | RD-038–RD-039 |
-| FR-RPT-010 | Must | Excel has Summary and Evaluator Detail; CSV has two files, optionally ZIP. Profiles are `INTERNAL_FULL` and `SUMMARY_MASKED`; standard exports exclude national ID and contacts. Interim file expires ≤30 days; final snapshot is immutable for six years. | RD-021–RD-022, RD-031–RD-032 |
-| FR-COD-001 | Must | Admin manages versioned CodeList/CodeListValue; inactive values remain readable historically and every mutation is audited. | RD-046 |
-| FR-AUT-011 | Must | Admin pre-provisions account/role; first login binds KKU `sub`; missing account returns `USER_NOT_PROVISIONED`; inactive account is denied on next API request. Evaluator sees only own Evaluation plus slot/Submitted/minimum-completion counts. | RD-036–RD-037 |
-| NFR-SEC-010 | Must | Idle timeout 30 minutes, absolute lifetime 8 hours, revocable secure session; storage encryption, authorized short-lived file download, data minimization and no national ID in Core Flow, schema, UI, export, logs or tests. | RD-029, RD-034–RD-035 |
-| NFR-RET-001 | Must | Core records retain six years from round close; interim exports 30 days; final snapshots six years; rotating backups at least 90 days; secure deletion except Legal Hold/policy. | RD-030–RD-033 |
-| NFR-BCP-001 | Must | RPO ≤24h, RTO ≤8 business hours; daily DB and weekly full backup; storage consistent with DB; restore test quarterly and before go-live. | RD-041 |
-| NFR-CAP-001 | Must | Load-test design baseline uses RD-040 targets and labels them targets, not measurements. Capture operational measurements before asserting achieved capacity or performance. | RD-040 |
+| FR-APP-008 | Must have | One student may have separate applications for multiple scholarship types in one round; uniqueness is `(scholarship_round_id, scholarship_type_id, student_id)` and each has independent status, documents, Evaluations and Result Summary. Duplicate same-triplet creation returns conflict. | RD-015, RD-024–RD-025 |
+| FR-APP-009 | Must have | Before any Evaluation, Admin may update mutable application fields. After any Draft/Submitted Evaluation, score-affecting change requires Controlled Correction with authorization, reason, before/after snapshot and audit; normal update cannot change student, round or scholarship type. | RD-027 |
+| FR-EVA-017 | Must have | Evaluation owner may request reopen; staff may request on behalf with actor/reason. Head or official delegate approves; technical Admin cannot self-approve. Reopen returns work to Draft, retains immutable submitted revision and recalculates only after resubmit. | RD-008 |
+| FR-EVA-018 | Must have | Owner may cancel Draft with reason; cancellation is soft, audited and atomically releases the active slot. | RD-009 |
+| FR-SCO-013 | Must have | `evaluator_total = SUM(10 embedded-point scores)`, maximum 100, with no second `weight_percent` multiplication. `raw_summary = SUM(2–3 distinct Submitted totals)/count`; equal weights; third submission recalculates. | RD-010 |
+| FR-SCO-014 | Must have | Preserve full precision and apply `ROUND_HALF_UP(raw_summary, 2)` only to applicant summary. Draft, Reopened and Cancelled records are excluded. | RD-011 |
+| FR-SCO-015 | Must have | Custom discretion score is integer 0–10; reason required only when outside standard options or criterion config requires it. Custom Amount is outside the 100 points, requires reason and cannot exceed round/type ceiling. | RD-013, RD-047 |
+| FR-CRI-013 | Must have | First Evaluation creation, including Draft, locks the Criteria Version; every Evaluation retains its original version. `criterion_code` is immutable and unique. | RD-012, RD-014 |
+| FR-RND-010 | Must have | Close with fewer than two Submitted results shows affected applications, requires explicit Admin confirmation and reason, creates `Closed Incomplete`, and assigns no Final Score. | RD-007 |
+| FR-RND-011 | Must have | Closed-round reopen is exceptional and audited; Archived is read-only. A replacement final report never overwrites the old immutable snapshot and marks it `Superseded`. | RD-048–RD-049 |
+| FR-IMP-016 | Must have | Duplicate file rows are errors; existing application defaults Skip; never auto-Upsert. Legacy continuation rows end after UAT/first production transition round. Blank/`-`→NULL, zero stays zero, ISO new dates and normalized Preview for declared legacy dates. | RD-017–RD-020 |
+| FR-IMP-017 | Must have | Hard Import fields: student ID, names, faculty, program/major, year level and scholarship type in multi-type rounds. Before Evaluation: title, application date, GPA, phone or email, criteria data/documents and Admin validation. Optional fields follow RD-028; config may add pre-evaluation fields without code change. | RD-028 |
+| FR-DOC-007 | Must have | Release 1 limits: PDF 20 MB, JPG/PNG 10 MB, 10 applicant files, XLSX/CSV import 20 MB. Reject executable/archive/macro and MIME/extension/signature mismatch. Production files remain Quarantined and unavailable until malware scan passes. | RD-038–RD-039 |
+| FR-RPT-010 | Must have | Excel has Summary and Evaluator Detail; CSV has two files, optionally ZIP. Profiles are `INTERNAL_FULL` and `SUMMARY_MASKED`; standard exports exclude national ID and contacts. Interim file expires ≤30 days; final snapshot is immutable for six years. | RD-021–RD-022, RD-031–RD-032 |
+| FR-COD-001 | Must have | Admin manages versioned CodeList/CodeListValue; inactive values remain readable historically and every mutation is audited. | RD-046 |
+| FR-AUT-011 | Must have | Admin pre-provisions account/role; first login binds KKU `sub`; missing account returns `USER_NOT_PROVISIONED`; inactive account is denied on next API request. Evaluator sees only own Evaluation plus slot/Submitted/minimum-completion counts. | RD-036–RD-037 |
+| NFR-SEC-010 | Must have | Idle timeout 30 minutes, absolute lifetime 8 hours, revocable secure session; storage encryption, authorized short-lived file download, data minimization and no national ID in Core Flow, schema, UI, export, logs or tests. | RD-029, RD-034–RD-035 |
+| NFR-RET-001 | Must have | Core records retain six years from round close; interim exports 30 days; final snapshots six years; rotating backups at least 90 days; secure deletion except Legal Hold/policy. | RD-030–RD-033 |
+| NFR-BCP-001 | Must have | RPO ≤24h, RTO ≤8 business hours; daily DB and weekly full backup; storage consistent with DB; restore test quarterly and before go-live. | RD-041 |
+| NFR-CAP-001 | Must have | Load-test design baseline uses RD-040 targets and labels them targets, not measurements. Capture operational measurements before asserting achieved capacity or performance. | RD-040 |
 
 Formal approver names, approval date/signature/evidence, actual production assignments and RD-040/RD-045 measurements remain pending external records. They are not Open business-logic decisions.
 

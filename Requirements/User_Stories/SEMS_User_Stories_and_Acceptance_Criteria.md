@@ -137,7 +137,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ / อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -189,7 +189,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ / อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -236,7 +236,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ / อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -288,7 +288,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -324,7 +324,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -375,7 +375,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -429,7 +429,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -471,7 +471,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -519,7 +519,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Should |
+| Priority | Should have |
 
 ### User Story
 
@@ -568,7 +568,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -615,7 +615,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-015, RD-017, RD-019, RD-020 |
 
 ### User Story
@@ -673,7 +673,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-018, RD-019 |
 
 ### User Story
@@ -733,7 +733,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -784,7 +784,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ / อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -838,7 +838,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-012, RD-013, RD-014 |
 
 ### User Story
@@ -886,7 +886,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -938,7 +938,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -991,7 +991,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1038,7 +1038,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-001, RD-002, RD-003, RD-005 |
 
 ### User Story
@@ -1097,7 +1097,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Should |
+| Priority | Should have |
 | Decision Reference | RD-009 |
 
 ### User Story
@@ -1152,7 +1152,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1198,7 +1198,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1249,7 +1249,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1311,7 +1311,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1357,7 +1357,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1416,7 +1416,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน / ผู้ดูแลระบบ / ผู้อนุมัติ |
-| Priority | Should |
+| Priority | Should have |
 | Decision Reference | RD-008 |
 
 ### User Story
@@ -1476,7 +1476,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ระบบ / ผู้ดูแลระบบ / อาจารย์ผู้ประเมิน |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-010, RD-011 |
 
 ### User Story
@@ -1523,7 +1523,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ระบบ / ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-004, RD-006, RD-010, RD-011 |
 
 ### User Story
@@ -1576,7 +1576,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ระบบ / ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-005, RD-010, RD-011 |
 
 ### User Story
@@ -1632,7 +1632,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1684,7 +1684,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ระบบ / ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-006, RD-007, RD-008 |
 
 ### User Story
@@ -1738,7 +1738,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1785,7 +1785,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 
 ### User Story
 
@@ -1838,7 +1838,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-021, RD-022 |
 
 ### User Story
@@ -1897,7 +1897,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | ผู้ดูแลระบบ |
-| Priority | Must |
+| Priority | Must have |
 | Decision Reference | RD-021, RD-022 |
 
 ### User Story
