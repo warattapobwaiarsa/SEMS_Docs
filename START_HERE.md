@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Current Version | **v1.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
 | Scope | Main entry point and complete repository document index |
@@ -24,7 +24,7 @@
 8. [Deployment Overview](./Deployment/README.md)
 9. ก่อนแก้ไขเอกสาร อ่าน [Documentation Policy](./DOCUMENTATION_POLICY.md) และ [Contributing Guide](./CONTRIBUTING.md)
 
-> `Requirements/Meeting_Notes/` มีเฉพาะ template; `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มี deliverable ที่อนุมัติ
+> `Requirements/Meeting_Notes/` มีรายการคำถามและคำตอบจากผู้มีส่วนเกี่ยวข้องที่ยืนยันแล้วแต่ยังรอบันทึกทางการ; คำตอบดังกล่าวยังไม่ใช่ Approved Requirement Baseline ส่วน `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มี deliverable ที่อนุมัติ
 
 ## เส้นทางการอ่านตามบทบาท
 
@@ -98,6 +98,8 @@
 - [System Design Approval Record Template](./Requirements/Approvals/System_Design_Approval_Record.md)
 - [Meeting Notes Index](./Requirements/Meeting_Notes/README.md)
 - [Meeting Note Template](./Requirements/Meeting_Notes/MEETING_NOTE_TEMPLATE.md)
+- [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md)
+- [Stakeholder Responses — Pending Formal Record](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md)
 
 ### Design — API and Architecture
 
@@ -218,5 +220,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.3 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and updated the reading index. |
+| v1.2 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and the clearly labeled advisor-answer simulation to the reading index. |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Added review report, PRD, traceability, architecture, error catalog, approval/meeting templates and scoring reference data. |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | Created the main onboarding guide, role-based reading paths, complete file index, and Obsidian instructions. |

@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.14** |
+| Current Version | **v1.16** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | Versioned documentation and standard SEMS directories |
@@ -17,7 +17,9 @@ SEMS_Docs/
 │   │   └── System_Design_Approval_Record.md [v0.1 Template]
 │   ├── Meeting_Notes/
 │   │   ├── MEETING_NOTE_TEMPLATE.md [v0.1 Template]
-│   │   └── README.md [v0.1]
+│   │   ├── README.md [v0.3]
+│   │   ├── SEMS_Stakeholder_Responses.md [v0.2 Confirmed/Pending Record]
+│   │   └── SEMS_Stakeholder_Questions.md [v0.1 Draft]
 │   ├── PRD/
 │   │   └── SEMS-PRD.md [v0.1 Draft]
 │   ├── Proposal/
@@ -28,7 +30,7 @@ SEMS_Docs/
 │   ├── User_Stories/
 │   │   ├── README.md [v1.2]
 │   │   └── SEMS_User_Stories_and_Acceptance_Criteria.md [v0.3 Draft]
-│   ├── README.md [v1.8]
+│   ├── README.md [v1.10]
 │   ├── SEMS_Requirement_Decision_Analysis.md [v1.1 Draft]
 │   ├── SEMS_Requirement_Decision_Register.md [v1.3 Provisional]
 │   └── SEMS_Traceability_Matrix.md [v0.2 Draft]
@@ -129,9 +131,9 @@ SEMS_Docs/
 ├── CONTRIBUTING.md [v1.0]
 ├── DOCUMENTATION_POLICY.md [v1.2]
 ├── DOCUMENTATION_REVIEW_REPORT.md [v0.3 Draft]
-├── README.md [v1.13]
-├── REPOSITORY_TREE.md [v1.14]
-└── START_HERE.md [v1.1 Current]
+├── README.md [v1.15]
+├── REPOSITORY_TREE.md [v1.16]
+└── START_HERE.md [v1.3 Current]
 ```
 
 Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect/`), internal agent state (`.agents/`), and unversioned conversion artifacts (`tmp/`) are intentionally excluded.
@@ -140,13 +142,16 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 
 | Category | Index / Key Document | Version | Last Updated |
 | :--- | :--- | :---: | :---: |
-| Repository | [`README.md`](./README.md) | v1.13 | 2026-07-24 |
-| Repository | [`START_HERE.md`](./START_HERE.md) | v1.1 (Current) | 2026-07-23 |
-| Repository | [`REPOSITORY_TREE.md`](./REPOSITORY_TREE.md) | v1.14 | 2026-07-24 |
+| Repository | [`README.md`](./README.md) | v1.15 | 2026-07-24 |
+| Repository | [`START_HERE.md`](./START_HERE.md) | v1.3 (Current) | 2026-07-24 |
+| Repository | [`REPOSITORY_TREE.md`](./REPOSITORY_TREE.md) | v1.16 | 2026-07-24 |
 | Repository | [`CONTRIBUTING.md`](./CONTRIBUTING.md) | v1.0 | 2026-07-23 |
 | Repository | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) | v1.2 | 2026-07-23 |
 | Repository | [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) | v0.3 (Draft) | 2026-07-24 |
-| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.8 | 2026-07-24 |
+| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.10 | 2026-07-24 |
+| Requirements | [`Requirements/Meeting_Notes/README.md`](./Requirements/Meeting_Notes/README.md) | v0.3 | 2026-07-24 |
+| Requirements | [`Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) | v0.1 (Draft) | 2026-07-24 |
+| Requirements | [`Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) | v0.2 (Confirmed/Pending Formal Record) | 2026-07-24 |
 | Requirements | [`Requirements/Proposal/SEMS-project-proposal.md`](./Requirements/Proposal/SEMS-project-proposal.md) | v1.0 | 2026-07-23 |
 | Requirements | [`Requirements/SRS/SEMS-SRS.md`](./Requirements/SRS/SEMS-SRS.md) | v2.2 (Draft) | 2026-07-24 |
 | Requirements | [`Requirements/User_Stories/README.md`](./Requirements/User_Stories/README.md) | v1.2 | 2026-07-24 |
@@ -164,6 +169,8 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.16 | 2026-07-24 | SEMS Documentation Team | Renamed and reclassified the stakeholder response document as confirmed, pending a formal record; synchronized affected paths and versions. |
+| v1.15 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and the explicitly non-official advisor-answer simulation under `Requirements/Meeting_Notes/`; synchronized affected indexes. |
 | v1.14 | 2026-07-24 | SEMS Documentation Team | Synchronized all documents changed by the pre-baseline status, embedded-point, error-code, traceability and workflow review. |
 | v1.13 | 2026-07-23 | SEMS Documentation Team | Synchronized Documentation Review Report v0.2 after final validation updates. |
 | v1.12 | 2026-07-23 | SEMS Documentation Team | Added pre-baseline review, PRD, traceability, architecture, error catalog, templates, test data, checks and synchronized versions. |

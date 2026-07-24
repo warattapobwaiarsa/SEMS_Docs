@@ -4,7 +4,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.13** |
+| Current Version | **v1.15** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
@@ -36,9 +36,9 @@
 
 | Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.1 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) |
+| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.3 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) |
 | 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.2), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and approval templates | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.1 Draft, SRS v2.2 Draft, [Traceability](./Requirements/SEMS_Traceability_Matrix.md) v0.2 Draft |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.1 Draft, SRS v2.2 Draft, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.1, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.2 Pending Formal Record |
 | 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
 | 🧪 **[Testing](./Testing/README.md)** | Test plans, cases and synthetic reference data | P0 catalog with linked requirements/decisions and [scoring reference cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) |
 | 🚀 **[Deployment](./Deployment/README.md)** | Deployment index and architecture considerations | Setup/operations guides remain pending |
@@ -55,6 +55,8 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.15 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and synchronized repository indexes. |
+| v1.14 | 2026-07-24 | SEMS Documentation Team | Added and indexed stakeholder questions and the advisor-answer simulation under Requirements meeting notes. |
 | v1.13 | 2026-07-24 | SEMS Documentation Team | Clarified pre-baseline status and synchronized embedded-point, canonical error-code, traceability and validation-document updates. |
 | v1.12 | 2026-07-23 | SEMS Documentation Team | Reconciled pre-baseline requirements/design/testing indexes and linked review, traceability, architecture and governance deliverables. |
 | v1.11 | 2026-07-23 | SEMS Documentation Team | Added `START_HERE.md` as the recommended entry point for GitHub and Obsidian readers. |
