@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Security, RBAC and SSO Test Cases
 
 ## 1. Authentication/OIDC
 
@@ -184,6 +186,20 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial security, RBAC and SSO test cases. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Scoring, State, Dashboard and Report Test Cases](./SEMS_Scoring_State_Report_Test_Cases.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Regression Checklist](./SEMS_Regression_Checklist.md)
+
+<!-- DOC_NAV_END -->

@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › Data Import to Web - Column Specification
 
 > ถอดหัวคอลัมน์จาก [`Data_import_to_web.xlsx`](./Data_import_to_web.xlsx) จำนวน 37 คอลัมน์เป็นรายการแนวตั้ง เพื่อให้อ่านบน GitHub ได้โดยไม่ต้องเลื่อนตารางในแนวนอน
 
@@ -419,3 +421,22 @@
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** 16.3792973, 104.3854202
 - **หมายเหตุ:** ห้ามมีเพียงค่าเดียว
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Scoring Rule Specification](../Criteria/SEMS_Scoring_Rule_Specification.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS — Applicant Import Mapping Specification](./SEMS_Applicant_Import_Mapping_Specification.md)
+
+<!-- DOC_NAV_END -->

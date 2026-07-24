@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary - Workbook Conversion](./README.md) › Data Dictionary
 
 > **Release 1 confirmed-response overlay:** `Applicant` is reusable student identity and `ApplicantRound` is the independent Application snapshot keyed by `round_id + scholarship_type_id + student_id`. National ID is absent from the Core Schema. Add `ScholarshipType`, `EvaluationRevision`, `EvaluationReopenRequest`, `ControlledCorrection`, `ReportExport`, `ReportSnapshot`, `CodeList`, `CodeListValue`, and document scan status as specified in [`../SEMS_ER_Prisma_Data_Dictionary.md`](../SEMS_ER_Prisma_Data_Dictionary.md).
 
@@ -299,6 +301,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Added stable GitHub anchors for entity sections; converted workbook content unchanged. |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | Initial workbook conversion. |
 
@@ -1685,3 +1688,16 @@
 - **ระดับความอ่อนไหว:** Internal
 - **สถานะข้อกำหนด:** ข้อเสนอแนะ
 - **หมายเหตุ:** -
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Workbook Overview](./00_Workbook_Overview.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [Import Column Mapping](./02_Import_Column_Mapping.md)
+
+<!-- DOC_NAV_END -->

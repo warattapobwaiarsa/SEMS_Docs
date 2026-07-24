@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from PDF** |
+
+[START HERE](../../START_HERE.md) › [📋 Requirements](../README.md) › ข้อเสนอโครงการ SEMS
 
 > แปลงจาก [`SEMS-project-proposal.pdf`](./SEMS-project-proposal.pdf) จำนวน 35 หน้า โดยแก้รหัสอักขระภาษาไทยจากฟอนต์ใน PDF และจัดโครงสร้างใหม่เพื่อให้อ่านบน GitHub ได้
 
@@ -969,4 +971,23 @@ Milestone: M8 - Final Delivery วันที่ส่งมอบ: 28 กุ�
 
 ## Related Documents
 
-- Next: [SEMS Documentation Review Report](../../DOCUMENTATION_REVIEW_REPORT.md)
+- เอกสารที่เกี่ยวข้อง: [SEMS Documentation Review Report](../../DOCUMENTATION_REVIEW_REPORT.md)
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [🚦 เริ่มต้นใช้งานเอกสาร SEMS (START HERE)](../../START_HERE.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [รายงานการตรวจเอกสาร SEMS](../../DOCUMENTATION_REVIEW_REPORT.md)
+
+<!-- DOC_NAV_END -->

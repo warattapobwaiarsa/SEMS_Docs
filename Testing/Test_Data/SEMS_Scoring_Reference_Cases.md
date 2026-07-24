@@ -3,9 +3,11 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-SCORE-DATA-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Status | **Confirmed Response — Pending Formal Approval** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Scoring Reference Cases
 
 กฎ: `EMBEDDED_POINT`; คะแนน option เป็นคะแนนหลังถ่วงน้ำหนักแล้ว, `weight_percent` เป็น metadata และห้ามคูณซ้ำ ใช้ Decimal, Submitted ที่ผู้ประเมินไม่ซ้ำ 2–3 คนเท่านั้น และปัด Applicant Summary สุดท้าย 2 ตำแหน่งแบบ `HALF_UP`
 
@@ -43,13 +45,27 @@
 
 ## Related Documents
 
-- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+- เอกสารที่เกี่ยวข้อง: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS QA Team | Added explicit navigation from scoring reference data to the pending UAT checklist. |
 | v0.2 | 2026-07-24 | SEMS QA Team | Confirmed scoring status and added criteria-lock/custom-score/non-scoring assertions. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Added provisional min/max, two/three evaluator, exclusion, embedded-point, version and rounding reference cases. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Regression Checklist](../Test_Cases/SEMS_Regression_Checklist.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [Checklist การทดสอบการยอมรับ Requirement Baseline ของ SEMS](../UAT/SEMS_UAT_Baseline_Checklist.md)
+
+<!-- DOC_NAV_END -->

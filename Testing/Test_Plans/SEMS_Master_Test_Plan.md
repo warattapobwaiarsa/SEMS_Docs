@@ -3,7 +3,7 @@
 | รายการ | ค่า |
 |---|---|
 | Document ID | SEMS-TP-001 |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft for Design Baseline** |
@@ -11,6 +11,8 @@
 | Test Approach | Risk-based, Requirements-based, API-first และ End-to-End |
 | Primary Roles | Admin, Evaluator |
 | Target Environments | Development, Testing/UAT, Production-like |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Master Test Plan
 
 ## 1. วัตถุประสงค์
 
@@ -266,14 +268,28 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 
 ## Related Documents
 
-- Next: [Functional Test Case Catalog](../Test_Cases/SEMS_Functional_Test_Case_Catalog.md), [High-Risk Test Cases](../Test_Cases/SEMS_High_Risk_Test_Cases.md) and [Scoring Reference Data](../Test_Data/SEMS_Scoring_Reference_Cases.md)
+- เอกสารที่เกี่ยวข้อง: [Functional Test Case Catalog](../Test_Cases/SEMS_Functional_Test_Case_Catalog.md), [High-Risk Test Cases](../Test_Cases/SEMS_High_Risk_Test_Cases.md) and [Scoring Reference Data](../Test_Data/SEMS_Scoring_Reference_Cases.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation to the functional, high-risk and scoring-reference test artifacts. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and module-specific size errors with the canonical inventory. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Aligned canonical evaluation error code and pre-baseline documentation checks. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial master test plan draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [🧪 Testing](../README.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Risk and Coverage Matrix](./SEMS_Risk_and_Coverage_Matrix.md)
+
+<!-- DOC_NAV_END -->

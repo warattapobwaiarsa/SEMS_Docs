@@ -3,9 +3,11 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-ERR-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Status | **Draft — System-wide Source of Truth** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS Error Code Catalog
 
 ทุก SRS, User Story, API, OpenAPI, UI และ Test Case ต้องอ้าง code จากไฟล์นี้ ห้ามสร้าง alias ใหม่โดยไม่แก้ catalog และ revision history
 
@@ -109,7 +111,21 @@ No aliases were created; all responses retain `{ code, message, details, traceId
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added backlinks to the governing Markdown and OpenAPI specifications. |
 | v0.2 | 2026-07-24 | SEMS Design Team | Removed unused generic/round-state error codes and documented module-specific import, document and report codes already present in the allowed inventory. |
 | v0.1 | 2026-07-23 | SEMS Design Team | Established canonical error envelope, code names and retired aliases. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS API Specification](./SEMS_API_Specification.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS: ER Diagram, Prisma Schema Draft และ Data Dictionary](../Database/SEMS_ER_Prisma_Data_Dictionary.md)
+
+<!-- DOC_NAV_END -->

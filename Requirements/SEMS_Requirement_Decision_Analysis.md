@@ -2,12 +2,14 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v1.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team (AI-assisted)** |
 | เอกสารต้นทาง | [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) |
 | เอกสารประกอบ | [`SEMS-project-proposal.pdf`](./Proposal/SEMS-project-proposal.pdf), [`Criteria.xlsx`](../Design/Criteria/Criteria.xlsx), [`Data_import_to_web.xlsx`](../Design/Data_Templates/Data_import_to_web.xlsx) |
 | Status | **Draft — Pending Final Approval** |
+
+[START HERE](../START_HERE.md) › [📋 Requirements](./README.md) › คำตอบและข้อเสนอสำหรับ Requirement Decision Register — โครงการ SEMS
 
 ## วิธีอ่านเอกสาร
 
@@ -591,4 +593,18 @@ FinalScore = SUM(CriterionAverage(c) × CriterionWeight(c))
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.1 | 2026-07-23 | SEMS Requirements Team (AI-assisted) | จัดทำบทวิเคราะห์และข้อเสนอสำหรับ Requirement Decision Register พร้อมปรับชื่อและลิงก์อ้างอิงให้ตรงกับ Repository |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Product Requirements Document](./PRD/SEMS-PRD.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../START_HERE.md)<br>
+→ อ่านต่อ: [Requirement Decision Register — SEMS](./SEMS_Requirement_Decision_Register.md)
+
+<!-- DOC_NAV_END -->

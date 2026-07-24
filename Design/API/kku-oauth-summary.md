@@ -1,5 +1,13 @@
 # KKU OAuth 2.1 · OIDC Authentication Service
 
+| Metadata | Value |
+| :--- | :--- |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
+| Author | **SEMS Documentation Team** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › KKU OAuth 2.1 · OIDC Authentication Service
+
 ## Overview & Executive Summary
 
 The **KKU OAuth 2.1 / OpenID Connect (OIDC) service** (`oauth.kku.ac.th`) is Khon Kaen University's centralized authentication platform. It enables third-party and internal applications to authenticate users via KKU's **Single Sign-On (SSO)** credentials using industry-standard protocols — **OAuth 2.1** for authorization and **OpenID Connect** for identity verification.
@@ -130,3 +138,22 @@ GET /logout?redirect_uri={redirect_uri}                          # Full SSO logo
 
 ---
 *Note: This summary is based solely on the publicly documented information available on the `oauth.kku.ac.th` landing page as of the review date. Client registration procedures, rate limits, and detailed error-handling behavior are not published on this page and should be confirmed directly with KKU's IT/authentication administrators.*
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS State Transition Specification](../Architecture/SEMS_State_Transition_Specification.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS API Specification](./SEMS_API_Specification.md)
+
+<!-- DOC_NAV_END -->

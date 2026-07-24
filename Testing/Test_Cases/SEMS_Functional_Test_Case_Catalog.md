@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Functional Test Case Catalog
 
 ตารางนี้เป็น Master Catalog สำหรับ traceability และ regression รายละเอียดกรณีเสี่ยงสูงอยู่ในไฟล์เฉพาะด้าน
 
@@ -170,14 +172,28 @@
 
 ## Related Documents
 
-- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+- เอกสารที่เกี่ยวข้อง: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from functional test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document errors with the canonical inventory and retained provisional scoring status. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Added Linked Requirement/Linked Decision columns, canonical duplicate code and corrected scoring range to 5–100. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial functional test catalog draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Test Data and Environment Plan](../Test_Plans/SEMS_Test_Data_and_Environment_Plan.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS High Risk Test Cases](./SEMS_High_Risk_Test_Cases.md)
+
+<!-- DOC_NAV_END -->

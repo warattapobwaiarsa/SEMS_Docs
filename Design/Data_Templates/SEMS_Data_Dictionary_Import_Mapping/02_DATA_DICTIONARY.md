@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › 02 DATA DICTIONARY
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `02_DATA_DICTIONARY`
 
@@ -1106,3 +1108,22 @@
 - **PII Classification:** Operational
 - **Source Column:** -
 - **สถานะ / หมายเหตุ:** -
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [01 ENTITY MODEL](./01_ENTITY_MODEL.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [03 IMPORT MAPPING](./03_IMPORT_MAPPING.md)
+
+<!-- DOC_NAV_END -->

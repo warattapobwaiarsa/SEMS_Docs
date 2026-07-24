@@ -2,11 +2,13 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pre-Implementation Review** |
 | Database / ORM | PostgreSQL / Prisma |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS: ER Diagram, Prisma Schema Draft และ Data Dictionary
 
 เอกสารฉบับนี้รวมผลลัพธ์การออกแบบฐานข้อมูลไว้ในไฟล์เดียว ประกอบด้วย ER Diagram, Prisma Schema Draft และ Data Dictionary
 
@@ -1022,13 +1024,27 @@ The following table preserves the former blocker questions. RD-024–RD-029 are 
 
 ## Related Documents
 
-- Next: [Scoring Rule Specification](../Criteria/SEMS_Scoring_Rule_Specification.md)
+- เอกสารที่เกี่ยวข้อง: [Scoring Rule Specification](../Criteria/SEMS_Scoring_Rule_Specification.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added lifecycle navigation to scoring design while retaining Draft — Pre-Implementation Review status. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added scholarship-type application key, revision/reopen/correction/report/code-list/scan structures, confirmed retention and resolved RD-024–RD-029. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Added Database Freeze Blockers and standardized AuditLog correlation field to `traceId`; schema remains Draft. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated ER/Prisma/Data Dictionary pre-implementation draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Error Code Catalog](../API/SEMS_Error_Code_Catalog.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [Criteria.xlsx — Markdown Conversion](../Criteria/Criteria_Converted.md)
+
+<!-- DOC_NAV_END -->

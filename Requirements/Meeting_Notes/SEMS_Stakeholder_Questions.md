@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | เอกสาร | Stakeholder Question List |
@@ -12,6 +12,8 @@
 | Commit ที่ตรวจล่าสุด | `f82e1d80029ce777b1a94420e60d853855512e49` |
 | วันที่จัดทำ | 24 กรกฎาคม 2569 |
 | Status | **Draft — ใช้สำหรับเตรียมประชุมและบันทึกมติ** |
+
+[START HERE](../../START_HERE.md) › [SEMS Meeting Notes](./README.md) › รายการคำถามที่ยังต้องยืนยันสำหรับโครงการ SEMS
 
 ## จุดประสงค์
 
@@ -807,3 +809,22 @@
 - `Design/API/kku-oauth-summary.md`
 - `Design/Architecture/SEMS_System_Architecture.md`
 - `Deployment/README.md`
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v0.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Meeting Notes](./README.md)<br>
+↑ หมวดเอกสาร: [SEMS Meeting Notes](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [คำตอบจากผู้มีส่วนเกี่ยวข้องสำหรับโครงการ SEMS](./SEMS_Stakeholder_Responses.md)
+
+<!-- DOC_NAV_END -->

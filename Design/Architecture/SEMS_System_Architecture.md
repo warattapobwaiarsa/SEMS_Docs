@@ -3,10 +3,12 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-ARCH-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Draft — Pending System Design Approval** |
 | Owner | SEMS Architecture Team |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS System Architecture
 
 ## System Context
 
@@ -119,12 +121,26 @@ Back up PostgreSQL plus storage metadata/content consistently and encrypt backup
 
 ## Related Documents
 
-- Next: [SEMS Process Flow Specification](./SEMS_Process_Flows.md)
+- เอกสารที่เกี่ยวข้อง: [SEMS Process Flow Specification](./SEMS_Process_Flows.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Design Team | Synchronized the document header with its existing v0.2 revision and added process-flow navigation. |
 | v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed session, retention, backup, file-security, application-key, isolation and capacity constraints. |
 | v0.1 | 2026-07-23 | SEMS Architecture Team | Initial draft aligned with proposal and current design documents; open decisions retained. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [🎨 Design](../README.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Permission Matrix](./SEMS_Permission_Matrix.md)
+
+<!-- DOC_NAV_END -->

@@ -2,11 +2,13 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Workbook | [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](./SEMS_Data_Dictionary_Import_Mapping.xlsx) |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS — Data Dictionary และ Import Column Mapping
 
 ## ขอบเขต
 
@@ -69,6 +71,20 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added direct navigation from import mapping guidance to the corresponding wireframe flow. |
 | v0.2 | 2026-07-23 | SEMS Design Team | Added links to the GitHub-readable per-sheet Markdown conversion. |
 | v0.1 | 2026-07-23 | SEMS Design Team | จัดทำ Draft ของ Data Dictionary และ Import Column Mapping สำหรับ Applicant Import |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS — Applicant Import Mapping Specification](./SEMS_Applicant_Import_Mapping_Specification.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [Design/UI_UX](../UI_UX/README.md)
+
+<!-- DOC_NAV_END -->

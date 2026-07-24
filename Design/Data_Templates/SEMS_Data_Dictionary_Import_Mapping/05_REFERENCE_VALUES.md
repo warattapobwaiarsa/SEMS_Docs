@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › 05 REFERENCE VALUES
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `05_REFERENCE_VALUES`
 
@@ -28,3 +30,22 @@
 | EDUCATION_FUNDER | บิดา-มารดา | PARENTS | บิดาและมารดา | Provisional | - |
 | EDUCATION_FUNDER | บิดา | FATHER | บิดา | Provisional | - |
 | EDUCATION_FUNDER | มารดา | MOTHER | มารดา | Provisional | - |
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [04 VALIDATION RULES](./04_VALIDATION_RULES.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [06 HISTORICAL OPEN DECISIONS — RESOLUTION STATUS](./06_OPEN_DECISIONS.md)
+
+<!-- DOC_NAV_END -->

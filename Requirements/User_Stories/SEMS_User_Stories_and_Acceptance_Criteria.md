@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.5"
+version: "v0.6"
 status: "Baseline Candidate — Pending Formal Approval"
 last_updated: 2026-07-24
 owner: SEMS Project Team
@@ -9,6 +9,8 @@ author: SEMS Requirements Team
 source_sections: "Proposal 5.1–5.5; Requirement Decision Register; Import Mapping; KKU OAuth Summary"
 ---
 # SEMS — User Stories และ Acceptance Criteria
+
+[START HERE](../../START_HERE.md) › [SEMS User Stories](./README.md) › SEMS — User Stories และ Acceptance Criteria
 
 เอกสารชุดนี้แปลงขอบเขตของ **Scholarship Evaluation Management System (SEMS)** ให้เป็น User Story ที่สามารถนำไปวาง Backlog, ออกแบบหน้าจอ/API และสร้าง Test Case ได้โดยตรง
 
@@ -1958,8 +1960,22 @@ Story ถือว่าเสร็จเมื่อ:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Added measurable confirmed-response stories for multi-type applications, corrections, reopen/cancel, report lifecycle, account/session/file safety and data minimization. |
 | v0.3 | 2026-07-24 | SEMS Requirements Team | Replaced retired/non-canonical import aliases with the central allowed error-code inventory. |
 | v0.2 | 2026-07-23 | SEMS Requirements Team | Replaced nonexistent per-module files with stable section anchors, linked the central traceability matrix, limited Release 1 import, and aligned provisional round opening. |
 | v0.1 | 2026-07-23 | SEMS Requirements Team | Initial consolidated user stories and acceptance criteria draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Software Requirements Specification (SRS)](../SRS/SEMS-SRS.md)<br>
+↑ หมวดเอกสาร: [SEMS User Stories](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Traceability Matrix](../SEMS_Traceability_Matrix.md)
+
+<!-- DOC_NAV_END -->

@@ -2,12 +2,14 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.5** |
+| Version | **v1.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — System Design Review** |
 | Base URL | `/api/v1` |
 | Format | REST + JSON, UUID, RFC 3339, Session Cookie, CSRF |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS API Specification
 
 ## 1. หลักการออกแบบ
 
@@ -630,16 +632,30 @@ Formal approval evidence, KKU production client/claims/URIs, actual domains, rat
 
 ## Related Documents
 
-- Next: [ER / Prisma Data Dictionary](../Database/SEMS_ER_Prisma_Data_Dictionary.md) and [Data Dictionary Index](../Database/SEMS_Data_Dictionary/README.md)
+- เอกสารที่เกี่ยวข้อง: [ER / Prisma Data Dictionary](../Database/SEMS_ER_Prisma_Data_Dictionary.md) and [Data Dictionary Index](../Database/SEMS_Data_Dictionary/README.md)
 - Synchronized artifacts: [OpenAPI](./openapi.yaml), [Endpoint Matrix](./endpoint-matrix.csv) and [Error Code Catalog](./SEMS_Error_Code_Catalog.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.4 | 2026-07-24 | SEMS Design Team | Added database lifecycle navigation and documented the synchronized API/OpenAPI/endpoint-matrix relationship. |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added confirmed reopen/correction/round/report/code-list/scan contracts and object-authorization/concurrency/audit rules. |
 | v1.3 | 2026-07-24 | SEMS Design Team | Made the embedded-point total and arithmetic-mean summary formula explicit across submit and recalculation operations. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Standardized error catalog/aliases, Release 1 import types and provisional round-opening validation. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Initial API draft indexed for System Design Review. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [KKU OAuth 2.1 · OIDC Authentication Service](./kku-oauth-summary.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Error Code Catalog](./SEMS_Error_Code_Catalog.md)
+
+<!-- DOC_NAV_END -->

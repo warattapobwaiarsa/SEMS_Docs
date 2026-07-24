@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › 03 IMPORT MAPPING
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `03_IMPORT_MAPPING`
 
@@ -472,3 +474,22 @@
 - **Null Handling:** ห้ามว่าง
 - **ตัวอย่างจากไฟล์:** -
 - **หมายเหตุ:** ไม่ควรให้ผู้ใช้กรอกซ้ำทุกแถว
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [02 DATA DICTIONARY](./02_DATA_DICTIONARY.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [04 VALIDATION RULES](./04_VALIDATION_RULES.md)
+
+<!-- DOC_NAV_END -->

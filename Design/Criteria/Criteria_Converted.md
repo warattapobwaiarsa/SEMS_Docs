@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › Criteria.xlsx — Markdown Conversion
 
 > เอกสารนี้ถอดข้อมูลโดยตรงจากชีต `Criteria` ในไฟล์ [`Criteria.xlsx`](./Criteria.xlsx) เพื่อให้อ่านได้โดยไม่ต้องเปิดตัวพรีวิว Excel
 
@@ -244,3 +246,22 @@ Related artifacts: [Criteria configuration](./SEMS_Criteria_Config.json) and [Sc
 - เซลล์ `F54` ใช้สูตร `SUM(F2:F53)` และมีผลลัพธ์เป็น `100`
 - หัวข้อ “การรับทุนต่อเนื่อง” และ “มูลค่าทุนที่สมควรได้รับ” เป็นข้อมูลประกอบ ไม่ได้เพิ่มคะแนนในผลรวม 100
 - เครื่องหมาย `-` ในไฟล์ถูกเก็บไว้ตามต้นฉบับ เพื่อแสดงตัวเลือกว่าง/ไม่ระบุ
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS: ER Diagram, Prisma Schema Draft และ Data Dictionary](../Database/SEMS_ER_Prisma_Data_Dictionary.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [Scoring Rule Specification](./SEMS_Scoring_Rule_Specification.md)
+
+<!-- DOC_NAV_END -->

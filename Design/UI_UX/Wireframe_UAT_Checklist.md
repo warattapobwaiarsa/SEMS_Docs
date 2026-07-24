@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Ready for UAT** |
+
+[START HERE](../../START_HERE.md) › [Design/UI_UX](./README.md) › SEMS Wireframe UAT Checklist
 
 **วัตถุประสงค์:** ใช้ให้ตัวแทนผู้ใช้งานตรวจ Wireframe ก่อนเริ่มพัฒนา Frontend
 **ผู้ทดสอบที่แนะนำ:** Admin อย่างน้อย 2 คน และ Evaluator อย่างน้อย 2 คน
@@ -101,7 +103,21 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed-response UAT scenarios; approval remains pending. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Removed trailing whitespace for automated documentation checks; approval remains pending. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial wireframe UAT checklist draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Wireframe Specification](./SEMS_Wireframe_Specification.md)<br>
+↑ หมวดเอกสาร: [Design/UI_UX](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ ขั้นตอนถัดไป: หลังบันทึก feedback และหลักฐานครบแล้ว ให้อัปเดต [SEMS Wireframe Specification](./SEMS_Wireframe_Specification.md) และ [บันทึกการอนุมัติการออกแบบระบบ](../../Requirements/Approvals/System_Design_Approval_Record.md)
+
+<!-- DOC_NAV_END -->

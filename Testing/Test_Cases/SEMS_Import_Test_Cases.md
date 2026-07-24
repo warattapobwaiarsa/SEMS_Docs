@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Import Test Cases
 
 ## Import Rule Baseline
 
@@ -204,4 +206,18 @@ Continuation: core columns blank + กยศ `-2567 : 66,000` + ทุน `-2568
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.3 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Confirmed-Response Baseline Test Cases](./SEMS_Confirmed_Response_Baseline_Test_Cases.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Scoring, State, Dashboard and Report Test Cases](./SEMS_Scoring_State_Report_Test_Cases.md)
+
+<!-- DOC_NAV_END -->

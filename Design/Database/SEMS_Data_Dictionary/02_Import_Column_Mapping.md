@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary - Workbook Conversion](./README.md) › Import Column Mapping
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary.xlsx`](../SEMS_Data_Dictionary.xlsx), ชีต `Import Column Mapping`
 
@@ -304,3 +306,22 @@
 - **Validation หลัก:** lat -90..90; lon -180..180; ต้องมาคู่กัน
 - **การทำงานในแถวต่อเนื่อง:** ต้องว่าง
 - **ตัวอย่างต้นทาง:** 16.3792973, 104.3854202
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Data Dictionary](./01_Data_Dictionary.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [Value Sets](./03_Value_Sets.md)
+
+<!-- DOC_NAV_END -->

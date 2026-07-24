@@ -2,9 +2,11 @@
 
 | Metadata | Value |
 |---|---|
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Draft — Participants and Dates Pending Formal Record** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › Checklist การทดสอบการยอมรับ Requirement Baseline ของ SEMS
 
 บทบาทขั้นต่ำตาม RD-042 ได้แก่ ผู้ประเมินอย่างน้อย 2 คน ผู้ใช้จาก Scholarship Office/`ADMIN` 2 คน และผู้แทน IT/infrastructure 1 คนสำหรับสถานการณ์ deployment/backup ห้ามกรอกชื่อหรือวันที่โดยไม่มีบันทึกจริง
 
@@ -30,13 +32,27 @@
 
 ## Related Documents
 
-- Next: [Deployment Overview](../../Deployment/README.md)
+- เอกสารที่เกี่ยวข้อง: [Deployment Overview](../../Deployment/README.md)
 - Pending evidence: [Requirement Baseline Approval Record](../../Requirements/Approvals/Requirement_Baseline_Approval_Record.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Added lifecycle navigation to deployment context and the pending requirement-baseline approval record. |
 | v0.1 | 2026-07-24 | SEMS QA Team | Prepared confirmed-response UAT checklist without inventing participants or dates. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Scoring Reference Cases](../Test_Data/SEMS_Scoring_Reference_Cases.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ ขั้นตอนถัดไป: เมื่อมีผล UAT และหลักฐานจริง ให้อัปเดต [SEMS Traceability Matrix](../../Requirements/SEMS_Traceability_Matrix.md) และ [บันทึกการอนุมัติ Requirement Baseline](../../Requirements/Approvals/Requirement_Baseline_Approval_Record.md) และ [🚀 Deployment](../../Deployment/README.md)
+
+<!-- DOC_NAV_END -->

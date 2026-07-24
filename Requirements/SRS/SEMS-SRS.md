@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-SRS-001
 title: Software Requirements Specification — Scholarship Evaluation Management System (SEMS)
-version: "v0.5"
+version: "v0.6"
 status: Baseline Candidate - Pending Formal Approval
 last_updated: 2026-07-24
 owner: SEMS Project Team
@@ -22,6 +22,8 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 | รูปแบบ | สอดคล้องแนวทาง ISO/IEC/IEEE 29148 ในระดับโครงสร้าง |
 | ผลลัพธ์เป้าหมาย | Requirement ที่ออกแบบ พัฒนา และทดสอบได้ |
 
+[START HERE](../../START_HERE.md) › [📋 Requirements](../README.md) › Software Requirements Specification (SRS)
+
 > เอกสารนี้รวมข้อกำหนดจาก Proposal, Requirement Decision Register, Data Dictionary, Applicant Import Mapping, ไฟล์ Criteria และข้อมูล KKU OAuth/OIDC
 > คำตอบที่ยืนยันจากผู้มีส่วนเกี่ยวข้องถูกแปลงเป็นข้อกำหนด Release 1 ที่ทดสอบได้แล้ว เอกสารยังคงเป็น Baseline Candidate จนกว่าจะมีหลักฐานอนุมัติอย่างเป็นทางการ
 
@@ -29,6 +31,7 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | Version | Date | Change | Status |
 |---|---|---|---|
+| 0.6-draft | 2026-07-24 | เพิ่มและปรับ document navigation | Pending Formal Approval |
 | 0.5-draft | 2026-07-24 | ปรับคำศัพท์บทบาท สถานะ และคำอธิบายให้เป็นไปตามนโยบาย Thai-first โดยไม่เปลี่ยน Requirement ID หรือ business rule | Pending Formal Approval |
 | 0.4-draft | 2026-07-24 | Synchronized lifecycle status and added navigation to consolidated user stories | Pending Formal Approval |
 | 0.3-draft | 2026-07-24 | Synchronized confirmed stakeholder decisions for Release 1 baseline review | Pending Formal Approval |
@@ -665,4 +668,17 @@ Requirement พร้อม Development เมื่อ:
 
 # 16. Related Documents
 
-- Next: [Consolidated User Stories and Acceptance Criteria](../User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
+- เอกสารที่เกี่ยวข้อง: [Consolidated User Stories and Acceptance Criteria](../User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Requirement Decision Register — SEMS](../SEMS_Requirement_Decision_Register.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS — User Stories และ Acceptance Criteria](../User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
+
+<!-- DOC_NAV_END -->

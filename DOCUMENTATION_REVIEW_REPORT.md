@@ -3,13 +3,15 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-DOC-REVIEW-001` |
-| Version | **v0.6** |
+| Version | **v0.7** |
 | Last Updated | **2026-07-24** |
 | Status | **Ready for Formal Stakeholder Review — Pending Formal Approval** |
 | Review Scope | Requirements, architecture, API/OpenAPI, data model, scoring, UI/UX, testing, deployment, workbooks และ repository indexes |
 | Branch | `main` |
 | Review-start Commit | `f7bc385` |
 | Approval Status | **Pending — ยังไม่มีชื่อผู้อนุมัติ วันที่ตัดสินใจ หรือบันทึกที่ลงนาม** |
+
+[START HERE](./START_HERE.md) › [Repository Index](./README.md) › รายงานการตรวจเอกสาร SEMS
 
 ## 1. สรุปสำหรับผู้บริหาร
 
@@ -178,16 +180,30 @@ Recommended commit message:
 
 ## Related Documents
 
-- Next: [PRD](./Requirements/PRD/SEMS-PRD.md)
+- เอกสารที่เกี่ยวข้อง: [PRD](./Requirements/PRD/SEMS-PRD.md)
 - Supporting decisions: [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md) and [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.7 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.6 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | Added lifecycle navigation and refreshed enhanced version/status and wireframe-manifest validation results. |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed responses across requirements/design/data/API/UI/testing, updated workbooks, added test/UAT coverage and retained formal approval boundaries. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded pre-baseline repository metadata, PII risks and partial validation evidence. |
 | v0.2 | 2026-07-23 | SEMS Documentation Team | Recorded link/version/JSON checks and independent validator limitation. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial repository reconciliation report. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [ข้อเสนอโครงการ SEMS](./Requirements/Proposal/SEMS-project-proposal.md)<br>
+↑ หมวดเอกสาร: [Scholarship Evaluation Management System (SEMS)](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](./START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Product Requirements Document](./Requirements/PRD/SEMS-PRD.md)
+
+<!-- DOC_NAV_END -->

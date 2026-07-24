@@ -3,10 +3,12 @@
 | รายการ | รายละเอียด |
 | :--- | :--- |
 | ชื่อเอกสาร | Documentation Governance Policy |
-| Version | **v1.3** |
+| Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | สถานะ | ฉบับใช้งาน |
+
+[START HERE](./START_HERE.md) › [Repository Index](./README.md) › นโยบายการกำกับดูแลเอกสารโครงการ SEMS
 
 ## 1. วัตถุประสงค์ (Purpose)
 
@@ -219,7 +221,62 @@ Updated: REPOSITORY_TREE.md (v1.1 → v1.2)
 - [ ] Approval status และข้อความ Revision History เดิมไม่ถูกเปลี่ยนความหมาย
 - [ ] Machine-readable และ reference artifacts ไม่ถูกแก้เพียงเพื่อปรับภาษา
 
-## 6. Checklist ก่อน Commit หรือ Pull Request
+## 6. Document Navigation Standard
+
+Markdown ทุกไฟล์ต้องช่วยให้ผู้อ่านทราบตำแหน่งปัจจุบัน เส้นทางกลับ และสิ่งที่ควรอ่านหรือดำเนินการต่อ โดยใช้กฎต่อไปนี้:
+
+- ใช้ relative Markdown links ที่เปิดได้ทั้ง GitHub และ Obsidian เท่านั้น
+- ใช้ breadcrumb ใต้ชื่อเอกสารและ metadata; `START_HERE.md` ยกเว้นได้เพื่อหลีกเลี่ยง self-link
+- Navigation footer ต้องอยู่ท้ายเอกสารและครอบด้วย `DOC_NAV_START` กับ `DOC_NAV_END` อย่างละหนึ่ง marker
+- ทุกไฟล์ต้องเชื่อม Section Index และ `START_HERE.md`; Root `README.md` และ `START_HERE.md` ใช้ข้อยกเว้นที่มีเหตุผลใน `scripts/document-navigation.json`
+- เอกสารใน sequence ต้องมี Previous/Next ที่ตรงกันทั้งสองทิศทาง
+- Section README ต้องมีหัวข้อ “ลำดับการอ่านที่แนะนำ”
+- Template, Approval Record และ Checklist ต้องมี “ขั้นตอนถัดไป” ซึ่งเชื่อมเอกสารที่ต้องอัปเดตจริง
+- เมื่อเพิ่ม ย้าย หรือลบเอกสาร ต้องอัปเดต navigation map, footer ที่ได้รับผลกระทบ, Section README, `START_HERE.md` และ `REPOSITORY_TREE.md`
+- ต้องอัปเดต Version, Last Updated และ Revision History ตามนโยบายนี้
+- ห้ามเปลี่ยน Draft, Pending หรือ Not Yet Executed เป็น Approved/Executed โดยไม่มีหลักฐานจริง
+
+### 6.1 ตัวอย่างเอกสารทั่วไป
+
+```md
+[START HERE](../../START_HERE.md) › [Design](../README.md) › API Specification
+
+← ก่อนหน้า: [State Transition](../Architecture/SEMS_State_Transition_Specification.md)
+↑ หมวดเอกสาร: [Design](../README.md)
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)
+→ อ่านต่อ: [Error Catalog](./SEMS_Error_Code_Catalog.md)
+```
+
+### 6.2 ตัวอย่าง README / Section Index
+
+```md
+## ลำดับการอ่านที่แนะนำ
+
+1. System Architecture
+2. Permission Matrix
+3. Process Flows
+```
+
+Section Index เชื่อมไป parent index และ `START_HERE.md` โดยไม่สร้าง self-link
+
+### 6.3 ตัวอย่างเอกสารแบบลำดับ
+
+```md
+← ก่อนหน้า: [01 Entity Model](./01_ENTITY_MODEL.md)
+→ อ่านต่อ: [03 Import Mapping](./03_IMPORT_MAPPING.md)
+```
+
+ห้ามข้ามไฟล์หมายเลขกลางโดยไม่มีเหตุผลที่บันทึกไว้
+
+### 6.4 ตัวอย่าง Template / Approval Record
+
+```md
+→ ขั้นตอนถัดไป: เมื่อมีหลักฐานครบแล้ว ให้อัปเดต [Decision Register](../SEMS_Requirement_Decision_Register.md) และ [Traceability Matrix](../SEMS_Traceability_Matrix.md)
+```
+
+ข้อความนี้เป็นคำสั่งดำเนินงาน ไม่ใช่หลักฐานว่าเอกสารได้รับอนุมัติหรือ execute แล้ว
+
+## 7. Checklist ก่อน Commit หรือ Pull Request
 
 - [ ] เอกสารอยู่ในหมวดหมู่ที่ถูกต้อง
 - [ ] Version, Last Updated และ Author เป็นปัจจุบัน
@@ -235,7 +292,21 @@ Updated: REPOSITORY_TREE.md (v1.1 → v1.2)
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | เพิ่มนโยบาย Thai-first คำศัพท์มาตรฐาน กฎตัวระบุทางเทคนิค และชี้แจงการเริ่มเวอร์ชัน `v0.1` สำหรับเอกสาร pre-baseline |
 | v1.2 | 2026-07-23 | SEMS Documentation Team | รองรับ `v0.x` สำหรับ Working Draft/Pre-baseline และสงวน `v1.0` สำหรับ First Approved/Official Release |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | เชื่อมโยงข้อกำหนด Commit, Branch และ Pull Request ไปยัง `CONTRIBUTING.md` |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | จัดทำนโยบายการกำกับดูแลเอกสารและการควบคุมเวอร์ชันฉบับแรก |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: เริ่มต้นชุดเอกสารนี้<br>
+↑ หมวดเอกสาร: [Scholarship Evaluation Management System (SEMS)](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](./START_HERE.md)<br>
+→ อ่านต่อ: [แนวทางการ Commit และมีส่วนร่วมในโครงการ SEMS](./CONTRIBUTING.md)
+
+<!-- DOC_NAV_END -->

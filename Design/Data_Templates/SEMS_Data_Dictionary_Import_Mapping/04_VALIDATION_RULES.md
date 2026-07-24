@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › 04 VALIDATION RULES
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `04_VALIDATION_RULES`
 
@@ -31,3 +33,22 @@
 | VAL-016 | NORMALIZE | ทุกคอลัมน์ | Trim; ช่องว่างและ '-' เป็น NULL ยกเว้นฟิลด์ที่ '-' มีความหมายจริง | Normalize | - | Draft |
 | VAL-017 | ERROR | Header | Header ที่จำเป็นต้องพบครบ หรือจับคู่ผ่าน Alias ได้ | Block Preview confirmation | ไม่พบคอลัมน์ที่จำเป็น | Draft |
 | VAL-018 | ERROR | Update Import | ห้ามแก้ฟิลด์สำคัญผ่าน Import เมื่อมี Evaluation แล้ว | Reject update | ผู้สมัครเริ่มถูกประเมินแล้ว ไม่อนุญาตให้อัปเดตด้วย Import | จาก RD-018 |
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [03 IMPORT MAPPING](./03_IMPORT_MAPPING.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [05 REFERENCE VALUES](./05_REFERENCE_VALUES.md)
+
+<!-- DOC_NAV_END -->

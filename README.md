@@ -4,10 +4,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.18** |
+| Current Version | **v1.19** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
+
+[START HERE](./START_HERE.md) › Scholarship Evaluation Management System (SEMS)
 
 คลังเอกสารสำหรับการวิเคราะห์ ออกแบบ ทดสอบ และนำระบบ SEMS ขึ้นใช้งาน โดยจัดเอกสารตามวงจรการพัฒนาระบบ
 
@@ -19,6 +21,8 @@
 👉 [`START_HERE.md`](./START_HERE.md)
 
 หน้านี้มีลำดับการอ่านตามบทบาท พร้อมลิงก์ไปยังเอกสารทั้งหมด
+
+Markdown ทุกไฟล์มี breadcrumb และ navigation footer มาตรฐานสำหรับกลับ Section Index, กลับ `START_HERE.md` และไปยังเอกสารหรือขั้นตอนถัดไป
 
 เอกสารคำอธิบายใช้ภาษาไทยเป็นหลัก และคงตัวระบุทางเทคนิคเป็นภาษาอังกฤษตาม
 [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md)
@@ -43,9 +47,9 @@
 
 | Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.6 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.6 |
-| 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.3), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.1) |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.4 Baseline Candidate, [SRS](./Requirements/SRS/SEMS-SRS.md) v0.5 Baseline Candidate, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.1, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.4 Pending Formal Record |
+| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.7 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.7 |
+| 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.4), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.2) |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.5 Baseline Candidate, [SRS](./Requirements/SRS/SEMS-SRS.md) v0.6 Baseline Candidate, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.2, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.5 Pending Formal Record |
 | 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
 | 🧪 **[Testing](./Testing/README.md)** | Test plans, cases and synthetic reference data | P0 catalog with linked requirements/decisions and [scoring reference cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) |
 | 🚀 **[Deployment](./Deployment/README.md)** | Deployment index and architecture considerations | Setup/operations guides remain pending |
@@ -62,6 +66,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.19 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.18 | 2026-07-24 | SEMS Documentation Team | เพิ่มมาตรฐาน Thai-first และเชื่อมโยงนโยบายภาษาและคำศัพท์ของ Repository |
 | v1.17 | 2026-07-24 | SEMS Documentation Team | Corrected entry-point and requirement versions and linked the Project Proposal from the repository overview. |
 | v1.16 | 2026-07-24 | SEMS Documentation Team | Synchronized the Release 1 baseline candidate and retained Pending Formal Approval status. |
@@ -81,3 +86,16 @@
 | v1.2 | 2026-07-23 | SEMS Documentation Team | Added `DOCUMENTATION_POLICY.md` v1.0 and indexed the repository governance rules. |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Re-indexed all categories, added document version metadata, and moved the KKU OAuth summary into `Design/API/`. |
 | v1.0 | 2026-07-22 | SEMS Documentation Team | Established the four-category SEMS documentation structure and indexed the proposal, scoring criteria, and data-import template. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: เริ่มต้นชุดเอกสารนี้<br>
+↑ หมวดเอกสาร: เอกสารนี้คือ Repository Index<br>
+⌂ หน้าหลัก: [START HERE](./START_HERE.md)<br>
+→ อ่านต่อ: [🚦 เริ่มต้นใช้งานเอกสาร SEMS (START HERE)](./START_HERE.md)
+
+<!-- DOC_NAV_END -->

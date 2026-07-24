@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › 06 HISTORICAL OPEN DECISIONS — RESOLUTION STATUS
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `06_OPEN_DECISIONS`
 
@@ -21,3 +23,22 @@
 | DD-OD-008 | รูปแบบวันที่และโทรศัพท์ที่รองรับ | ISO/Text new template; declared legacy formats normalize in Preview | Validation / Test Cases | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
 | DD-OD-009 | ประวัติ กยศ./ทุนเป็นข้อมูลระดับ Applicant หรือ Snapshot รายรอบ | Snapshot per application/round; one aggregated loan amount per academic year | Data Model / Duplicate | งานทุน | Confirmed Response — Pending Formal Record |
 | DD-OD-010 | Hard Required และ Required before Evaluation | Three levels defined in RD-028 | Import Acceptance | งานทุน/ผู้ประเมิน | Confirmed Response — Pending Formal Record |
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [05 REFERENCE VALUES](./05_REFERENCE_VALUES.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ ขั้นตอนถัดไป: ตรวจสถานะมติแล้วอัปเดต [SEMS — Data Dictionary และ Import Column Mapping](../SEMS_Data_Dictionary_Import_Mapping_Guide.md)
+
+<!-- DOC_NAV_END -->

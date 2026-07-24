@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Scoring, State, Dashboard and Report Test Cases
 
 ## 1. Criteria Baseline
 
@@ -217,7 +219,21 @@ For each row compare:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report-template expectations remain provisional under RD-021. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Corrected minimum total to 5 and added embedded-point and Decimal HALF_UP regression cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial scoring, state, dashboard and report test draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Import Test Cases](./SEMS_Import_Test_Cases.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Security, RBAC and SSO Test Cases](./SEMS_Security_RBAC_SSO_Test_Cases.md)
+
+<!-- DOC_NAV_END -->

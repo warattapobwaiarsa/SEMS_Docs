@@ -2,11 +2,13 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — User Validation** |
 | Primary Users | Admin and Evaluator |
+
+[START HERE](../../START_HERE.md) › [Design/UI_UX](./README.md) › SEMS Wireframe Specification
 
 ![ภาพรวม SEMS Wireframe](./SEMS_Wireframe_Overview.png)
 
@@ -346,8 +348,22 @@ Wireframe ถือว่าผ่านเมื่อผู้แทน Admin 
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added direct prototype, overview, test-plan and UAT artifact links while retaining Draft — User Validation status. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added confirmed application, reopen/correction, report, isolation, quarantine, session and data-minimization UI behavior. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Aligned Release 1 import file types with SRS/API. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated wireframe specification for user validation. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Design/UI_UX](./README.md)<br>
+↑ หมวดเอกสาร: [Design/UI_UX](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Wireframe UAT Checklist](./Wireframe_UAT_Checklist.md)
+
+<!-- DOC_NAV_END -->

@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 |---|---|
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Status | **Test Specification — Not Yet Executed** |
 | Source | RD-008–RD-049; SRS Section 12 |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Confirmed-Response Baseline Test Cases
 
 | ID | Requirement / decision | Scenario | Expected result |
 |---|---|---|---|
@@ -51,5 +53,19 @@ Execution evidence, pass/fail status, defects and UAT sign-off must be recorded 
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.1 | 2026-07-24 | SEMS QA Team | Added baseline-candidate tests for confirmed stakeholder rules. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS High Risk Test Cases](./SEMS_High_Risk_Test_Cases.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Import Test Cases](./SEMS_Import_Test_Cases.md)
+
+<!-- DOC_NAV_END -->

@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md) › SEMS — Data Dictionary & Import Column Mapping (Applicant Import)
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `00_README`
 
@@ -22,3 +24,22 @@
 | Identifier Rule | รหัสนักศึกษาและโทรศัพท์อ่านเป็น Text; Release 1 ไม่รับหรือเก็บ national ID |
 | Next Review | Formal baseline approval and pending operational measurements/records |
 | Next Artifact | ER Diagram, Prisma Schema และ Import Template ฉบับใหม่ |
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary & Import Mapping - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [01 ENTITY MODEL](./01_ENTITY_MODEL.md)
+
+<!-- DOC_NAV_END -->

@@ -1,0 +1,601 @@
+{
+  "documents": {
+    "CONTRIBUTING.md": {
+      "title": "แนวทางการ Commit และมีส่วนร่วมในโครงการ SEMS",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "repository_governance",
+      "previous": "DOCUMENTATION_POLICY.md",
+      "next": "REPOSITORY_TREE.md"
+    },
+    "DOCUMENTATION_POLICY.md": {
+      "title": "นโยบายการกำกับดูแลเอกสารโครงการ SEMS",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "repository_governance",
+      "next": "CONTRIBUTING.md"
+    },
+    "DOCUMENTATION_REVIEW_REPORT.md": {
+      "title": "รายงานการตรวจเอกสาร SEMS",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/Proposal/SEMS-project-proposal.md",
+      "next": "Requirements/PRD/SEMS-PRD.md"
+    },
+    "Deployment/README.md": {
+      "title": "🚀 Deployment",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "next_action": {
+        "text": "เมื่อ environment และผู้รับผิดชอบได้รับการยืนยัน ให้จัดทำ Installation Guide, Operations Guide และ User Manual โดยอ้างอิง",
+        "targets": [
+          "Design/Architecture/SEMS_System_Architecture.md",
+          "Requirements/Approvals/System_Design_Approval_Record.md"
+        ]
+      }
+    },
+    "Design/API/SEMS_API_Specification.md": {
+      "title": "SEMS API Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/API/kku-oauth-summary.md",
+      "next": "Design/API/SEMS_Error_Code_Catalog.md"
+    },
+    "Design/API/SEMS_Error_Code_Catalog.md": {
+      "title": "SEMS Error Code Catalog",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/API/SEMS_API_Specification.md",
+      "next": "Design/Database/SEMS_ER_Prisma_Data_Dictionary.md"
+    },
+    "Design/API/kku-oauth-summary.md": {
+      "title": "KKU OAuth 2.1 · OIDC Authentication Service",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Architecture/SEMS_State_Transition_Specification.md",
+      "next": "Design/API/SEMS_API_Specification.md"
+    },
+    "Design/Architecture/SEMS_Permission_Matrix.md": {
+      "title": "SEMS Permission Matrix",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Architecture/SEMS_System_Architecture.md",
+      "next": "Design/Architecture/SEMS_Process_Flows.md"
+    },
+    "Design/Architecture/SEMS_Process_Flows.md": {
+      "title": "SEMS Process Flow Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Architecture/SEMS_Permission_Matrix.md",
+      "next": "Design/Architecture/SEMS_State_Transition_Specification.md"
+    },
+    "Design/Architecture/SEMS_State_Transition_Specification.md": {
+      "title": "SEMS State Transition Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Architecture/SEMS_Process_Flows.md",
+      "next": "Design/API/kku-oauth-summary.md"
+    },
+    "Design/Architecture/SEMS_System_Architecture.md": {
+      "title": "SEMS System Architecture",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/README.md",
+      "next": "Design/Architecture/SEMS_Permission_Matrix.md"
+    },
+    "Design/Criteria/Criteria_Converted.md": {
+      "title": "Criteria.xlsx — Markdown Conversion",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Database/SEMS_ER_Prisma_Data_Dictionary.md",
+      "next": "Design/Criteria/SEMS_Scoring_Rule_Specification.md"
+    },
+    "Design/Criteria/SEMS_Scoring_Rule_Specification.md": {
+      "title": "Scoring Rule Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Criteria/Criteria_Converted.md",
+      "next": "Design/Data_Templates/Data_import_to_web_Specification.md"
+    },
+    "Design/Data_Templates/Data_import_to_web_Specification.md": {
+      "title": "Data Import to Web - Column Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Criteria/SEMS_Scoring_Rule_Specification.md",
+      "next": "Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md"
+    },
+    "Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md": {
+      "title": "SEMS — Applicant Import Mapping Specification",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Data_Templates/Data_import_to_web_Specification.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/00_README.md": {
+      "title": "SEMS — Data Dictionary & Import Column Mapping (Applicant Import)",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/01_ENTITY_MODEL.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/01_ENTITY_MODEL.md": {
+      "title": "01 ENTITY MODEL",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/00_README.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/02_DATA_DICTIONARY.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/02_DATA_DICTIONARY.md": {
+      "title": "02 DATA DICTIONARY",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/01_ENTITY_MODEL.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/03_IMPORT_MAPPING.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/03_IMPORT_MAPPING.md": {
+      "title": "03 IMPORT MAPPING",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/02_DATA_DICTIONARY.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md": {
+      "title": "04 VALIDATION RULES",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/03_IMPORT_MAPPING.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/05_REFERENCE_VALUES.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/05_REFERENCE_VALUES.md": {
+      "title": "05 REFERENCE VALUES",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/06_OPEN_DECISIONS.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/06_OPEN_DECISIONS.md": {
+      "title": "06 HISTORICAL OPEN DECISIONS — RESOLUTION STATUS",
+      "section_index": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/05_REFERENCE_VALUES.md",
+      "next_action": {
+        "text": "ตรวจสถานะมติแล้วอัปเดต",
+        "targets": [
+          "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md"
+        ]
+      }
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md": {
+      "title": "SEMS Data Dictionary & Import Mapping - Workbook Conversion",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "import_mapping_workbook",
+      "next": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/00_README.md"
+    },
+    "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md": {
+      "title": "SEMS — Data Dictionary และ Import Column Mapping",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md",
+      "next": "Design/UI_UX/README.md"
+    },
+    "Design/Database/SEMS_Data_Dictionary/00_Workbook_Overview.md": {
+      "title": "Workbook Overview",
+      "section_index": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "previous": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "next": "Design/Database/SEMS_Data_Dictionary/01_Data_Dictionary.md"
+    },
+    "Design/Database/SEMS_Data_Dictionary/01_Data_Dictionary.md": {
+      "title": "Data Dictionary",
+      "section_index": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "previous": "Design/Database/SEMS_Data_Dictionary/00_Workbook_Overview.md",
+      "next": "Design/Database/SEMS_Data_Dictionary/02_Import_Column_Mapping.md"
+    },
+    "Design/Database/SEMS_Data_Dictionary/02_Import_Column_Mapping.md": {
+      "title": "Import Column Mapping",
+      "section_index": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "previous": "Design/Database/SEMS_Data_Dictionary/01_Data_Dictionary.md",
+      "next": "Design/Database/SEMS_Data_Dictionary/03_Value_Sets.md"
+    },
+    "Design/Database/SEMS_Data_Dictionary/03_Value_Sets.md": {
+      "title": "Value Sets",
+      "section_index": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "previous": "Design/Database/SEMS_Data_Dictionary/02_Import_Column_Mapping.md",
+      "next": "Design/Database/SEMS_Data_Dictionary/04_Design_Decisions.md"
+    },
+    "Design/Database/SEMS_Data_Dictionary/04_Design_Decisions.md": {
+      "title": "Design Decisions",
+      "section_index": "Design/Database/SEMS_Data_Dictionary/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "previous": "Design/Database/SEMS_Data_Dictionary/03_Value_Sets.md",
+      "next_action": {
+        "text": "นำข้อสรุปที่ยืนยันแล้วไปตรวจสอบกับ",
+        "targets": [
+          "Design/Database/SEMS_ER_Prisma_Data_Dictionary.md"
+        ]
+      }
+    },
+    "Design/Database/SEMS_Data_Dictionary/README.md": {
+      "title": "SEMS Data Dictionary - Workbook Conversion",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "database_workbook",
+      "next": "Design/Database/SEMS_Data_Dictionary/00_Workbook_Overview.md"
+    },
+    "Design/Database/SEMS_ER_Prisma_Data_Dictionary.md": {
+      "title": "SEMS: ER Diagram, Prisma Schema Draft และ Data Dictionary",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/API/SEMS_Error_Code_Catalog.md",
+      "next": "Design/Criteria/Criteria_Converted.md"
+    },
+    "Design/README.md": {
+      "title": "🎨 Design",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "next": "Design/Architecture/SEMS_System_Architecture.md"
+    },
+    "Design/UI_UX/README.md": {
+      "title": "Design/UI_UX",
+      "section_index": "Design/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md",
+      "next": "Design/UI_UX/SEMS_Wireframe_Specification.md"
+    },
+    "Design/UI_UX/SEMS_Wireframe_Specification.md": {
+      "title": "SEMS Wireframe Specification",
+      "section_index": "Design/UI_UX/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/UI_UX/README.md",
+      "next": "Design/UI_UX/Wireframe_UAT_Checklist.md"
+    },
+    "Design/UI_UX/Wireframe_UAT_Checklist.md": {
+      "title": "SEMS Wireframe UAT Checklist",
+      "section_index": "Design/UI_UX/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/UI_UX/SEMS_Wireframe_Specification.md",
+      "next_action": {
+        "text": "หลังบันทึก feedback และหลักฐานครบแล้ว ให้อัปเดต",
+        "targets": [
+          "Design/UI_UX/SEMS_Wireframe_Specification.md",
+          "Requirements/Approvals/System_Design_Approval_Record.md"
+        ]
+      }
+    },
+    "README.md": {
+      "title": "Scholarship Evaluation Management System (SEMS)",
+      "section_index": null,
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "next": "START_HERE.md",
+      "exemptions": [
+        "section_index"
+      ]
+    },
+    "REPOSITORY_TREE.md": {
+      "title": "SEMS Repository Tree",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "repository_governance",
+      "previous": "CONTRIBUTING.md",
+      "next_action": {
+        "text": "กลับไปเลือกเส้นทางการอ่านจาก",
+        "targets": [
+          "START_HERE.md"
+        ]
+      }
+    },
+    "Requirements/Approvals/Requirement_Baseline_Approval_Record.md": {
+      "title": "บันทึกการอนุมัติ Requirement Baseline",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/SEMS_Traceability_Matrix.md",
+      "next_action": {
+        "text": "เมื่อมีหลักฐานอนุมัติจริง ให้อัปเดต",
+        "targets": [
+          "Requirements/SEMS_Requirement_Decision_Register.md",
+          "Requirements/SEMS_Traceability_Matrix.md",
+          "Design/README.md"
+        ]
+      }
+    },
+    "Requirements/Approvals/System_Design_Approval_Record.md": {
+      "title": "บันทึกการอนุมัติการออกแบบระบบ",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "design_lifecycle",
+      "previous": "Design/UI_UX/Wireframe_UAT_Checklist.md",
+      "next_action": {
+        "text": "เมื่อมีหลักฐานอนุมัติจริง ให้อัปเดต",
+        "targets": [
+          "Design/README.md",
+          "Requirements/SEMS_Traceability_Matrix.md",
+          "Testing/README.md"
+        ]
+      }
+    },
+    "Requirements/Meeting_Notes/MEETING_NOTE_TEMPLATE.md": {
+      "title": "บันทึกการประชุม SEMS — YYYY-MM-DD",
+      "section_index": "Requirements/Meeting_Notes/README.md",
+      "home": "START_HERE.md",
+      "sequence": "meeting_records",
+      "previous": "Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md",
+      "next_action": {
+        "text": "หลังบันทึกมติและหลักฐานครบแล้ว ให้อัปเดต",
+        "targets": [
+          "Requirements/SEMS_Requirement_Decision_Register.md",
+          "Requirements/SEMS_Traceability_Matrix.md"
+        ]
+      }
+    },
+    "Requirements/Meeting_Notes/README.md": {
+      "title": "SEMS Meeting Notes",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "meeting_records",
+      "next": "Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md"
+    },
+    "Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md": {
+      "title": "รายการคำถามที่ยังต้องยืนยันสำหรับโครงการ SEMS",
+      "section_index": "Requirements/Meeting_Notes/README.md",
+      "home": "START_HERE.md",
+      "sequence": "meeting_records",
+      "previous": "Requirements/Meeting_Notes/README.md",
+      "next": "Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md"
+    },
+    "Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md": {
+      "title": "คำตอบจากผู้มีส่วนเกี่ยวข้องสำหรับโครงการ SEMS",
+      "section_index": "Requirements/Meeting_Notes/README.md",
+      "home": "START_HERE.md",
+      "sequence": "meeting_records",
+      "previous": "Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md",
+      "next": "Requirements/Meeting_Notes/MEETING_NOTE_TEMPLATE.md"
+    },
+    "Requirements/PRD/SEMS-PRD.md": {
+      "title": "SEMS Product Requirements Document",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "DOCUMENTATION_REVIEW_REPORT.md",
+      "next": "Requirements/SEMS_Requirement_Decision_Analysis.md"
+    },
+    "Requirements/Proposal/SEMS-project-proposal.md": {
+      "title": "ข้อเสนอโครงการ SEMS",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "START_HERE.md",
+      "next": "DOCUMENTATION_REVIEW_REPORT.md"
+    },
+    "Requirements/README.md": {
+      "title": "📋 Requirements",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "next_action": {
+        "text": "เริ่มทำความเข้าใจโครงการจาก",
+        "targets": [
+          "Requirements/Proposal/SEMS-project-proposal.md"
+        ]
+      }
+    },
+    "Requirements/SEMS_Requirement_Decision_Analysis.md": {
+      "title": "คำตอบและข้อเสนอสำหรับ Requirement Decision Register — โครงการ SEMS",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/PRD/SEMS-PRD.md",
+      "next": "Requirements/SEMS_Requirement_Decision_Register.md"
+    },
+    "Requirements/SEMS_Requirement_Decision_Register.md": {
+      "title": "Requirement Decision Register — SEMS",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/SEMS_Requirement_Decision_Analysis.md",
+      "next": "Requirements/SRS/SEMS-SRS.md"
+    },
+    "Requirements/SEMS_Traceability_Matrix.md": {
+      "title": "SEMS Traceability Matrix",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md",
+      "next": "Requirements/Approvals/Requirement_Baseline_Approval_Record.md"
+    },
+    "Requirements/SRS/SEMS-SRS.md": {
+      "title": "Software Requirements Specification (SRS)",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/SEMS_Requirement_Decision_Register.md",
+      "next": "Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md"
+    },
+    "Requirements/User_Stories/README.md": {
+      "title": "SEMS User Stories",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "next_action": {
+        "text": "อ่าน User Stories และ Acceptance Criteria ฉบับรวมที่",
+        "targets": [
+          "Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md"
+        ]
+      }
+    },
+    "Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md": {
+      "title": "SEMS — User Stories และ Acceptance Criteria",
+      "section_index": "Requirements/User_Stories/README.md",
+      "home": "START_HERE.md",
+      "sequence": "requirements_lifecycle",
+      "previous": "Requirements/SRS/SEMS-SRS.md",
+      "next": "Requirements/SEMS_Traceability_Matrix.md"
+    },
+    "START_HERE.md": {
+      "title": "🚦 เริ่มต้นใช้งานเอกสาร SEMS (START HERE)",
+      "section_index": "README.md",
+      "home": null,
+      "sequence": "requirements_lifecycle",
+      "previous": "README.md",
+      "next": "Requirements/Proposal/SEMS-project-proposal.md",
+      "exemptions": [
+        "breadcrumb",
+        "home"
+      ]
+    },
+    "Testing/README.md": {
+      "title": "🧪 Testing",
+      "section_index": "README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "next": "Testing/Test_Plans/SEMS_Master_Test_Plan.md"
+    },
+    "Testing/Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md": {
+      "title": "SEMS Confirmed-Response Baseline Test Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_High_Risk_Test_Cases.md",
+      "next": "Testing/Test_Cases/SEMS_Import_Test_Cases.md"
+    },
+    "Testing/Test_Cases/SEMS_Functional_Test_Case_Catalog.md": {
+      "title": "SEMS Functional Test Case Catalog",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Plans/SEMS_Test_Data_and_Environment_Plan.md",
+      "next": "Testing/Test_Cases/SEMS_High_Risk_Test_Cases.md"
+    },
+    "Testing/Test_Cases/SEMS_High_Risk_Test_Cases.md": {
+      "title": "SEMS High Risk Test Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Functional_Test_Case_Catalog.md",
+      "next": "Testing/Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md"
+    },
+    "Testing/Test_Cases/SEMS_Import_Test_Cases.md": {
+      "title": "SEMS Import Test Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md",
+      "next": "Testing/Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md"
+    },
+    "Testing/Test_Cases/SEMS_Regression_Checklist.md": {
+      "title": "SEMS Regression Checklist",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md",
+      "next_action": {
+        "text": "หลัง execute และบันทึกหลักฐานจริง ให้อัปเดต",
+        "targets": [
+          "Requirements/SEMS_Traceability_Matrix.md",
+          "Testing/Test_Data/SEMS_Scoring_Reference_Cases.md",
+          "Testing/UAT/SEMS_UAT_Baseline_Checklist.md"
+        ]
+      }
+    },
+    "Testing/Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md": {
+      "title": "SEMS Scoring, State, Dashboard and Report Test Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Import_Test_Cases.md",
+      "next": "Testing/Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md"
+    },
+    "Testing/Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md": {
+      "title": "SEMS Security, RBAC and SSO Test Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md",
+      "next": "Testing/Test_Cases/SEMS_Regression_Checklist.md"
+    },
+    "Testing/Test_Data/SEMS_Scoring_Reference_Cases.md": {
+      "title": "SEMS Scoring Reference Cases",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Cases/SEMS_Regression_Checklist.md",
+      "next": "Testing/UAT/SEMS_UAT_Baseline_Checklist.md"
+    },
+    "Testing/Test_Plans/SEMS_Master_Test_Plan.md": {
+      "title": "SEMS Master Test Plan",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/README.md",
+      "next": "Testing/Test_Plans/SEMS_Risk_and_Coverage_Matrix.md"
+    },
+    "Testing/Test_Plans/SEMS_Risk_and_Coverage_Matrix.md": {
+      "title": "SEMS Risk and Coverage Matrix",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Plans/SEMS_Master_Test_Plan.md",
+      "next": "Testing/Test_Plans/SEMS_Test_Data_and_Environment_Plan.md"
+    },
+    "Testing/Test_Plans/SEMS_Test_Data_and_Environment_Plan.md": {
+      "title": "SEMS Test Data and Environment Plan",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Plans/SEMS_Risk_and_Coverage_Matrix.md",
+      "next": "Testing/Test_Cases/SEMS_Functional_Test_Case_Catalog.md"
+    },
+    "Testing/UAT/SEMS_UAT_Baseline_Checklist.md": {
+      "title": "Checklist การทดสอบการยอมรับ Requirement Baseline ของ SEMS",
+      "section_index": "Testing/README.md",
+      "home": "START_HERE.md",
+      "sequence": "testing_lifecycle",
+      "previous": "Testing/Test_Data/SEMS_Scoring_Reference_Cases.md",
+      "next_action": {
+        "text": "เมื่อมีผล UAT และหลักฐานจริง ให้อัปเดต",
+        "targets": [
+          "Requirements/SEMS_Traceability_Matrix.md",
+          "Requirements/Approvals/Requirement_Baseline_Approval_Record.md",
+          "Deployment/README.md"
+        ]
+      }
+    }
+  },
+  "exemptions": {
+    "README.md": "Repository root index; a section-index link would be a self-link.",
+    "START_HERE.md": "Repository home; breadcrumb and home link would be self-links."
+  }
+}

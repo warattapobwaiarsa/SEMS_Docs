@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary - Workbook Conversion](./README.md) › Workbook Overview
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary.xlsx`](../SEMS_Data_Dictionary.xlsx), ชีต `README`
 
@@ -47,3 +49,22 @@
 | --- | --- |
 | Data_import_to_web(1).xlsx | หัวคอลัมน์จริง 37 คอลัมน์และตัวอย่างแถวต่อเนื่อง |
 | SEMS-project-proposal(1).pdf | ขอบเขต Import, Applicant, Document, History, Validation และ Data Protection |
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Data Dictionary - Workbook Conversion](./README.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ อ่านต่อ: [Data Dictionary](./01_Data_Dictionary.md)
+
+<!-- DOC_NAV_END -->

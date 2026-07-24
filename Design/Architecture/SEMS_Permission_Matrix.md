@@ -2,11 +2,13 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.4** |
+| Version | **v1.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
 | Primary Roles | `ADMIN`, `EVALUATOR` |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS Permission Matrix
 
 > เอกสารนี้ใช้สำหรับออกแบบ RBAC, Route Guard, API Authorization, Row-level Access Control และ Test Case ด้านสิทธิ์ โดยอ้างอิงขอบเขตใน SEMS Project Proposal หมวด 5.1, 5.2.1, 5.2.8, 5.2.9, 5.2.11 และ 5.5
 
@@ -334,15 +336,29 @@ Authentication
 
 ## Related Documents
 
-- Next: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
+- เอกสารที่เกี่ยวข้อง: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Design Team | Added explicit navigation from permission rules to the API contract artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed evaluator isolation, reopen separation of duties, correction/round/report/scan endpoint permissions. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`; audit-event names remain unchanged. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Aligned canonical evaluation error codes and made controlled reopen explicitly provisional. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial permission matrix draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS System Architecture](./SEMS_System_Architecture.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Process Flow Specification](./SEMS_Process_Flows.md)
+
+<!-- DOC_NAV_END -->

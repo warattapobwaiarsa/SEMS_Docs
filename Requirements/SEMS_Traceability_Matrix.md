@@ -3,9 +3,11 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-TRACE-001` |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
+
+[START HERE](../START_HERE.md) › [📋 Requirements](./README.md) › SEMS Traceability Matrix
 
 ลำดับแหล่งอ้างอิงคือ Proposal → PRD → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB/UI → Tests → UAT → approval evidence โดย `Provisional` หมายถึงยังต้องได้รับการยืนยันจากผู้มีส่วนเกี่ยวข้อง
 
@@ -71,8 +73,22 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | Corrected the report download operation ID and added explicit requirements, design, test, UAT and pending-approval navigation. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Added confirmed-response traceability for application identity, correction/reopen, reporting, account/session isolation, file security, retention, backup and capacity. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Separated decision/approval evidence and test definition, automation, execution, pass and UAT states without changing 17/17 core-flow coverage. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Created core-flow traceability matrix with explicit partial/provisional status. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS — User Stories และ Acceptance Criteria](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../START_HERE.md)<br>
+→ อ่านต่อ: [บันทึกการอนุมัติ Requirement Baseline](./Approvals/Requirement_Baseline_Approval_Record.md)
+
+<!-- DOC_NAV_END -->

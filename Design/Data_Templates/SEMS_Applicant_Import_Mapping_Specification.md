@@ -2,13 +2,15 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Scope | Applicant Import จาก [`Data_import_to_web.xlsx`](./Data_import_to_web.xlsx) |
 | Source Structure | 37 คอลัมน์; รองรับ Legacy Continuation Row |
 | Target Database | PostgreSQL / Prisma Schema ของ SEMS |
 | Status | **Confirmed Response — Pending Formal Approval** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS — Applicant Import Mapping Specification
 
 ## 1. วัตถุประสงค์
 
@@ -225,7 +227,21 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added direct navigation from import rules to the corresponding wireframe flow. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Replaced import-specific aliases with canonical allowed codes while retaining detailed validation reasons. |
 | v0.2 | 2026-07-23 | SEMS Design Team | Limited Release 1 import to `.xlsx`/`.csv` and aligned canonical file-type error code. |
 | v0.1 | 2026-07-23 | SEMS Design Team | Initial applicant import mapping draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Data Import to Web - Column Specification](./Data_import_to_web_Specification.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS — Data Dictionary และ Import Column Mapping](./SEMS_Data_Dictionary_Import_Mapping_Guide.md)
+
+<!-- DOC_NAV_END -->

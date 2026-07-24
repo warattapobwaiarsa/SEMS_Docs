@@ -3,11 +3,13 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Confirmed Response — Pending Formal Approval** |
 | Sources | [`Criteria.xlsx`](./Criteria.xlsx), [`SEMS-project-proposal.pdf`](../../Requirements/Proposal/SEMS-project-proposal.pdf) |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › Scoring Rule Specification
 
 > เอกสารนี้ถอดข้อมูลจากไฟล์ Criteria ให้เป็นกฎที่ระบบสามารถนำไปพัฒนาได้ พร้อมกำหนดค่ามาตรฐานในประเด็นที่ไฟล์ต้นฉบับยังไม่ได้ระบุชัดเจน ค่าที่เป็นข้อเสนอแนะต้องได้รับการอนุมัติก่อนเปลี่ยนสถานะชุดเกณฑ์เป็น Active
 
@@ -394,15 +396,29 @@ Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/S
 ## Related Documents
 
 - Source conversion: [Criteria Converted](./Criteria_Converted.md)
-- Next: [Applicant Import Mapping Specification](../Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md) and [Import Validation Rules](../Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md)
+- เอกสารที่เกี่ยวข้อง: [Applicant Import Mapping Specification](../Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md) and [Import Validation Rules](../Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Design Team | Completed Criteria source/configuration links and added navigation to import mapping and validation artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Marked confirmed-response status and aligned custom-score/custom-amount reasons and formal approval boundary. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned incomplete scoring/comment validation with canonical `EVALUATION_INCOMPLETE`. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Marked all formula rules provisional, linked the actual machine-readable config and scoring reference dataset. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial scoring rule draft derived from Criteria workbook. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Criteria.xlsx — Markdown Conversion](./Criteria_Converted.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [Data Import to Web - Column Specification](../Data_Templates/Data_import_to_web_Specification.md)
+
+<!-- DOC_NAV_END -->

@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Test Data and Environment Plan
 
 ## 1. หลักการ
 
@@ -139,6 +141,20 @@ Criteria sample มีหัวข้อคะแนนเต็มรวม 100
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document size fixtures with canonical error codes. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial test data and environment plan draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Risk and Coverage Matrix](./SEMS_Risk_and_Coverage_Matrix.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Functional Test Case Catalog](../Test_Cases/SEMS_Functional_Test_Case_Catalog.md)
+
+<!-- DOC_NAV_END -->

@@ -4,11 +4,13 @@
 |---|---|
 | ชื่อระบบ | Scholarship Evaluation Management System (SEMS) |
 | รหัสเอกสาร | SEMS-DES-FLOW-001 |
-| Version | **v1.4** |
+| Version | **v1.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft for Review** |
 | ตำแหน่งไฟล์ | `Design/Architecture/SEMS_Process_Flows.md` |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS Process Flow Specification
 
 ## 1. วัตถุประสงค์
 
@@ -641,15 +643,29 @@ flowchart TD
 
 ## Related Documents
 
-- Next: [Permission Matrix](./SEMS_Permission_Matrix.md) and [State Transition Specification](./SEMS_State_Transition_Specification.md)
+- เอกสารที่เกี่ยวข้อง: [Permission Matrix](./SEMS_Permission_Matrix.md) and [State Transition Specification](./SEMS_State_Transition_Specification.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Design Team | Added explicit lifecycle navigation to permission and state-transition specifications. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed reopen and added Controlled Correction, round/report, quarantine and account/session flows. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned import and closed-round errors with module-specific canonical codes. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Standardized observability correlation on `traceId`. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial process flow specification draft. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Permission Matrix](./SEMS_Permission_Matrix.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS State Transition Specification](./SEMS_State_Transition_Specification.md)
+
+<!-- DOC_NAV_END -->

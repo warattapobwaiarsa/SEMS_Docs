@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.6** |
+| Current Version | **v1.7** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
@@ -14,19 +14,29 @@
 
 ## ลำดับการอ่านที่แนะนำ
 
-1. [README.md](./README.md) — ภาพรวมโครงการ วัตถุประสงค์ ทีม และ technology stack
-2. [Project Proposal](./Requirements/Proposal/SEMS-project-proposal.md) — ที่มา ขอบเขต และแนวคิดของโครงการ
-3. [Documentation Review Report](./DOCUMENTATION_REVIEW_REPORT.md) — Critical/Open Decisions และ readiness
-4. [PRD](./Requirements/PRD/SEMS-PRD.md) และ [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
-5. [SRS](./Requirements/SRS/SEMS-SRS.md) และ [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
-6. [System Architecture](./Design/Architecture/SEMS_System_Architecture.md) และ [Design Overview](./Design/README.md)
-7. [Testing Overview](./Testing/README.md) — test plans, test cases และ reference data
-8. [Deployment Overview](./Deployment/README.md)
-9. ก่อนแก้ไขเอกสาร อ่าน [Documentation Policy](./DOCUMENTATION_POLICY.md) และ [Contributing Guide](./CONTRIBUTING.md)
+1. [README.md](./README.md) → [Project Proposal](./Requirements/Proposal/SEMS-project-proposal.md) → [Documentation Review Report](./DOCUMENTATION_REVIEW_REPORT.md)
+2. [PRD](./Requirements/PRD/SEMS-PRD.md) → [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md) → [Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
+3. [SRS](./Requirements/SRS/SEMS-SRS.md) → [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) → [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
+4. [Requirement Baseline Approval Record](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md) — Pending Formal Approval
+5. [Design Overview](./Design/README.md) → Architecture → API → Database → Scoring → Import Mapping → UI/UX
+6. [System Design Approval Record](./Requirements/Approvals/System_Design_Approval_Record.md) — Template, Pending
+7. [Testing Overview](./Testing/README.md) → Test Plans → Test Cases → Regression → UAT
+8. [Deployment Overview](./Deployment/README.md) — Awaiting Documents
+9. ก่อนแก้ไขเอกสาร อ่าน [Documentation Policy](./DOCUMENTATION_POLICY.md), [Contributing Guide](./CONTRIBUTING.md) และ [Repository Tree](./REPOSITORY_TREE.md)
 
 > `Requirements/Meeting_Notes/` มีรายการคำถามและคำตอบจากผู้มีส่วนเกี่ยวข้องที่ยืนยันแล้วแต่ยังรอบันทึกทางการ; คำตอบดังกล่าวยังไม่ใช่ Approved Requirement Baseline ส่วน `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มี deliverable ที่อนุมัติ
 
 > Baseline candidate rules are synchronized. Start formal review with the [Requirement Baseline Approval Record](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md); do not treat the candidate as Approved until real evidence is entered.
+
+## เส้นทาง Requirements → Design → Testing → Deployment
+
+| Phase | สถานะปัจจุบัน | เริ่มอ่าน | เมื่อจบ phase ให้ทำอะไรต่อ |
+| :--- | :--- | :--- | :--- |
+| Requirements | Baseline Candidate — Pending Formal Approval | [Requirements README](./Requirements/README.md) | บันทึกหลักฐานจริงใน [Requirement Baseline Approval Record](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md); หากยัง Pending ให้แก้ข้อค้างก่อนเริ่ม baseline ถัดไป |
+| Design | Draft / Confirmed Response — Pending Formal Approval | [Design README](./Design/README.md) | ตรวจ [System Design Approval Record](./Requirements/Approvals/System_Design_Approval_Record.md) และอัปเดต Traceability จากหลักฐานจริง |
+| Testing | Draft / Test Specification — Not Yet Executed | [Testing README](./Testing/README.md) | Execute ตามแผน บันทึกผลจริง และอัปเดตสถานะ; ห้ามตีความ Test Case ว่าเป็นผลทดสอบ |
+| UAT | Draft — Participants and Dates Pending Formal Record | [UAT Baseline Checklist](./Testing/UAT/SEMS_UAT_Baseline_Checklist.md) | บันทึกผู้เข้าร่วม วันที่ ผล และหลักฐานจริงก่อน handoff |
+| Deployment | Awaiting Documents | [Deployment README](./Deployment/README.md) | จัดทำ Installation Guide, Operations Guide และ User Manual เมื่อ environment และผู้รับผิดชอบได้รับการยืนยัน |
 
 ## เส้นทางการอ่านตามบทบาท
 
@@ -194,6 +204,7 @@
 
 ### Automated Validation
 
+- [Document navigation map](./scripts/document-navigation.json) — กำหนด Section Index, home, Previous/Next, Next Action และข้อยกเว้นของ Markdown ทุกไฟล์
 - [Documentation link checker](./scripts/check-documentation-links.py) — ตรวจ relative Markdown links, anchors, exact path case, JSON file references, START index coverage และ local-only paths
 - [Document version checker](./scripts/check-document-versions.py) — ตรวจเลขเวอร์ชันที่แสดงในเอกสารและ index หลัก
 - [Wireframe interaction checker](./scripts/check-wireframe-interactions.py) — ตรวจปุ่มและปลายทางใน HTML prototype รวมถึง image paths ใน screen manifest
@@ -229,6 +240,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.7 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.6 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | Completed the testing/UAT and automated-validation indexes after the documentation linkage audit. |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | Indexed the synchronized baseline candidate and formal-approval handoff. |
@@ -236,3 +248,15 @@
 | v1.2 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and the clearly labeled advisor-answer simulation to the reading index. |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Added review report, PRD, traceability, architecture, error catalog, approval/meeting templates and scoring reference data. |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | Created the main onboarding guide, role-based reading paths, complete file index, and Obsidian instructions. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Scholarship Evaluation Management System (SEMS)](./README.md)<br>
+↑ หมวดเอกสาร: [Scholarship Evaluation Management System (SEMS)](./README.md)<br>
+→ อ่านต่อ: [ข้อเสนอโครงการ SEMS](./Requirements/Proposal/SEMS-project-proposal.md)
+
+<!-- DOC_NAV_END -->

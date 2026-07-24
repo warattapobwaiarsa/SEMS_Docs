@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS High Risk Test Cases
 
 กรณีในไฟล์นี้เป็น P0/P1 และควรถูกทดสอบก่อนกรณีทั่วไป ทุกกรณีต้องตรวจ API, Database และ Audit Event ไม่ใช่ตรวจเฉพาะ UI
 
@@ -414,14 +416,28 @@
 
 ## Related Documents
 
-- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+- เอกสารที่เกี่ยวข้อง: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from high-risk test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report reconciliation still follows the provisional RD-021 template. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Canonicalized duplicate error code and added embedded-point and rollback P0 cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial high-risk test cases. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Functional Test Case Catalog](./SEMS_Functional_Test_Case_Catalog.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Confirmed-Response Baseline Test Cases](./SEMS_Confirmed_Response_Baseline_Test_Cases.md)
+
+<!-- DOC_NAV_END -->

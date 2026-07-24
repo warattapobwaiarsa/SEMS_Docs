@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | โครงการ | Scholarship Evaluation Management System (SEMS) |
@@ -11,6 +11,8 @@
 | วันที่จัดทำ | 24 กรกฎาคม 2569 |
 | ลักษณะเอกสาร | คำตอบจากผู้มีส่วนเกี่ยวข้องที่ยืนยันแล้วและอยู่ระหว่างจัดทำบันทึกทางการ |
 | Status | **Confirmed Stakeholder Response — Pending Formal Record** |
+
+[START HERE](../../START_HERE.md) › [SEMS Meeting Notes](./README.md) › คำตอบจากผู้มีส่วนเกี่ยวข้องสำหรับโครงการ SEMS
 
 > **ข้อควรทราบ:** เอกสารนี้บันทึกคำตอบที่ผู้จัดทำยืนยันว่าเป็น Stakeholder Response แต่ยังไม่มีชื่อผู้อนุมัติ วันที่อนุมัติ หรือหลักฐานทางการ จึงใช้ประกอบการปรับ Working Draft ได้ แต่ยังไม่ถือเป็น Approved Requirement Baseline และห้ามใช้แทน Approval Record
 
@@ -659,4 +661,18 @@ Development/Test ใช้ไฟล์จำลองและอย่างน
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [รายการคำถามที่ยังต้องยืนยันสำหรับโครงการ SEMS](./SEMS_Stakeholder_Questions.md)<br>
+↑ หมวดเอกสาร: [SEMS Meeting Notes](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [บันทึกการประชุม SEMS — YYYY-MM-DD](./MEETING_NOTE_TEMPLATE.md)
+
+<!-- DOC_NAV_END -->

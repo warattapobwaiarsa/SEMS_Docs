@@ -1,8 +1,10 @@
 # Requirement Decision Register — SEMS
 
+[START HERE](../START_HERE.md) › [📋 Requirements](./README.md) › Requirement Decision Register — SEMS
+
 | Item | Detail |
 | :--- | :--- |
-| Version | **v0.6** |
+| Version | **v0.7** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
@@ -86,12 +88,13 @@
 
 ## Related Documents
 
-- Next: [Software Requirements Specification](./SRS/SEMS-SRS.md)
+- เอกสารที่เกี่ยวข้อง: [Software Requirements Specification](./SRS/SEMS-SRS.md)
 
 ## Revision history
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.7 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.6 | 2026-07-24 | SEMS Documentation Team | ปรับคำอธิบายสถานะและส่วนกำกับดูแลเป็นภาษาไทย โดยไม่เปลี่ยน Decision ID เนื้อหาการตัดสินใจ หรือสถานะอนุมัติ |
 | v0.5 | 2026-07-24 | SEMS Requirements Team | Added explicit lifecycle navigation to the SRS without changing decision content or approval status. |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Synchronized RD-008–RD-029 with confirmed stakeholder responses; added RD-030–RD-049 for retention, security, operations, measurement, code-list, custom amount, round reopen and report lifecycle; preserved DL-001 and prior values. |
@@ -99,3 +102,16 @@
 | v1.2 | 2026-07-23 | SEMS Requirements Team | Historical pre-policy version: added RD-023 and RD-024–RD-029 blockers. |
 | v1.1 | 2026-07-23 | Codex (AI), user-authorized | Historical pre-policy version: selected provisional RD-008–RD-022 and added DL-001. |
 | v1.0 | 2026-07-23 | SEMS Requirements Team | Historical initial register version. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [คำตอบและข้อเสนอสำหรับ Requirement Decision Register — โครงการ SEMS](./SEMS_Requirement_Decision_Analysis.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../START_HERE.md)<br>
+→ อ่านต่อ: [Software Requirements Specification (SRS)](./SRS/SEMS-SRS.md)
+
+<!-- DOC_NAV_END -->

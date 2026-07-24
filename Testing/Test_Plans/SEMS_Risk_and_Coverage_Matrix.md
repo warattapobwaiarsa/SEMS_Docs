@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
+
+[START HERE](../../START_HERE.md) › [🧪 Testing](../README.md) › SEMS Risk and Coverage Matrix
 
 ## 1. Scoring Model
 
@@ -78,4 +80,18 @@ Release ห้ามผ่านหากกรณีต่อไปนี้ไ
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.3 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Master Test Plan](./SEMS_Master_Test_Plan.md)<br>
+↑ หมวดเอกสาร: [🧪 Testing](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Test Data and Environment Plan](./SEMS_Test_Data_and_Environment_Plan.md)
+
+<!-- DOC_NAV_END -->

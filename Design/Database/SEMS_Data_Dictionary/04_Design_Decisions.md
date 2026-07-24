@@ -2,10 +2,12 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
+
+[START HERE](../../../START_HERE.md) › [SEMS Data Dictionary - Workbook Conversion](./README.md) › Design Decisions
 
 > **Baseline-candidate synchronization:** RD-024–RD-029 are resolved by the confirmed stakeholder response. Application uniqueness includes scholarship type; histories are per-application round snapshots; updates after Evaluation use Controlled Correction; and Release 1 stores no national ID. Historical proposals below are retained for backward traceability.
 
@@ -130,3 +132,22 @@
 - **สถานะ:** ต้องยืนยัน
 - **ผู้ยืนยัน:** เจ้าของข้อมูล
 - **หมายเหตุ:** -
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [Value Sets](./03_Value_Sets.md)<br>
+↑ หมวดเอกสาร: [SEMS Data Dictionary - Workbook Conversion](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../../START_HERE.md)<br>
+→ ขั้นตอนถัดไป: นำข้อสรุปที่ยืนยันแล้วไปตรวจสอบกับ [SEMS: ER Diagram, Prisma Schema Draft และ Data Dictionary](../SEMS_ER_Prisma_Data_Dictionary.md)
+
+<!-- DOC_NAV_END -->

@@ -2,10 +2,12 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v1.2** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Development Team** |
 | สถานะ | ฉบับใช้งาน |
+
+[START HERE](./START_HERE.md) › [Repository Index](./README.md) › แนวทางการ Commit และมีส่วนร่วมในโครงการ SEMS
 
 เอกสารนี้กำหนดมาตรฐานการสร้าง Branch, Commit และ Pull Request สำหรับ Repository ของโครงการ **Scholarship Evaluation Management System (SEMS)**
 
@@ -145,5 +147,19 @@ Pull Request ต้องมีข้อมูลต่อไปนี้:
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.2 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.1 | 2026-07-24 | SEMS Development Team | เพิ่มกฎ Thai-first สำหรับเอกสารและกำหนด Commit summary กับ Pull Request title เป็นภาษาอังกฤษ |
 | v1.0 | 2026-07-23 | SEMS Development Team | กำหนดมาตรฐาน Commit Message, Branch, Pull Request และ Checklist ฉบับแรก |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [นโยบายการกำกับดูแลเอกสารโครงการ SEMS](./DOCUMENTATION_POLICY.md)<br>
+↑ หมวดเอกสาร: [Scholarship Evaluation Management System (SEMS)](./README.md)<br>
+⌂ หน้าหลัก: [START HERE](./START_HERE.md)<br>
+→ อ่านต่อ: [SEMS Repository Tree](./REPOSITORY_TREE.md)
+
+<!-- DOC_NAV_END -->

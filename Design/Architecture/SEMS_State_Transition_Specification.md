@@ -3,10 +3,12 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-STS-001` |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Confirmed Response — Pending Formal Approval** |
+
+[START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › SEMS State Transition Specification
 
 ---
 
@@ -613,15 +615,29 @@ State Transition Specification ถือว่าพร้อมล็อกเ�
 
 ## Related Documents
 
-- Next: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
+- เอกสารที่เกี่ยวข้อง: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | `v0.4` | 2026-07-24 | SEMS Design Team | Added explicit navigation from state rules to the API contract artifacts. |
 | `v0.3` | 2026-07-24 | SEMS Design Team | Confirmed round/evaluation reopen, blocking open rule, immutable revisions and canonical errors while keeping formal approval pending. |
 | `v0.3` | 2026-07-24 | SEMS Design Team | Removed the redundant `ROUND_CLOSED` error; closed-round mutations use canonical `ROUND_NOT_OPEN` while `ROUND_CLOSED` remains an audit event. |
 | `v0.2` | 2026-07-23 | SEMS Design Team | ทำ Round baseline ให้เป็น DRAFT→OPEN→CLOSED→ARCHIVED, กำหนด Applicant ≥1 เป็น Provisional blocking และใช้ canonical error contract/code |
 | `v0.1` | 2026-07-23 | SEMS Requirements Team / AI-assisted draft | จัดทำ State Machine สำหรับรอบทุน Evaluation ผู้สมัคร และ Result Summary พร้อม Transition, Guard, Audit, Error Code และ Test Scenario |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [SEMS Process Flow Specification](./SEMS_Process_Flows.md)<br>
+↑ หมวดเอกสาร: [🎨 Design](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [KKU OAuth 2.1 · OIDC Authentication Service](../API/kku-oauth-summary.md)
+
+<!-- DOC_NAV_END -->

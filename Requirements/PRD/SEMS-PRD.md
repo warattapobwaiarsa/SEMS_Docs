@@ -3,10 +3,12 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-PRD-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Owner | SEMS Product Owner / Scholarship Office |
+
+[START HERE](../../START_HERE.md) › [📋 Requirements](../README.md) › SEMS Product Requirements Document
 
 ## ปัญหาที่ต้องแก้ไข (Problem Statement)
 
@@ -88,13 +90,27 @@ KKU OAuth/OIDC registration และ claims, PostgreSQL, file/object storage, d
 
 ## Related Documents
 
-- Next: [Requirement Decision Analysis](../SEMS_Requirement_Decision_Analysis.md) and [Requirement Decision Register](../SEMS_Requirement_Decision_Register.md)
+- เอกสารที่เกี่ยวข้อง: [Requirement Decision Analysis](../SEMS_Requirement_Decision_Analysis.md) and [Requirement Decision Register](../SEMS_Requirement_Decision_Register.md)
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Added explicit lifecycle navigation to requirement decision analysis and registration. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed Release 1 decisions, scope, measurements and baseline readiness without asserting approval. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline PRD compiled from repository sources; no stakeholder approval asserted. |
+
+<!-- DOC_NAV_START -->
+
+---
+
+## การนำทางเอกสาร
+
+← ก่อนหน้า: [รายงานการตรวจเอกสาร SEMS](../../DOCUMENTATION_REVIEW_REPORT.md)<br>
+↑ หมวดเอกสาร: [📋 Requirements](../README.md)<br>
+⌂ หน้าหลัก: [START HERE](../../START_HERE.md)<br>
+→ อ่านต่อ: [คำตอบและข้อเสนอสำหรับ Requirement Decision Register — โครงการ SEMS](../SEMS_Requirement_Decision_Analysis.md)
+
+<!-- DOC_NAV_END -->
