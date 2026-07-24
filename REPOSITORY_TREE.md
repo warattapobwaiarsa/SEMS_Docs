@@ -93,10 +93,10 @@ SEMS_Docs/
 │   │   │   ├── 13-review.png [v1.0 Draft]
 │   │   │   ├── 14-summary.png [v1.0 Draft]
 │   │   │   └── 15-export.png [v1.0 Draft]
-│   │   ├── README.md [v1.3]
+│   │   ├── README.md [v1.4]
 │   │   ├── screen_manifest.json [v1.0 Draft]
 │   │   ├── SEMS_Wireframe_Overview.png [v1.1 Draft]
-│   │   ├── SEMS_Wireframe_Prototype.html [v1.0 Draft]
+│   │   ├── SEMS_Wireframe_Prototype.html [v1.1 Ready for UAT]
 │   │   ├── SEMS_Wireframe_Specification.md [v1.2 Draft]
 │   │   └── Wireframe_UAT_Checklist.md [v1.1 Draft]
 │   └── README.md [v1.8]
@@ -123,7 +123,8 @@ SEMS_Docs/
 ├── .github/workflows/documentation-check.yml
 ├── scripts/
 │   ├── check-documentation-links.py
-│   └── check-document-versions.py
+│   ├── check-document-versions.py
+│   └── check-wireframe-interactions.py
 ├── .gitignore
 ├── CONTRIBUTING.md [v1.0]
 ├── DOCUMENTATION_POLICY.md [v1.2]
@@ -155,7 +156,7 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 | Design | [`Design/Database/SEMS_ER_Prisma_Data_Dictionary.md`](./Design/Database/SEMS_ER_Prisma_Data_Dictionary.md) | v1.2 (Draft) | 2026-07-23 |
 | Design | [`Design/Data_Templates/Data_import_to_web_Specification.md`](./Design/Data_Templates/Data_import_to_web_Specification.md) | v1.0 | 2026-07-23 |
 | Design | [`Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md`](./Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md) | v1.0 | 2026-07-23 |
-| Design | [`Design/UI_UX/README.md`](./Design/UI_UX/README.md) | v1.3 | 2026-07-23 |
+| Design | [`Design/UI_UX/README.md`](./Design/UI_UX/README.md) | v1.4 | 2026-07-24 |
 | Testing | [`Testing/README.md`](./Testing/README.md) | v1.4 | 2026-07-24 |
 | Deployment | [`Deployment/README.md`](./Deployment/README.md) | v1.2 | 2026-07-23 |
 

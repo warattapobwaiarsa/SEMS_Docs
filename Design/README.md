@@ -46,7 +46,7 @@
 | [`Database/SEMS_Data_Dictionary/README.md`](./Database/SEMS_Data_Dictionary/README.md) | v1.1 | 2026-07-23 | Reference — Converted from Workbook |
 | [`Database/SEMS_ER_Diagram.png`](./Database/SEMS_ER_Diagram.png) | v1.0 | 2026-07-23 | Draft |
 | [`Database/SEMS_ER_Prisma_Data_Dictionary.md`](./Database/SEMS_ER_Prisma_Data_Dictionary.md) | v1.2 | 2026-07-23 | Draft — Freeze Blockers Open |
-| [`UI_UX/README.md`](./UI_UX/README.md) | v1.3 | 2026-07-23 | Current Index |
+| [`UI_UX/README.md`](./UI_UX/README.md) | v1.4 | 2026-07-24 | Current Index |
 
 ## Revision History
 
