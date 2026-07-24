@@ -3,7 +3,7 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-STS-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Confirmed Response — Pending Formal Approval** |
@@ -611,10 +611,15 @@ State Transition Specification ถือว่าพร้อมล็อกเ�
 
 ---
 
+## Related Documents
+
+- Next: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| `v0.4` | 2026-07-24 | SEMS Design Team | Added explicit navigation from state rules to the API contract artifacts. |
 | `v0.3` | 2026-07-24 | SEMS Design Team | Confirmed round/evaluation reopen, blocking open rule, immutable revisions and canonical errors while keeping formal approval pending. |
 | `v0.3` | 2026-07-24 | SEMS Design Team | Removed the redundant `ROUND_CLOSED` error; closed-round mutations use canonical `ROUND_NOT_OPEN` while `ROUND_CLOSED` remains an audit event. |
 | `v0.2` | 2026-07-23 | SEMS Design Team | ทำ Round baseline ให้เป็น DRAFT→OPEN→CLOSED→ARCHIVED, กำหนด Applicant ≥1 เป็น Provisional blocking และใช้ canonical error contract/code |

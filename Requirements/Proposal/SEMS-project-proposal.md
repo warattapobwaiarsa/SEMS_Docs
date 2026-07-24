@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from PDF** |
 
@@ -966,3 +966,7 @@ Milestone: M8 - Final Delivery วันที่ส่งมอบ: 28 กุ�
 11. ลดเวลาที่ใช้ในการรวบรวมและคำนวณคะแนนจากคะแนนรายเกณฑ์ รวมถึงการจัดทำรายงาน
 
 12. เป็นพื้นฐานสำหรับการขยายระบบหรือเชื่อมต่อระบบอื่นในอนาคต
+
+## Related Documents
+
+- Next: [SEMS Documentation Review Report](../../DOCUMENTATION_REVIEW_REPORT.md)

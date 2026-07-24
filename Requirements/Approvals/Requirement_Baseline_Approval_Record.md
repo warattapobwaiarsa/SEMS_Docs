@@ -2,11 +2,11 @@
 
 | Field | Value |
 |---|---|
-| Template Version | v0.2 |
+| Template Version | v0.3 |
 | Last Updated | 2026-07-24 |
 | Approval Status | **Pending Formal Approval** |
 | Baseline Candidate Version | **Release 1 Baseline Candidate — 2026-07-24** |
-| Documents Reviewed | PRD v0.2; SRS v0.3; Decision Register v0.4; User Stories v0.4; Traceability v0.3; synchronized Design/API/DB/UI/Testing documents listed below |
+| Documents Reviewed | PRD v0.3; SRS v0.4; Decision Register v0.5; User Stories v0.4; Traceability v0.4; synchronized Design/API/DB/UI/Testing documents listed below |
 | Remaining Open Decisions | No Release 1 Critical/High business-rule decision remains Open. RD-040 capacity and RD-045 manual-process baseline are `Confirmed Direction — Pending Measurement`. |
 | Decision Owner | Pending Formal Record |
 | Reviewer | Pending Formal Record |
@@ -54,5 +54,6 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | Synchronized the pending approval record with post-audit document versions; no approval evidence was added. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Prepared the synchronized baseline candidate for formal completion without inventing approval evidence. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pending approval-record template. |

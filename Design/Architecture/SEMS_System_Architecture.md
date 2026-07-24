@@ -3,8 +3,8 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-ARCH-001` |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Status | **Draft — Pending System Design Approval** |
 | Owner | SEMS Architecture Team |
 
@@ -117,9 +117,14 @@ Back up PostgreSQL plus storage metadata/content consistently and encrypt backup
 - Evaluator DTOs expose only own Evaluation plus slot/Submitted/minimum-completion counts.
 - PII classification, lawful need for national ID and production data masking
 
+## Related Documents
+
+- Next: [SEMS Process Flow Specification](./SEMS_Process_Flows.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Synchronized the document header with its existing v0.2 revision and added process-flow navigation. |
 | v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed session, retention, backup, file-security, application-key, isolation and capacity constraints. |
 | v0.1 | 2026-07-23 | SEMS Architecture Team | Initial draft aligned with proposal and current design documents; open decisions retained. |

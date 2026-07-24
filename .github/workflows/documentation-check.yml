@@ -20,11 +20,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Internal Markdown links, anchors, paths and whitespace
+      - name: Repository links, JSON paths, OpenAPI references, traceability and index coverage
         run: python scripts/check-documentation-links.py
-      - name: Document version consistency
+      - name: Document version and status consistency
         run: python scripts/check-document-versions.py
-      - name: Wireframe interaction coverage
+      - name: Wireframe interaction and screen-manifest coverage
         run: python scripts/check-wireframe-interactions.py
       - name: JSON syntax
         run: |

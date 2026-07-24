@@ -3,7 +3,7 @@
 | รายการ | ค่า |
 |---|---|
 | Document ID | SEMS-TP-001 |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft for Design Baseline** |
@@ -264,10 +264,15 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 - Defect Log
 - Test Summary Report และ UAT Sign-off
 
+## Related Documents
+
+- Next: [Functional Test Case Catalog](../Test_Cases/SEMS_Functional_Test_Case_Catalog.md), [High-Risk Test Cases](../Test_Cases/SEMS_High_Risk_Test_Cases.md) and [Scoring Reference Data](../Test_Data/SEMS_Scoring_Reference_Cases.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation to the functional, high-risk and scoring-reference test artifacts. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and module-specific size errors with the canonical inventory. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Aligned canonical evaluation error code and pre-baseline documentation checks. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial master test plan draft. |

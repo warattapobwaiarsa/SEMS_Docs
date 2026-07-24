@@ -1,12 +1,15 @@
 """Fail when the SEMS prototype contains an enabled button with no valid action."""
 
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 import re
+import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOTYPE = ROOT / "Design" / "UI_UX" / "SEMS_Wireframe_Prototype.html"
+MANIFEST = ROOT / "Design" / "UI_UX" / "screen_manifest.json"
 
 
 class PrototypeParser(HTMLParser):
@@ -43,10 +46,28 @@ def main():
         elif not destination and not action:
             errors.append(f"button {number}: no data-go or data-action")
 
+    tracked = set(
+        subprocess.check_output(
+            ["git", "ls-files"], cwd=ROOT, text=True, encoding="utf-8"
+        ).splitlines()
+    )
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    manifest_ids = {item["id"] for item in manifest}
+    if manifest_ids != parser.screens:
+        errors.append(
+            f"screen manifest mismatch: manifest={sorted(manifest_ids)} "
+            f"prototype={sorted(parser.screens)}"
+        )
+    for item in manifest:
+        image = item.get("image")
+        target = f"Design/UI_UX/{image}" if image else ""
+        if not image or target not in tracked:
+            errors.append(f"screen '{item['id']}': missing or untracked image '{image}'")
+
     assert not errors, "\n".join(errors)
     print(
         f"OK: {len(parser.screens)} screens, {len(parser.buttons)} buttons, "
-        f"{len(actions)} actions"
+        f"{len(actions)} actions, {len(manifest)} manifest images"
     )
 
 

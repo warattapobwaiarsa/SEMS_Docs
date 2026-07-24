@@ -4,7 +4,7 @@
 |---|---|
 | ชื่อระบบ | Scholarship Evaluation Management System (SEMS) |
 | รหัสเอกสาร | SEMS-DES-FLOW-001 |
-| Version | **v1.2** |
+| Version | **v1.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft for Review** |
@@ -639,10 +639,15 @@ flowchart TD
 
 `KKU callback → find pre-provisioned SEMS account → bind stable sub on first login → deny USER_NOT_PROVISIONED or inactive → enforce 30-minute idle/8-hour absolute session → revoke on inactive`.
 
+## Related Documents
+
+- Next: [Permission Matrix](./SEMS_Permission_Matrix.md) and [State Transition Specification](./SEMS_State_Transition_Specification.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.3 | 2026-07-24 | SEMS Design Team | Added explicit lifecycle navigation to permission and state-transition specifications. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed reopen and added Controlled Correction, round/report, quarantine and account/session flows. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned import and closed-round errors with module-specific canonical codes. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Standardized observability correlation on `traceId`. |

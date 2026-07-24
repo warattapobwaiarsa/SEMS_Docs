@@ -3,7 +3,7 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-PRD-001` |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Owner | SEMS Product Owner / Scholarship Office |
@@ -86,9 +86,14 @@ No Release 1 Critical/High decision remains Open. Formal approver names, approva
 
 **Ready for Formal Review; Pending Formal Approval** — confirmed responses are synchronized, but no verifiable approver/date/signature evidence exists.
 
+## Related Documents
+
+- Next: [Requirement Decision Analysis](../SEMS_Requirement_Decision_Analysis.md) and [Requirement Decision Register](../SEMS_Requirement_Decision_Register.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | Added explicit lifecycle navigation to requirement decision analysis and registration. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed Release 1 decisions, scope, measurements and baseline readiness without asserting approval. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline PRD compiled from repository sources; no stakeholder approval asserted. |

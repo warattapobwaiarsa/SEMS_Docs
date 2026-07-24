@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Scope | Applicant Import จาก [`Data_import_to_web.xlsx`](./Data_import_to_web.xlsx) |
@@ -217,10 +217,15 @@
 - `SEMS_Data_Dictionary.xlsx`
 - [`SEMS_Requirement_Decision_Analysis.md`](../../Requirements/SEMS_Requirement_Decision_Analysis.md)
 
+## Related Documents
+
+- Next UI flow: [Wireframe Specification](../UI_UX/SEMS_Wireframe_Specification.md#6-detailed-wireframes) — Upload, Mapping, Preview and Error Report screens
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Design Team | Added direct navigation from import rules to the corresponding wireframe flow. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Replaced import-specific aliases with canonical allowed codes while retaining detailed validation reasons. |
 | v0.2 | 2026-07-23 | SEMS Design Team | Limited Release 1 import to `.xlsx`/`.csv` and aligned canonical file-type error code. |
 | v0.1 | 2026-07-23 | SEMS Design Team | Initial applicant import mapping draft. |

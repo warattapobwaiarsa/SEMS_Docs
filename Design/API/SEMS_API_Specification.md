@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.3** |
+| Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — System Design Review** |
@@ -628,10 +628,16 @@ Formal approval evidence, KKU production client/claims/URIs, actual domains, rat
 
 ดูรายละเอียด schema, request/response และ custom extensions (`x-roles`, `x-validation`, `x-error-codes`, `x-audit-events`) ใน [`openapi.yaml`](./openapi.yaml) และดูสรุป endpoint แบบตารางใน [`endpoint-matrix.csv`](./endpoint-matrix.csv)
 
+## Related Documents
+
+- Next: [ER / Prisma Data Dictionary](../Database/SEMS_ER_Prisma_Data_Dictionary.md) and [Data Dictionary Index](../Database/SEMS_Data_Dictionary/README.md)
+- Synchronized artifacts: [OpenAPI](./openapi.yaml), [Endpoint Matrix](./endpoint-matrix.csv) and [Error Code Catalog](./SEMS_Error_Code_Catalog.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.4 | 2026-07-24 | SEMS Design Team | Added database lifecycle navigation and documented the synchronized API/OpenAPI/endpoint-matrix relationship. |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added confirmed reopen/correction/round/report/code-list/scan contracts and object-authorization/concurrency/audit rules. |
 | v1.3 | 2026-07-24 | SEMS Design Team | Made the embedded-point total and arithmetic-mean summary formula explicit across submit and recalculation operations. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Standardized error catalog/aliases, Release 1 import types and provisional round-opening validation. |

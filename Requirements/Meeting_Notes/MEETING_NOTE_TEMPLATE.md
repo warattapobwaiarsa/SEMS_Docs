@@ -2,7 +2,10 @@
 
 | Field | Value |
 |---|---|
-| Status | Draft |
+| Template Version | v0.2 |
+| Last Updated | 2026-07-24 |
+| Author | SEMS Documentation Team |
+| Status | Template |
 | Meeting Date / Time | _Pending_ |
 | Location / Channel | _Pending_ |
 | Facilitator | _Pending_ |
@@ -40,4 +43,5 @@ _Record facts, alternatives and source evidence. Do not infer approval._
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Documentation Team | Classified the reusable artifact explicitly as a Template. |
 | v0.1 | YYYY-MM-DD | _Pending_ | Initial meeting note. |

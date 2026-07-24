@@ -3,7 +3,7 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Confirmed Response — Pending Formal Approval** |
@@ -391,10 +391,16 @@ ResultSummary
 
 Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/SEMS_Scoring_Reference_Cases.md)
 
+## Related Documents
+
+- Source conversion: [Criteria Converted](./Criteria_Converted.md)
+- Next: [Applicant Import Mapping Specification](../Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md) and [Import Validation Rules](../Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Design Team | Completed Criteria source/configuration links and added navigation to import mapping and validation artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Marked confirmed-response status and aligned custom-score/custom-amount reasons and formal approval boundary. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned incomplete scoring/comment validation with canonical `EVALUATION_INCOMPLETE`. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Marked all formula rules provisional, linked the actual machine-readable config and scoring reference dataset. |

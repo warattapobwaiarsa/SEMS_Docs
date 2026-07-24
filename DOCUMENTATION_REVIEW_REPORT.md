@@ -3,7 +3,7 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-DOC-REVIEW-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Status | **Ready for Formal Stakeholder Review — Pending Formal Approval** |
 | Review Scope | Requirements, architecture, API/OpenAPI, data model, scoring, UI/UX, testing, deployment, workbooks and repository indexes |
@@ -151,8 +151,8 @@ No file was moved or deleted. No branch, commit, push or pull request was create
 | Check | Result |
 |---|---|
 | Documentation links/anchors | PASS — 66 Markdown files, 0 errors |
-| Document/index version consistency | PASS — 62 versioned Markdown files, 0 errors |
-| Wireframe interactions | PASS — 15 screens, 103 buttons, 27 actions |
+| Document/index version and status consistency | PASS — 65 versioned Markdown files, 0 errors |
+| Wireframe interactions and manifest images | PASS — 15 screens, 103 buttons, 27 actions, 15 manifest images |
 | Repository JSON parsing | PASS — 2 files |
 | OpenAPI operation IDs | PASS — 70 operations, 70 unique |
 | OpenAPI ↔ endpoint matrix | PASS — 70/70; no missing or extra operation |
@@ -181,10 +181,16 @@ Recommended commit message:
 
 `docs: align SEMS baseline candidate with confirmed stakeholder responses`
 
+## Related Documents
+
+- Next: [PRD](./Requirements/PRD/SEMS-PRD.md)
+- Supporting decisions: [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md) and [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | Added lifecycle navigation and refreshed enhanced version/status and wireframe-manifest validation results. |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed responses across requirements/design/data/API/UI/testing, updated workbooks, added test/UAT coverage and retained formal approval boundaries. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded pre-baseline repository metadata, PII risks and partial validation evidence. |
 | v0.2 | 2026-07-23 | SEMS Documentation Team | Recorded link/version/JSON checks and independent validator limitation. |

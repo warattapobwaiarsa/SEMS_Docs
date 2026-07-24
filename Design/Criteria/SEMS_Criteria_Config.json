@@ -5,7 +5,11 @@
   "status": "DRAFT_PENDING_STAKEHOLDER_APPROVAL",
   "source_files": [
     "Criteria.xlsx",
-    "SEMS-project-proposal.pdf"
+    "../../Requirements/Proposal/SEMS-project-proposal.pdf"
+  ],
+  "related_documents": [
+    "Criteria_Converted.md",
+    "SEMS_Scoring_Rule_Specification.md"
   ],
   "criteria_set": {
     "criteria_set_code": "SEMS-DEFAULT-100",

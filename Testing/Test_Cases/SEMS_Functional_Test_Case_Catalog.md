@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -168,10 +168,15 @@
 | NFR-004 | retry after transient DB error | P1 | Resilience | no duplicate record | Section 4 NFR | — |
 | NFR-005 | backup/restore preserves constraints | P1 | Recovery | data/summary/audit intact | Section 4 NFR | — |
 
+## Related Documents
+
+- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from functional test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document errors with the canonical inventory and retained provisional scoring status. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Added Linked Requirement/Linked Decision columns, canonical duplicate code and corrected scoring range to 5–100. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial functional test catalog draft. |

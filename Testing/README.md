@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.5** |
+| Current Version | **v1.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | Test plans, test cases, regression, security, and UAT |
@@ -18,23 +18,24 @@
 
 | Document | Version | Status |
 | :--- | :---: | :--- |
-| [`Test_Plans/SEMS_Master_Test_Plan.md`](./Test_Plans/SEMS_Master_Test_Plan.md) | v0.3 | Draft |
+| [`Test_Plans/SEMS_Master_Test_Plan.md`](./Test_Plans/SEMS_Master_Test_Plan.md) | v0.4 | Draft |
 | [`Test_Plans/SEMS_Risk_and_Coverage_Matrix.md`](./Test_Plans/SEMS_Risk_and_Coverage_Matrix.md) | v0.1 | Draft |
 | [`Test_Plans/SEMS_Test_Data_and_Environment_Plan.md`](./Test_Plans/SEMS_Test_Data_and_Environment_Plan.md) | v0.2 | Draft |
-| [`Test_Cases/SEMS_Functional_Test_Case_Catalog.md`](./Test_Cases/SEMS_Functional_Test_Case_Catalog.md) | v0.3 | Draft |
-| [`Test_Cases/SEMS_High_Risk_Test_Cases.md`](./Test_Cases/SEMS_High_Risk_Test_Cases.md) | v0.3 | Draft |
+| [`Test_Cases/SEMS_Functional_Test_Case_Catalog.md`](./Test_Cases/SEMS_Functional_Test_Case_Catalog.md) | v0.4 | Draft |
+| [`Test_Cases/SEMS_High_Risk_Test_Cases.md`](./Test_Cases/SEMS_High_Risk_Test_Cases.md) | v0.4 | Draft |
 | [`Test_Cases/SEMS_Import_Test_Cases.md`](./Test_Cases/SEMS_Import_Test_Cases.md) | v0.1 | Draft |
 | [`Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md`](./Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md) | v0.3 | Draft |
 | [`Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md`](./Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md) | v0.2 | Draft |
 | [`Test_Cases/SEMS_Regression_Checklist.md`](./Test_Cases/SEMS_Regression_Checklist.md) | v0.2 | Draft |
 | [`Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md`](./Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md) | v0.1 | Test Specification — Not Yet Executed |
-| [`Test_Data/SEMS_Scoring_Reference_Cases.md`](./Test_Data/SEMS_Scoring_Reference_Cases.md) | v0.2 | Confirmed Response — Pending Formal Approval |
-| [`UAT/SEMS_UAT_Baseline_Checklist.md`](./UAT/SEMS_UAT_Baseline_Checklist.md) | v0.1 | Draft — Participants/Dates Pending |
+| [`Test_Data/SEMS_Scoring_Reference_Cases.md`](./Test_Data/SEMS_Scoring_Reference_Cases.md) | v0.3 | Confirmed Response — Pending Formal Approval |
+| [`UAT/SEMS_UAT_Baseline_Checklist.md`](./UAT/SEMS_UAT_Baseline_Checklist.md) | v0.2 | Draft — Participants/Dates Pending |
 
 ## Revision History
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.6 | 2026-07-24 | SEMS Documentation Team | Synchronized lifecycle navigation versions across test plans, cases, reference data and UAT. |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | Added confirmed-response baseline test catalog, UAT checklist and synchronized scoring status. |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | Synchronized canonical error codes and explicit provisional approval/execution status across affected test plans and cases. |
 | v1.3 | 2026-07-23 | SEMS Documentation Team | Added scoring reference data and updated traceable/canonical P0 test documents. |

@@ -1,8 +1,8 @@
 ---
 document_id: SEMS-SRS-001
 title: Software Requirements Specification — Scholarship Evaluation Management System (SEMS)
-version: "v0.3"
-status: Draft - Pending Requirement Baseline Approval
+version: "v0.4"
+status: Baseline Candidate - Pending Formal Approval
 last_updated: 2026-07-24
 owner: SEMS Project Team
 author: SEMS Requirements Team
@@ -16,7 +16,7 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | 0.3-draft |
+| Version | 0.4-draft |
 | วันที่จัดทำ | 24 กรกฎาคม 2026 |
 | สถานะ | Baseline Candidate - Pending Formal Approval |
 | รูปแบบ | สอดคล้องแนวทาง ISO/IEC/IEEE 29148 ในระดับโครงสร้าง |
@@ -29,6 +29,7 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | Version | Date | Change | Status |
 |---|---|---|---|
+| 0.4-draft | 2026-07-24 | Synchronized lifecycle status and added navigation to consolidated user stories | Pending Formal Approval |
 | 0.3-draft | 2026-07-24 | Synchronized confirmed stakeholder decisions for Release 1 baseline review | Pending Formal Approval |
 | 2.2-draft | 2026-07-24 | Aligned all referenced error codes to the canonical allowed inventory and retained embedded-point scoring semantics | Pending Approval |
 | 2.1-draft | 2026-07-23 | Reconciled provisional round opening, Release 1 import, embedded-point scoring, canonical error contract/codes and traceability | Pending Approval |
@@ -660,3 +661,7 @@ Requirement พร้อม Development เมื่อ:
 - Migration/Seed/Config ครบ
 - Acceptance Criteria ผ่านใน Test Environment
 - เอกสารและ Traceability อัปเดต
+
+# 16. Related Documents
+
+- Next: [Consolidated User Stories and Acceptance Criteria](../User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)

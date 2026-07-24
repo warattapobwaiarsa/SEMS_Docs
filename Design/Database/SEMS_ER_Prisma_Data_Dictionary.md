@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.4** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pre-Implementation Review** |
 | Database / ORM | PostgreSQL / Prisma |
@@ -1020,10 +1020,15 @@ The following table preserves the former blocker questions. RD-024–RD-029 are 
 | RD-028 | Required Fields ขั้นสุดท้าย | Applicant/ApplicantRound | Nullable/business checks | Required parent relation | Blocking vs warning | Request required fields | Blank/export policy | NOT NULL migration needs clean data |
 | RD-029 | ต้องจัดเก็บเลขบัตรประชาชนหรือไม่ | Applicant or restricted identity store | Unique/hash decision | Possible separate restricted entity | Column accept/reject/mask | Field exposure and authorization | Excluded by default | Encrypt/hash/remove/backfill and retention |
 
+## Related Documents
+
+- Next: [Scoring Rule Specification](../Criteria/SEMS_Scoring_Rule_Specification.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Design Team | Added lifecycle navigation to scoring design while retaining Draft — Pre-Implementation Review status. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added scholarship-type application key, revision/reopen/correction/report/code-list/scan structures, confirmed retention and resolved RD-024–RD-029. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Added Database Freeze Blockers and standardized AuditLog correlation field to `traceId`; schema remains Draft. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated ER/Prisma/Data Dictionary pre-implementation draft. |

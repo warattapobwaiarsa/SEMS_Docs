@@ -2,7 +2,7 @@
 
 | Item | Detail |
 | :--- | :--- |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
@@ -84,10 +84,15 @@ This register preserves the earlier provisional choices and records how they wer
 - `RD-040` and `RD-045` remain pending real measurements; this does not authorize inventing measured results.
 - Formal approval is still required. Record real approver names, dates and evidence only in [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md).
 
+## Related Documents
+
+- Next: [Software Requirements Specification](./SRS/SEMS-SRS.md)
+
 ## Revision history
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.5 | 2026-07-24 | SEMS Requirements Team | Added explicit lifecycle navigation to the SRS without changing decision content or approval status. |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Synchronized RD-008–RD-029 with confirmed stakeholder responses; added RD-030–RD-049 for retention, security, operations, measurement, code-list, custom amount, round reopen and report lifecycle; preserved DL-001 and prior values. |
 | v1.3 | 2026-07-24 | SEMS Requirements Team | Historical pre-policy version: clarified RD-010 and the pre-baseline sequence. |
 | v1.2 | 2026-07-23 | SEMS Requirements Team | Historical pre-policy version: added RD-023 and RD-024–RD-029 blockers. |

@@ -3,7 +3,7 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-SCORE-DATA-001` |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Status | **Confirmed Response — Pending Formal Approval** |
 
@@ -41,9 +41,14 @@
 - Custom discretion score is an integer 0–10; a non-standard option needs a reason. Custom Amount and general comments never enter the 100-point total.
 - Rounding engine boundary fixture: Decimal totals `80.00` and `80.01` average to `80.005` and must produce `80.01` with `HALF_UP`. This fixture tests the Decimal/rounding function, not the current integer-only option set.
 
+## Related Documents
+
+- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS QA Team | Added explicit navigation from scoring reference data to the pending UAT checklist. |
 | v0.2 | 2026-07-24 | SEMS QA Team | Confirmed scoring status and added criteria-lock/custom-score/non-scoring assertions. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Added provisional min/max, two/three evaluator, exclusion, embedded-point, version and rounding reference cases. |

@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.2** |
+| Version | **v1.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
@@ -332,10 +332,15 @@ Authentication
 - **Evaluator:** ค้นหาและเลือกผู้สมัครในรอบ Open ดูรายละเอียดเฉพาะผู้สมัครที่เลือก บันทึก Draft Review และ Submit **เฉพาะ Evaluation ของตนเอง** และ **ห้ามดูหรือแก้ผลของผู้ประเมินคนอื่น**
 - **Backend:** ต้องบังคับใช้ Role + Active Status + Round Status + Ownership + Evaluation Status ทุกครั้ง ไม่พึ่งการซ่อนเมนูจาก Frontend
 
+## Related Documents
+
+- Next: [API Specification](../API/SEMS_API_Specification.md), [Error Code Catalog](../API/SEMS_Error_Code_Catalog.md), [OpenAPI](../API/openapi.yaml) and [Endpoint Matrix](../API/endpoint-matrix.csv)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.3 | 2026-07-24 | SEMS Design Team | Added explicit navigation from permission rules to the API contract artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed evaluator isolation, reopen separation of duties, correction/round/report/scan endpoint permissions. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`; audit-event names remain unchanged. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Aligned canonical evaluation error codes and made controlled reopen explicitly provisional. |

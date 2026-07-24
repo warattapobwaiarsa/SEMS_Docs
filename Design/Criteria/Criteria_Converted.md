@@ -2,12 +2,14 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
 
 > เอกสารนี้ถอดข้อมูลโดยตรงจากชีต `Criteria` ในไฟล์ [`Criteria.xlsx`](./Criteria.xlsx) เพื่อให้อ่านได้โดยไม่ต้องเปิดตัวพรีวิว Excel
+
+Related artifacts: [Criteria configuration](./SEMS_Criteria_Config.json) and [Scoring Rule Specification](./SEMS_Scoring_Rule_Specification.md).
 
 ## ข้อมูลไฟล์ต้นฉบับ
 

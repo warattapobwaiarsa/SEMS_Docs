@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -412,10 +412,15 @@
 
 **Expected Result:** เมื่อ Confirm Import ล้มเหลวกลาง transaction ต้องไม่มี Applicant/History บางส่วนค้าง และ batch/audit ระบุ failure โดยไม่เปิดเผยข้อมูลลับ
 
+## Related Documents
+
+- Next: [SEMS UAT Baseline Checklist](../UAT/SEMS_UAT_Baseline_Checklist.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from high-risk test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report reconciliation still follows the provisional RD-021 template. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Canonicalized duplicate error code and added embedded-point and rollback P0 cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial high-risk test cases. |

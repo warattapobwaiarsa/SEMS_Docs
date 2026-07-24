@@ -3,11 +3,11 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-TRACE-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 
-Source order follows Proposal → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB → Tests. `Provisional` means stakeholder confirmation is still required.
+Source order follows Proposal → PRD → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB/UI → Tests → UAT → approval evidence. `Provisional` means stakeholder confirmation is still required.
 
 | Trace ID | Core Flow / Proposal | Decision | SRS | User Story / AC | Process / State / Permission | API operationId | Database / Constraint | Test Case | Current Status |
 |---|---|---|---|---|---|---|---|---|---|
@@ -26,11 +26,25 @@ Source order follows Proposal → confirmed decisions → Decision Register → 
 | TRC-013 | Third Evaluator §5.2.9 | RD-001, RD-005 | FR-SCO-006..008 | US-SCR-003 / AC-01..05 | PF-SCR-002 | `createEvaluation`, `submitEvaluation` | ResultSummary calculationVersion | SEL-010; SCR-005; HR-SCR-002 | Mapped |
 | TRC-014 | Close Round §5.2.10 | RD-006..008 | FR-RND-006..008, FR-SCO-009..012 | US-CLS-001..002 | PF-RND-001 / TR-RND-003 | `setRoundClose` | RoundStatus, ApplicantResultStatus | RND-006..007; HR-RND-001..002 | Mapped |
 | TRC-015 | Dashboard §5.2.10 | RD-004..007 | FR-DSH-001..003 | US-DSH-001..002 | PM-035 | `getDashboardSummary` | ResultSummary / submitted-only query | DSH-001..005 | Mapped |
-| TRC-016 | Report Export §5.2.11 | RD-021..022, RD-031–032, RD-049 | FR-RPT-001..010 | US-RPT-001..003 | PF-RPT-001 / PM-036 | `createReportExport`, `listReportSnapshots`, `downloadReportSnapshot` | ReportExport, ReportSnapshot / immutable final | REP-001..010; CR-020..023 | Confirmed response; approval pending |
+| TRC-016 | Report Export §5.2.11 | RD-021..022, RD-031–032, RD-049 | FR-RPT-001..010 | US-RPT-001..003 | PF-RPT-001 / PM-036 | `createReportExport`, `listReportSnapshots`, `downloadReportExport` | ReportExport, ReportSnapshot / immutable final | REP-001..010; CR-020..023 | Confirmed response; approval pending |
 | TRC-017 | Audit §5.5 | RD-008, RD-021..022 | FR-AUD-001..004 | Cross-cutting AC | PM audit controls | `listAuditLogs`, `getAuditLog` | AuditLog / append-only, `traceId`, redaction | AUD-001..006; SEC-AUD-001..004 | Mapped; retention open |
 | TRC-018 | Account/session isolation | RD-034–037 | FR-AUT-011; NFR-SEC-010 | US-SEC-004 | PM-001..008 | `handleLoginCallback`, `getEvaluation` | User, AuthSession | CR-024..028 | Confirmed response; approval pending |
 | TRC-019 | File security | RD-038–039 | FR-DOC-007 | US-SEC-004 | PF-DOC-SCAN | `uploadApplicantDocument`, `getDocumentScanStatus` | ApplicantDocument, DocumentScanStatus | CR-029..031 | Confirmed response; approval pending |
 | TRC-020 | Retention/backup/capacity | RD-030–033, RD-040–041 | NFR-RET-001, NFR-BCP-001, NFR-CAP-001 | Operational AC | Architecture operations controls | — | Retention jobs, backup evidence | CR-032..035 | Measurements pending where stated |
+
+## Linked document set
+
+- Requirements: [PRD](./PRD/SEMS-PRD.md), [SRS](./SRS/SEMS-SRS.md) and [User Stories / Acceptance Criteria](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
+- Design: [System Architecture](../Design/Architecture/SEMS_System_Architecture.md), [Process Flows](../Design/Architecture/SEMS_Process_Flows.md), [Permission Matrix](../Design/Architecture/SEMS_Permission_Matrix.md), [State Transition Specification](../Design/Architecture/SEMS_State_Transition_Specification.md), [API Specification](../Design/API/SEMS_API_Specification.md), [OpenAPI](../Design/API/openapi.yaml), [ER / Prisma Data Dictionary](../Design/Database/SEMS_ER_Prisma_Data_Dictionary.md) and [Wireframe Specification](../Design/UI_UX/SEMS_Wireframe_Specification.md)
+- Testing: [Master Test Plan](../Testing/Test_Plans/SEMS_Master_Test_Plan.md), [Functional Test Case Catalog](../Testing/Test_Cases/SEMS_Functional_Test_Case_Catalog.md), [High-Risk Test Cases](../Testing/Test_Cases/SEMS_High_Risk_Test_Cases.md), [Scoring Reference Data](../Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) and [UAT Baseline Checklist](../Testing/UAT/SEMS_UAT_Baseline_Checklist.md)
+- Pending evidence: [Requirement Baseline Approval Record](./Approvals/Requirement_Baseline_Approval_Record.md)
+
+| Linkage area | Current mapping state |
+|---|---|
+| UI screen / wireframe | Wireframe specification linked; row-level screen IDs are not explicitly mapped |
+| Test document | Test IDs are preserved above; catalog links are provided at document-set level |
+| UAT | Baseline checklist linked; per-TRC UAT IDs are pending |
+| Approval | Pending approval evidence; no formal approval is claimed |
 
 ## Coverage Statement
 
@@ -57,6 +71,7 @@ Source order follows Proposal → confirmed decisions → Decision Register → 
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | Corrected the report download operation ID and added explicit requirements, design, test, UAT and pending-approval navigation. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Added confirmed-response traceability for application identity, correction/reopen, reporting, account/session isolation, file security, retention, backup and capacity. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Separated decision/approval evidence and test definition, automation, execution, pass and UAT states without changing 17/17 core-flow coverage. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Created core-flow traceability matrix with explicit partial/provisional status. |

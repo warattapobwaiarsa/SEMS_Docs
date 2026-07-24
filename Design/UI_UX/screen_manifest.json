@@ -3,90 +3,105 @@
     "id": "login",
     "number": "01",
     "title": "Login",
-    "role": "ทุกบทบาท"
+    "role": "ทุกบทบาท",
+    "image": "screens/01-login.png"
   },
   {
     "id": "dashboard",
     "number": "02",
     "title": "Admin Dashboard",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/02-dashboard.png"
   },
   {
     "id": "rounds",
     "number": "03",
     "title": "จัดการรอบทุน",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/03-rounds.png"
   },
   {
     "id": "upload",
     "number": "04",
     "title": "Import Upload",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/04-upload.png"
   },
   {
     "id": "mapping",
     "number": "05",
     "title": "Column Mapping",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/05-mapping.png"
   },
   {
     "id": "preview",
     "number": "06",
     "title": "Import Preview",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/06-preview.png"
   },
   {
     "id": "errors",
     "number": "07",
     "title": "Import Error Report",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/07-errors.png"
   },
   {
     "id": "applicants",
     "number": "08",
     "title": "รายชื่อผู้สมัคร",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/08-applicants.png"
   },
   {
     "id": "applicant-detail",
     "number": "09",
     "title": "รายละเอียดผู้สมัคร",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/09-applicant-detail.png"
   },
   {
     "id": "criteria",
     "number": "10",
     "title": "จัดการเกณฑ์",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/10-criteria.png"
   },
   {
     "id": "select-applicant",
     "number": "11",
     "title": "เลือกผู้สมัคร",
-    "role": "Evaluator"
+    "role": "Evaluator",
+    "image": "screens/11-select-applicant.png"
   },
   {
     "id": "evaluation",
     "number": "12",
     "title": "ประเมินหน้าเดียว",
-    "role": "Evaluator"
+    "role": "Evaluator",
+    "image": "screens/12-evaluation.png"
   },
   {
     "id": "review",
     "number": "13",
     "title": "Review Before Submit",
-    "role": "Evaluator"
+    "role": "Evaluator",
+    "image": "screens/13-review.png"
   },
   {
     "id": "summary",
     "number": "14",
     "title": "สรุปผล",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/14-summary.png"
   },
   {
     "id": "export",
     "number": "15",
     "title": "ส่งออกรายงาน",
-    "role": "Admin"
+    "role": "Admin",
+    "image": "screens/15-export.png"
   }
 ]

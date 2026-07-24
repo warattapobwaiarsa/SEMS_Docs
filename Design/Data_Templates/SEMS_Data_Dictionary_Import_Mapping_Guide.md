@@ -2,8 +2,8 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Workbook | [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](./SEMS_Data_Dictionary_Import_Mapping.xlsx) |
@@ -61,9 +61,14 @@
 
 รายละเอียดครบถ้วนอยู่ในไฟล์ [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](./SEMS_Data_Dictionary_Import_Mapping.xlsx) และฉบับอ่านบน GitHub แยกตามชีตอยู่ที่ [`SEMS_Data_Dictionary_Import_Mapping/README.md`](./SEMS_Data_Dictionary_Import_Mapping/README.md)
 
+## Related Documents
+
+- Next UI flow: [Wireframe Specification](../UI_UX/SEMS_Wireframe_Specification.md#6-detailed-wireframes) — Upload, Mapping, Preview and Error Report screens
+
 ## Revision History
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.3 | 2026-07-24 | SEMS Design Team | Added direct navigation from import mapping guidance to the corresponding wireframe flow. |
 | v0.2 | 2026-07-23 | SEMS Design Team | Added links to the GitHub-readable per-sheet Markdown conversion. |
 | v0.1 | 2026-07-23 | SEMS Design Team | จัดทำ Draft ของ Data Dictionary และ Import Column Mapping สำหรับ Applicant Import |

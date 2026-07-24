@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.4** |
+| Current Version | **v1.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
@@ -188,9 +188,16 @@
 - [Regression Checklist](./Testing/Test_Cases/SEMS_Regression_Checklist.md)
 - [Scoring, State, and Report Test Cases](./Testing/Test_Cases/SEMS_Scoring_State_Report_Test_Cases.md)
 - [Security, RBAC, and SSO Test Cases](./Testing/Test_Cases/SEMS_Security_RBAC_SSO_Test_Cases.md)
+- [Confirmed-Response Baseline Test Cases — Not Yet Executed](./Testing/Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md)
 - [Scoring Reference Cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md)
+- [UAT Baseline Checklist — Draft, Not Yet Executed](./Testing/UAT/SEMS_UAT_Baseline_Checklist.md)
 
-`Testing/UAT/` ยังไม่มีเอกสาร
+### Automated Validation
+
+- [Documentation link checker](./scripts/check-documentation-links.py) — ตรวจ relative Markdown links, anchors, exact path case, JSON file references, START index coverage และ local-only paths
+- [Document version checker](./scripts/check-document-versions.py) — ตรวจเลขเวอร์ชันที่แสดงในเอกสารและ index หลัก
+- [Wireframe interaction checker](./scripts/check-wireframe-interactions.py) — ตรวจปุ่มและปลายทางใน HTML prototype รวมถึง image paths ใน screen manifest
+- [Documentation Check workflow](./.github/workflows/documentation-check.yml) — รัน validation scripts, JSON syntax, OpenAPI lint และ secret scanning ใน CI
 
 ### Deployment
 
@@ -222,6 +229,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.5 | 2026-07-24 | SEMS Documentation Team | Completed the testing/UAT and automated-validation indexes after the documentation linkage audit. |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | Indexed the synchronized baseline candidate and formal-approval handoff. |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and updated the reading index. |
 | v1.2 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and the clearly labeled advisor-answer simulation to the reading index. |

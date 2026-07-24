@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.4** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — User Validation** |
 | Primary Users | Admin and Evaluator |
@@ -337,10 +337,16 @@ Wireframe ถือว่าผ่านเมื่อผู้แทน Admin 
 - พบและเข้าใจ Error ใน Import และแบบประเมิน
 - ให้คะแนนความสะดวกเฉลี่ยไม่น้อยกว่า 4.00/5.00 หรือระบุรายการแก้ไขที่ตกลงร่วมกัน
 
+## Related Documents
+
+- Interactive artifact: [HTML Prototype](./SEMS_Wireframe_Prototype.html) and [Wireframe Overview](./SEMS_Wireframe_Overview.png)
+- Validation: [Wireframe UAT Checklist](./Wireframe_UAT_Checklist.md), [Master Test Plan](../../Testing/Test_Plans/SEMS_Master_Test_Plan.md) and [SEMS UAT Baseline Checklist](../../Testing/UAT/SEMS_UAT_Baseline_Checklist.md)
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Design Team | Added direct prototype, overview, test-plan and UAT artifact links while retaining Draft — User Validation status. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added confirmed application, reopen/correction, report, isolation, quarantine, session and data-minimization UI behavior. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Aligned Release 1 import file types with SRS/API. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated wireframe specification for user validation. |

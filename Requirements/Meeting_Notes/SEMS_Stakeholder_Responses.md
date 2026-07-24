@@ -2,7 +2,7 @@
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | โครงการ | Scholarship Evaluation Management System (SEMS) |
@@ -637,16 +637,16 @@ Development/Test ใช้ไฟล์จำลองและอย่างน
 
 # 12. เอกสารที่ควรปรับหลังได้รับมติจริง
 
-1. `Requirements/SEMS_Requirement_Decision_Register.md`
-2. `Requirements/SRS/SEMS-SRS.md`
-3. `Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`
-4. `Design/Criteria/SEMS_Scoring_Rule_Specification.md`
-5. `Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md`
-6. `Design/Database/SEMS_ER_Prisma_Data_Dictionary.md`
-7. `Design/API/SEMS_API_Specification.md` และ `openapi.yaml`
-8. `Design/Architecture/SEMS_Process_Flows.md`
-9. Permission Matrix และ State Transition Specification
-10. Test Cases, Reference Scoring Cases และ UAT Sign-off
+1. [`Requirements/SEMS_Requirement_Decision_Register.md`](../SEMS_Requirement_Decision_Register.md)
+2. [`Requirements/SRS/SEMS-SRS.md`](../SRS/SEMS-SRS.md)
+3. [`Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](../User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
+4. [`Design/Criteria/SEMS_Scoring_Rule_Specification.md`](../../Design/Criteria/SEMS_Scoring_Rule_Specification.md)
+5. [`Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md`](../../Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md)
+6. [`Design/Database/SEMS_ER_Prisma_Data_Dictionary.md`](../../Design/Database/SEMS_ER_Prisma_Data_Dictionary.md)
+7. [`Design/API/SEMS_API_Specification.md`](../../Design/API/SEMS_API_Specification.md) และ [`Design/API/openapi.yaml`](../../Design/API/openapi.yaml)
+8. [`Design/Architecture/SEMS_Process_Flows.md`](../../Design/Architecture/SEMS_Process_Flows.md)
+9. [Permission Matrix](../../Design/Architecture/SEMS_Permission_Matrix.md) และ [State Transition Specification](../../Design/Architecture/SEMS_State_Transition_Specification.md)
+10. [Test Cases](../../Testing/README.md), [Reference Scoring Cases](../../Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) และ [UAT Baseline Checklist](../../Testing/UAT/SEMS_UAT_Baseline_Checklist.md)
 
 # 13. รูปแบบบันทึกการอนุมัติที่แนะนำ
 
