@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -36,7 +36,7 @@
 | RND-004 | Evaluator เลือก applicant ใน Draft round | P0 | API | 409 `ROUND_NOT_OPEN` | FR-RND-001..009 | RD-023 |
 | RND-005 | Evaluator เลือก/Submit ใน Closed round | P0 | API | 409 `ROUND_NOT_OPEN` | FR-RND-001..009 | RD-023 |
 | RND-006 | ปิดรอบที่ Submitted ≥2 | P0 | Integration | Finalized | FR-RND-001..009 | RD-023 |
-| RND-007 | ปิดรอบที่ Submitted <2 | P0 | Integration | Closed Incomplete; no final score | FR-RND-001..009 | RD-023 |
+| RND-007 | ปิดรอบที่ Submitted <2 | P0 | Integration | `CLOSED_INCOMPLETE`; no final score | FR-RND-001..009 | RD-023 |
 | RND-008 | แก้/ลบรอบที่มีผลประเมิน | P1 | API | จำกัดตาม policy และ audit | FR-RND-001..009 | RD-023 |
 
 ## Import and Applicant
@@ -108,7 +108,7 @@
 | EVA-003 | แก้ Draft ของผู้อื่น | P0 | RBAC | 403 | FR-EVA-004..018 | RD-004, RD-008..011 |
 | EVA-004 | Draft ไม่เข้า aggregate | P0 | Unit/Integration | excluded | FR-EVA-004..018 | RD-004, RD-008..011 |
 | EVA-005 | Review แสดงคะแนน/ความคิดเห็นครบ | P1 | E2E | data ตรง Draft ล่าสุด | FR-EVA-004..018 | RD-004, RD-008..011 |
-| EVA-006 | Submit valid evaluation | P0 | API/E2E | status=Submitted, immutable | FR-EVA-004..018 | RD-004, RD-008..011 |
+| EVA-006 | Submit valid evaluation | P0 | API/E2E | status=`SUBMITTED`, immutable | FR-EVA-004..018 | RD-004, RD-008..011 |
 | EVA-007 | Submit ซ้ำ | P0 | API | deterministic reject/idempotent | FR-EVA-004..018 | RD-004, RD-008..011 |
 | EVA-008 | แก้ Submitted โดยไม่ Reopen | P0 | API | reject | FR-EVA-004..018 | RD-004, RD-008..011 |
 | EVA-009 | Reopen โดยผู้ไม่มีสิทธิ์ | P0 | RBAC | 403 | FR-EVA-004..018 | RD-004, RD-008..011 |
@@ -123,19 +123,19 @@
 | SCR-001 | evaluator total min/max | P0 | Unit | 5 และ 100 ถูกต้อง; embedded point ไม่ถูกคูณ weight ซ้ำ | FR-SCO-001..012 | RD-004..014 |
 | SCR-002 | Draft excluded | P0 | Unit/Integration | ไม่ใช้ | FR-SCO-001..012 | RD-004..014 |
 | SCR-003 | Cancelled excluded | P0 | Unit/Integration | ไม่ใช้ | FR-SCO-001..012 | RD-004..014 |
-| SCR-004 | 2 Submitted create summary | P0 | Integration | Minimum Complete | FR-SCO-001..012 | RD-004..014 |
-| SCR-005 | 3rd Submitted recalculates | P0 | Integration | Fully Complete + new score | FR-SCO-001..012 | RD-004..014 |
+| SCR-004 | 2 Submitted create summary | P0 | Integration | `MINIMUM_COMPLETE` | FR-SCO-001..012 | RD-004..014 |
+| SCR-005 | 3rd Submitted recalculates | P0 | Integration | `FULLY_COMPLETE` + new score | FR-SCO-001..012 | RD-004..014 |
 | SCR-006 | ผู้ประเมินไม่ซ้ำกันเท่านั้น | P0 | DB/Unit | duplicate ไม่เพิ่ม count | FR-SCO-001..012 | RD-004..014 |
 | SCR-007 | one ResultSummary/applicant/round | P0 | DB | unique constraint | FR-SCO-001..012 | RD-004..014 |
 | SCR-008 | rounding boundary | P0 | Unit | ตรง provisional RD-011 rule | FR-SCO-001..012 | RD-004..014 |
 | SCR-009 | criteria version binding | P0 | Unit/DB | score from correct version | FR-SCO-001..012 | RD-004..014 |
 | SCR-010 | concurrent submissions update summary | P0 | Concurrency | no lost update | FR-SCO-001..012 | RD-004..014 |
-| STA-001 | 0 active = Not Started | P1 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
-| STA-002 | active + Submitted<2 = In Progress | P1 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
-| STA-003 | 2 Submitted/Open = Minimum Complete | P0 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
-| STA-004 | 3 Submitted/Open = Fully Complete | P0 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
+| STA-001 | 0 active = `NOT_STARTED` | P1 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
+| STA-002 | active + Submitted<2 = `IN_PROGRESS` | P1 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
+| STA-003 | 2 Submitted/Open = `MINIMUM_COMPLETE` | P0 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
+| STA-004 | 3 Submitted/Open = `FULLY_COMPLETE` | P0 | Unit | state correct | FR-SCO-008..012 | RD-006..007 |
 | STA-005 | Closed + Submitted≥2 = Finalized | P0 | Unit/Integration | final score | FR-SCO-008..012 | RD-006..007 |
-| STA-006 | Closed + Submitted<2 = Closed Incomplete | P0 | Unit/Integration | no final score | FR-SCO-008..012 | RD-006..007 |
+| STA-006 | Closed + Submitted<2 = `CLOSED_INCOMPLETE` | P0 | Unit/Integration | no final score | FR-SCO-008..012 | RD-006..007 |
 | DSH-001 | counts by Submitted 0/1/2/3 | P1 | Integration | DB-reconciled | FR-DSH-001..003 | RD-004..007 |
 | DSH-002 | counts by applicant state | P1 | Integration | DB-reconciled | FR-DSH-001..003 | RD-004..007 |
 | DSH-003 | score chart excludes Draft | P0 | Integration | Submitted only | FR-DSH-001..003 | RD-004..007 |
@@ -146,7 +146,7 @@
 | REP-003 | Draft/Cancelled excluded | P0 | Reconciliation | excluded | FR-RPT-001..009 | RD-021..022 |
 | REP-004 | third submit reflected | P0 | Reconciliation | updated summary | FR-RPT-001..009 | RD-021..022 |
 | REP-005 | state and submitted count displayed | P1 | E2E | correct | FR-RPT-001..009 | RD-021..022 |
-| REP-006 | Closed Incomplete has no final score | P0 | Reconciliation | blank/null | FR-RPT-001..009 | RD-021..022 |
+| REP-006 | `CLOSED_INCOMPLETE` has no final score | P0 | Reconciliation | blank/null | FR-RPT-001..009 | RD-021..022 |
 | REP-007 | export role restriction | P0 | RBAC | evaluator denied | FR-RPT-001..009 | RD-021..022 |
 | REP-008 | export audit event | P1 | API | user/time/round/format | FR-RPT-001..009 | RD-021..022 |
 | REP-009 | empty round export | P2 | E2E | valid headers/no error | FR-RPT-001..009 | RD-021..022 |
@@ -176,6 +176,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from functional test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document errors with the canonical inventory and retained provisional scoring status. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Added Linked Requirement/Linked Decision columns, canonical duplicate code and corrected scoring range to 5–100. |

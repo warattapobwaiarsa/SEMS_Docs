@@ -3,7 +3,7 @@
 | รายการ | ค่า |
 |---|---|
 | Document ID | SEMS-TP-001 |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft for Design Baseline** |
@@ -20,7 +20,7 @@
 
 1. ป้องกันผู้ประเมินคนเดิมประเมินผู้สมัครซ้ำในรอบเดียวกัน
 2. ควบคุม Evaluation ที่ใช้งานอยู่ไม่เกิน 3 รายการต่อผู้สมัครต่อรอบ แม้มีคำขอพร้อมกัน
-3. ใช้เฉพาะผล `Submitted` จากผู้ประเมินที่ไม่ซ้ำกันในการคำนวณ
+3. ใช้เฉพาะผล `SUBMITTED` จากผู้ประเมินที่ไม่ซ้ำกันในการคำนวณ
 4. คำนวณผลสรุปเมื่อครบ 2 คน และคำนวณใหม่เมื่อคนที่ 3 Submit ก่อนปิดรอบ
 5. เปลี่ยนสถานะผู้สมัครและรอบทุนอย่างถูกต้องเมื่อปิดรอบ
 6. ตรวจสอบไฟล์นำเข้า 37 คอลัมน์ รวมถึงผู้สมัครหนึ่งคนที่กินพื้นที่หลายแถว
@@ -175,7 +175,7 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 
 ## 12. Defect Workflow
 
-`New → Triaged → Assigned → In Progress → Ready for Retest → Verified → Closed`
+`New → Triaged → Assigned → `IN_PROGRESS` → Ready for Retest → Verified → Closed`
 
 กรณีไม่แก้ให้ใช้ `Rejected`, `Duplicate`, `Deferred` หรือ `Accepted Risk` พร้อมเหตุผล ผู้อนุมัติ และ release เป้าหมาย
 
@@ -208,8 +208,8 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 1. Admin login และเปิดรอบ
 2. Import applicant valid file
 3. Evaluator 1 เลือก บันทึก Draft และ Submit
-4. Evaluator 2 Submit แล้วเกิด Minimum Complete
-5. Evaluator 3 Submit แล้วเกิด Fully Complete และคะแนนเปลี่ยน
+4. Evaluator 2 Submit แล้วเกิด `MINIMUM_COMPLETE`
+5. Evaluator 3 Submit แล้วเกิด `FULLY_COMPLETE` และคะแนนเปลี่ยน
 6. Admin close round แล้วเกิด Finalized
 7. Export Excel/CSV และเทียบกับ DB
 
@@ -272,6 +272,7 @@ P0 ได้แก่ selection concurrency, uniqueness, authorization, Draft ex
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation to the functional, high-risk and scoring-reference test artifacts. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and module-specific size errors with the canonical inventory. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Aligned canonical evaluation error code and pre-baseline documentation checks. |

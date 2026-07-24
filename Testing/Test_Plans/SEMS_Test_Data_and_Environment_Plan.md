@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -41,14 +41,14 @@
 
 | Data ID | Active Evaluations | Submitted | Expected State เมื่อ Open | Expected State เมื่อ Closed |
 |---|---:|---:|---|---|
-| A-00 | 0 | 0 | Not Started | Closed Incomplete |
-| A-D1 | 1 Draft | 0 | In Progress | Closed Incomplete |
-| A-S1 | 1 Submitted | 1 | In Progress | Closed Incomplete |
-| A-S2 | 2 Submitted | 2 | Minimum Complete | Finalized |
-| A-D2S1 | 2 Draft + 1 Submitted | 1 | In Progress | Closed Incomplete |
-| A-S2D1 | 2 Submitted + 1 Draft | 2 | Minimum Complete | Finalized; Draft ห้ามกลายเป็น final |
-| A-S3 | 3 Submitted | 3 | Fully Complete | Finalized |
-| A-CANCEL | 2 Submitted + 1 Cancelled | 2 | Minimum Complete; มี slot ว่าง | Finalized |
+| A-00 | 0 | 0 | `NOT_STARTED` | `CLOSED_INCOMPLETE` |
+| A-D1 | 1 Draft | 0 | `IN_PROGRESS` | `CLOSED_INCOMPLETE` |
+| A-S1 | 1 Submitted | 1 | `IN_PROGRESS` | `CLOSED_INCOMPLETE` |
+| A-S2 | 2 Submitted | 2 | `MINIMUM_COMPLETE` | Finalized |
+| A-D2S1 | 2 Draft + 1 Submitted | 1 | `IN_PROGRESS` | `CLOSED_INCOMPLETE` |
+| A-S2D1 | 2 Submitted + 1 Draft | 2 | `MINIMUM_COMPLETE` | Finalized; Draft ห้ามกลายเป็น final |
+| A-S3 | 3 Submitted | 3 | `FULLY_COMPLETE` | Finalized |
+| A-CANCEL | 2 Submitted + 1 Cancelled | 2 | `MINIMUM_COMPLETE`; มี slot ว่าง | Finalized |
 
 ## 5. Scoring Dataset
 
@@ -139,5 +139,6 @@ Criteria sample มีหัวข้อคะแนนเต็มรวม 100
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Aligned inactive-user and applicant-document size fixtures with canonical error codes. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial test data and environment plan draft. |

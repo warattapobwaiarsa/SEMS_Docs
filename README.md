@@ -4,7 +4,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.17** |
+| Current Version | **v1.18** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
@@ -19,6 +19,9 @@
 👉 [`START_HERE.md`](./START_HERE.md)
 
 หน้านี้มีลำดับการอ่านตามบทบาท พร้อมลิงก์ไปยังเอกสารทั้งหมด
+
+เอกสารคำอธิบายใช้ภาษาไทยเป็นหลัก และคงตัวระบุทางเทคนิคเป็นภาษาอังกฤษตาม
+[`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md)
 
 เอกสารลำดับถัดไปสำหรับภาพรวมเชิงโครงการคือ [Project Proposal](./Requirements/Proposal/SEMS-project-proposal.md)
 
@@ -40,9 +43,9 @@
 
 | Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.5 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.5 |
-| 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.2), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.0) |
-| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.3 Baseline Candidate, [SRS](./Requirements/SRS/SEMS-SRS.md) v0.4 Baseline Candidate, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.1, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.3 Pending Formal Record |
+| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.6 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.6 |
+| 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.3), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.1) |
+| 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.4 Baseline Candidate, [SRS](./Requirements/SRS/SEMS-SRS.md) v0.5 Baseline Candidate, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.1, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.4 Pending Formal Record |
 | 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
 | 🧪 **[Testing](./Testing/README.md)** | Test plans, cases and synthetic reference data | P0 catalog with linked requirements/decisions and [scoring reference cases](./Testing/Test_Data/SEMS_Scoring_Reference_Cases.md) |
 | 🚀 **[Deployment](./Deployment/README.md)** | Deployment index and architecture considerations | Setup/operations guides remain pending |
@@ -59,6 +62,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.18 | 2026-07-24 | SEMS Documentation Team | เพิ่มมาตรฐาน Thai-first และเชื่อมโยงนโยบายภาษาและคำศัพท์ของ Repository |
 | v1.17 | 2026-07-24 | SEMS Documentation Team | Corrected entry-point and requirement versions and linked the Project Proposal from the repository overview. |
 | v1.16 | 2026-07-24 | SEMS Documentation Team | Synchronized the Release 1 baseline candidate and retained Pending Formal Approval status. |
 | v1.15 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and synchronized repository indexes. |

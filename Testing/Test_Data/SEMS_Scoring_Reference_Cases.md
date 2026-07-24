@@ -3,7 +3,7 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-SCORE-DATA-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Confirmed Response — Pending Formal Approval** |
 
@@ -49,6 +49,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS QA Team | Added explicit navigation from scoring reference data to the pending UAT checklist. |
 | v0.2 | 2026-07-24 | SEMS QA Team | Confirmed scoring status and added criteria-lock/custom-score/non-scoring assertions. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Added provisional min/max, two/three evaluator, exclusion, embedded-point, version and rounding reference cases. |

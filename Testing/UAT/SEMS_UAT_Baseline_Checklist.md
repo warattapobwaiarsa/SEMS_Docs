@@ -1,26 +1,26 @@
-# SEMS Requirement Baseline UAT Checklist
+# Checklist การทดสอบการยอมรับ Requirement Baseline ของ SEMS
 
 | Metadata | Value |
 |---|---|
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Status | **Draft — Participants and Dates Pending Formal Record** |
 
-Minimum roles from RD-042: at least two evaluators, two Scholarship Office/Admin users and one IT/infrastructure participant for deployment/backup scenarios. Do not enter names or dates without a real record.
+บทบาทขั้นต่ำตาม RD-042 ได้แก่ ผู้ประเมินอย่างน้อย 2 คน ผู้ใช้จาก Scholarship Office/`ADMIN` 2 คน และผู้แทน IT/infrastructure 1 คนสำหรับสถานการณ์ deployment/backup ห้ามกรอกชื่อหรือวันที่โดยไม่มีบันทึกจริง
 
-- [ ] Multi-scholarship application and duplicate-triplet handling
-- [ ] Pre-open blocking validation and Open-round import
-- [ ] Controlled Correction and immutable identity triplet
-- [ ] Draft cancellation, reopen approval and revision preservation
-- [ ] Embedded Point, two/three evaluator mean and `ROUND_HALF_UP`
-- [ ] Incomplete close, Closed reopen and Archived rejection
-- [ ] Internal/masked reports and Final/Superseded snapshots
-- [ ] Account provisioning, evaluator isolation and session expiry
-- [ ] File limits, Quarantine, malware scan and secure download
-- [ ] Backup restore/reconciliation with IT participant
-- [ ] National ID absent from every Release 1 flow
+- [ ] ใบสมัครหลายประเภททุนและการจัดการ business-key triplet ซ้ำ
+- [ ] Blocking validation ก่อนเปิดรอบและการ Import ขณะรอบเป็น `OPEN`
+- [ ] การแก้ไขแบบควบคุม (Controlled Correction) และ identity triplet ที่แก้ไม่ได้
+- [ ] การยกเลิก `DRAFT`, การอนุมัติ Reopen และการเก็บ revision เดิม
+- [ ] Embedded Point, ค่าเฉลี่ยผู้ประเมิน 2/3 คน และ `ROUND_HALF_UP`
+- [ ] การปิดรอบเมื่อผลไม่ครบ, การ Reopen รอบ `CLOSED` และการปฏิเสธรอบ `ARCHIVED`
+- [ ] รายงานภายใน/ปกปิดข้อมูล และ snapshot แบบ Final/Superseded
+- [ ] การ provision บัญชี การแยกข้อมูลผู้ประเมิน และการหมดอายุของ session
+- [ ] ขนาดไฟล์ Quarantine การสแกน malware และ secure download
+- [ ] การ restore/reconcile backup ร่วมกับผู้แทน IT
+- [ ] ไม่มี National ID ในทุก flow ของ Release 1
 
-| Role | Name | Date | Evidence / Result |
+| บทบาท | ชื่อ | วันที่ | หลักฐาน/ผล |
 |---|---|---|---|
 | Evaluator 1 | Pending Formal Record | Pending Formal Record | Pending |
 | Evaluator 2 | Pending Formal Record | Pending Formal Record | Pending |
@@ -37,5 +37,6 @@ Minimum roles from RD-042: at least two evaluators, two Scholarship Office/Admin
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Added lifecycle navigation to deployment context and the pending requirement-baseline approval record. |
 | v0.1 | 2026-07-24 | SEMS QA Team | Prepared confirmed-response UAT checklist without inventing participants or dates. |

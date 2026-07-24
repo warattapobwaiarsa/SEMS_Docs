@@ -2,14 +2,15 @@
 
 | รายการ | รายละเอียด |
 | :--- | :--- |
-| Version | **v1.0** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.1** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Development Team** |
 | สถานะ | ฉบับใช้งาน |
 
 เอกสารนี้กำหนดมาตรฐานการสร้าง Branch, Commit และ Pull Request สำหรับ Repository ของโครงการ **Scholarship Evaluation Management System (SEMS)**
 
 การจัดการและควบคุมเวอร์ชันเอกสารต้องเป็นไปตาม [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md)
+คำอธิบายในเอกสารใช้ภาษาไทยเป็นหลัก โดยคงตัวระบุทางเทคนิคเป็นภาษาอังกฤษตามนโยบายเดียวกัน
 
 ## 1. หลักการ Commit
 
@@ -67,7 +68,7 @@ fix(deployment): correct database setup command
 
 ### กฎการเขียน Summary
 
-- ใช้ภาษาไทยหรือภาษาอังกฤษได้ แต่ต้องใช้รูปแบบเดียวกันภายใน Commit
+- ใช้ภาษาอังกฤษสำหรับ Commit summary และ Pull Request title
 - เขียนให้กระชับและอธิบายสิ่งที่เปลี่ยน
 - ไม่ต้องใส่จุดท้ายข้อความ
 - หากมี Breaking Change ให้ระบุ `!` หลัง type หรือ scope และอธิบายใน Pull Request
@@ -130,6 +131,7 @@ Pull Request ต้องมีข้อมูลต่อไปนี้:
 - [ ] README และ `REPOSITORY_TREE.md` ได้รับการอัปเดตเมื่อจำเป็น
 - [ ] Markdown links และการตรวจสอบที่เกี่ยวข้องผ่าน
 - [ ] Commit message ตรงตามรูปแบบ `<type>(<scope>): <summary>`
+- [ ] คำอธิบายเอกสารเป็น Thai-first และ technical identifiers คงรูปเดิม
 
 ## 7. Checklist ก่อน Merge
 
@@ -143,4 +145,5 @@ Pull Request ต้องมีข้อมูลต่อไปนี้:
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.1 | 2026-07-24 | SEMS Development Team | เพิ่มกฎ Thai-first สำหรับเอกสารและกำหนด Commit summary กับ Pull Request title เป็นภาษาอังกฤษ |
 | v1.0 | 2026-07-23 | SEMS Development Team | กำหนดมาตรฐาน Commit Message, Branch, Pull Request และ Checklist ฉบับแรก |

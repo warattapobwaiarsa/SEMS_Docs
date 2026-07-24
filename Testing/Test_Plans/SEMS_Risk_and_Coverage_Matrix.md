@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
 
@@ -73,3 +73,9 @@ Release ห้ามผ่านหากกรณีต่อไปนี้ไ
 - SEC-007, SEC-008, SEC-010
 - REP-001, REP-003, REP-004
 - AUTH-003, AUTH-004, AUTH-006
+
+## Revision History
+
+| Version | Date | Author | Change |
+| :--- | :---: | :--- | :--- |
+| v0.2 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |

@@ -2,22 +2,22 @@
 
 | Item | Detail |
 | :--- | :--- |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Requirements Team** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Confirmed response source | [`Meeting_Notes/SEMS_Stakeholder_Responses.md`](./Meeting_Notes/SEMS_Stakeholder_Responses.md) |
 
-This register preserves the earlier provisional choices and records how they were synchronized with the confirmed stakeholder response. A confirmed response may guide the working baseline, but it is not formal approval evidence. Unless a repository record says otherwise, `Approver` and `Decision Date` remain `Pending Formal Record`.
+ทะเบียนนี้เก็บตัวเลือก provisional เดิมและบันทึกวิธีซิงก์กับคำตอบที่ยืนยันจากผู้มีส่วนเกี่ยวข้อง คำตอบที่ยืนยันแล้วใช้กำหนด working baseline ได้ แต่ไม่ใช่หลักฐานอนุมัติอย่างเป็นทางการ หากไม่มีบันทึกอื่นใน Repository ให้คง `Approver` และ `Decision Date` เป็น `Pending Formal Record`
 
-## Status definitions
+## ความหมายของสถานะ
 
-- **Confirmed** — supported by an existing confirmed project source.
-- **Confirmed Response — Pending Formal Record** — supported by the confirmed stakeholder response, but approver/date/signature evidence is not yet recorded.
-- **Confirmed Direction — Pending Measurement** — the policy direction is confirmed, but operational measurements are still required.
-- **Open** — no confirmed direction exists.
+- **Confirmed** — มีแหล่งข้อมูลโครงการที่ยืนยันแล้วรองรับ
+- **Confirmed Response — Pending Formal Record** — มีคำตอบที่ยืนยันแล้ว แต่ยังไม่มีหลักฐานผู้อนุมัติ วันที่ หรือลายเซ็น
+- **Confirmed Direction — Pending Measurement** — ยืนยันทิศทางนโยบายแล้ว แต่ยังต้องเก็บผลการวัดปฏิบัติการ
+- **Open** — ยังไม่มีทิศทางที่ยืนยันแล้ว
 
-## Decision register
+## ทะเบียน Decision
 
 | Decision ID | Category | Decision Question | Previous / Proposed Decision | Final Confirmed Decision | Status | Priority | Decision Owner | Approver | Decision Date | Evidence Reference | Impacted Modules | Impacted Documents | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -71,14 +71,14 @@ This register preserves the earlier provisional choices and records how they wer
 | RD-048 | Round | May a Closed round reopen? | Recommended provisional controlled reopen. | Exceptional controlled process only; Archived cannot reopen. Require request, reason, reference, approval and audit; preserve old final report as immutable `Superseded`, recalculate and create a replacement final snapshot. | Confirmed Response — Pending Formal Record | Critical | System Owner | Pending Formal Record | Pending Formal Record | Q-020 | Round, Reporting | SRS, API, DB, State, UI, Tests | No silent post-close edits. |
 | RD-049 | Reporting | What is the report snapshot lifecycle? | Final/interim behavior not fully represented. | Interim uses latest data and is temporary. Final after closure is immutable. Reopened-round replacement creates a new final snapshot and marks the previous one `Superseded`; never overwrite or silently delete. | Confirmed Response — Pending Formal Record | Critical | Scholarship Office | Pending Formal Record | Pending Formal Record | Q-044–Q-045 | Reporting | SRS, API, DB, State, UI, Tests | Every export stores audit metadata and file hash. |
 
-## Decision log
+## บันทึก Decision
 
 | Log ID | Date | Actor | Scope | Source and rationale | Status |
 |---|---|---|---|---|---|
 | DL-002 | 2026-07-24 | SEMS Requirements Team | RD-008–RD-049 | Synchronized prior provisional/open decisions and new operational policies with [`SEMS_Stakeholder_Responses.md`](./Meeting_Notes/SEMS_Stakeholder_Responses.md). Previous values remain visible in the register. Formal approver/date evidence is absent, so the baseline remains pending. | Confirmed Response — Pending Formal Record |
 | DL-001 | 2026-07-23 | Codex (AI), directly user-authorized | RD-008–RD-022 | Selected proposals from [`SEMS_Requirement_Decision_Analysis.md`](./SEMS_Requirement_Decision_Analysis.md) as a provisional starting point without claiming Scholarship Office ratification. | Provisional |
 
-## Baseline gate
+## เงื่อนไข Baseline
 
 - No Release 1 Critical/High decision in this register remains `Open`.
 - `RD-040` and `RD-045` remain pending real measurements; this does not authorize inventing measured results.
@@ -92,6 +92,7 @@ This register preserves the earlier provisional choices and records how they wer
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v0.6 | 2026-07-24 | SEMS Documentation Team | ปรับคำอธิบายสถานะและส่วนกำกับดูแลเป็นภาษาไทย โดยไม่เปลี่ยน Decision ID เนื้อหาการตัดสินใจ หรือสถานะอนุมัติ |
 | v0.5 | 2026-07-24 | SEMS Requirements Team | Added explicit lifecycle navigation to the SRS without changing decision content or approval status. |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Synchronized RD-008–RD-029 with confirmed stakeholder responses; added RD-030–RD-049 for retention, security, operations, measurement, code-list, custom amount, round reopen and report lifecycle; preserved DL-001 and prior values. |
 | v1.3 | 2026-07-24 | SEMS Requirements Team | Historical pre-policy version: clarified RD-010 and the pre-baseline sequence. |

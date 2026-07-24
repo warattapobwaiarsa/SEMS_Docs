@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -127,8 +127,8 @@
 
 **Expected Result**
 
-- Evaluation status = Draft
-- applicant = In Progress
+- Evaluation status=`DRAFT`
+- applicant = `IN_PROGRESS`
 - submitted count = 0/3
 - ไม่มี final/result summary score จาก Draft
 - Dashboard score visualization และ Export ไม่ใช้คะแนน Draft
@@ -153,7 +153,7 @@
 **Expected Result**
 
 - Submitted count = 2/3
-- state = Minimum Complete
+- state = `MINIMUM_COMPLETE`
 - Result Summary ถูกสร้าง/อัปเดตเพียง 1 รายการต่อ applicant/round
 - ใช้เฉพาะผล Submitted ของ evaluator ที่ไม่ซ้ำกัน 2 คน
 - expected score ตรง reference formula/rounding ที่อนุมัติ
@@ -167,7 +167,7 @@
 |---|---|
 | Priority | P0 |
 | Level | Unit + Integration + E2E + Reconciliation |
-| Preconditions | Applicant Minimum Complete จาก totals 80, 90; U-EVA-03 มี Draft total=70; Round Open |
+| Preconditions | Applicant `MINIMUM_COMPLETE` จาก totals 80, 90; U-EVA-03 มี Draft total=70; Round Open |
 
 **Steps**
 
@@ -178,7 +178,7 @@
 **Expected Result**
 
 - Submitted count = 3/3
-- state = Fully Complete
+- state = `FULLY_COMPLETE`
 - Result Summary เดิมถูก update ไม่สร้างรายการซ้ำ
 - คำนวณจากผล Submitted ทั้ง 3 คนใหม่ตามสูตรอนุมัติ
 - หากใช้ค่าเฉลี่ย ตัวอย่าง expected เปลี่ยน 85.00 → 80.00
@@ -228,10 +228,10 @@
 
 **Expected Result**
 
-- state = Closed Incomplete
+- state = `CLOSED_INCOMPLETE`
 - ไม่มี final summary score
 - Draft/Submitted เพียง 1 คนไม่ถูกทำให้เป็น final
-- report แสดง Closed Incomplete และช่อง final score ว่าง/null ตาม template
+- report แสดง `CLOSED_INCOMPLETE` และช่อง final score ว่าง/null ตาม template
 - ห้าม Submit หลังปิดรอบ
 
 ---
@@ -308,7 +308,7 @@
 |---|---|
 | Priority | P0 |
 | Level | Reconciliation + E2E |
-| Preconditions | Dataset มี Not Started, In Progress, Minimum Complete, Fully Complete, Finalized, Closed Incomplete |
+| Preconditions | Dataset มี `NOT_STARTED`, `IN_PROGRESS`, `MINIMUM_COMPLETE`, `FULLY_COMPLETE`, Finalized, `CLOSED_INCOMPLETE` |
 
 **Steps**
 
@@ -388,7 +388,7 @@
 - U-EVA-03 เปิดและแก้ Draft เดิมได้
 - ระบบไม่พยายามสร้าง Evaluation ใหม่
 - evaluator คนอื่นที่ไม่มี record ถูกปฏิเสธเพราะครบ 3
-- Save Draft ไม่เปลี่ยน submitted count หรือ state เป็น Fully Complete
+- Save Draft ไม่เปลี่ยน submitted count หรือ state เป็น `FULLY_COMPLETE`
 
 ---
 
@@ -420,6 +420,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS QA Team | Added explicit navigation from high-risk test specifications to the pending UAT checklist. |
 | v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report reconciliation still follows the provisional RD-021 template. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Canonicalized duplicate error code and added embedded-point and rollback P0 cases. |

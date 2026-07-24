@@ -1,41 +1,37 @@
-# SEMS Documentation Review Report
+# รายงานการตรวจเอกสาร SEMS
 
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-DOC-REVIEW-001` |
-| Version | **v0.5** |
+| Version | **v0.6** |
 | Last Updated | **2026-07-24** |
 | Status | **Ready for Formal Stakeholder Review — Pending Formal Approval** |
-| Review Scope | Requirements, architecture, API/OpenAPI, data model, scoring, UI/UX, testing, deployment, workbooks and repository indexes |
+| Review Scope | Requirements, architecture, API/OpenAPI, data model, scoring, UI/UX, testing, deployment, workbooks และ repository indexes |
 | Branch | `main` |
 | Review-start Commit | `f7bc385` |
-| Approval Status | **Pending — no approver name, decision date or signed record was supplied** |
+| Approval Status | **Pending — ยังไม่มีชื่อผู้อนุมัติ วันที่ตัดสินใจ หรือบันทึกที่ลงนาม** |
 
-## 1. Executive Summary
+## 1. สรุปสำหรับผู้บริหาร
 
-The repository has been synchronized with the 61 responses in
+Repository ได้ซิงก์กับคำตอบ 61 รายการใน
 [`SEMS_Stakeholder_Responses.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md).
-The Decision Register is now the working source of truth for confirmed business direction,
-while preserving superseded proposals and the absence of formal approval evidence.
+Decision Register เป็น working source of truth สำหรับทิศทางธุรกิจที่ยืนยันแล้ว โดยยังรักษาข้อเสนอเดิมที่ถูกแทนที่และข้อเท็จจริงว่ายังไม่มีหลักฐานอนุมัติอย่างเป็นทางการ
 
-The documentation set is **ready for formal stakeholder review**. It is **not an approved
-Requirement Baseline, approved System Design, or production-readiness declaration**.
-No Release 1 Critical/High business-rule decision remains Open; the remaining gaps require
-formal signatures, external configuration, measured evidence, or test execution.
+ชุดเอกสารนี้ **พร้อมสำหรับการตรวจอย่างเป็นทางการโดยผู้มีส่วนเกี่ยวข้อง** แต่ **ยังไม่ใช่ Requirement Baseline ที่อนุมัติแล้ว, System Design ที่อนุมัติแล้ว หรือคำประกาศความพร้อม production** ไม่มี business-rule decision ระดับ Critical/High ของ Release 1 ที่ยังเป็น Open; ช่องว่างที่เหลือต้องใช้ลายเซ็นอย่างเป็นทางการ ค่า configuration ภายนอก หลักฐานการวัด หรือผลการทดสอบจริง
 
-## 2. Readiness Assessment
+## 2. การประเมินความพร้อม
 
-| Area | Assessment | Reason |
+| ด้าน | ผลการประเมิน | เหตุผล |
 |---|---|---|
-| Requirement content | Ready for formal review | Confirmed responses are reconciled through PRD, SRS, stories, decisions and traceability. |
-| Architecture/API/data model | Ready for formal design review | Reopen/correction/report lifecycle, application key, audit and data-minimization rules are represented. |
-| QA specification | Ready for test preparation | New CR-001..CR-035 cases and UAT checklist cover the confirmed-response baseline. |
-| Requirement Baseline approval | **Pending** | No signed approval record or formal approver/date evidence exists. |
-| System Design approval | **Pending** | Independent OpenAPI validation, infrastructure choices and design sign-off remain outstanding. |
-| Production readiness | **Not ready** | System/UAT/security/load/restore tests and operational evidence have not been executed. |
-| Public repository release | **Blocked pending owner confirmation** | Applicant-like examples and author information require classification as synthetic/approved or sanitization. |
+| เนื้อหา Requirement | พร้อมตรวจอย่างเป็นทางการ | คำตอบที่ยืนยันแล้วเชื่อมโยงผ่าน PRD, SRS, stories, decisions และ traceability |
+| Architecture/API/data model | พร้อมตรวจการออกแบบอย่างเป็นทางการ | แสดง lifecycle ของ Reopen/correction/report, application key, Audit และ data minimization แล้ว |
+| QA specification | พร้อมเตรียมทดสอบ | CR-001..CR-035 และ UAT checklist ครอบคลุม confirmed-response baseline |
+| การอนุมัติ Requirement Baseline | **Pending** | ยังไม่มี approval record ที่ลงนามหรือหลักฐานผู้อนุมัติ/วันที่ |
+| การอนุมัติ System Design | **Pending** | ยังขาด independent OpenAPI validation, การเลือก infrastructure และ design sign-off |
+| ความพร้อม production | **Not ready** | ยังไม่ได้ดำเนินการ system/UAT/security/load/restore tests และยังไม่มีหลักฐานปฏิบัติการ |
+| การเผยแพร่ Public repository | **Blocked pending owner confirmation** | ตัวอย่างที่คล้ายข้อมูลผู้สมัครและข้อมูลผู้จัดทำต้องยืนยันว่าเป็นข้อมูลจำลอง/ได้รับอนุญาต หรือทำ sanitization |
 
-## 3. Confirmed Decisions Incorporated
+## 3. Decision ที่ยืนยันและนำมาใช้แล้ว
 
 - Evaluation: maximum three active evaluators, duplicate/ownership protection, Draft cancellation,
   request/approval-based reopen, immutable revisions and recalculation only after resubmission.
@@ -53,10 +49,9 @@ formal signatures, external configuration, measured evidence, or test execution.
 - Security/operations: KKU OIDC direction, 30-minute idle and 8-hour absolute sessions, controlled
   provisioning/deactivation, 6-year core retention, 30-day backup retention and documented RPO/RTO direction.
 
-## 4. Remaining Contradictions and Unresolved Items
+## 4. ข้อขัดแย้งและรายการที่ยังต้องดำเนินการ
 
-These are not unresolved Release 1 business rules; they are evidence/configuration gaps that must not
-be represented as formally approved:
+รายการต่อไปนี้ไม่ใช่ business rule ของ Release 1 ที่ยังหาข้อสรุปไม่ได้ แต่เป็นช่องว่างด้านหลักฐานหรือ configuration และห้ามแสดงว่าได้รับอนุมัติอย่างเป็นทางการแล้ว:
 
 | Item | Current treatment | Required external confirmation/evidence |
 |---|---|---|
@@ -71,7 +66,7 @@ be represented as formally approved:
 Historical analysis, revision-history text and source meeting notes may still contain the words
 “provisional” or superseded choices. They are retained as history and are not normative.
 
-## 5. Traceability and Test Coverage
+## 5. Traceability และ Test Coverage
 
 - Core and confirmed-response flows in the matrix: **20 mapped flows**.
 - New confirmed-response QA specification: **CR-001..CR-035**.
@@ -190,6 +185,7 @@ Recommended commit message:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.6 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | Added lifecycle navigation and refreshed enhanced version/status and wireframe-manifest validation results. |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed responses across requirements/design/data/API/UI/testing, updated workbooks, added test/UAT coverage and retained formal approval boundaries. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded pre-baseline repository metadata, PII risks and partial validation evidence. |

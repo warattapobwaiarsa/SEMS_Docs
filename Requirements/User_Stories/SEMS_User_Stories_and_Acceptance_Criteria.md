@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.4"
+version: "v0.5"
 status: "Baseline Candidate — Pending Formal Approval"
 last_updated: 2026-07-24
 owner: SEMS Project Team
@@ -43,7 +43,7 @@ Acceptance Criteria ใช้โครงสร้าง **Given / When / Then**
 4. เวลาในหน้าจอและรายงานใช้เขตเวลา `Asia/Bangkok`; เวลาในฐานข้อมูลควรจัดเก็บแบบ timezone-aware
 5. ข้อผิดพลาดต้องมี `error_code` ที่คงที่และข้อความภาษาไทยที่ผู้ใช้เข้าใจได้
 6. ข้อมูลผู้สมัครและเอกสารต้องจำกัดตามบทบาท รอบทุน และความเป็นเจ้าของ Evaluation
-7. การคำนวณและ Visualization ด้านคะแนนใช้เฉพาะ Evaluation สถานะ `Submitted` ที่ยังไม่ถูกยกเลิก
+7. การคำนวณและ Visualization ด้านคะแนนใช้เฉพาะ Evaluation สถานะ `SUBMITTED` ที่ยังไม่ถูกยกเลิก
 8. Confirmed responses may define the baseline candidate; formal approval evidence is still required before Freeze/Approved status.
 
 ## Definition of Ready
@@ -105,7 +105,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### US-RND-004 — Controlled close and reopen
 
-- **Given** incomplete applications, **when** Admin closes, **then** the UI warns, lists them, requires explicit confirmation/reason, marks them Closed Incomplete and produces no Final Score.
+- **Given** incomplete applications, **when** Admin closes, **then** the UI warns, lists them, requires explicit confirmation/reason, marks them `CLOSED_INCOMPLETE` and produces no Final Score.
 - **Given** a Closed round, **when** an approved exceptional reopen occurs, **then** the old Final report is immutable and Superseded.
 - **Given** an Archived round, **when** reopen is attempted, **then** access is denied.
 
@@ -154,29 +154,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-AUTH-001-AC-01
 
-- **Given:** ผู้ใช้เปิดหน้า SEMS โดยยังไม่ได้เข้าสู่ระบบ
-- **When:** ผู้ใช้เลือก “เข้าสู่ระบบด้วย KKU Account”
-- **Then:** ระบบต้องสร้าง `state`, `nonce` และ PKCE `code_challenge` แล้ว Redirect ไปยัง KKU Authorization Endpoint โดยไม่แสดงหรือรับรหัสผ่าน KKU ใน SEMS
+- **Given (กำหนดให้):** ผู้ใช้เปิดหน้า SEMS โดยยังไม่ได้เข้าสู่ระบบ
+- **When (เมื่อ):** ผู้ใช้เลือก “เข้าสู่ระบบด้วย KKU Account”
+- **Then (ระบบต้อง):** ระบบต้องสร้าง `state`, `nonce` และ PKCE `code_challenge` แล้ว Redirect ไปยัง KKU Authorization Endpoint โดยไม่แสดงหรือรับรหัสผ่าน KKU ใน SEMS
 #### US-AUTH-001-AC-02
 
-- **Given:** KKU SSO ส่ง Authorization Code กลับมายัง Callback URI
-- **When:** SEMS ประมวลผล Callback
-- **Then:** ระบบต้องตรวจสอบ `state`, แลก Code ด้วย PKCE `code_verifier`, ตรวจสอบ ID Token/Claims และยืนยันตัวตนสำเร็จก่อนสร้าง Session
+- **Given (กำหนดให้):** KKU SSO ส่ง Authorization Code กลับมายัง Callback URI
+- **When (เมื่อ):** SEMS ประมวลผล Callback
+- **Then (ระบบต้อง):** ระบบต้องตรวจสอบ `state`, แลก Code ด้วย PKCE `code_verifier`, ตรวจสอบ ID Token/Claims และยืนยันตัวตนสำเร็จก่อนสร้าง Session
 #### US-AUTH-001-AC-03
 
-- **Given:** ตัวตน KKU ถูกต้องและมีบัญชี SEMS สถานะ `Active`
-- **When:** Callback ผ่านการตรวจสอบทั้งหมด
-- **Then:** ระบบต้องสร้าง Session ที่ปลอดภัย ผูกกับผู้ใช้และบทบาท แล้วนำผู้ใช้ไปยังหน้าเริ่มต้นตามบทบาท
+- **Given (กำหนดให้):** ตัวตน KKU ถูกต้องและมีบัญชี SEMS สถานะ `Active`
+- **When (เมื่อ):** Callback ผ่านการตรวจสอบทั้งหมด
+- **Then (ระบบต้อง):** ระบบต้องสร้าง Session ที่ปลอดภัย ผูกกับผู้ใช้และบทบาท แล้วนำผู้ใช้ไปยังหน้าเริ่มต้นตามบทบาท
 #### US-AUTH-001-AC-04
 
-- **Given:** ตัวตน KKU ถูกต้องแต่ไม่มีบัญชี SEMS หรือบัญชีเป็น `Inactive`
-- **When:** ระบบตรวจ Authorization ภายใน SEMS
-- **Then:** ระบบต้องปฏิเสธการเข้าใช้ ไม่สร้าง Session ที่ใช้งานได้ แสดงข้อความว่าไม่ได้รับอนุญาต และบันทึก Audit Event
+- **Given (กำหนดให้):** ตัวตน KKU ถูกต้องแต่ไม่มีบัญชี SEMS หรือบัญชีเป็น `Inactive`
+- **When (เมื่อ):** ระบบตรวจ Authorization ภายใน SEMS
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธการเข้าใช้ ไม่สร้าง Session ที่ใช้งานได้ แสดงข้อความว่าไม่ได้รับอนุญาต และบันทึก Audit Event
 #### US-AUTH-001-AC-05
 
-- **Given:** Callback มี `state`/`nonce` ไม่ตรง Token ไม่ผ่านการตรวจสอบ หรือ KKU SSO ตอบข้อผิดพลาด
-- **When:** ระบบตรวจพบความผิดปกติ
-- **Then:** ระบบต้องยุติ Login Flow ไม่สร้าง Session ลบข้อมูลชั่วคราวของ Flow และแสดงข้อความทั่วไปที่ไม่เปิดเผยข้อมูลลับ
+- **Given (กำหนดให้):** Callback มี `state`/`nonce` ไม่ตรง Token ไม่ผ่านการตรวจสอบ หรือ KKU SSO ตอบข้อผิดพลาด
+- **When (เมื่อ):** ระบบตรวจพบความผิดปกติ
+- **Then (ระบบต้อง):** ระบบต้องยุติ Login Flow ไม่สร้าง Session ลบข้อมูลชั่วคราวของ Flow และแสดงข้อความทั่วไปที่ไม่เปิดเผยข้อมูลลับ
 
 ### Notes / Open Decisions
 
@@ -206,29 +206,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-AUTH-002-AC-01
 
-- **Given:** ผู้ใช้บทบาท Evaluator เข้าสู่ระบบ
-- **When:** ระบบสร้างเมนูและตอบ API
-- **Then:** ระบบต้องไม่แสดงหรือส่งสิทธิ์จัดการผู้ใช้ รอบทุน Import เกณฑ์รวม หรือ Export รายงานรวม
+- **Given (กำหนดให้):** ผู้ใช้บทบาท Evaluator เข้าสู่ระบบ
+- **When (เมื่อ):** ระบบสร้างเมนูและตอบ API
+- **Then (ระบบต้อง):** ระบบต้องไม่แสดงหรือส่งสิทธิ์จัดการผู้ใช้ รอบทุน Import เกณฑ์รวม หรือ Export รายงานรวม
 #### US-AUTH-002-AC-02
 
-- **Given:** Evaluator เรียกข้อมูลรายละเอียดหรือเอกสารของผู้สมัคร
-- **When:** Evaluator ยังไม่มี Evaluation ที่ใช้งานอยู่สำหรับผู้สมัครรายนั้น
-- **Then:** Backend ต้องปฏิเสธข้อมูลละเอียดอ่อนและอนุญาตเพียงข้อมูลขั้นต่ำสำหรับค้นหา/เลือกตามที่กำหนด
+- **Given (กำหนดให้):** Evaluator เรียกข้อมูลรายละเอียดหรือเอกสารของผู้สมัคร
+- **When (เมื่อ):** Evaluator ยังไม่มี Evaluation ที่ใช้งานอยู่สำหรับผู้สมัครรายนั้น
+- **Then (ระบบต้อง):** Backend ต้องปฏิเสธข้อมูลละเอียดอ่อนและอนุญาตเพียงข้อมูลขั้นต่ำสำหรับค้นหา/เลือกตามที่กำหนด
 #### US-AUTH-002-AC-03
 
-- **Given:** Evaluator มี Evaluation ของตนเอง
-- **When:** เปิด แก้ไข บันทึก หรือ Submit
-- **Then:** ระบบต้องอนุญาตเฉพาะ Evaluation ที่มี `evaluator_user_id` ตรงกับผู้ใช้และอยู่ในรอบที่อนุญาต
+- **Given (กำหนดให้):** Evaluator มี Evaluation ของตนเอง
+- **When (เมื่อ):** เปิด แก้ไข บันทึก หรือ Submit
+- **Then (ระบบต้อง):** ระบบต้องอนุญาตเฉพาะ Evaluation ที่มี `evaluator_user_id` ตรงกับผู้ใช้และอยู่ในรอบที่อนุญาต
 #### US-AUTH-002-AC-04
 
-- **Given:** ผู้ใช้เรียกหน้า/API ที่ไม่มีสิทธิ์โดยตรง
-- **When:** Backend ตรวจ Permission ไม่ผ่าน
-- **Then:** ระบบต้องตอบ `403 Forbidden` พร้อม error code คงที่ ไม่ส่งข้อมูล Resource และบันทึก `ACCESS_DENIED`
+- **Given (กำหนดให้):** ผู้ใช้เรียกหน้า/API ที่ไม่มีสิทธิ์โดยตรง
+- **When (เมื่อ):** Backend ตรวจ Permission ไม่ผ่าน
+- **Then (ระบบต้อง):** ระบบต้องตอบ `403 Forbidden` พร้อม error code คงที่ ไม่ส่งข้อมูล Resource และบันทึก `ACCESS_DENIED`
 #### US-AUTH-002-AC-05
 
-- **Given:** Admin เข้าถึงฟังก์ชันบริหาร
-- **When:** ระบบตรวจบทบาท Admin และบัญชี Active
-- **Then:** ระบบต้องอนุญาตตาม Permission Matrix แต่ยังต้องบังคับกฎสถานะรอบทุนและกฎความถูกต้องของข้อมูล
+- **Given (กำหนดให้):** Admin เข้าถึงฟังก์ชันบริหาร
+- **When (เมื่อ):** ระบบตรวจบทบาท Admin และบัญชี Active
+- **Then (ระบบต้อง):** ระบบต้องอนุญาตตาม Permission Matrix แต่ยังต้องบังคับกฎสถานะรอบทุนและกฎความถูกต้องของข้อมูล
 
 ---
 
@@ -252,24 +252,24 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-AUTH-003-AC-01
 
-- **Given:** ผู้ใช้เลือกออกจากระบบ
-- **When:** ระบบรับคำขอ Logout
-- **Then:** ระบบต้องยกเลิก SEMS Session/Refresh Token ที่เกี่ยวข้องก่อน Redirect ผู้ใช้
+- **Given (กำหนดให้):** ผู้ใช้เลือกออกจากระบบ
+- **When (เมื่อ):** ระบบรับคำขอ Logout
+- **Then (ระบบต้อง):** ระบบต้องยกเลิก SEMS Session/Refresh Token ที่เกี่ยวข้องก่อน Redirect ผู้ใช้
 #### US-AUTH-003-AC-02
 
-- **Given:** การยกเลิก Session สำเร็จ
-- **When:** ผู้ใช้กลับไปยัง URL ที่ต้อง Login
-- **Then:** ระบบต้องไม่ยอมรับ Session เดิมและต้องเริ่ม Authentication Flow ใหม่
+- **Given (กำหนดให้):** การยกเลิก Session สำเร็จ
+- **When (เมื่อ):** ผู้ใช้กลับไปยัง URL ที่ต้อง Login
+- **Then (ระบบต้อง):** ระบบต้องไม่ยอมรับ Session เดิมและต้องเริ่ม Authentication Flow ใหม่
 #### US-AUTH-003-AC-03
 
-- **Given:** ระบบใช้ KKU OIDC Logout
-- **When:** สร้าง Logout URL
-- **Then:** ระบบต้องใช้ Redirect URI ที่ลงทะเบียนและไม่แนบข้อมูลลับใน URL
+- **Given (กำหนดให้):** ระบบใช้ KKU OIDC Logout
+- **When (เมื่อ):** สร้าง Logout URL
+- **Then (ระบบต้อง):** ระบบต้องใช้ Redirect URI ที่ลงทะเบียนและไม่แนบข้อมูลลับใน URL
 #### US-AUTH-003-AC-04
 
-- **Given:** Logout Endpoint ของ KKU ไม่พร้อมใช้งาน
-- **When:** SEMS ยกเลิก Session ภายในสำเร็จแล้ว
-- **Then:** ผู้ใช้ต้องถูกออกจาก SEMS อย่างน้อย และระบบต้องแสดงสถานะที่ไม่ทำให้เข้าใจผิดว่าออกจากทุกบริการของ KKU แล้ว
+- **Given (กำหนดให้):** Logout Endpoint ของ KKU ไม่พร้อมใช้งาน
+- **When (เมื่อ):** SEMS ยกเลิก Session ภายในสำเร็จแล้ว
+- **Then (ระบบต้อง):** ผู้ใช้ต้องถูกออกจาก SEMS อย่างน้อย และระบบต้องแสดงสถานะที่ไม่ทำให้เข้าใจผิดว่าออกจากทุกบริการของ KKU แล้ว
 
 ### Notes / Open Decisions
 
@@ -304,19 +304,19 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-USR-001-AC-01
 
-- **Given:** Admin เปิดหน้าจัดการผู้ใช้
-- **When:** ระบบโหลดรายการ
-- **Then:** ระบบต้องแสดงชื่อ ตัวระบุ KKU ที่อนุญาตให้แสดง อีเมล/หน่วยงานตาม Claim ที่ได้รับ บทบาท สถานะ และเวลาปรับปรุงล่าสุด
+- **Given (กำหนดให้):** Admin เปิดหน้าจัดการผู้ใช้
+- **When (เมื่อ):** ระบบโหลดรายการ
+- **Then (ระบบต้อง):** ระบบต้องแสดงชื่อ ตัวระบุ KKU ที่อนุญาตให้แสดง อีเมล/หน่วยงานตาม Claim ที่ได้รับ บทบาท สถานะ และเวลาปรับปรุงล่าสุด
 #### US-USR-001-AC-02
 
-- **Given:** มีผู้ใช้จำนวนมาก
-- **When:** Admin ค้นหาด้วยชื่อ อีเมล หรือตัวระบุที่อนุญาต
-- **Then:** ระบบต้องคืนเฉพาะรายการที่ตรงเงื่อนไขและรองรับ Pagination
+- **Given (กำหนดให้):** มีผู้ใช้จำนวนมาก
+- **When (เมื่อ):** Admin ค้นหาด้วยชื่อ อีเมล หรือตัวระบุที่อนุญาต
+- **Then (ระบบต้อง):** ระบบต้องคืนเฉพาะรายการที่ตรงเงื่อนไขและรองรับ Pagination
 #### US-USR-001-AC-03
 
-- **Given:** ผู้ใช้ทั่วไปหรือ Evaluator เปิด URL/API จัดการผู้ใช้
-- **When:** ระบบตรวจสิทธิ์
-- **Then:** ต้องปฏิเสธด้วย `403` และไม่เปิดเผยรายชื่อผู้ใช้
+- **Given (กำหนดให้):** ผู้ใช้ทั่วไปหรือ Evaluator เปิด URL/API จัดการผู้ใช้
+- **When (เมื่อ):** ระบบตรวจสิทธิ์
+- **Then (ระบบต้อง):** ต้องปฏิเสธด้วย `403` และไม่เปิดเผยรายชื่อผู้ใช้
 
 ---
 
@@ -341,29 +341,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-USR-002-AC-01
 
-- **Given:** Admin ระบุตัวตน KKU ที่ยังไม่ถูกเชื่อม
-- **When:** บันทึกบัญชี SEMS
-- **Then:** ระบบต้องสร้างบัญชีโดยเก็บเฉพาะ Claim ที่จำเป็น บทบาท สถานะ และข้อมูล Audit โดยไม่สร้าง/เก็บรหัสผ่าน KKU
+- **Given (กำหนดให้):** Admin ระบุตัวตน KKU ที่ยังไม่ถูกเชื่อม
+- **When (เมื่อ):** บันทึกบัญชี SEMS
+- **Then (ระบบต้อง):** ระบบต้องสร้างบัญชีโดยเก็บเฉพาะ Claim ที่จำเป็น บทบาท สถานะ และข้อมูล Audit โดยไม่สร้าง/เก็บรหัสผ่าน KKU
 #### US-USR-002-AC-02
 
-- **Given:** ตัวตน KKU เดียวกันถูกเชื่อมอยู่แล้ว
-- **When:** Admin พยายามสร้างบัญชีซ้ำ
-- **Then:** ระบบต้องปฏิเสธด้วย Conflict และชี้ไปยังบัญชีเดิม
+- **Given (กำหนดให้):** ตัวตน KKU เดียวกันถูกเชื่อมอยู่แล้ว
+- **When (เมื่อ):** Admin พยายามสร้างบัญชีซ้ำ
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธด้วย Conflict และชี้ไปยังบัญชีเดิม
 #### US-USR-002-AC-03
 
-- **Given:** Admin เลือกบทบาท Admin หรือ Evaluator
-- **When:** ยืนยันการเปลี่ยนแปลง
-- **Then:** ระบบต้องบันทึกบทบาทและใช้สิทธิ์ใหม่ในการตรวจคำขอครั้งถัดไป
+- **Given (กำหนดให้):** Admin เลือกบทบาท Admin หรือ Evaluator
+- **When (เมื่อ):** ยืนยันการเปลี่ยนแปลง
+- **Then (ระบบต้อง):** ระบบต้องบันทึกบทบาทและใช้สิทธิ์ใหม่ในการตรวจคำขอครั้งถัดไป
 #### US-USR-002-AC-04
 
-- **Given:** ข้อมูลจำเป็นไม่ครบหรือ Claim ไม่ตรงรูปแบบที่กำหนด
-- **When:** Admin กดบันทึก
-- **Then:** ระบบต้องไม่สร้างบัญชีและแสดง Validation รายฟิลด์
+- **Given (กำหนดให้):** ข้อมูลจำเป็นไม่ครบหรือ Claim ไม่ตรงรูปแบบที่กำหนด
+- **When (เมื่อ):** Admin กดบันทึก
+- **Then (ระบบต้อง):** ระบบต้องไม่สร้างบัญชีและแสดง Validation รายฟิลด์
 #### US-USR-002-AC-05
 
-- **Given:** สร้างหรือแก้ไขบัญชีสำเร็จ
-- **When:** Transaction Commit
-- **Then:** ระบบต้องบันทึกผู้ดำเนินการ ค่าเดิม/ค่าใหม่ที่ไม่เป็นข้อมูลลับ และเวลาใน Audit Log
+- **Given (กำหนดให้):** สร้างหรือแก้ไขบัญชีสำเร็จ
+- **When (เมื่อ):** Transaction Commit
+- **Then (ระบบต้อง):** ระบบต้องบันทึกผู้ดำเนินการ ค่าเดิม/ค่าใหม่ที่ไม่เป็นข้อมูลลับ และเวลาใน Audit Log
 
 ### Notes / Open Decisions
 
@@ -392,29 +392,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-USR-003-AC-01
 
-- **Given:** บัญชีเป็น Inactive
-- **When:** Admin เปลี่ยนเป็น Active และยืนยัน
-- **Then:** ระบบต้องอนุญาต Login ในครั้งถัดไปตามบทบาทที่กำหนด
+- **Given (กำหนดให้):** บัญชีเป็น Inactive
+- **When (เมื่อ):** Admin เปลี่ยนเป็น Active และยืนยัน
+- **Then (ระบบต้อง):** ระบบต้องอนุญาต Login ในครั้งถัดไปตามบทบาทที่กำหนด
 #### US-USR-003-AC-02
 
-- **Given:** บัญชีเป็น Active
-- **When:** Admin เปลี่ยนเป็น Inactive
-- **Then:** ระบบต้องปฏิเสธการสร้าง Session ใหม่และยกเลิก/ทำให้ Session เดิมใช้ไม่ได้ตาม Session Policy
+- **Given (กำหนดให้):** บัญชีเป็น Active
+- **When (เมื่อ):** Admin เปลี่ยนเป็น Inactive
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธการสร้าง Session ใหม่และยกเลิก/ทำให้ Session เดิมใช้ไม่ได้ตาม Session Policy
 #### US-USR-003-AC-03
 
-- **Given:** Evaluator ถูกปิดสิทธิ์แต่มี Draft อยู่
-- **When:** สถานะถูกเปลี่ยนเป็น Inactive
-- **Then:** ระบบต้องเก็บ Draft ไว้เพื่อ Audit แต่ไม่อนุญาตให้บัญชีนั้นแก้ไขหรือ Submit
+- **Given (กำหนดให้):** Evaluator ถูกปิดสิทธิ์แต่มี Draft อยู่
+- **When (เมื่อ):** สถานะถูกเปลี่ยนเป็น Inactive
+- **Then (ระบบต้อง):** ระบบต้องเก็บ Draft ไว้เพื่อ Audit แต่ไม่อนุญาตให้บัญชีนั้นแก้ไขหรือ Submit
 #### US-USR-003-AC-04
 
-- **Given:** Admin กำลังปิดบัญชีของตนเองหรือบัญชี Admin สำคัญ
-- **When:** การเปลี่ยนจะทำให้ไม่มี Active Admin เหลืออยู่
-- **Then:** [ข้อเสนอแนะ] ระบบควรปฏิเสธและแจ้งว่าต้องมีผู้ดูแลระบบอย่างน้อยหนึ่งบัญชี
+- **Given (กำหนดให้):** Admin กำลังปิดบัญชีของตนเองหรือบัญชี Admin สำคัญ
+- **When (เมื่อ):** การเปลี่ยนจะทำให้ไม่มี Active Admin เหลืออยู่
+- **Then (ระบบต้อง):** [ข้อเสนอแนะ] ระบบควรปฏิเสธและแจ้งว่าต้องมีผู้ดูแลระบบอย่างน้อยหนึ่งบัญชี
 #### US-USR-003-AC-05
 
-- **Given:** การเปลี่ยนสถานะสำเร็จ
-- **When:** ระบบ Commit
-- **Then:** ต้องบันทึกเหตุผล ผู้ดำเนินการ และเวลาใน Audit Log
+- **Given (กำหนดให้):** การเปลี่ยนสถานะสำเร็จ
+- **When (เมื่อ):** ระบบ Commit
+- **Then (ระบบต้อง):** ต้องบันทึกเหตุผล ผู้ดำเนินการ และเวลาใน Audit Log
 
 ---
 
@@ -446,24 +446,24 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-RND-001-AC-01
 
-- **Given:** Admin กรอกข้อมูลรอบทุนที่ไม่ซ้ำและครบถ้วน
-- **When:** กดสร้าง
-- **Then:** ระบบต้องสร้างรอบทุนสถานะ `Draft` และกำหนดรหัสอ้างอิงที่ไม่ซ้ำ
+- **Given (กำหนดให้):** Admin กรอกข้อมูลรอบทุนที่ไม่ซ้ำและครบถ้วน
+- **When (เมื่อ):** กดสร้าง
+- **Then (ระบบต้อง):** ระบบต้องสร้างรอบทุนสถานะ `DRAFT` และกำหนดรหัสอ้างอิงที่ไม่ซ้ำ
 #### US-RND-001-AC-02
 
-- **Given:** รหัสหรือชื่ออ้างอิงที่กำหนดให้ Unique ซ้ำ
-- **When:** กดสร้าง
-- **Then:** ระบบต้องปฏิเสธด้วย Conflict และไม่สร้างข้อมูลบางส่วน
+- **Given (กำหนดให้):** รหัสหรือชื่ออ้างอิงที่กำหนดให้ Unique ซ้ำ
+- **When (เมื่อ):** กดสร้าง
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธด้วย Conflict และไม่สร้างข้อมูลบางส่วน
 #### US-RND-001-AC-03
 
-- **Given:** สร้างรอบทุนสำเร็จ
-- **When:** Admin เปิดข้อมูลรอบทุน
-- **Then:** ต้องยังไม่มีผู้สมัคร เกณฑ์ Evaluation หรือ Result Summary ของรอบอื่นถูกเชื่อมเข้ามา
+- **Given (กำหนดให้):** สร้างรอบทุนสำเร็จ
+- **When (เมื่อ):** Admin เปิดข้อมูลรอบทุน
+- **Then (ระบบต้อง):** ต้องยังไม่มีผู้สมัคร เกณฑ์ Evaluation หรือ Result Summary ของรอบอื่นถูกเชื่อมเข้ามา
 #### US-RND-001-AC-04
 
-- **Given:** ผู้ใช้ที่ไม่ใช่ Admin เรียกสร้างรอบทุน
-- **When:** Backend ตรวจสิทธิ์
-- **Then:** ต้องตอบ `403` และไม่สร้างรอบทุน
+- **Given (กำหนดให้):** ผู้ใช้ที่ไม่ใช่ Admin เรียกสร้างรอบทุน
+- **When (เมื่อ):** Backend ตรวจสิทธิ์
+- **Then (ระบบต้อง):** ต้องตอบ `403` และไม่สร้างรอบทุน
 
 ---
 
@@ -489,29 +489,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-RND-002-AC-01
 
-- **Given:** รอบทุนเป็น Draft และยังไม่มี Evaluation
-- **When:** Admin แก้ไข Metadata
-- **Then:** ระบบต้องอนุญาตให้แก้ไขและบันทึก Audit
+- **Given (กำหนดให้):** รอบทุนเป็น Draft และยังไม่มี Evaluation
+- **When (เมื่อ):** Admin แก้ไข Metadata
+- **Then (ระบบต้อง):** ระบบต้องอนุญาตให้แก้ไขและบันทึก Audit
 #### US-RND-002-AC-02
 
-- **Given:** เกณฑ์ยังไม่ครบหรือยังไม่ Activate
-- **When:** Admin พยายามเปลี่ยนรอบเป็น Open
-- **Then:** ระบบต้องปฏิเสธและแสดงรายการเงื่อนไขที่ยังไม่ผ่าน
+- **Given (กำหนดให้):** เกณฑ์ยังไม่ครบหรือยังไม่ Activate
+- **When (เมื่อ):** Admin พยายามเปลี่ยนรอบเป็น Open
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธและแสดงรายการเงื่อนไขที่ยังไม่ผ่าน
 #### US-RND-002-AC-03
 
-- **Given:** เงื่อนไขเปิดรอบครบ
-- **When:** Admin ยืนยันเปลี่ยนเป็น Open
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Open` และอนุญาต Evaluator ที่ Active ค้นหา/เลือก Application; pre-open requires Application ≥1 and zero is Blocking `NO_APPLICANTS`
+- **Given (กำหนดให้):** เงื่อนไขเปิดรอบครบ
+- **When (เมื่อ):** Admin ยืนยันเปลี่ยนเป็น Open
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยนสถานะเป็น `OPEN` และอนุญาต Evaluator ที่ Active ค้นหา/เลือก Application; pre-open requires Application ≥1 and zero is Blocking `NO_APPLICANTS`
 #### US-RND-002-AC-04
 
-- **Given:** รอบเป็น Open
-- **When:** มีการแก้ไขข้อมูลที่กระทบคะแนนหรือการประเมิน
-- **Then:** ระบบต้องใช้ข้อจำกัดของโมดูลนั้น เช่น Criteria Versioning และห้ามแก้ข้อมูลผู้สมัครสำคัญผ่าน Import หลังเริ่ม Evaluation
+- **Given (กำหนดให้):** รอบเป็น Open
+- **When (เมื่อ):** มีการแก้ไขข้อมูลที่กระทบคะแนนหรือการประเมิน
+- **Then (ระบบต้อง):** ระบบต้องใช้ข้อจำกัดของโมดูลนั้น เช่น Criteria Versioning และห้ามแก้ข้อมูลผู้สมัครสำคัญผ่าน Import หลังเริ่ม Evaluation
 #### US-RND-002-AC-05
 
-- **Given:** เปลี่ยนสถานะสำเร็จ
-- **When:** Transaction Commit
-- **Then:** ระบบต้องบันทึกสถานะเดิม สถานะใหม่ ผู้ดำเนินการ และเวลา
+- **Given (กำหนดให้):** เปลี่ยนสถานะสำเร็จ
+- **When (เมื่อ):** Transaction Commit
+- **Then (ระบบต้อง):** ระบบต้องบันทึกสถานะเดิม สถานะใหม่ ผู้ดำเนินการ และเวลา
 
 ---
 
@@ -536,24 +536,24 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-RND-003-AC-01
 
-- **Given:** รอบทุนเป็น Closed
-- **When:** Admin ยืนยัน Archive
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Archived` โดยไม่ลบผู้สมัคร Evaluation Result Summary เอกสาร หรือ Audit Log
+- **Given (กำหนดให้):** รอบทุนเป็น Closed
+- **When (เมื่อ):** Admin ยืนยัน Archive
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยนสถานะเป็น `ARCHIVED` โดยไม่ลบผู้สมัคร Evaluation Result Summary เอกสาร หรือ Audit Log
 #### US-RND-003-AC-02
 
-- **Given:** รอบทุนเป็น Archived
-- **When:** ผู้ใช้เปิดดูตามสิทธิ์
-- **Then:** ระบบต้องแสดงข้อมูลแบบ Read-only และไม่อนุญาตเลือกผู้สมัคร บันทึก Draft Submit หรือแก้เกณฑ์
+- **Given (กำหนดให้):** รอบทุนเป็น Archived
+- **When (เมื่อ):** ผู้ใช้เปิดดูตามสิทธิ์
+- **Then (ระบบต้อง):** ระบบต้องแสดงข้อมูลแบบ Read-only และไม่อนุญาตเลือกผู้สมัคร บันทึก Draft Submit หรือแก้เกณฑ์
 #### US-RND-003-AC-03
 
-- **Given:** Admin พยายาม Archive รอบที่ยัง Open
-- **When:** ระบบตรวจสถานะ
-- **Then:** ต้องปฏิเสธและแนะนำให้ปิดรอบก่อน
+- **Given (กำหนดให้):** Admin พยายาม Archive รอบที่ยัง Open
+- **When (เมื่อ):** ระบบตรวจสถานะ
+- **Then (ระบบต้อง):** ต้องปฏิเสธและแนะนำให้ปิดรอบก่อน
 #### US-RND-003-AC-04
 
-- **Given:** มีความจำเป็นต้องนำ Archived กลับมาใช้งาน
-- **When:** Admin ร้องขอเปลี่ยนสถานะ
-- **Then:** exceptional Round Reopen requires request, reason/reference, designated approval and Audit; Archived is rejected and prior Final report becomes Superseded
+- **Given (กำหนดให้):** มีความจำเป็นต้องนำ Archived กลับมาใช้งาน
+- **When (เมื่อ):** Admin ร้องขอเปลี่ยนสถานะ
+- **Then (ระบบต้อง):** exceptional Round Reopen requires request, reason/reference, designated approval and Audit; Archived is rejected and prior Final report becomes Superseded
 
 ---
 
@@ -585,29 +585,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-IMP-001-AC-01
 
-- **Given:** Admin เลือกไฟล์และรอบทุน
-- **When:** กด Upload
-- **Then:** ระบบต้องสร้าง Import Batch พร้อมชื่อไฟล์ ขนาด Hash ผู้ Upload รอบทุน และเวลา โดยยังไม่สร้าง Applicant จริง
+- **Given (กำหนดให้):** Admin เลือกไฟล์และรอบทุน
+- **When (เมื่อ):** กด Upload
+- **Then (ระบบต้อง):** ระบบต้องสร้าง Import Batch พร้อมชื่อไฟล์ ขนาด Hash ผู้ Upload รอบทุน และเวลา โดยยังไม่สร้าง Applicant จริง
 #### US-IMP-001-AC-02
 
-- **Given:** ระบบอ่าน Header สำเร็จ
-- **When:** เข้าสู่ขั้นตอน Mapping
-- **Then:** ระบบต้องเสนอ Mapping จากชื่อจริงและ Alias เช่น `ชือ` → `ชื่อ/first_name` และอนุญาต Admin แก้ Mapping
+- **Given (กำหนดให้):** ระบบอ่าน Header สำเร็จ
+- **When (เมื่อ):** เข้าสู่ขั้นตอน Mapping
+- **Then (ระบบต้อง):** ระบบต้องเสนอ Mapping จากชื่อจริงและ Alias เช่น `ชือ` → `ชื่อ/first_name` และอนุญาต Admin แก้ Mapping
 #### US-IMP-001-AC-03
 
-- **Given:** Header ที่จำเป็นหายหรือคอลัมน์เดียวถูกจับคู่ซ้ำอย่างขัดแย้ง
-- **When:** Admin ขอ Preview
-- **Then:** ระบบต้องบล็อกขั้นตอนถัดไปและแสดง `MISSING_REQUIRED_COLUMN` หรือ `DUPLICATE_COLUMN_MAPPING`
+- **Given (กำหนดให้):** Header ที่จำเป็นหายหรือคอลัมน์เดียวถูกจับคู่ซ้ำอย่างขัดแย้ง
+- **When (เมื่อ):** Admin ขอ Preview
+- **Then (ระบบต้อง):** ระบบต้องบล็อกขั้นตอนถัดไปและแสดง `MISSING_REQUIRED_COLUMN` หรือ `DUPLICATE_COLUMN_MAPPING`
 #### US-IMP-001-AC-04
 
-- **Given:** Identifier เช่นรหัสนักศึกษาและโทรศัพท์อยู่ในไฟล์
-- **When:** ระบบอ่านข้อมูล
-- **Then:** ระบบต้องอ่านเป็น Text และตรวจจับ Scientific Notation เพื่อไม่ให้เลขศูนย์หรือรูปแบบรหัสเสียหาย
+- **Given (กำหนดให้):** Identifier เช่นรหัสนักศึกษาและโทรศัพท์อยู่ในไฟล์
+- **When (เมื่อ):** ระบบอ่านข้อมูล
+- **Then (ระบบต้อง):** ระบบต้องอ่านเป็น Text และตรวจจับ Scientific Notation เพื่อไม่ให้เลขศูนย์หรือรูปแบบรหัสเสียหาย
 #### US-IMP-001-AC-05
 
-- **Given:** อัปโหลดไฟล์ชนิดไม่รองรับหรืออ่านไม่ได้
-- **When:** ระบบ Parse
-- **Then:** ระบบต้องปฏิเสธไฟล์ ไม่สร้างข้อมูลจริง และบันทึกสถานะ Batch เป็น Failed พร้อม Error Code
+- **Given (กำหนดให้):** อัปโหลดไฟล์ชนิดไม่รองรับหรืออ่านไม่ได้
+- **When (เมื่อ):** ระบบ Parse
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธไฟล์ ไม่สร้างข้อมูลจริง และบันทึกสถานะ Batch เป็น Failed พร้อม Error Code
 
 ---
 
@@ -633,39 +633,39 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-IMP-002-AC-01
 
-- **Given:** แถวมี `student_id` หลัง Trim
-- **When:** ระบบจำแนกแถว
-- **Then:** ต้องถือเป็น Applicant Row และตรวจ Hard Required, รูปแบบรหัส, GPA, วันที่, Contact และฟิลด์อื่นตาม Mapping
+- **Given (กำหนดให้):** แถวมี `student_id` หลัง Trim
+- **When (เมื่อ):** ระบบจำแนกแถว
+- **Then (ระบบต้อง):** ต้องถือเป็น Applicant Row และตรวจ Hard Required, รูปแบบรหัส, GPA, วันที่, Contact และฟิลด์อื่นตาม Mapping
 #### US-IMP-002-AC-02
 
-- **Given:** แถวไม่มี `student_id` แต่มีเฉพาะข้อมูล กยศ./ทุน
-- **When:** มี Applicant Row ก่อนหน้าที่ Valid
-- **Then:** ต้องจำแนกเป็น Continuation Row สืบทอดผู้สมัครเจ้าของ และสร้างเฉพาะ Child History ใน Payload Preview
+- **Given (กำหนดให้):** แถวไม่มี `student_id` แต่มีเฉพาะข้อมูล กยศ./ทุน
+- **When (เมื่อ):** มี Applicant Row ก่อนหน้าที่ Valid
+- **Then (ระบบต้อง):** ต้องจำแนกเป็น Continuation Row สืบทอดผู้สมัครเจ้าของ และสร้างเฉพาะ Child History ใน Payload Preview
 #### US-IMP-002-AC-03
 
-- **Given:** Continuation Row ไม่มี Applicant เจ้าของหรือมีข้อมูล Applicant อื่นปะปน
-- **When:** ระบบ Validate
-- **Then:** ต้องแสดง `ORPHAN_CONTINUATION_ROW` หรือ `VALIDATION_ERROR` และไม่ถือว่าแถว Valid
+- **Given (กำหนดให้):** Continuation Row ไม่มี Applicant เจ้าของหรือมีข้อมูล Applicant อื่นปะปน
+- **When (เมื่อ):** ระบบ Validate
+- **Then (ระบบต้อง):** ต้องแสดง `ORPHAN_CONTINUATION_ROW` หรือ `VALIDATION_ERROR` และไม่ถือว่าแถว Valid
 #### US-IMP-002-AC-04
 
-- **Given:** มีรหัสผู้สมัครซ้ำภายในไฟล์
-- **When:** ระบบตรวจ Business Key
-- **Then:** ต้องแสดง `DUPLICATE_STUDENT_IN_FILE` และไม่รวมแถวดังกล่าวเป็นรายการนำเข้าที่ Valid
+- **Given (กำหนดให้):** มีรหัสผู้สมัครซ้ำภายในไฟล์
+- **When (เมื่อ):** ระบบตรวจ Business Key
+- **Then (ระบบต้อง):** ต้องแสดง `DUPLICATE_STUDENT_IN_FILE` และไม่รวมแถวดังกล่าวเป็นรายการนำเข้าที่ Valid
 #### US-IMP-002-AC-05
 
-- **Given:** พบ GPA นอก 0.00–4.00 วันที่แปลงไม่ได้ หรือพิกัดนอกช่วง
-- **When:** ระบบ Validate
-- **Then:** ต้องแสดง Error Code เฉพาะฟิลด์ เช่น `INVALID_GPA`, `INVALID_DATE`, `INVALID_COORDINATE` พร้อม Source Row, Raw Value และข้อความ
+- **Given (กำหนดให้):** พบ GPA นอก 0.00–4.00 วันที่แปลงไม่ได้ หรือพิกัดนอกช่วง
+- **When (เมื่อ):** ระบบ Validate
+- **Then (ระบบต้อง):** ต้องแสดง Error Code เฉพาะฟิลด์ เช่น `INVALID_GPA`, `INVALID_DATE`, `INVALID_COORDINATE` พร้อม Source Row, Raw Value และข้อความ
 #### US-IMP-002-AC-06
 
-- **Given:** Preview เสร็จ
-- **When:** Admin ตรวจผล
-- **Then:** ระบบต้องแสดงจำนวน Total, Applicant, Continuation, Valid, Warning, Error, Duplicate และ Skipped รวมถึง Normalized Value ของแต่ละฟิลด์
+- **Given (กำหนดให้):** Preview เสร็จ
+- **When (เมื่อ):** Admin ตรวจผล
+- **Then (ระบบต้อง):** ระบบต้องแสดงจำนวน Total, Applicant, Continuation, Valid, Warning, Error, Duplicate และ Skipped รวมถึง Normalized Value ของแต่ละฟิลด์
 #### US-IMP-002-AC-07
 
-- **Given:** Batch มี Blocking Error
-- **When:** Admin พยายามยืนยัน
-- **Then:** ระบบต้องปิดใช้งานหรือปฏิเสธ Confirm จนกว่าจะมีนโยบาย Partial Import ที่ได้รับอนุมัติ
+- **Given (กำหนดให้):** Batch มี Blocking Error
+- **When (เมื่อ):** Admin พยายามยืนยัน
+- **Then (ระบบต้อง):** ระบบต้องปิดใช้งานหรือปฏิเสธ Confirm จนกว่าจะมีนโยบาย Partial Import ที่ได้รับอนุมัติ
 
 ---
 
@@ -691,34 +691,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-IMP-003-AC-01
 
-- **Given:** Batch ไม่มี Blocking Error
-- **When:** Admin กดยืนยัน Import
-- **Then:** ระบบต้องบันทึก Applicant และ Child Records ภายใน Database Transaction เดียวกันตาม Payload ที่ Preview แล้ว
+- **Given (กำหนดให้):** Batch ไม่มี Blocking Error
+- **When (เมื่อ):** Admin กดยืนยัน Import
+- **Then (ระบบต้อง):** ระบบต้องบันทึก Applicant และ Child Records ภายใน Database Transaction เดียวกันตาม Payload ที่ Preview แล้ว
 #### US-IMP-003-AC-02
 
-- **Given:** เกิด Database/File Processing Error ระหว่าง Commit
-- **When:** Transaction ล้มเหลว
-- **Then:** ระบบต้อง Rollback ข้อมูลทั้ง Batch ตามโหมด All-or-Nothing และบันทึก `IMPORT_STATE_INVALID` เมื่อ state ไม่อนุญาตให้ commit
+- **Given (กำหนดให้):** เกิด Database/File Processing Error ระหว่าง Commit
+- **When (เมื่อ):** Transaction ล้มเหลว
+- **Then (ระบบต้อง):** ระบบต้อง Rollback ข้อมูลทั้ง Batch ตามโหมด All-or-Nothing และบันทึก `IMPORT_STATE_INVALID` เมื่อ state ไม่อนุญาตให้ commit
 #### US-IMP-003-AC-03
 
-- **Given:** ผู้สมัครซ้ำกับฐานข้อมูลในรอบเดียวกัน
-- **When:** ยังไม่มี Evaluation
-- **Then:** ค่าเริ่มต้นต้อง Skip; never auto-Upsert; explicit Update เฉพาะก่อนมี Evaluation; หลังจากนั้นใช้ Controlled Correction พร้อม before/after Audit
+- **Given (กำหนดให้):** ผู้สมัครซ้ำกับฐานข้อมูลในรอบเดียวกัน
+- **When (เมื่อ):** ยังไม่มี Evaluation
+- **Then (ระบบต้อง):** ค่าเริ่มต้นต้อง Skip; never auto-Upsert; explicit Update เฉพาะก่อนมี Evaluation; หลังจากนั้นใช้ Controlled Correction พร้อม before/after Audit
 #### US-IMP-003-AC-04
 
-- **Given:** ผู้สมัครซ้ำและมี Evaluation แล้ว
-- **When:** Admin พยายาม Update ผ่าน Import
-- **Then:** ระบบต้องปฏิเสธด้วย `IMPORT_STATE_INVALID` เพื่อป้องกันข้อมูลที่ใช้ประกอบการประเมินเปลี่ยนย้อนหลัง
+- **Given (กำหนดให้):** ผู้สมัครซ้ำและมี Evaluation แล้ว
+- **When (เมื่อ):** Admin พยายาม Update ผ่าน Import
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธด้วย `IMPORT_STATE_INVALID` เพื่อป้องกันข้อมูลที่ใช้ประกอบการประเมินเปลี่ยนย้อนหลัง
 #### US-IMP-003-AC-05
 
-- **Given:** Commit สำเร็จ
-- **When:** ระบบสรุปผล
-- **Then:** ต้องแสดงจำนวน Imported/Updated/Skipped/Failed และบันทึก Import History ที่ค้นหาได้ภายหลัง
+- **Given (กำหนดให้):** Commit สำเร็จ
+- **When (เมื่อ):** ระบบสรุปผล
+- **Then (ระบบต้อง):** ต้องแสดงจำนวน Imported/Updated/Skipped/Failed และบันทึก Import History ที่ค้นหาได้ภายหลัง
 #### US-IMP-003-AC-06
 
-- **Given:** Admin เปิด Import History
-- **When:** เลือกรายการ Batch
-- **Then:** ระบบต้องแสดงชื่อไฟล์ Hash รอบทุน ผู้นำเข้า เวลา Mapping สรุปผล และ Error/Warning Report โดยไม่เปิดเผยข้อมูลเกินสิทธิ์
+- **Given (กำหนดให้):** Admin เปิด Import History
+- **When (เมื่อ):** เลือกรายการ Batch
+- **Then (ระบบต้อง):** ระบบต้องแสดงชื่อไฟล์ Hash รอบทุน ผู้นำเข้า เวลา Mapping สรุปผล และ Error/Warning Report โดยไม่เปิดเผยข้อมูลเกินสิทธิ์
 
 ---
 
@@ -750,29 +750,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DOC-001-AC-01
 
-- **Given:** Admin เลือกผู้สมัครและไฟล์ PDF/JPG/PNG ที่ผ่านข้อกำหนด
-- **When:** กด Upload
-- **Then:** ระบบต้องจัดเก็บ Binary ใน File/Object Storage และบันทึก Metadata/Reference ใน PostgreSQL โดยไม่เก็บ Binary ในตารางฐานข้อมูล
+- **Given (กำหนดให้):** Admin เลือกผู้สมัครและไฟล์ PDF/JPG/PNG ที่ผ่านข้อกำหนด
+- **When (เมื่อ):** กด Upload
+- **Then (ระบบต้อง):** ระบบต้องจัดเก็บ Binary ใน File/Object Storage และบันทึก Metadata/Reference ใน PostgreSQL โดยไม่เก็บ Binary ในตารางฐานข้อมูล
 #### US-DOC-001-AC-02
 
-- **Given:** ไฟล์ชนิดไม่รองรับ ขนาดเกินกำหนด หรือ Signature ไม่ตรง Extension
-- **When:** ระบบตรวจไฟล์
-- **Then:** ระบบต้องปฏิเสธก่อนเผยแพร่ไฟล์และแสดง Error Code ที่ชัดเจน
+- **Given (กำหนดให้):** ไฟล์ชนิดไม่รองรับ ขนาดเกินกำหนด หรือ Signature ไม่ตรง Extension
+- **When (เมื่อ):** ระบบตรวจไฟล์
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธก่อนเผยแพร่ไฟล์และแสดง Error Code ที่ชัดเจน
 #### US-DOC-001-AC-03
 
-- **Given:** Upload สำเร็จ
-- **When:** ระบบ Commit Metadata
-- **Then:** ต้องบันทึกชื่อเดิม ชื่อจัดเก็บ MIME Type ขนาด Storage Key ผู้ Upload เวลา และ Applicant/Round ที่อ้างอิง
+- **Given (กำหนดให้):** Upload สำเร็จ
+- **When (เมื่อ):** ระบบ Commit Metadata
+- **Then (ระบบต้อง):** ต้องบันทึกชื่อเดิม ชื่อจัดเก็บ MIME Type ขนาด Storage Key ผู้ Upload เวลา และ Applicant/Round ที่อ้างอิง
 #### US-DOC-001-AC-04
 
-- **Given:** เกิด Storage Error หลังสร้าง Metadata หรือกลับกัน
-- **When:** กระบวนการไม่ครบทั้งสองส่วน
-- **Then:** ระบบต้องชดเชย/rollback เพื่อไม่ให้มี Metadata กำพร้าหรือไฟล์กำพร้าโดยไม่ถูกติดตาม
+- **Given (กำหนดให้):** เกิด Storage Error หลังสร้าง Metadata หรือกลับกัน
+- **When (เมื่อ):** กระบวนการไม่ครบทั้งสองส่วน
+- **Then (ระบบต้อง):** ระบบต้องชดเชย/rollback เพื่อไม่ให้มี Metadata กำพร้าหรือไฟล์กำพร้าโดยไม่ถูกติดตาม
 #### US-DOC-001-AC-05
 
-- **Given:** Upload สำเร็จ
-- **When:** Admin กลับมาดูรายการเอกสาร
-- **Then:** ต้องเห็นเอกสารอยู่กับผู้สมัครและรอบทุนที่ถูกต้อง พร้อม Audit Event
+- **Given (กำหนดให้):** Upload สำเร็จ
+- **When (เมื่อ):** Admin กลับมาดูรายการเอกสาร
+- **Then (ระบบต้อง):** ต้องเห็นเอกสารอยู่กับผู้สมัครและรอบทุนที่ถูกต้อง พร้อม Audit Event
 
 ### Notes / Open Decisions
 
@@ -801,29 +801,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DOC-002-AC-01
 
-- **Given:** Admin หรือ Evaluator เจ้าของ Evaluation ขอเอกสาร
-- **When:** Backend ตรวจ Role, Round และ Ownership ผ่าน
-- **Then:** ระบบต้องส่งไฟล์ผ่าน Endpoint ที่ตรวจสิทธิ์ทุกครั้งหรือ URL ชั่วคราวที่มีอายุจำกัด
+- **Given (กำหนดให้):** Admin หรือ Evaluator เจ้าของ Evaluation ขอเอกสาร
+- **When (เมื่อ):** Backend ตรวจ Role, Round และ Ownership ผ่าน
+- **Then (ระบบต้อง):** ระบบต้องส่งไฟล์ผ่าน Endpoint ที่ตรวจสิทธิ์ทุกครั้งหรือ URL ชั่วคราวที่มีอายุจำกัด
 #### US-DOC-002-AC-02
 
-- **Given:** ไฟล์เป็น PDF/JPG/PNG และ Browser รองรับ
-- **When:** ผู้ใช้กดเปิดดู
-- **Then:** ระบบควรแสดง Preview ใน Browser โดยไม่เปิดเผย Storage Path ถาวร
+- **Given (กำหนดให้):** ไฟล์เป็น PDF/JPG/PNG และ Browser รองรับ
+- **When (เมื่อ):** ผู้ใช้กดเปิดดู
+- **Then (ระบบต้อง):** ระบบควรแสดง Preview ใน Browser โดยไม่เปิดเผย Storage Path ถาวร
 #### US-DOC-002-AC-03
 
-- **Given:** ไฟล์เปิด Preview ไม่ได้แต่ผู้ใช้มีสิทธิ์
-- **When:** ผู้ใช้กดดาวน์โหลด
-- **Then:** ระบบต้องดาวน์โหลดด้วยชื่อไฟล์ที่เหมาะสมและ Content-Type/Disposition ที่ถูกต้อง
+- **Given (กำหนดให้):** ไฟล์เปิด Preview ไม่ได้แต่ผู้ใช้มีสิทธิ์
+- **When (เมื่อ):** ผู้ใช้กดดาวน์โหลด
+- **Then (ระบบต้อง):** ระบบต้องดาวน์โหลดด้วยชื่อไฟล์ที่เหมาะสมและ Content-Type/Disposition ที่ถูกต้อง
 #### US-DOC-002-AC-04
 
-- **Given:** Evaluator ไม่มี Evaluation สำหรับผู้สมัครหรือเรียกเอกสารข้ามรอบ
-- **When:** Backend ตรวจสิทธิ์ไม่ผ่าน
-- **Then:** ระบบต้องตอบ `403/404` ตาม Security Policy ไม่ส่งไฟล์หรือ Storage URL
+- **Given (กำหนดให้):** Evaluator ไม่มี Evaluation สำหรับผู้สมัครหรือเรียกเอกสารข้ามรอบ
+- **When (เมื่อ):** Backend ตรวจสิทธิ์ไม่ผ่าน
+- **Then (ระบบต้อง):** ระบบต้องตอบ `403/404` ตาม Security Policy ไม่ส่งไฟล์หรือ Storage URL
 #### US-DOC-002-AC-05
 
-- **Given:** ไฟล์สูญหายหรือเสียหายใน Storage
-- **When:** ผู้ใช้ขอเปิด
-- **Then:** ระบบต้องแสดงข้อผิดพลาดที่ไม่เปิดเผย Path ภายในและบันทึกเหตุการณ์เพื่อให้ Admin ตรวจสอบ
+- **Given (กำหนดให้):** ไฟล์สูญหายหรือเสียหายใน Storage
+- **When (เมื่อ):** ผู้ใช้ขอเปิด
+- **Then (ระบบต้อง):** ระบบต้องแสดงข้อผิดพลาดที่ไม่เปิดเผย Path ภายในและบันทึกเหตุการณ์เพื่อให้ Admin ตรวจสอบ
 
 ---
 
@@ -856,29 +856,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-CRI-001-AC-01
 
-- **Given:** Admin สร้าง Criteria Set ใหม่
-- **When:** บันทึกข้อมูล
-- **Then:** ระบบต้องผูกชุดเกณฑ์กับรอบทุนและกำหนด Version/Status เริ่มต้นเป็น Draft
+- **Given (กำหนดให้):** Admin สร้าง Criteria Set ใหม่
+- **When (เมื่อ):** บันทึกข้อมูล
+- **Then (ระบบต้อง):** ระบบต้องผูกชุดเกณฑ์กับรอบทุนและกำหนด Version/Status เริ่มต้นเป็น Draft
 #### US-CRI-001-AC-02
 
-- **Given:** Admin เพิ่ม Criterion
-- **When:** กรอกข้อมูล
-- **Then:** ระบบต้องรองรับอย่างน้อย criterion_code, ชื่อ, คำอธิบาย, คะแนนต่ำสุด, คะแนนเต็ม, น้ำหนัก, ลำดับ, required flag และ version
+- **Given (กำหนดให้):** Admin เพิ่ม Criterion
+- **When (เมื่อ):** กรอกข้อมูล
+- **Then (ระบบต้อง):** ระบบต้องรองรับอย่างน้อย criterion_code, ชื่อ, คำอธิบาย, คะแนนต่ำสุด, คะแนนเต็ม, น้ำหนัก, ลำดับ, required flag และ version
 #### US-CRI-001-AC-03
 
-- **Given:** criterion_code ซ้ำใน Criteria Version เดียวกัน
-- **When:** กดบันทึก
-- **Then:** ระบบต้องปฏิเสธด้วย Conflict
+- **Given (กำหนดให้):** criterion_code ซ้ำใน Criteria Version เดียวกัน
+- **When (เมื่อ):** กดบันทึก
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธด้วย Conflict
 #### US-CRI-001-AC-04
 
-- **Given:** คะแนนต่ำสุดมากกว่าคะแนนเต็ม น้ำหนักติดลบ หรือลำดับซ้ำตามกฎที่กำหนด
-- **When:** Validate
-- **Then:** ระบบต้องแสดง Validation ราย Criterion และไม่ Activate ชุดเกณฑ์
+- **Given (กำหนดให้):** คะแนนต่ำสุดมากกว่าคะแนนเต็ม น้ำหนักติดลบ หรือลำดับซ้ำตามกฎที่กำหนด
+- **When (เมื่อ):** Validate
+- **Then (ระบบต้อง):** ระบบต้องแสดง Validation ราย Criterion และไม่ Activate ชุดเกณฑ์
 #### US-CRI-001-AC-05
 
-- **Given:** Admin จัดลำดับเกณฑ์
-- **When:** บันทึก
-- **Then:** Evaluator ต้องเห็นเกณฑ์ตามลำดับเดียวกันในแบบฟอร์ม Review และรายงาน
+- **Given (กำหนดให้):** Admin จัดลำดับเกณฑ์
+- **When (เมื่อ):** บันทึก
+- **Then (ระบบต้อง):** Evaluator ต้องเห็นเกณฑ์ตามลำดับเดียวกันในแบบฟอร์ม Review และรายงาน
 
 ---
 
@@ -903,29 +903,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-CRI-002-AC-01
 
-- **Given:** Criteria Set มี Criterion ครบและกฎคะแนนผ่าน Validation
-- **When:** Admin ขอ Activate
-- **Then:** ระบบต้องตรวจ Required Metadata, คะแนนต่ำสุด/เต็ม, น้ำหนัก, ลำดับ และสูตรที่อ้างอิง
+- **Given (กำหนดให้):** Criteria Set มี Criterion ครบและกฎคะแนนผ่าน Validation
+- **When (เมื่อ):** Admin ขอ Activate
+- **Then (ระบบต้อง):** ระบบต้องตรวจ Required Metadata, คะแนนต่ำสุด/เต็ม, น้ำหนัก, ลำดับ และสูตรที่อ้างอิง
 #### US-CRI-002-AC-02
 
-- **Given:** สูตรหรือน้ำหนักยังไม่ผ่านการยืนยัน/กำหนด
-- **When:** กฎดังกล่าวจำเป็นต่อการคำนวณ
-- **Then:** ระบบต้องบล็อก Activate และแสดงว่าต้องยืนยัน Scoring Rule ก่อน
+- **Given (กำหนดให้):** สูตรหรือน้ำหนักยังไม่ผ่านการยืนยัน/กำหนด
+- **When (เมื่อ):** กฎดังกล่าวจำเป็นต่อการคำนวณ
+- **Then (ระบบต้อง):** ระบบต้องบล็อก Activate และแสดงว่าต้องยืนยัน Scoring Rule ก่อน
 #### US-CRI-002-AC-03
 
-- **Given:** Validation ผ่าน
-- **When:** Admin ยืนยัน Activate
-- **Then:** ระบบต้องเปลี่ยน Version เป็น Active และทำให้ Evaluation ใหม่ของรอบนั้นอ้างอิง Version นี้
+- **Given (กำหนดให้):** Validation ผ่าน
+- **When (เมื่อ):** Admin ยืนยัน Activate
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยน Version เป็น Active และทำให้ Evaluation ใหม่ของรอบนั้นอ้างอิง Version นี้
 #### US-CRI-002-AC-04
 
-- **Given:** มี Active Version อยู่แล้ว
-- **When:** Admin Activate Version ใหม่ก่อนเริ่ม Evaluation
-- **Then:** ระบบต้องทำให้มี Active Version เดียวต่อรอบตาม Policy และบันทึก Version เดิมไว้
+- **Given (กำหนดให้):** มี Active Version อยู่แล้ว
+- **When (เมื่อ):** Admin Activate Version ใหม่ก่อนเริ่ม Evaluation
+- **Then (ระบบต้อง):** ระบบต้องทำให้มี Active Version เดียวต่อรอบตาม Policy และบันทึก Version เดิมไว้
 #### US-CRI-002-AC-05
 
-- **Given:** Activate สำเร็จ
-- **When:** ผู้ประเมินเริ่ม Evaluation
-- **Then:** ระบบต้องแสดง Criterion จาก Version ที่ถูกอ้างอิง ไม่ใช้ข้อมูลจากรอบอื่น
+- **Given (กำหนดให้):** Activate สำเร็จ
+- **When (เมื่อ):** ผู้ประเมินเริ่ม Evaluation
+- **Then (ระบบต้อง):** ระบบต้องแสดง Criterion จาก Version ที่ถูกอ้างอิง ไม่ใช้ข้อมูลจากรอบอื่น
 
 ### Notes / Open Decisions
 
@@ -954,29 +954,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-CRI-003-AC-01
 
-- **Given:** Version ถูกอ้างอิงโดย Evaluation
-- **When:** Admin พยายามแก้คะแนนเต็ม น้ำหนัก หรือสูตรโดยตรง
-- **Then:** ระบบต้องปฏิเสธการแก้ไขที่กระทบคะแนน
+- **Given (กำหนดให้):** Version ถูกอ้างอิงโดย Evaluation
+- **When (เมื่อ):** Admin พยายามแก้คะแนนเต็ม น้ำหนัก หรือสูตรโดยตรง
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธการแก้ไขที่กระทบคะแนน
 #### US-CRI-003-AC-02
 
-- **Given:** Admin เลือกสร้าง Version ใหม่
-- **When:** ระบบ Copy Criteria
-- **Then:** ต้องสร้าง Draft Version ใหม่พร้อม version number ใหม่และไม่เปลี่ยนข้อมูลของ Version เดิม
+- **Given (กำหนดให้):** Admin เลือกสร้าง Version ใหม่
+- **When (เมื่อ):** ระบบ Copy Criteria
+- **Then (ระบบต้อง):** ต้องสร้าง Draft Version ใหม่พร้อม version number ใหม่และไม่เปลี่ยนข้อมูลของ Version เดิม
 #### US-CRI-003-AC-03
 
-- **Given:** Evaluation เดิมมี Criteria Version อ้างอิง
-- **When:** Version ใหม่ถูก Activate
-- **Then:** Evaluation เดิมต้องยังแสดง/คำนวณจาก Version เดิมตาม Snapshot/Reference ที่เก็บไว้
+- **Given (กำหนดให้):** Evaluation เดิมมี Criteria Version อ้างอิง
+- **When (เมื่อ):** Version ใหม่ถูก Activate
+- **Then (ระบบต้อง):** Evaluation เดิมต้องยังแสดง/คำนวณจาก Version เดิมตาม Snapshot/Reference ที่เก็บไว้
 #### US-CRI-003-AC-04
 
-- **Given:** ยังไม่มี Evaluation ในรอบ
-- **When:** Admin แก้ Draft/Active ตาม Policy
-- **Then:** ระบบอาจอนุญาตแก้ไข แต่ต้องบันทึก Audit และ Revalidate ก่อนเปิดรอบ
+- **Given (กำหนดให้):** ยังไม่มี Evaluation ในรอบ
+- **When (เมื่อ):** Admin แก้ Draft/Active ตาม Policy
+- **Then (ระบบต้อง):** ระบบอาจอนุญาตแก้ไข แต่ต้องบันทึก Audit และ Revalidate ก่อนเปิดรอบ
 #### US-CRI-003-AC-05
 
-- **Given:** Version ใหม่ถูกใช้กับ Evaluation ใหม่
-- **When:** สร้าง Evaluation
-- **Then:** ระบบต้องเก็บ criteria_version_id อย่างชัดเจนเพื่อใช้คำนวณและรายงาน
+- **Given (กำหนดให้):** Version ใหม่ถูกใช้กับ Evaluation ใหม่
+- **When (เมื่อ):** สร้าง Evaluation
+- **Then (ระบบต้อง):** ระบบต้องเก็บ criteria_version_id อย่างชัดเจนเพื่อใช้คำนวณและรายงาน
 
 ---
 
@@ -1008,29 +1008,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SEL-001-AC-01
 
-- **Given:** Evaluator เปิดหน้าค้นหาผู้สมัคร
-- **When:** เลือกรอบที่ Open
-- **Then:** ระบบต้องแสดงรายชื่อผู้สมัครเฉพาะรอบนั้นและรองรับค้นหาด้วยรหัสนักศึกษา ชื่อ หรือนามสกุล
+- **Given (กำหนดให้):** Evaluator เปิดหน้าค้นหาผู้สมัคร
+- **When (เมื่อ):** เลือกรอบที่ Open
+- **Then (ระบบต้อง):** ระบบต้องแสดงรายชื่อผู้สมัครเฉพาะรอบนั้นและรองรับค้นหาด้วยรหัสนักศึกษา ชื่อ หรือนามสกุล
 #### US-SEL-001-AC-02
 
-- **Given:** Evaluator ยังไม่เลือกผู้สมัคร
-- **When:** ระบบแสดงผลค้นหา
-- **Then:** ต้องแสดงข้อมูลขั้นต่ำที่จำเป็น เช่น รหัส ชื่อ สาขา/ชั้นปี และสถานะจำนวนผู้ประเมิน โดยไม่แสดงข้อมูลละเอียดอ่อนหรือเอกสาร
+- **Given (กำหนดให้):** Evaluator ยังไม่เลือกผู้สมัคร
+- **When (เมื่อ):** ระบบแสดงผลค้นหา
+- **Then (ระบบต้อง):** ต้องแสดงข้อมูลขั้นต่ำที่จำเป็น เช่น รหัส ชื่อ สาขา/ชั้นปี และสถานะจำนวนผู้ประเมิน โดยไม่แสดงข้อมูลละเอียดอ่อนหรือเอกสาร
 #### US-SEL-001-AC-03
 
-- **Given:** ผู้สมัครมี Evaluation ที่ยังไม่ยกเลิกครบ 3 รายการ
-- **When:** แสดงผลค้นหา
-- **Then:** ระบบต้องระบุว่าเต็มและไม่ให้เริ่ม Evaluation ใหม่
+- **Given (กำหนดให้):** ผู้สมัครมี Evaluation ที่ยังไม่ยกเลิกครบ 3 รายการ
+- **When (เมื่อ):** แสดงผลค้นหา
+- **Then (ระบบต้อง):** ระบบต้องระบุว่าเต็มและไม่ให้เริ่ม Evaluation ใหม่
 #### US-SEL-001-AC-04
 
-- **Given:** รอบทุนไม่ใช่ Open
-- **When:** Evaluator ค้นหาหรือเรียก API เลือกผู้สมัคร
-- **Then:** ระบบต้องไม่อนุญาตสร้าง Evaluation ใหม่
+- **Given (กำหนดให้):** รอบทุนไม่ใช่ Open
+- **When (เมื่อ):** Evaluator ค้นหาหรือเรียก API เลือกผู้สมัคร
+- **Then (ระบบต้อง):** ระบบต้องไม่อนุญาตสร้าง Evaluation ใหม่
 #### US-SEL-001-AC-05
 
-- **Given:** ไม่มีผลลัพธ์ตรงคำค้น
-- **When:** ระบบค้นหาเสร็จ
-- **Then:** ต้องแสดงสถานะไม่พบข้อมูลโดยไม่เปิดเผยรายชื่อจากรอบอื่น
+- **Given (กำหนดให้):** ไม่มีผลลัพธ์ตรงคำค้น
+- **When (เมื่อ):** ระบบค้นหาเสร็จ
+- **Then (ระบบต้อง):** ต้องแสดงสถานะไม่พบข้อมูลโดยไม่เปิดเผยรายชื่อจากรอบอื่น
 
 ---
 
@@ -1057,39 +1057,39 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SEL-002-AC-01
 
-- **Given:** Evaluator ไม่มี Evaluation ที่ยังไม่ถูกยกเลิกสำหรับผู้สมัคร
-- **When:** กดเลือกผู้สมัคร
-- **Then:** ระบบต้องตรวจเงื่อนไขทั้งหมดอีกครั้งที่ Backend ภายใน Transaction
+- **Given (กำหนดให้):** Evaluator ไม่มี Evaluation ที่ยังไม่ถูกยกเลิกสำหรับผู้สมัคร
+- **When (เมื่อ):** กดเลือกผู้สมัคร
+- **Then (ระบบต้อง):** ระบบต้องตรวจเงื่อนไขทั้งหมดอีกครั้งที่ Backend ภายใน Transaction
 #### US-SEL-002-AC-02
 
-- **Given:** จำนวน Evaluation ที่ยังไม่ถูกยกเลิกของผู้สมัครน้อยกว่า 3
-- **When:** เงื่อนไขอื่นผ่าน
-- **Then:** ระบบต้องสร้าง Evaluation สถานะ `Draft` ผูกกับรอบ ผู้สมัคร Evaluator และ Criteria Version ที่ใช้งาน
+- **Given (กำหนดให้):** จำนวน Evaluation ที่ยังไม่ถูกยกเลิกของผู้สมัครน้อยกว่า 3
+- **When (เมื่อ):** เงื่อนไขอื่นผ่าน
+- **Then (ระบบต้อง):** ระบบต้องสร้าง Evaluation สถานะ `DRAFT` ผูกกับรอบ ผู้สมัคร Evaluator และ Criteria Version ที่ใช้งาน
 #### US-SEL-002-AC-03
 
-- **Given:** Evaluator คนเดิมมี Evaluation อยู่แล้ว
-- **When:** กดเลือกซ้ำ
-- **Then:** ระบบต้องไม่สร้างรายการใหม่และนำผู้ใช้กลับไปยัง Draft เดิมหรือแจ้งว่ามีรายการอยู่แล้ว
+- **Given (กำหนดให้):** Evaluator คนเดิมมี Evaluation อยู่แล้ว
+- **When (เมื่อ):** กดเลือกซ้ำ
+- **Then (ระบบต้อง):** ระบบต้องไม่สร้างรายการใหม่และนำผู้ใช้กลับไปยัง Draft เดิมหรือแจ้งว่ามีรายการอยู่แล้ว
 #### US-SEL-002-AC-04
 
-- **Given:** ผู้สมัครมี Submitted ครบ 2 แต่ยังมี Active Evaluation น้อยกว่า 3 และรอบยัง Open
-- **When:** Evaluator คนที่ 3 เลือก
-- **Then:** ระบบต้องอนุญาตให้สร้าง Draft คนที่ 3
+- **Given (กำหนดให้):** ผู้สมัครมี Submitted ครบ 2 แต่ยังมี Active Evaluation น้อยกว่า 3 และรอบยัง Open
+- **When (เมื่อ):** Evaluator คนที่ 3 เลือก
+- **Then (ระบบต้อง):** ระบบต้องอนุญาตให้สร้าง Draft คนที่ 3
 #### US-SEL-002-AC-05
 
-- **Given:** ผู้สมัครมี Active Evaluation ครบ 3
-- **When:** Evaluator คนที่ 4 พยายามเลือก
-- **Then:** ระบบต้องปฏิเสธด้วย Conflict และไม่สร้างรายการ
+- **Given (กำหนดให้):** ผู้สมัครมี Active Evaluation ครบ 3
+- **When (เมื่อ):** Evaluator คนที่ 4 พยายามเลือก
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธด้วย Conflict และไม่สร้างรายการ
 #### US-SEL-002-AC-06
 
-- **Given:** Evaluator หลายคนเลือกพร้อมกันขณะเหลือช่องเดียว
-- **When:** คำขอชนกัน
-- **Then:** ระบบต้องใช้ Transaction/Lock/Unique Constraint ให้สำเร็จได้ไม่เกินหนึ่งคำขอและจำนวน Active Evaluation หลัง Commit ต้องไม่เกิน 3
+- **Given (กำหนดให้):** Evaluator หลายคนเลือกพร้อมกันขณะเหลือช่องเดียว
+- **When (เมื่อ):** คำขอชนกัน
+- **Then (ระบบต้อง):** ระบบต้องใช้ Transaction/Lock/Unique Constraint ให้สำเร็จได้ไม่เกินหนึ่งคำขอและจำนวน Active Evaluation หลัง Commit ต้องไม่เกิน 3
 #### US-SEL-002-AC-07
 
-- **Given:** สร้าง Evaluation สำเร็จ
-- **When:** ระบบตอบกลับ
-- **Then:** ต้องเปิดหน้าประเมินของ Evaluation นั้นและบันทึก Audit Event
+- **Given (กำหนดให้):** สร้าง Evaluation สำเร็จ
+- **When (เมื่อ):** ระบบตอบกลับ
+- **Then (ระบบต้อง):** ต้องเปิดหน้าประเมินของ Evaluation นั้นและบันทึก Audit Event
 
 ---
 
@@ -1115,29 +1115,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SEL-003-AC-01
 
-- **Given:** เจ้าของ Draft เลือกยกเลิก
-- **When:** ยืนยันใน Dialog
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Cancelled` แบบ Soft Delete, ไม่ลบประวัติ, Audit และคืน slot atomically
+- **Given (กำหนดให้):** เจ้าของ Draft เลือกยกเลิก
+- **When (เมื่อ):** ยืนยันใน Dialog
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยนสถานะเป็น `CANCELLED` แบบ Soft Delete, ไม่ลบประวัติ, Audit และคืน slot atomically
 #### US-SEL-003-AC-02
 
-- **Given:** ยกเลิกสำเร็จ
-- **When:** Transaction Commit
-- **Then:** รายการต้องไม่ถูกนับในเพดาน 3 คนและช่องต้องพร้อมให้ผู้ประเมินคนอื่นเลือกทันที
+- **Given (กำหนดให้):** ยกเลิกสำเร็จ
+- **When (เมื่อ):** Transaction Commit
+- **Then (ระบบต้อง):** รายการต้องไม่ถูกนับในเพดาน 3 คนและช่องต้องพร้อมให้ผู้ประเมินคนอื่นเลือกทันที
 #### US-SEL-003-AC-03
 
-- **Given:** Evaluation เป็น Submitted หรือไม่ใช่ของผู้ใช้
-- **When:** ผู้ใช้พยายามยกเลิก
-- **Then:** ระบบต้องปฏิเสธและชี้ให้ใช้ Reopen/Approval Policy หากเกี่ยวข้อง
+- **Given (กำหนดให้):** Evaluation เป็น Submitted หรือไม่ใช่ของผู้ใช้
+- **When (เมื่อ):** ผู้ใช้พยายามยกเลิก
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธและชี้ให้ใช้ Reopen/Approval Policy หากเกี่ยวข้อง
 #### US-SEL-003-AC-04
 
-- **Given:** ผู้ใช้ยืนยันยกเลิก
-- **When:** ระบบบันทึก
-- **Then:** ต้องบันทึกเหตุผล (ถ้ากำหนด) ผู้ดำเนินการ เวลา และค่าก่อน/หลังใน Audit Log
+- **Given (กำหนดให้):** ผู้ใช้ยืนยันยกเลิก
+- **When (เมื่อ):** ระบบบันทึก
+- **Then (ระบบต้อง):** ต้องบันทึกเหตุผล (ถ้ากำหนด) ผู้ดำเนินการ เวลา และค่าก่อน/หลังใน Audit Log
 #### US-SEL-003-AC-05
 
-- **Given:** เกิด Concurrent Selection ขณะยกเลิก
-- **When:** Transaction ทำงาน
-- **Then:** ระบบต้องรักษาเพดาน Active Evaluation ไม่เกิน 3 และไม่เกิด Lost Update
+- **Given (กำหนดให้):** เกิด Concurrent Selection ขณะยกเลิก
+- **When (เมื่อ):** Transaction ทำงาน
+- **Then (ระบบต้อง):** ระบบต้องรักษาเพดาน Active Evaluation ไม่เกิน 3 และไม่เกิด Lost Update
 
 ---
 
@@ -1168,29 +1168,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DRF-001-AC-01
 
-- **Given:** Evaluator เปิด Evaluation ของตน
-- **When:** ระบบโหลดหน้า
-- **Then:** ต้องแสดงข้อมูลพื้นฐาน ข้อมูลประกอบ ประวัติ กยศ./ทุน เอกสาร และ Criteria Version ของรอบเดียวกัน
+- **Given (กำหนดให้):** Evaluator เปิด Evaluation ของตน
+- **When (เมื่อ):** ระบบโหลดหน้า
+- **Then (ระบบต้อง):** ต้องแสดงข้อมูลพื้นฐาน ข้อมูลประกอบ ประวัติ กยศ./ทุน เอกสาร และ Criteria Version ของรอบเดียวกัน
 #### US-DRF-001-AC-02
 
-- **Given:** ข้อมูลบางส่วนว่าง
-- **When:** แสดงหน้า
-- **Then:** ระบบต้องแสดงว่าไม่มีข้อมูลแทนการแสดงค่าหลอกหรือเกิด Error
+- **Given (กำหนดให้):** ข้อมูลบางส่วนว่าง
+- **When (เมื่อ):** แสดงหน้า
+- **Then (ระบบต้อง):** ระบบต้องแสดงว่าไม่มีข้อมูลแทนการแสดงค่าหลอกหรือเกิด Error
 #### US-DRF-001-AC-03
 
-- **Given:** Evaluator พยายามเปิด Evaluation ของผู้อื่น
-- **When:** Backend ตรวจ Ownership
-- **Then:** ต้องตอบ `403/404` และไม่ส่งข้อมูลผู้สมัครละเอียดอ่อน
+- **Given (กำหนดให้):** Evaluator พยายามเปิด Evaluation ของผู้อื่น
+- **When (เมื่อ):** Backend ตรวจ Ownership
+- **Then (ระบบต้อง):** ต้องตอบ `403/404` และไม่ส่งข้อมูลผู้สมัครละเอียดอ่อน
 #### US-DRF-001-AC-04
 
-- **Given:** Criteria Version ถูกเปลี่ยนภายหลัง
-- **When:** เปิด Evaluation เดิม
-- **Then:** ระบบต้องแสดง Version ที่ Evaluation อ้างอิง ไม่เปลี่ยนตาม Active Version ใหม่โดยอัตโนมัติ
+- **Given (กำหนดให้):** Criteria Version ถูกเปลี่ยนภายหลัง
+- **When (เมื่อ):** เปิด Evaluation เดิม
+- **Then (ระบบต้อง):** ระบบต้องแสดง Version ที่ Evaluation อ้างอิง ไม่เปลี่ยนตาม Active Version ใหม่โดยอัตโนมัติ
 #### US-DRF-001-AC-05
 
-- **Given:** เอกสารไม่พร้อมใช้งาน
-- **When:** หน้าโหลด
-- **Then:** ส่วนคะแนนและข้อมูลอื่นต้องยังใช้งานได้ พร้อมแสดงข้อผิดพลาดเฉพาะเอกสาร
+- **Given (กำหนดให้):** เอกสารไม่พร้อมใช้งาน
+- **When (เมื่อ):** หน้าโหลด
+- **Then (ระบบต้อง):** ส่วนคะแนนและข้อมูลอื่นต้องยังใช้งานได้ พร้อมแสดงข้อผิดพลาดเฉพาะเอกสาร
 
 ---
 
@@ -1215,29 +1215,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DRF-002-AC-01
 
-- **Given:** Evaluator กรอกคะแนนใน Criterion
-- **When:** ค่าต่ำกว่าคะแนนต่ำสุดหรือสูงกว่าคะแนนเต็ม
-- **Then:** ระบบต้องแสดง Validation และไม่ยอมรับค่าเป็นคะแนนที่ Valid
+- **Given (กำหนดให้):** Evaluator กรอกคะแนนใน Criterion
+- **When (เมื่อ):** ค่าต่ำกว่าคะแนนต่ำสุดหรือสูงกว่าคะแนนเต็ม
+- **Then (ระบบต้อง):** ระบบต้องแสดง Validation และไม่ยอมรับค่าเป็นคะแนนที่ Valid
 #### US-DRF-002-AC-02
 
-- **Given:** Criterion กำหนดชนิดค่าเป็นจำนวนเต็ม/ทศนิยม/ตัวเลือก
-- **When:** Evaluator กรอกค่า
-- **Then:** ระบบต้องบังคับชนิดและ Step ตาม Criteria Metadata
+- **Given (กำหนดให้):** Criterion กำหนดชนิดค่าเป็นจำนวนเต็ม/ทศนิยม/ตัวเลือก
+- **When (เมื่อ):** Evaluator กรอกค่า
+- **Then (ระบบต้อง):** ระบบต้องบังคับชนิดและ Step ตาม Criteria Metadata
 #### US-DRF-002-AC-03
 
-- **Given:** Evaluator กรอกความคิดเห็น
-- **When:** ความยาวเกินกำหนดหรือมีข้อมูลที่ระบบห้าม
-- **Then:** ระบบต้องแสดง Validation โดยไม่ทำให้คะแนนที่กรอกสูญหาย
+- **Given (กำหนดให้):** Evaluator กรอกความคิดเห็น
+- **When (เมื่อ):** ความยาวเกินกำหนดหรือมีข้อมูลที่ระบบห้าม
+- **Then (ระบบต้อง):** ระบบต้องแสดง Validation โดยไม่ทำให้คะแนนที่กรอกสูญหาย
 #### US-DRF-002-AC-04
 
-- **Given:** ความคิดเห็นเป็น Optional ตาม Baseline
-- **When:** เว้นว่างและบันทึก Draft
-- **Then:** ระบบต้องอนุญาต; หาก Criteria/Submit Rule กำหนด Required ให้ตรวจตอน Submit
+- **Given (กำหนดให้):** ความคิดเห็นเป็น Optional ตาม Baseline
+- **When (เมื่อ):** เว้นว่างและบันทึก Draft
+- **Then (ระบบต้อง):** ระบบต้องอนุญาต; หาก Criteria/Submit Rule กำหนด Required ให้ตรวจตอน Submit
 #### US-DRF-002-AC-05
 
-- **Given:** Evaluation เป็น Submitted/Cancelled หรือผู้ใช้ไม่ใช่เจ้าของ
-- **When:** พยายามแก้คะแนน
-- **Then:** Backend ต้องปฏิเสธการแก้ไข
+- **Given (กำหนดให้):** Evaluation เป็น Submitted/Cancelled หรือผู้ใช้ไม่ใช่เจ้าของ
+- **When (เมื่อ):** พยายามแก้คะแนน
+- **Then (ระบบต้อง):** Backend ต้องปฏิเสธการแก้ไข
 
 ### Notes / Open Decisions
 
@@ -1265,34 +1265,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DRF-003-AC-01
 
-- **Given:** Evaluator กรอกข้อมูลบางส่วน
-- **When:** กดบันทึก Draft
-- **Then:** ระบบต้องบันทึกค่าที่ผ่าน Validation โดยไม่บังคับให้ทุก Criterion ครบ
+- **Given (กำหนดให้):** Evaluator กรอกข้อมูลบางส่วน
+- **When (เมื่อ):** กดบันทึก Draft
+- **Then (ระบบต้อง):** ระบบต้องบันทึกค่าที่ผ่าน Validation โดยไม่บังคับให้ทุก Criterion ครบ
 #### US-DRF-003-AC-02
 
-- **Given:** บันทึกสำเร็จ
-- **When:** ระบบตอบกลับ
-- **Then:** ต้องแสดงเวลาบันทึกล่าสุดและคงสถานะ `Draft`
+- **Given (กำหนดให้):** บันทึกสำเร็จ
+- **When (เมื่อ):** ระบบตอบกลับ
+- **Then (ระบบต้อง):** ต้องแสดงเวลาบันทึกล่าสุดและคงสถานะ `DRAFT`
 #### US-DRF-003-AC-03
 
-- **Given:** เกิด Validation Error บางฟิลด์
-- **When:** กดบันทึก
-- **Then:** ระบบต้องระบุฟิลด์ที่ผิดและไม่ทำให้ค่าที่ถูกต้องในหน้าจอหาย; นโยบายบันทึกบางส่วนต้องสอดคล้องกันทั้ง UI/API
+- **Given (กำหนดให้):** เกิด Validation Error บางฟิลด์
+- **When (เมื่อ):** กดบันทึก
+- **Then (ระบบต้อง):** ระบบต้องระบุฟิลด์ที่ผิดและไม่ทำให้ค่าที่ถูกต้องในหน้าจอหาย; นโยบายบันทึกบางส่วนต้องสอดคล้องกันทั้ง UI/API
 #### US-DRF-003-AC-04
 
-- **Given:** ผู้สมัครมี Active Evaluation ครบ 3 แล้ว
-- **When:** เจ้าของ Draft เดิมกลับมาแก้
-- **Then:** ระบบต้องยังอนุญาตให้เปิดและแก้ Draft ของตน เพราะเพดาน 3 ใช้กับการสร้างรายการใหม่
+- **Given (กำหนดให้):** ผู้สมัครมี Active Evaluation ครบ 3 แล้ว
+- **When (เมื่อ):** เจ้าของ Draft เดิมกลับมาแก้
+- **Then (ระบบต้อง):** ระบบต้องยังอนุญาตให้เปิดและแก้ Draft ของตน เพราะเพดาน 3 ใช้กับการสร้างรายการใหม่
 #### US-DRF-003-AC-05
 
-- **Given:** Session หมดอายุระหว่างบันทึก
-- **When:** API ตอบ Unauthorized
-- **Then:** ระบบต้องไม่สร้างข้อมูลในชื่อผู้ใช้อื่นและควรแจ้งให้ Login ใหม่โดยรักษาข้อมูลในหน้าเท่าที่ปลอดภัย
+- **Given (กำหนดให้):** Session หมดอายุระหว่างบันทึก
+- **When (เมื่อ):** API ตอบ Unauthorized
+- **Then (ระบบต้อง):** ระบบต้องไม่สร้างข้อมูลในชื่อผู้ใช้อื่นและควรแจ้งให้ Login ใหม่โดยรักษาข้อมูลในหน้าเท่าที่ปลอดภัย
 #### US-DRF-003-AC-06
 
-- **Given:** บันทึก Draft สำเร็จ
-- **When:** มีการแก้ไขข้อมูล
-- **Then:** ระบบต้องบันทึก Updated By/At และ Audit Event ตามระดับรายละเอียดที่กำหนด
+- **Given (กำหนดให้):** บันทึก Draft สำเร็จ
+- **When (เมื่อ):** มีการแก้ไขข้อมูล
+- **Then (ระบบต้อง):** ระบบต้องบันทึก Updated By/At และ Audit Event ตามระดับรายละเอียดที่กำหนด
 
 ### Notes / Open Decisions
 
@@ -1327,29 +1327,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SUB-001-AC-01
 
-- **Given:** Evaluator เลือก Review
-- **When:** ระบบตรวจข้อมูล
-- **Then:** ต้องตรวจว่า Criterion ที่ Required มีค่าครบและทุกคะแนนอยู่ในช่วงที่กำหนด
+- **Given (กำหนดให้):** Evaluator เลือก Review
+- **When (เมื่อ):** ระบบตรวจข้อมูล
+- **Then (ระบบต้อง):** ต้องตรวจว่า Criterion ที่ Required มีค่าครบและทุกคะแนนอยู่ในช่วงที่กำหนด
 #### US-SUB-001-AC-02
 
-- **Given:** ข้อมูลไม่ครบหรือผิดช่วง
-- **When:** ระบบสร้าง Review
-- **Then:** ต้องไม่อนุญาตไปขั้น Confirm และแสดงรายการ Criterion/Field ที่ต้องแก้
+- **Given (กำหนดให้):** ข้อมูลไม่ครบหรือผิดช่วง
+- **When (เมื่อ):** ระบบสร้าง Review
+- **Then (ระบบต้อง):** ต้องไม่อนุญาตไปขั้น Confirm และแสดงรายการ Criterion/Field ที่ต้องแก้
 #### US-SUB-001-AC-03
 
-- **Given:** ข้อมูลผ่าน Validation
-- **When:** เปิด Review Page
-- **Then:** ต้องแสดงข้อมูลผู้สมัคร เกณฑ์ คะแนนรายข้อ คะแนนรวมชั่วคราวตามกฎ และความคิดเห็นในรูปแบบ Read-only
+- **Given (กำหนดให้):** ข้อมูลผ่าน Validation
+- **When (เมื่อ):** เปิด Review Page
+- **Then (ระบบต้อง):** ต้องแสดงข้อมูลผู้สมัคร เกณฑ์ คะแนนรายข้อ คะแนนรวมชั่วคราวตามกฎ และความคิดเห็นในรูปแบบ Read-only
 #### US-SUB-001-AC-04
 
-- **Given:** ข้อมูล Draft เปลี่ยนหลัง Review ถูกเปิด เช่นจาก Tab อื่น
-- **When:** Evaluator กดยืนยัน
-- **Then:** ระบบต้องตรวจ Version/Updated At ซ้ำและปฏิเสธหากข้อมูลไม่ตรง เพื่อป้องกันส่งข้อมูลเก่า
+- **Given (กำหนดให้):** ข้อมูล Draft เปลี่ยนหลัง Review ถูกเปิด เช่นจาก Tab อื่น
+- **When (เมื่อ):** Evaluator กดยืนยัน
+- **Then (ระบบต้อง):** ระบบต้องตรวจ Version/Updated At ซ้ำและปฏิเสธหากข้อมูลไม่ตรง เพื่อป้องกันส่งข้อมูลเก่า
 #### US-SUB-001-AC-05
 
-- **Given:** รอบทุนถูกปิดระหว่าง Review
-- **When:** Evaluator พยายามยืนยัน
-- **Then:** ระบบต้องปฏิเสธ Submit และคง Draft ตาม Policy
+- **Given (กำหนดให้):** รอบทุนถูกปิดระหว่าง Review
+- **When (เมื่อ):** Evaluator พยายามยืนยัน
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธ Submit และคง Draft ตาม Policy
 
 ---
 
@@ -1376,39 +1376,39 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SUB-002-AC-01
 
-- **Given:** Evaluator ยืนยันส่งและเงื่อนไขยังผ่าน
-- **When:** Backend ประมวลผล Submit
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Submitted` บันทึก `submitted_at` และผู้ส่งภายใน Transaction
+- **Given (กำหนดให้):** Evaluator ยืนยันส่งและเงื่อนไขยังผ่าน
+- **When (เมื่อ):** Backend ประมวลผล Submit
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยนสถานะเป็น `SUBMITTED` บันทึก `submitted_at` และผู้ส่งภายใน Transaction
 #### US-SUB-002-AC-02
 
-- **Given:** Submit สำเร็จ
-- **When:** Evaluator กลับมาเปิดรายการ
-- **Then:** คะแนนและความคิดเห็นต้องเป็น Read-only และไม่สามารถแก้โดยตรง
+- **Given (กำหนดให้):** Submit สำเร็จ
+- **When (เมื่อ):** Evaluator กลับมาเปิดรายการ
+- **Then (ระบบต้อง):** คะแนนและความคิดเห็นต้องเป็น Read-only และไม่สามารถแก้โดยตรง
 #### US-SUB-002-AC-03
 
-- **Given:** มีข้อมูล Required ขาดหาย คะแนนผิดช่วง รอบไม่ Open หรือบัญชีไม่ Active
-- **When:** Backend ตรวจซ้ำ
-- **Then:** ต้องปฏิเสธ Submit โดยคงสถานะ Draft และส่ง Error Code ที่บอกสาเหตุ
+- **Given (กำหนดให้):** มีข้อมูล Required ขาดหาย คะแนนผิดช่วง รอบไม่ Open หรือบัญชีไม่ Active
+- **When (เมื่อ):** Backend ตรวจซ้ำ
+- **Then (ระบบต้อง):** ต้องปฏิเสธ Submit โดยคงสถานะ Draft และส่ง Error Code ที่บอกสาเหตุ
 #### US-SUB-002-AC-04
 
-- **Given:** Submit สำเร็จเป็นคนที่ 1
-- **When:** ระบบอัปเดตสถานะผู้สมัคร
-- **Then:** ผู้สมัครต้องยังไม่มี Result Summary ที่สมบูรณ์และสถานะเป็น In Progress
+- **Given (กำหนดให้):** Submit สำเร็จเป็นคนที่ 1
+- **When (เมื่อ):** ระบบอัปเดตสถานะผู้สมัคร
+- **Then (ระบบต้อง):** ผู้สมัครต้องยังไม่มี Result Summary ที่สมบูรณ์และสถานะเป็น `IN_PROGRESS`
 #### US-SUB-002-AC-05
 
-- **Given:** Submit สำเร็จเป็นคนที่ 2 หรือ 3
-- **When:** Transaction Commit
-- **Then:** ระบบต้องเรียกกระบวนการคำนวณ/คำนวณใหม่และอัปเดต Summary/Dashboard/Report Data อย่างสอดคล้องกัน
+- **Given (กำหนดให้):** Submit สำเร็จเป็นคนที่ 2 หรือ 3
+- **When (เมื่อ):** Transaction Commit
+- **Then (ระบบต้อง):** ระบบต้องเรียกกระบวนการคำนวณ/คำนวณใหม่และอัปเดต Summary/Dashboard/Report Data อย่างสอดคล้องกัน
 #### US-SUB-002-AC-06
 
-- **Given:** ผู้ใช้ส่งคำขอซ้ำจากการกดหลายครั้ง
-- **When:** Evaluation ถูก Submitted แล้ว
-- **Then:** ระบบต้องทำงานแบบ Idempotent หรือปฏิเสธซ้ำโดยไม่สร้าง Submission เพิ่ม
+- **Given (กำหนดให้):** ผู้ใช้ส่งคำขอซ้ำจากการกดหลายครั้ง
+- **When (เมื่อ):** Evaluation ถูก Submitted แล้ว
+- **Then (ระบบต้อง):** ระบบต้องทำงานแบบ Idempotent หรือปฏิเสธซ้ำโดยไม่สร้าง Submission เพิ่ม
 #### US-SUB-002-AC-07
 
-- **Given:** Submit สำเร็จ
-- **When:** ระบบบันทึก
-- **Then:** ต้องมี Audit Event ที่ระบุ Evaluation, ผู้ส่ง, เวลา และ Criteria Version โดยไม่เก็บ Token/ข้อมูลลับ
+- **Given (กำหนดให้):** Submit สำเร็จ
+- **When (เมื่อ):** ระบบบันทึก
+- **Then (ระบบต้อง):** ต้องมี Audit Event ที่ระบุ Evaluation, ผู้ส่ง, เวลา และ Criteria Version โดยไม่เก็บ Token/ข้อมูลลับ
 
 ---
 
@@ -1434,34 +1434,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SUB-003-AC-01
 
-- **Given:** เจ้าของ Evaluation หรือ Admin สร้างคำขอ
-- **When:** กรอกเหตุผลและข้อมูลอ้างอิงครบ
-- **Then:** ระบบต้องสร้าง Reopen Request สถานะ Pending โดยยังไม่ปลดล็อกคะแนน; Head/delegate decision is independent
+- **Given (กำหนดให้):** เจ้าของ Evaluation หรือ Admin สร้างคำขอ
+- **When (เมื่อ):** กรอกเหตุผลและข้อมูลอ้างอิงครบ
+- **Then (ระบบต้อง):** ระบบต้องสร้าง Reopen Request สถานะ Pending โดยยังไม่ปลดล็อกคะแนน; Head/delegate decision is independent
 #### US-SUB-003-AC-02
 
-- **Given:** ผู้มีอำนาจอนุมัติอนุมัติคำขอ
-- **When:** ระบบดำเนินการ Reopen
-- **Then:** ต้องเก็บ Snapshot/Revision ของคะแนน ความคิดเห็น สถานะ และเวลาเดิมก่อนเปลี่ยนกลับเป็นสถานะที่แก้ไขได้
+- **Given (กำหนดให้):** ผู้มีอำนาจอนุมัติอนุมัติคำขอ
+- **When (เมื่อ):** ระบบดำเนินการ Reopen
+- **Then (ระบบต้อง):** ต้องเก็บ Snapshot/Revision ของคะแนน ความคิดเห็น สถานะ และเวลาเดิมก่อนเปลี่ยนกลับเป็นสถานะที่แก้ไขได้
 #### US-SUB-003-AC-03
 
-- **Given:** คำขอถูกปฏิเสธ
-- **When:** ผู้อนุมัติบันทึกผล
-- **Then:** Evaluation ต้องคง Submitted และบันทึกเหตุผลการปฏิเสธ
+- **Given (กำหนดให้):** คำขอถูกปฏิเสธ
+- **When (เมื่อ):** ผู้อนุมัติบันทึกผล
+- **Then (ระบบต้อง):** Evaluation ต้องคง Submitted และบันทึกเหตุผลการปฏิเสธ
 #### US-SUB-003-AC-04
 
-- **Given:** รอบทุน Closed
-- **When:** มีคำขอ Reopen
-- **Then:** ระบบต้องไม่เปิด Evaluation โดยตรงจนกว่าจะผ่านนโยบายเปิดรอบ/อนุมัติที่กำหนด
+- **Given (กำหนดให้):** รอบทุน Closed
+- **When (เมื่อ):** มีคำขอ Reopen
+- **Then (ระบบต้อง):** ระบบต้องไม่เปิด Evaluation โดยตรงจนกว่าจะผ่านนโยบายเปิดรอบ/อนุมัติที่กำหนด
 #### US-SUB-003-AC-05
 
-- **Given:** Evaluation ที่ Reopen ถูก Submit ใหม่
-- **When:** Submit สำเร็จ
-- **Then:** ระบบต้องสร้าง Revision ใหม่/อัปเดตสถานะตาม Policy และคำนวณ Result Summary, Dashboard และรายงานใหม่
+- **Given (กำหนดให้):** Evaluation ที่ Reopen ถูก Submit ใหม่
+- **When (เมื่อ):** Submit สำเร็จ
+- **Then (ระบบต้อง):** ระบบต้องสร้าง Revision ใหม่/อัปเดตสถานะตาม Policy และคำนวณ Result Summary, Dashboard และรายงานใหม่
 #### US-SUB-003-AC-06
 
-- **Given:** ทุกการร้องขอ อนุมัติ ปฏิเสธ และ Submit ใหม่
-- **When:** เหตุการณ์เกิดขึ้น
-- **Then:** ต้องบันทึกผู้ดำเนินการ เวลา เหตุผล และความสัมพันธ์ระหว่าง Revision ใน Audit Log
+- **Given (กำหนดให้):** ทุกการร้องขอ อนุมัติ ปฏิเสธ และ Submit ใหม่
+- **When (เมื่อ):** เหตุการณ์เกิดขึ้น
+- **Then (ระบบต้อง):** ต้องบันทึกผู้ดำเนินการ เวลา เหตุผล และความสัมพันธ์ระหว่าง Revision ใน Audit Log
 
 ---
 
@@ -1493,29 +1493,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SCR-001-AC-01
 
-- **Given:** Evaluation ยังเป็น Draft
-- **When:** ระบบแสดงคะแนนรวมชั่วคราว
-- **Then:** ระบบอาจแสดง Preview ได้ แต่ต้องติดป้าย Draft และห้ามนำไปใช้ใน Result Summary/Dashboard/Report Final
+- **Given (กำหนดให้):** Evaluation ยังเป็น Draft
+- **When (เมื่อ):** ระบบแสดงคะแนนรวมชั่วคราว
+- **Then (ระบบต้อง):** ระบบอาจแสดง Preview ได้ แต่ต้องติดป้าย Draft และห้ามนำไปใช้ใน Result Summary/Dashboard/Report Final
 #### US-SCR-001-AC-02
 
-- **Given:** Evaluation เป็น Submitted
-- **When:** ระบบคำนวณคะแนนรายผู้ประเมิน
-- **Then:** ต้องใช้คะแนนรายเกณฑ์และกฎจาก Criteria Version ของ Evaluation นั้นเท่านั้น
+- **Given (กำหนดให้):** Evaluation เป็น Submitted
+- **When (เมื่อ):** ระบบคำนวณคะแนนรายผู้ประเมิน
+- **Then (ระบบต้อง):** ต้องใช้คะแนนรายเกณฑ์และกฎจาก Criteria Version ของ Evaluation นั้นเท่านั้น
 #### US-SCR-001-AC-03
 
-- **Given:** Criterion มีน้ำหนัก
-- **When:** คำนวณ
-- **Then:** ระบบต้องใช้ Embedded Point sum and equal-weight 2–3 Submitted arithmetic mean from the bound Criteria Version
+- **Given (กำหนดให้):** Criterion มีน้ำหนัก
+- **When (เมื่อ):** คำนวณ
+- **Then (ระบบต้อง):** ระบบต้องใช้ Embedded Point sum and equal-weight 2–3 Submitted arithmetic mean from the bound Criteria Version
 #### US-SCR-001-AC-04
 
-- **Given:** เกิดคะแนนผิดช่วง ข้อมูลเกณฑ์ไม่ครบ หรือสูตรไม่พร้อม
-- **When:** คำนวณ
-- **Then:** ระบบต้องไม่สร้างคะแนนรวมที่ถือว่า Valid และต้องบันทึก Calculation Error ให้ Admin ตรวจสอบ
+- **Given (กำหนดให้):** เกิดคะแนนผิดช่วง ข้อมูลเกณฑ์ไม่ครบ หรือสูตรไม่พร้อม
+- **When (เมื่อ):** คำนวณ
+- **Then (ระบบต้อง):** ระบบต้องไม่สร้างคะแนนรวมที่ถือว่า Valid และต้องบันทึก Calculation Error ให้ Admin ตรวจสอบ
 #### US-SCR-001-AC-05
 
-- **Given:** คำนวณสำเร็จ
-- **When:** แสดงผล
-- **Then:** ต้องแสดงความละเอียดทศนิยมตาม Display Rule และเก็บค่าคำนวณด้วย Precision ที่เพียงพอก่อนปัดขั้นสุดท้าย
+- **Given (กำหนดให้):** คำนวณสำเร็จ
+- **When (เมื่อ):** แสดงผล
+- **Then (ระบบต้อง):** ต้องแสดงความละเอียดทศนิยมตาม Display Rule และเก็บค่าคำนวณด้วย Precision ที่เพียงพอก่อนปัดขั้นสุดท้าย
 
 ---
 
@@ -1541,34 +1541,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SCR-002-AC-01
 
-- **Given:** Submitted น้อยกว่า 2
-- **When:** ระบบประมวลผลสถานะ
-- **Then:** ต้องไม่สร้าง Final/Latest Summary ที่สมบูรณ์และสถานะเป็น Not Started หรือ In Progress ตาม Active Evaluation
+- **Given (กำหนดให้):** Submitted น้อยกว่า 2
+- **When (เมื่อ):** ระบบประมวลผลสถานะ
+- **Then (ระบบต้อง):** ต้องไม่สร้าง Final/Latest Summary ที่สมบูรณ์และสถานะเป็น `NOT_STARTED` หรือ `IN_PROGRESS` ตาม Active Evaluation
 #### US-SCR-002-AC-02
 
-- **Given:** Submitted ครบ 2 และรอบยัง Open
-- **When:** Submission คนที่ 2 Commit
-- **Then:** ระบบต้องคำนวณ Result Summary จาก Submitted ทั้ง 2 และกำหนดสถานะ `Minimum Complete`
+- **Given (กำหนดให้):** Submitted ครบ 2 และรอบยัง Open
+- **When (เมื่อ):** Submission คนที่ 2 Commit
+- **Then (ระบบต้อง):** ระบบต้องคำนวณ Result Summary จาก Submitted ทั้ง 2 และกำหนดสถานะ `MINIMUM_COMPLETE`
 #### US-SCR-002-AC-03
 
-- **Given:** มี Draft หรือ Cancelled เพิ่มเติม
-- **When:** คำนวณ Summary
-- **Then:** ต้องไม่นำรายการเหล่านั้นเข้าฐานการคำนวณ
+- **Given (กำหนดให้):** มี Draft หรือ Cancelled เพิ่มเติม
+- **When (เมื่อ):** คำนวณ Summary
+- **Then (ระบบต้อง):** ต้องไม่นำรายการเหล่านั้นเข้าฐานการคำนวณ
 #### US-SCR-002-AC-04
 
-- **Given:** ผู้ประเมินคนเดียวมีข้อมูลซ้ำจากความผิดปกติ
-- **When:** ระบบรวมผล
-- **Then:** ต้องตรวจความไม่ซ้ำของ Evaluator และหยุด/แจ้ง Data Integrity Error แทนการนับซ้ำ
+- **Given (กำหนดให้):** ผู้ประเมินคนเดียวมีข้อมูลซ้ำจากความผิดปกติ
+- **When (เมื่อ):** ระบบรวมผล
+- **Then (ระบบต้อง):** ต้องตรวจความไม่ซ้ำของ Evaluator และหยุด/แจ้ง Data Integrity Error แทนการนับซ้ำ
 #### US-SCR-002-AC-05
 
-- **Given:** มี Summary อยู่แล้ว
-- **When:** เกิด Recompute
-- **Then:** ผู้สมัครหนึ่งคนต้องมี Result Summary ได้ไม่เกินหนึ่งรายการต่อรอบ และการอัปเดตต้องเป็น Atomic
+- **Given (กำหนดให้):** มี Summary อยู่แล้ว
+- **When (เมื่อ):** เกิด Recompute
+- **Then (ระบบต้อง):** ผู้สมัครหนึ่งคนต้องมี Result Summary ได้ไม่เกินหนึ่งรายการต่อรอบ และการอัปเดตต้องเป็น Atomic
 #### US-SCR-002-AC-06
 
-- **Given:** สูตรและการปัดเศษถูกกำหนด
-- **When:** คำนวณ
-- **Then:** ใช้สูตรเดียวกันกับ Report/Dashboard, retain full precision, round only applicant summary with `ROUND_HALF_UP`, and keep calculation version/inputs
+- **Given (กำหนดให้):** สูตรและการปัดเศษถูกกำหนด
+- **When (เมื่อ):** คำนวณ
+- **Then (ระบบต้อง):** ใช้สูตรเดียวกันกับ Report/Dashboard, retain full precision, round only applicant summary with `ROUND_HALF_UP`, and keep calculation version/inputs
 
 ---
 
@@ -1595,29 +1595,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-SCR-003-AC-01
 
-- **Given:** Submission คนที่ 3 Commit สำเร็จ
-- **When:** ระบบเรียก Recalculation
-- **Then:** ต้องคำนวณจาก Submitted ทั้ง 3 รายการและเปลี่ยนสถานะเป็น `Fully Complete`
+- **Given (กำหนดให้):** Submission คนที่ 3 Commit สำเร็จ
+- **When (เมื่อ):** ระบบเรียก Recalculation
+- **Then (ระบบต้อง):** ต้องคำนวณจาก Submitted ทั้ง 3 รายการและเปลี่ยนสถานะเป็น `FULLY_COMPLETE`
 #### US-SCR-003-AC-02
 
-- **Given:** มี Summary จาก 2 คน
-- **When:** คำนวณใหม่
-- **Then:** ระบบต้องปรับปรุงคะแนน จำนวน Submitted รายชื่อผู้ประเมิน และเวลาคำนวณล่าสุดภายใน Transaction/กระบวนการที่สอดคล้อง
+- **Given (กำหนดให้):** มี Summary จาก 2 คน
+- **When (เมื่อ):** คำนวณใหม่
+- **Then (ระบบต้อง):** ระบบต้องปรับปรุงคะแนน จำนวน Submitted รายชื่อผู้ประเมิน และเวลาคำนวณล่าสุดภายใน Transaction/กระบวนการที่สอดคล้อง
 #### US-SCR-003-AC-03
 
-- **Given:** Recalculation สำเร็จ
-- **When:** ผู้ใช้เปิด Dashboard Result Summary หรือ Export
-- **Then:** ทุกส่วนต้องแสดงค่าใหม่เดียวกันและไม่มีหน้าหนึ่งยังใช้ค่า 2 คน
+- **Given (กำหนดให้):** Recalculation สำเร็จ
+- **When (เมื่อ):** ผู้ใช้เปิด Dashboard Result Summary หรือ Export
+- **Then (ระบบต้อง):** ทุกส่วนต้องแสดงค่าใหม่เดียวกันและไม่มีหน้าหนึ่งยังใช้ค่า 2 คน
 #### US-SCR-003-AC-04
 
-- **Given:** Submission คนที่ 3 ถูก Reopen/ยกเลิกตาม Policy
-- **When:** สถานะที่ใช้คำนวณเปลี่ยน
-- **Then:** ระบบต้อง Recompute ตาม Submitted ที่เหลือและอัปเดตสถานะอย่างถูกต้อง
+- **Given (กำหนดให้):** Submission คนที่ 3 ถูก Reopen/ยกเลิกตาม Policy
+- **When (เมื่อ):** สถานะที่ใช้คำนวณเปลี่ยน
+- **Then (ระบบต้อง):** ระบบต้อง Recompute ตาม Submitted ที่เหลือและอัปเดตสถานะอย่างถูกต้อง
 #### US-SCR-003-AC-05
 
-- **Given:** Recalculation ล้มเหลว
-- **When:** Submission ถูกบันทึกแล้วแต่ Summary ยังไม่สำเร็จ
-- **Then:** ระบบต้องบันทึกสถานะให้ตรวจพบและ Retry/แจ้ง Admin โดยไม่แสดงคะแนนสรุปที่เงียบ ๆ ว่าถูกต้อง
+- **Given (กำหนดให้):** Recalculation ล้มเหลว
+- **When (เมื่อ):** Submission ถูกบันทึกแล้วแต่ Summary ยังไม่สำเร็จ
+- **Then (ระบบต้อง):** ระบบต้องบันทึกสถานะให้ตรวจพบและ Retry/แจ้ง Admin โดยไม่แสดงคะแนนสรุปที่เงียบ ๆ ว่าถูกต้อง
 
 ---
 
@@ -1649,34 +1649,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-CLS-001-AC-01
 
-- **Given:** Admin เปิดหน้าปิดรอบ
-- **When:** ระบบสรุปข้อมูล
-- **Then:** ต้องแสดงจำนวนผู้สมัครตาม Submitted 0/1/2/3 และสถานะ Not Started/In Progress/Minimum Complete/Fully Complete ก่อนยืนยัน
+- **Given (กำหนดให้):** Admin เปิดหน้าปิดรอบ
+- **When (เมื่อ):** ระบบสรุปข้อมูล
+- **Then (ระบบต้อง):** ต้องแสดงจำนวนผู้สมัครตาม Submitted 0/1/2/3 และสถานะ `NOT_STARTED`/`IN_PROGRESS`/`MINIMUM_COMPLETE`/`FULLY_COMPLETE` ก่อนยืนยัน
 #### US-CLS-001-AC-02
 
-- **Given:** มีผู้สมัคร Submitted ไม่ครบ 2
-- **When:** Admin ยืนยันปิด
-- **Then:** ระบบต้องแสดงคำเตือนและจำนวน Closed Incomplete อย่างชัดเจน แต่การอนุญาตให้ปิดเป็นไปตามนโยบายงานทุน
+- **Given (กำหนดให้):** มีผู้สมัคร Submitted ไม่ครบ 2
+- **When (เมื่อ):** Admin ยืนยันปิด
+- **Then (ระบบต้อง):** ระบบต้องแสดงคำเตือนและจำนวน `CLOSED_INCOMPLETE` อย่างชัดเจน แต่การอนุญาตให้ปิดเป็นไปตามนโยบายงานทุน
 #### US-CLS-001-AC-03
 
-- **Given:** Admin ยืนยันปิดรอบ
-- **When:** Transaction/Close Process สำเร็จ
-- **Then:** ระบบต้องเปลี่ยนรอบเป็น `Closed` และบันทึกผู้ปิด เวลา และ Summary Snapshot/Version ที่เกี่ยวข้อง
+- **Given (กำหนดให้):** Admin ยืนยันปิดรอบ
+- **When (เมื่อ):** Transaction/Close Process สำเร็จ
+- **Then (ระบบต้อง):** ระบบต้องเปลี่ยนรอบเป็น `CLOSED` และบันทึกผู้ปิด เวลา และ Summary Snapshot/Version ที่เกี่ยวข้อง
 #### US-CLS-001-AC-04
 
-- **Given:** รอบถูก Closed
-- **When:** Evaluator พยายามสร้าง Evaluation บันทึกการแก้ไขใหม่ หรือ Submit เพิ่ม
-- **Then:** ระบบต้องปฏิเสธทุกคำขอที่เปลี่ยนผล เว้นแต่ผ่าน Reopen Policy
+- **Given (กำหนดให้):** รอบถูก Closed
+- **When (เมื่อ):** Evaluator พยายามสร้าง Evaluation บันทึกการแก้ไขใหม่ หรือ Submit เพิ่ม
+- **Then (ระบบต้อง):** ระบบต้องปฏิเสธทุกคำขอที่เปลี่ยนผล เว้นแต่ผ่าน Reopen Policy
 #### US-CLS-001-AC-05
 
-- **Given:** มีคำขอ Submit/Select แข่งขันกับการปิดรอบ
-- **When:** ระบบประมวลผลพร้อมกัน
-- **Then:** ต้องมีลำดับ Transaction ที่ทำให้สถานะสุดท้ายสอดคล้องและไม่รับ Submission หลังเวลาปิดอย่างเงียบ ๆ
+- **Given (กำหนดให้):** มีคำขอ Submit/Select แข่งขันกับการปิดรอบ
+- **When (เมื่อ):** ระบบประมวลผลพร้อมกัน
+- **Then (ระบบต้อง):** ต้องมีลำดับ Transaction ที่ทำให้สถานะสุดท้ายสอดคล้องและไม่รับ Submission หลังเวลาปิดอย่างเงียบ ๆ
 #### US-CLS-001-AC-06
 
-- **Given:** ปิดรอบสำเร็จ
-- **When:** ผู้ใช้เปิด Dashboard/Report
-- **Then:** ต้องสะท้อนสถานะ Finalized/Closed Incomplete ตามกฎเดียวกัน
+- **Given (กำหนดให้):** ปิดรอบสำเร็จ
+- **When (เมื่อ):** ผู้ใช้เปิด Dashboard/Report
+- **Then (ระบบต้อง):** ต้องสะท้อนสถานะ Finalized/`CLOSED_INCOMPLETE` ตามกฎเดียวกัน
 
 ---
 
@@ -1701,29 +1701,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-CLS-002-AC-01
 
-- **Given:** ผู้สมัครมี Submitted อย่างน้อย 2 รายการ
-- **When:** รอบปิด
-- **Then:** ระบบต้องกำหนดสถานะ `Finalized` และถือ Result Summary ล่าสุดเป็นผลสุดท้ายของรอบ
+- **Given (กำหนดให้):** ผู้สมัครมี Submitted อย่างน้อย 2 รายการ
+- **When (เมื่อ):** รอบปิด
+- **Then (ระบบต้อง):** ระบบต้องกำหนดสถานะ `FINALIZED` และถือ Result Summary ล่าสุดเป็นผลสุดท้ายของรอบ
 #### US-CLS-002-AC-02
 
-- **Given:** ผู้สมัครมี Submitted 0 หรือ 1 รายการ
-- **When:** รอบปิด
-- **Then:** ระบบต้องกำหนดสถานะ `Closed Incomplete` และต้องไม่มี Final Score
+- **Given (กำหนดให้):** ผู้สมัครมี Submitted 0 หรือ 1 รายการ
+- **When (เมื่อ):** รอบปิด
+- **Then (ระบบต้อง):** ระบบต้องกำหนดสถานะ `CLOSED_INCOMPLETE` และต้องไม่มี Final Score
 #### US-CLS-002-AC-03
 
-- **Given:** Closed Incomplete มีคะแนนรายผู้ประเมินบางส่วน
-- **When:** Admin เปิดดูตามสิทธิ์
-- **Then:** ระบบอาจแสดงคะแนนรายรายการเพื่อ Audit แต่ต้องไม่แสดงเป็นคะแนนสรุปสุดท้าย
+- **Given (กำหนดให้):** `CLOSED_INCOMPLETE` มีคะแนนรายผู้ประเมินบางส่วน
+- **When (เมื่อ):** Admin เปิดดูตามสิทธิ์
+- **Then (ระบบต้อง):** ระบบอาจแสดงคะแนนรายรายการเพื่อ Audit แต่ต้องไม่แสดงเป็นคะแนนสรุปสุดท้าย
 #### US-CLS-002-AC-04
 
-- **Given:** รอบปิดแล้ว
-- **When:** ผู้ประเมินคนที่ 3 พยายามเริ่มหรือ Submit
-- **Then:** ต้องปฏิเสธจนกว่าจะมีการเปิดรอบตามกระบวนการอนุมัติ
+- **Given (กำหนดให้):** รอบปิดแล้ว
+- **When (เมื่อ):** ผู้ประเมินคนที่ 3 พยายามเริ่มหรือ Submit
+- **Then (ระบบต้อง):** ต้องปฏิเสธจนกว่าจะมีการเปิดรอบตามกระบวนการอนุมัติ
 #### US-CLS-002-AC-05
 
-- **Given:** มี Reopen ที่ได้รับอนุมัติภายหลัง
-- **When:** ข้อมูล Submitted เปลี่ยนและรอบถูกปิดใหม่
-- **Then:** ระบบต้องคำนวณและ Finalize ใหม่พร้อมเก็บ immutable Revision/Audit เดิมและ Superseded report history
+- **Given (กำหนดให้):** มี Reopen ที่ได้รับอนุมัติภายหลัง
+- **When (เมื่อ):** ข้อมูล Submitted เปลี่ยนและรอบถูกปิดใหม่
+- **Then (ระบบต้อง):** ระบบต้องคำนวณและ Finalize ใหม่พร้อมเก็บ immutable Revision/Audit เดิมและ Superseded report history
 
 ---
 
@@ -1755,29 +1755,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DSH-001-AC-01
 
-- **Given:** Admin เลือกรอบทุน
-- **When:** Dashboard โหลด
-- **Then:** ต้องแสดงจำนวนผู้สมัครทั้งหมดและจำนวนที่มี Submitted 0, 1, 2 และ 3 คน
+- **Given (กำหนดให้):** Admin เลือกรอบทุน
+- **When (เมื่อ):** Dashboard โหลด
+- **Then (ระบบต้อง):** ต้องแสดงจำนวนผู้สมัครทั้งหมดและจำนวนที่มี Submitted 0, 1, 2 และ 3 คน
 #### US-DSH-001-AC-02
 
-- **Given:** Dashboard โหลด
-- **When:** ระบบ Aggregate
-- **Then:** ต้องแสดงจำนวน Not Started, In Progress, Minimum Complete, Fully Complete, Finalized และ Closed Incomplete ตามสถานะรอบและ Submitted
+- **Given (กำหนดให้):** Dashboard โหลด
+- **When (เมื่อ):** ระบบ Aggregate
+- **Then (ระบบต้อง):** ต้องแสดงจำนวน `NOT_STARTED`, `IN_PROGRESS`, `MINIMUM_COMPLETE`, `FULLY_COMPLETE`, Finalized และ `CLOSED_INCOMPLETE` ตามสถานะรอบและ Submitted
 #### US-DSH-001-AC-03
 
-- **Given:** มี Draft หรือ Cancelled
-- **When:** คำนวณกราฟ/ตัวชี้วัดคะแนน
-- **Then:** ต้องไม่ใช้คะแนนจาก Draft/Cancelled ใน Visualization ด้านคะแนน
+- **Given (กำหนดให้):** มี Draft หรือ Cancelled
+- **When (เมื่อ):** คำนวณกราฟ/ตัวชี้วัดคะแนน
+- **Then (ระบบต้อง):** ต้องไม่ใช้คะแนนจาก Draft/Cancelled ใน Visualization ด้านคะแนน
 #### US-DSH-001-AC-04
 
-- **Given:** ข้อมูลอยู่คนละรอบ
-- **When:** Admin เปลี่ยน Filter รอบทุน
-- **Then:** ต้องแยก Aggregate โดย round_id และไม่มีข้อมูลข้ามรอบปะปน
+- **Given (กำหนดให้):** ข้อมูลอยู่คนละรอบ
+- **When (เมื่อ):** Admin เปลี่ยน Filter รอบทุน
+- **Then (ระบบต้อง):** ต้องแยก Aggregate โดย round_id และไม่มีข้อมูลข้ามรอบปะปน
 #### US-DSH-001-AC-05
 
-- **Given:** Admin ไม่มีสิทธิ์เข้าถึง Dashboard รวม
-- **When:** เรียก API
-- **Then:** ระบบต้องตอบ `403` และไม่ส่ง Aggregate ที่อาจเปิดเผยข้อมูล
+- **Given (กำหนดให้):** Admin ไม่มีสิทธิ์เข้าถึง Dashboard รวม
+- **When (เมื่อ):** เรียก API
+- **Then (ระบบต้อง):** ระบบต้องตอบ `403` และไม่ส่ง Aggregate ที่อาจเปิดเผยข้อมูล
 
 ---
 
@@ -1801,29 +1801,29 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-DSH-002-AC-01
 
-- **Given:** Admin กดจำนวน Submitted 1 หรือสถานะ In Progress
-- **When:** ระบบเปิดรายการรายละเอียด
-- **Then:** ต้องกรองผู้สมัครตามนิยามเดียวกับตัวเลขบน Dashboard
+- **Given (กำหนดให้):** Admin กดจำนวน Submitted 1 หรือสถานะ `IN_PROGRESS`
+- **When (เมื่อ):** ระบบเปิดรายการรายละเอียด
+- **Then (ระบบต้อง):** ต้องกรองผู้สมัครตามนิยามเดียวกับตัวเลขบน Dashboard
 #### US-DSH-002-AC-02
 
-- **Given:** Submission คนที่ 2/3 สำเร็จหรือรอบถูกปิด
-- **When:** Dashboard ถูก Refresh/Reload
-- **Then:** ตัวเลขและสถานะต้องอัปเดตจากข้อมูลล่าสุดและตรงกับ Result Summary
+- **Given (กำหนดให้):** Submission คนที่ 2/3 สำเร็จหรือรอบถูกปิด
+- **When (เมื่อ):** Dashboard ถูก Refresh/Reload
+- **Then (ระบบต้อง):** ตัวเลขและสถานะต้องอัปเดตจากข้อมูลล่าสุดและตรงกับ Result Summary
 #### US-DSH-002-AC-03
 
-- **Given:** มีการค้นหา/กรอง
-- **When:** Admin เลือกสถานะ จำนวนผู้ประเมิน หรือช่วงคะแนน
-- **Then:** ระบบต้องคืนรายการที่ตรงเงื่อนไขและแสดงจำนวนผลทั้งหมด
+- **Given (กำหนดให้):** มีการค้นหา/กรอง
+- **When (เมื่อ):** Admin เลือกสถานะ จำนวนผู้ประเมิน หรือช่วงคะแนน
+- **Then (ระบบต้อง):** ระบบต้องคืนรายการที่ตรงเงื่อนไขและแสดงจำนวนผลทั้งหมด
 #### US-DSH-002-AC-04
 
-- **Given:** Aggregate Query ล้มเหลว
-- **When:** หน้าโหลด
-- **Then:** ระบบต้องแสดง Error State และทางเลือก Retry โดยไม่แสดงข้อมูลเก่าราวกับเป็นข้อมูลปัจจุบัน
+- **Given (กำหนดให้):** Aggregate Query ล้มเหลว
+- **When (เมื่อ):** หน้าโหลด
+- **Then (ระบบต้อง):** ระบบต้องแสดง Error State และทางเลือก Retry โดยไม่แสดงข้อมูลเก่าราวกับเป็นข้อมูลปัจจุบัน
 #### US-DSH-002-AC-05
 
-- **Given:** ข้อมูลคะแนนยังคำนวณไม่สำเร็จ
-- **When:** แสดงรายการ
-- **Then:** ระบบต้องแสดงสถานะ Calculation Error/Pending แทนการใช้ค่าเดิมโดยไม่มีคำเตือน
+- **Given (กำหนดให้):** ข้อมูลคะแนนยังคำนวณไม่สำเร็จ
+- **When (เมื่อ):** แสดงรายการ
+- **Then (ระบบต้อง):** ระบบต้องแสดงสถานะ Calculation Error/Pending แทนการใช้ค่าเดิมโดยไม่มีคำเตือน
 
 ---
 
@@ -1857,39 +1857,39 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-RPT-001-AC-01
 
-- **Given:** Admin เลือกรอบทุนและ Export Excel/CSV
-- **When:** ระบบสร้างไฟล์
-- **Then:** ไฟล์ต้องประกอบด้วยข้อมูลผู้สมัคร รายชื่อผู้ประเมินที่ Submitted คะแนนรายเกณฑ์ คะแนนรวมรายผู้ประเมิน จำนวน Submitted สถานะ ความคิดเห็น และคะแนนสรุปตามสิทธิ์/Template
+- **Given (กำหนดให้):** Admin เลือกรอบทุนและ Export Excel/CSV
+- **When (เมื่อ):** ระบบสร้างไฟล์
+- **Then (ระบบต้อง):** ไฟล์ต้องประกอบด้วยข้อมูลผู้สมัคร รายชื่อผู้ประเมินที่ Submitted คะแนนรายเกณฑ์ คะแนนรวมรายผู้ประเมิน จำนวน Submitted สถานะ ความคิดเห็น และคะแนนสรุปตามสิทธิ์/Template
 #### US-RPT-001-AC-02
 
-- **Given:** Evaluation เป็น Draft หรือ Cancelled
-- **When:** ระบบสร้างคะแนนในรายงาน
-- **Then:** ต้องไม่รวมรายการดังกล่าวในคะแนนสรุปและต้องไม่แสดงเป็น Submitted
+- **Given (กำหนดให้):** Evaluation เป็น Draft หรือ Cancelled
+- **When (เมื่อ):** ระบบสร้างคะแนนในรายงาน
+- **Then (ระบบต้อง):** ต้องไม่รวมรายการดังกล่าวในคะแนนสรุปและต้องไม่แสดงเป็น Submitted
 #### US-RPT-001-AC-03
 
-- **Given:** รอบยัง Open และผู้สมัครมี Submitted 2
-- **When:** Export
-- **Then:** ต้องแสดง `Minimum Complete` และระบุว่าคะแนนเป็นผลล่าสุดที่อาจเปลี่ยนเมื่อคนที่ 3 Submit
+- **Given (กำหนดให้):** รอบยัง Open และผู้สมัครมี Submitted 2
+- **When (เมื่อ):** Export
+- **Then (ระบบต้อง):** ต้องแสดง `MINIMUM_COMPLETE` และระบุว่าคะแนนเป็นผลล่าสุดที่อาจเปลี่ยนเมื่อคนที่ 3 Submit
 #### US-RPT-001-AC-04
 
-- **Given:** รอบ Closed และ Submitted อย่างน้อย 2
-- **When:** Export
-- **Then:** ต้องแสดง `Finalized` และ Final Score ตาม Result Summary ล่าสุด
+- **Given (กำหนดให้):** รอบ Closed และ Submitted อย่างน้อย 2
+- **When (เมื่อ):** Export
+- **Then (ระบบต้อง):** ต้องแสดง `FINALIZED` และ Final Score ตาม Result Summary ล่าสุด
 #### US-RPT-001-AC-05
 
-- **Given:** รอบ Closed และ Submitted น้อยกว่า 2
-- **When:** Export
-- **Then:** ต้องแสดง `Closed Incomplete` และช่อง Final Score ต้องว่าง/ไม่มีค่า ไม่ใช้ 0 แทน
+- **Given (กำหนดให้):** รอบ Closed และ Submitted น้อยกว่า 2
+- **When (เมื่อ):** Export
+- **Then (ระบบต้อง):** ต้องแสดง `CLOSED_INCOMPLETE` และช่อง Final Score ต้องว่าง/ไม่มีค่า ไม่ใช้ 0 แทน
 #### US-RPT-001-AC-06
 
-- **Given:** สร้างทั้ง Excel และ CSV ด้วยตัวกรองเดียวกัน
-- **When:** เปรียบเทียบข้อมูล
-- **Then:** ค่าหลักต้องตรงกับฐานข้อมูลและ Result Summary รวมถึงสูตร/การปัดเศษเดียวกัน
+- **Given (กำหนดให้):** สร้างทั้ง Excel และ CSV ด้วยตัวกรองเดียวกัน
+- **When (เมื่อ):** เปรียบเทียบข้อมูล
+- **Then (ระบบต้อง):** ค่าหลักต้องตรงกับฐานข้อมูลและ Result Summary รวมถึงสูตร/การปัดเศษเดียวกัน
 #### US-RPT-001-AC-07
 
-- **Given:** เกิดข้อผิดพลาดระหว่างสร้างไฟล์
-- **When:** Export ล้มเหลว
-- **Then:** ระบบต้องไม่ส่งไฟล์บางส่วนที่ดูเหมือนสมบูรณ์ และต้องแสดง Error/Retry ที่ชัดเจน
+- **Given (กำหนดให้):** เกิดข้อผิดพลาดระหว่างสร้างไฟล์
+- **When (เมื่อ):** Export ล้มเหลว
+- **Then (ระบบต้อง):** ระบบต้องไม่ส่งไฟล์บางส่วนที่ดูเหมือนสมบูรณ์ และต้องแสดง Error/Retry ที่ชัดเจน
 
 ---
 
@@ -1914,34 +1914,34 @@ Story ถือว่าเสร็จเมื่อ:
 
 #### US-RPT-002-AC-01
 
-- **Given:** Admin เลือก Template มาตรฐาน
-- **When:** ระบบสร้างไฟล์
-- **Then:** ต้องส่งออกเฉพาะคอลัมน์ที่กำหนด; Release 1 ห้ามมีเลขบัตรประชาชนและ standard export ห้ามมี applicant contact information
+- **Given (กำหนดให้):** Admin เลือก Template มาตรฐาน
+- **When (เมื่อ):** ระบบสร้างไฟล์
+- **Then (ระบบต้อง):** ต้องส่งออกเฉพาะคอลัมน์ที่กำหนด; Release 1 ห้ามมีเลขบัตรประชาชนและ standard export ห้ามมี applicant contact information
 #### US-RPT-002-AC-02
 
-- **Given:** Template มีข้อมูล Contact/Restricted
-- **When:** Admin ขอ Export
-- **Then:** ระบบตรวจ profile permission; evaluator cannot export peer data; standard export excludes national ID and applicant contact information
+- **Given (กำหนดให้):** Template มีข้อมูล Contact/Restricted
+- **When (เมื่อ):** Admin ขอ Export
+- **Then (ระบบต้อง):** ระบบตรวจ profile permission; evaluator cannot export peer data; standard export excludes national ID and applicant contact information
 #### US-RPT-002-AC-03
 
-- **Given:** Export สำเร็จ
-- **When:** ระบบส่งไฟล์
-- **Then:** ต้องบันทึกผู้ Export เวลา รอบทุน Template ตัวกรอง จำนวนแถว และผลลัพธ์ใน Audit Log
+- **Given (กำหนดให้):** Export สำเร็จ
+- **When (เมื่อ):** ระบบส่งไฟล์
+- **Then (ระบบต้อง):** ต้องบันทึกผู้ Export เวลา รอบทุน Template ตัวกรอง จำนวนแถว และผลลัพธ์ใน Audit Log
 #### US-RPT-002-AC-04
 
-- **Given:** ผู้ใช้ไม่มีสิทธิ์ Template
-- **When:** เรียก API โดยตรง
-- **Then:** ระบบต้องตอบ `403` และไม่สร้างไฟล์ชั่วคราวที่เข้าถึงได้
+- **Given (กำหนดให้):** ผู้ใช้ไม่มีสิทธิ์ Template
+- **When (เมื่อ):** เรียก API โดยตรง
+- **Then (ระบบต้อง):** ระบบต้องตอบ `403` และไม่สร้างไฟล์ชั่วคราวที่เข้าถึงได้
 #### US-RPT-002-AC-05
 
-- **Given:** ระบบสร้างไฟล์ชั่วคราว
-- **When:** ครบอายุหรือดาวน์โหลดเสร็จตาม Policy
-- **Then:** ต้องลบ/หมดอายุไฟล์ชั่วคราวและไม่ใช้ URL สาธารณะถาวร
+- **Given (กำหนดให้):** ระบบสร้างไฟล์ชั่วคราว
+- **When (เมื่อ):** ครบอายุหรือดาวน์โหลดเสร็จตาม Policy
+- **Then (ระบบต้อง):** ต้องลบ/หมดอายุไฟล์ชั่วคราวและไม่ใช้ URL สาธารณะถาวร
 #### US-RPT-002-AC-06
 
-- **Given:** ชื่อไฟล์ถูกสร้าง
-- **When:** ส่งออก
-- **Then:** ควรมีรหัสรอบทุน ประเภท Template และ Timestamp โดยไม่ใส่ข้อมูลส่วนบุคคลของผู้สมัครในชื่อไฟล์
+- **Given (กำหนดให้):** ชื่อไฟล์ถูกสร้าง
+- **When (เมื่อ):** ส่งออก
+- **Then (ระบบต้อง):** ควรมีรหัสรอบทุน ประเภท Template และ Timestamp โดยไม่ใส่ข้อมูลส่วนบุคคลของผู้สมัครในชื่อไฟล์
 
 ---
 
@@ -1958,6 +1958,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Added measurable confirmed-response stories for multi-type applications, corrections, reopen/cancel, report lifecycle, account/session/file safety and data minimization. |
 | v0.3 | 2026-07-24 | SEMS Requirements Team | Replaced retired/non-canonical import aliases with the central allowed error-code inventory. |
 | v0.2 | 2026-07-23 | SEMS Requirements Team | Replaced nonexistent per-module files with stable section anchors, linked the central traceability matrix, limited Release 1 import, and aligned provisional round opening. |

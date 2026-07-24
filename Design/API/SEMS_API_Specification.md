@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.4** |
+| Version | **v1.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — System Design Review** |
@@ -540,7 +540,7 @@
 - **Role:** ADMIN
 - **Request:** CreateReportExportRequest
 - **Response:** 202 ReportExport
-- **Validation:** รองรับ XLSX/CSV; ข้อมูลต้องมาจาก Result Summary และ Evaluation SUBMITTED เท่านั้น; Closed Incomplete ต้องไม่มี final summaryScore
+- **Validation:** รองรับ XLSX/CSV; ข้อมูลต้องมาจาก Result Summary และ Evaluation SUBMITTED เท่านั้น; `CLOSED_INCOMPLETE` ต้องไม่มี final summaryScore
 - **Error Code:** ROUND_NOT_FOUND, REPORT_FORMAT_UNSUPPORTED, REPORT_DATA_INCONSISTENT, EXPORT_IN_PROGRESS, CSRF_INVALID
 - **Audit Event:** REPORT_EXPORT_REQUESTED
 
@@ -637,6 +637,7 @@ Formal approval evidence, KKU production client/claims/URIs, actual domains, rat
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.4 | 2026-07-24 | SEMS Design Team | Added database lifecycle navigation and documented the synchronized API/OpenAPI/endpoint-matrix relationship. |
 | v0.4 | 2026-07-24 | SEMS Design Team | Added confirmed reopen/correction/round/report/code-list/scan contracts and object-authorization/concurrency/audit rules. |
 | v1.3 | 2026-07-24 | SEMS Design Team | Made the embedded-point total and arithmetic-mean summary formula explicit across submit and recalculation operations. |

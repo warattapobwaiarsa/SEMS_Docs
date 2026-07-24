@@ -4,7 +4,7 @@
 |---|---|
 | ชื่อระบบ | Scholarship Evaluation Management System (SEMS) |
 | รหัสเอกสาร | SEMS-DES-FLOW-001 |
-| Version | **v1.3** |
+| Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft for Review** |
@@ -20,11 +20,11 @@
 2. SEMS เป็นผู้ตรวจสอบบัญชีภายใน สถานะ Active บทบาท และสิทธิ์การเข้าถึง
 3. ผู้สมัครหนึ่งคนมี Evaluation ที่ยังไม่ถูกยกเลิกได้สูงสุด 3 รายการต่อรอบทุน
 4. ผู้ประเมินคนเดิมมี Evaluation ที่ยังไม่ถูกยกเลิกสำหรับผู้สมัครคนเดิมได้ไม่เกิน 1 รายการต่อรอบทุน
-5. ใช้เฉพาะ Evaluation สถานะ `Submitted` ในการคำนวณคะแนนสรุป
-6. เมื่อมี Submitted ครบ 2 คนในรอบที่ยังเปิด ผู้สมัครมีสถานะ `Minimum Complete`
-7. เมื่อมี Submitted ครบ 3 คนในรอบที่ยังเปิด ผู้สมัครมีสถานะ `Fully Complete`
-8. เมื่อปิดรอบ ผู้สมัครที่มี Submitted อย่างน้อย 2 คนเป็น `Finalized`
-9. เมื่อปิดรอบ ผู้สมัครที่มี Submitted น้อยกว่า 2 คนเป็น `Closed Incomplete` และไม่มีคะแนนสรุปสุดท้าย
+5. ใช้เฉพาะ Evaluation สถานะ `SUBMITTED` ในการคำนวณคะแนนสรุป
+6. เมื่อมี Submitted ครบ 2 คนในรอบที่ยังเปิด ผู้สมัครมีสถานะ `MINIMUM_COMPLETE`
+7. เมื่อมี Submitted ครบ 3 คนในรอบที่ยังเปิด ผู้สมัครมีสถานะ `FULLY_COMPLETE`
+8. เมื่อปิดรอบ ผู้สมัครที่มี Submitted อย่างน้อย 2 คนเป็น `FINALIZED`
+9. เมื่อปิดรอบ ผู้สมัครที่มี Submitted น้อยกว่า 2 คนเป็น `CLOSED_INCOMPLETE` และไม่มีคะแนนสรุปสุดท้าย
 10. การแก้ไขผลหลัง Submit ต้องผ่าน Reopen Policy และบันทึก Audit Log
 11. การคำนวณคะแนน น้ำหนัก และการปัดเศษให้ยึด Scoring Rule Specification ฉบับที่ได้รับอนุมัติ
 12. การทำงานที่กระทบจำนวนผู้ประเมิน คะแนนสรุป หรือสถานะรอบทุนต้องใช้ Database Transaction
@@ -42,7 +42,7 @@
 | PF-EVA-002 | Draft–Review–Submit Flow | Evaluator | Evaluation สถานะ Submitted |
 | PF-SCR-001 | Score Calculation Flow | System | Result Summary ล่าสุด |
 | PF-SCR-002 | Third Evaluator Recalculation Flow | System | Result Summary จากผู้ประเมิน 3 คน |
-| PF-RND-001 | Close Scholarship Round Flow | Admin/System | Finalized หรือ Closed Incomplete |
+| PF-RND-001 | Close Scholarship Round Flow | Admin/System | Finalized หรือ `CLOSED_INCOMPLETE` |
 | PF-RPT-001 | Export Report Flow | Admin | Excel หรือ CSV |
 | PF-EVA-003 | Reopen Evaluation Flow | Admin/Evaluator | Evaluation เปิดแก้ไขและคำนวณใหม่ |
 | PF-AUTH-003 | SSO Error Flow | System/User | Error Handling และ Audit Event |
@@ -128,7 +128,7 @@ flowchart TD
 
 ## 6. PF-IMP-001: Import Applicant Flow
 
-> ข้อเสนอเชิงออกแบบ: อนุญาตให้นำเข้าข้อมูลในรอบสถานะ `Draft` เป็นหลัก หากต้องนำเข้าในรอบ `Open` ต้องกำหนดสิทธิ์และผลกระทบเพิ่มเติมอย่างชัดเจน
+> ข้อเสนอเชิงออกแบบ: อนุญาตให้นำเข้าข้อมูลในรอบสถานะ `DRAFT` เป็นหลัก หากต้องนำเข้าในรอบ `OPEN` ต้องกำหนดสิทธิ์และผลกระทบเพิ่มเติมอย่างชัดเจน
 
 ```mermaid
 flowchart TD
@@ -366,19 +366,19 @@ flowchart TD
     D --> E["คำนวณคะแนนรวมของแต่ละ Evaluator<br/>ตาม Criteria Version และ Scoring Rule"]
     E --> F["นับจำนวน Submitted"]
     F --> G{"Submitted เท่ากับ 0 หรือไม่"}
-    G -- ใช่ --> H["ลบ/ไม่สร้าง Result Summary<br/>สถานะ Not Started หรือ In Progress<br/>ตามจำนวน Draft"]
+    G -- ใช่ --> H["ลบ/ไม่สร้าง Result Summary<br/>สถานะ `NOT_STARTED` หรือ `IN_PROGRESS`<br/>ตามจำนวน Draft"]
     G -- ไม่ --> I{"Submitted น้อยกว่า 2 หรือไม่"}
-    I -- ใช่ --> J["ยังไม่สร้างคะแนนสรุป<br/>สถานะ In Progress"]
+    I -- ใช่ --> J["ยังไม่สร้างคะแนนสรุป<br/>สถานะ `IN_PROGRESS`"]
     I -- ไม่ --> K["คำนวณ Aggregate Score<br/>จาก Submitted 2–3 คน"]
     K --> L["ปัดเศษตาม Scoring Rule"]
     L --> M["Upsert Result Summary<br/>เก็บ count, score, version และ calculated_at"]
     M --> N{"รอบทุน Open หรือ Closed"}
     N -- Open --> O{"Submitted = 2 หรือ 3"}
-    O -- 2 --> P["สถานะ Minimum Complete"]
-    O -- 3 --> Q["สถานะ Fully Complete"]
+    O -- 2 --> P["สถานะ `MINIMUM_COMPLETE`"]
+    O -- 3 --> Q["สถานะ `FULLY_COMPLETE`"]
     N -- Closed --> R{"Submitted >= 2 หรือไม่"}
     R -- ใช่ --> S["สถานะ Finalized<br/>ยืนยัน Summary ล่าสุดเป็นผลสุดท้าย"]
-    R -- ไม่ --> T["สถานะ Closed Incomplete<br/>ไม่มี Final Score"]
+    R -- ไม่ --> T["สถานะ `CLOSED_INCOMPLETE`<br/>ไม่มี Final Score"]
     H --> U["ปรับ Dashboard และ Report View"]
     J --> U
     P --> U
@@ -415,7 +415,7 @@ flowchart TD
     L --> M["คำนวณคะแนนรวมรายผู้ประเมิน"]
     M --> N["คำนวณ Aggregate ใหม่จาก 3 คน"]
     N --> O["เพิ่ม Calculation Version<br/>และแทนที่ Result Summary ล่าสุด"]
-    O --> P["เปลี่ยนสถานะ Minimum Complete<br/>เป็น Fully Complete"]
+    O --> P["เปลี่ยนสถานะ `MINIMUM_COMPLETE`<br/>เป็น `FULLY_COMPLETE`"]
     P --> Q["Commit Transaction"]
     Q --> R["ปรับ Dashboard, Summary และ Report View"]
     R --> S["บันทึก Recalculation Audit Event"]
@@ -435,7 +435,7 @@ flowchart TD
     B --> C["เลือกคำสั่ง Close Round"]
     C --> D{"รอบทุนอยู่ในสถานะ Open หรือไม่"}
     D -- ไม่ --> E["ปฏิเสธ INVALID_ROUND_TRANSITION"]
-    D -- ใช่ --> F["ระบบสรุปจำนวน Not Started,<br/>In Progress, Minimum Complete<br/>และ Fully Complete"]
+    D -- ใช่ --> F["ระบบสรุปจำนวน `NOT_STARTED`,<br/>`IN_PROGRESS`, `MINIMUM_COMPLETE`<br/>และ `FULLY_COMPLETE`"]
     F --> G["แสดงรายชื่อผู้สมัครที่ Submitted < 2"]
     G --> H{"Admin ยืนยันปิดรอบหรือไม่"}
     H -- ไม่ --> I["ยกเลิกการดำเนินการ"]
@@ -446,7 +446,7 @@ flowchart TD
     M --> N{"Submitted >= 2 หรือไม่"}
     N -- ใช่ --> O["คำนวณ/ยืนยัน Result Summary ล่าสุด"]
     O --> P["เปลี่ยนสถานะเป็น Finalized"]
-    N -- ไม่ --> Q["ล้าง Final Score ถ้ามี<br/>และเปลี่ยนเป็น Closed Incomplete"]
+    N -- ไม่ --> Q["ล้าง Final Score ถ้ามี<br/>และเปลี่ยนเป็น `CLOSED_INCOMPLETE`"]
     P --> R{"ยังมีผู้สมัครถัดไปหรือไม่"}
     Q --> R
     R -- ใช่ --> M
@@ -462,8 +462,8 @@ flowchart TD
 
 - ห้ามสร้าง Evaluation ใหม่
 - ห้าม Submit เพิ่มเติม
-- ผู้สมัครที่ Submitted อย่างน้อย 2 คนเป็น `Finalized`
-- ผู้สมัครที่ Submitted น้อยกว่า 2 คนเป็น `Closed Incomplete`
+- ผู้สมัครที่ Submitted อย่างน้อย 2 คนเป็น `FINALIZED`
+- ผู้สมัครที่ Submitted น้อยกว่า 2 คนเป็น `CLOSED_INCOMPLETE`
 - การแก้ไขภายหลังต้องผ่าน Reopen Policy และอาจต้องเปิดรอบตามกระบวนการอนุมัติ
 
 ---
@@ -604,17 +604,17 @@ flowchart TD
 | Draft, Review, Submit | PF-EVA-002 |
 | ใช้เฉพาะ Submitted ในการคำนวณ | PF-SCR-001 |
 | คำนวณใหม่เมื่อผู้ประเมินคนที่ 3 Submit | PF-SCR-002 |
-| Finalized และ Closed Incomplete | PF-RND-001 |
+| Finalized และ `CLOSED_INCOMPLETE` | PF-RND-001 |
 | Excel/CSV Export และ Export Audit | PF-RPT-001 |
 | Reopen หลัง Submit | PF-EVA-003 |
 
 ## 18. ประเด็นที่ต้องยืนยันก่อนอนุมัติเอกสาร
 
-1. อนุญาตให้นำเข้าผู้สมัครเฉพาะรอบ `Draft` หรืออนุญาตในรอบ `Open` ด้วย
+1. อนุญาตให้นำเข้าผู้สมัครเฉพาะรอบ `DRAFT` หรืออนุญาตในรอบ `OPEN` ด้วย
 2. Criteria Version ใหม่สามารถเริ่มใช้กลางรอบได้หรือไม่
 
 3. ผู้มีอำนาจอนุมัติ Reopen Evaluation คือใคร
-4. เมื่อรอบ `Closed` ต้องการแก้ Evaluation จะเปิดรอบกลับเป็น `Open` หรือใช้ Exception เฉพาะรายการ
+4. เมื่อรอบ `CLOSED` ต้องการแก้ Evaluation จะเปิดรอบกลับเป็น `OPEN` หรือใช้ Exception เฉพาะรายการ
 5. ความคิดเห็นเป็นข้อมูลบังคับก่อน Submit หรือไม่
 6. สูตรคะแนน น้ำหนัก และหลักการปัดเศษฉบับสุดท้าย
 7. Template และ Encoding ของ CSV
@@ -647,6 +647,7 @@ flowchart TD
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Design Team | Added explicit lifecycle navigation to permission and state-transition specifications. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed reopen and added Controlled Correction, round/report, quarantine and account/session flows. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned import and closed-round errors with module-specific canonical codes. |

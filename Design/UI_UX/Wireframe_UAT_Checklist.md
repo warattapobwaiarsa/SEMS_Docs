@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v0.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Ready for UAT** |
 
@@ -31,9 +31,9 @@
 | A-08 | เปิดรายละเอียดผู้สมัคร | เห็นข้อมูล ครอบครัว ประวัติ และเอกสาร | | | | |
 | A-09 | สร้าง/ตรวจชุดเกณฑ์ | คะแนนเต็มและ Required ถูกต้อง | | | | |
 | A-10 | เปิดรอบทุน | Evaluator สามารถเห็นรายชื่อผู้สมัคร | | | | |
-| A-11 | ตรวจผู้สมัครที่ Submitted 2/3 | สถานะ Minimum Complete และมีคะแนนสรุป | | | | |
-| A-12 | ตรวจหลังผู้ประเมินคนที่ 3 Submit | สถานะ Fully Complete และคะแนนสรุปคำนวณใหม่ | | | | |
-| A-13 | ปิดรอบทุน | เห็น Finalized และ Closed Incomplete ก่อนยืนยัน | | | | |
+| A-11 | ตรวจผู้สมัครที่ Submitted 2/3 | สถานะ `MINIMUM_COMPLETE` และมีคะแนนสรุป | | | | |
+| A-12 | ตรวจหลังผู้ประเมินคนที่ 3 Submit | สถานะ `FULLY_COMPLETE` และคะแนนสรุปคำนวณใหม่ | | | | |
+| A-13 | ปิดรอบทุน | เห็น Finalized และ `CLOSED_INCOMPLETE` ก่อนยืนยัน | | | | |
 | A-14 | Export Excel/CSV | ได้รายงานตาม Filter และมีประวัติ Export | | | | |
 
 ## B. Evaluator Tasks
@@ -101,6 +101,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed-response UAT scenarios; approval remains pending. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Removed trailing whitespace for automated documentation checks; approval remains pending. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial wireframe UAT checklist draft. |

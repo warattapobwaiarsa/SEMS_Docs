@@ -1,24 +1,24 @@
-# Requirement Baseline Approval Record
+# บันทึกการอนุมัติ Requirement Baseline
 
-| Field | Value |
+| รายการ | ค่า |
 |---|---|
-| Template Version | v0.3 |
+| Template Version | v0.4 |
 | Last Updated | 2026-07-24 |
 | Approval Status | **Pending Formal Approval** |
 | Baseline Candidate Version | **Release 1 Baseline Candidate — 2026-07-24** |
-| Documents Reviewed | PRD v0.3; SRS v0.4; Decision Register v0.5; User Stories v0.4; Traceability v0.4; synchronized Design/API/DB/UI/Testing documents listed below |
-| Remaining Open Decisions | No Release 1 Critical/High business-rule decision remains Open. RD-040 capacity and RD-045 manual-process baseline are `Confirmed Direction — Pending Measurement`. |
+| Documents Reviewed | PRD v0.4; SRS v0.5; Decision Register v0.6; User Stories v0.5; Traceability v0.5; และเอกสาร Design/API/DB/UI/Testing ที่ระบุด้านล่าง |
+| Remaining Open Decisions | ไม่มี business-rule decision ระดับ Critical/High ของ Release 1 ที่ยังเป็น Open; RD-040 และ RD-045 อยู่ในสถานะ `Confirmed Direction — Pending Measurement` |
 | Decision Owner | Pending Formal Record |
 | Reviewer | Pending Formal Record |
 | Approver | Pending Formal Record |
 | Approval Date | Pending Formal Record |
 | Evidence / Email / Signature Reference | Pending Formal Record |
-| Conditions | Formal approver roles must review the candidate; validation exceptions and pending measurements must be accepted or assigned. |
-| Follow-up Actions | Record real approver/reviewer/date/evidence; collect RD-040/RD-045 measurements; confirm named UAT/production/IT assignees and production KKU/infrastructure values. |
+| Conditions | ผู้มีบทบาทอนุมัติต้องตรวจเอกสาร candidate และรับทราบหรือมอบหมาย validation exceptions กับผลการวัดที่ยังค้างอยู่ |
+| Follow-up Actions | บันทึกผู้อนุมัติ ผู้ตรวจ วันที่ และหลักฐานจริง; เก็บผลการวัด RD-040/RD-045; ยืนยันผู้รับผิดชอบ UAT/production/IT และค่า KKU/infrastructure |
 
-> Prepared for completion. The confirmed stakeholder response is decision input, not formal approval evidence. Do not mark Approved or add a person/date without a verifiable repository record.
+> เอกสารนี้เตรียมไว้สำหรับบันทึกผลจริงเท่านั้น คำตอบจากผู้มีส่วนเกี่ยวข้องเป็นข้อมูลประกอบการตัดสินใจ ไม่ใช่หลักฐานอนุมัติ ห้ามเปลี่ยนเป็น Approved หรือเพิ่มชื่อ/วันที่โดยไม่มีหลักฐานที่ตรวจสอบได้
 
-## Baseline candidate document set
+## ชุดเอกสาร Baseline Candidate
 
 - `Requirements/PRD/SEMS-PRD.md`
 - `Requirements/SRS/SEMS-SRS.md`
@@ -32,17 +32,17 @@
 - UI/UX wireframe specification and UAT checklist
 - Testing plans, confirmed-response test catalog, scoring reference cases and UAT baseline checklist
 
-## Approval completion
+## การบันทึกผลอนุมัติ
 
-| Role required by RD-043 | Name | Decision | Date | Evidence |
+| บทบาทตาม RD-043 | ชื่อ | ผลการตัดสินใจ | วันที่ | หลักฐาน |
 |---|---|---|---|---|
 | Head of Scholarship Office or System Owner | Pending Formal Record | Pending | Pending Formal Record | Pending Formal Record |
 | Advisor | Pending Formal Record | Pending | Pending Formal Record | Pending Formal Record |
 | Data/Security owner (for PDPA/security conditions) | Pending Formal Record | Pending | Pending Formal Record | Pending Formal Record |
 
-## Conditions / exception record
+## เงื่อนไขและข้อยกเว้น
 
-| Item | Disposition | Owner | Due date / evidence |
+| รายการ | สถานะดำเนินการ | ผู้รับผิดชอบ | กำหนดเวลา/หลักฐาน |
 |---|---|---|---|
 | RD-040 operational capacity measurements | Pending Measurement | Pending Formal Record | Pending Formal Record |
 | RD-045 current manual-process baseline | Pending Measurement | Pending Formal Record | Pending Formal Record |
@@ -54,6 +54,7 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Synchronized the pending approval record with post-audit document versions; no approval evidence was added. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Prepared the synchronized baseline candidate for formal completion without inventing approval evidence. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pending approval-record template. |

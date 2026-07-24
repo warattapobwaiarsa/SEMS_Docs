@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 |---|---|
-| Version | **v0.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-24** |
 | Status | **Test Specification — Not Yet Executed** |
 | Source | RD-008–RD-049; SRS Section 12 |
@@ -16,11 +16,11 @@
 | CR-005 | FR-APP-009 / RD-027 | Explicitly update mutable application fields before any Evaluation. | Update and audit succeed; identity triplet unchanged. |
 | CR-006 | FR-APP-009 / RD-027 | Normal Import Update after a Draft exists. | Score-affecting update rejected; Controlled Correction required. |
 | CR-007 | FR-APP-009 / RD-027 | Apply authorized Controlled Correction after Evaluation exists. | Before/after snapshot, reason, approver and audit persist; affected result recalculates as specified. |
-| CR-008 | FR-EVA-018 / RD-009 | Owner cancels Draft with reason. | Soft `Cancelled`, audit event, slot released atomically; row remains. |
+| CR-008 | FR-EVA-018 / RD-009 | Owner cancels Draft with reason. | Soft `CANCELLED`, audit event, slot released atomically; row remains. |
 | CR-009 | FR-EVA-017 / RD-008 | Owner requests reopen of Submitted Evaluation and Head/delegate approves. | Prior submission immutable; editable copy returns Draft; technical requester cannot self-approve. |
 | CR-010 | FR-EVA-017 / RD-008 | Inspect previous submission after reopen. | Revision/hash/timestamp remain unchanged and readable to authorized Admin. |
 | CR-011 | FR-EVA-017 / RD-010 | Resubmit reopened Evaluation. | Only current Submitted totals enter mean; Result Summary recalculates. |
-| CR-012 | FR-RND-010 / RD-007 | Close with applications below two Submitted results. | Warning/list shown; explicit confirmation+reason required; affected state Closed Incomplete and Final Score null. |
+| CR-012 | FR-RND-010 / RD-007 | Close with applications below two Submitted results. | Warning/list shown; explicit confirmation+reason required; affected state `CLOSED_INCOMPLETE` and Final Score null. |
 | CR-013 | FR-RND-011 / RD-048 | Approved reopen of Closed round. | Round opens through controlled workflow; audit/reference recorded. |
 | CR-014 | FR-RND-011 / RD-048 | Attempt to reopen Archived round. | Rejected `ROUND_ARCHIVED`; no mutation. |
 | CR-015 | FR-RND-011 / RD-049 | Create replacement Final report after reopened round closes. | Old immutable report marked Superseded; new Final snapshot inserted; neither overwritten. |
@@ -51,4 +51,5 @@ Execution evidence, pass/fail status, defects and UAT sign-off must be recorded 
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.1 | 2026-07-24 | SEMS QA Team | Added baseline-candidate tests for confirmed stakeholder rules. |

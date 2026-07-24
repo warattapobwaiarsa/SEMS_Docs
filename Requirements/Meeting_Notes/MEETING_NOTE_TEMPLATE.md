@@ -1,8 +1,8 @@
-# SEMS Meeting Note — YYYY-MM-DD
+# บันทึกการประชุม SEMS — YYYY-MM-DD
 
 | Field | Value |
 |---|---|
-| Template Version | v0.2 |
+| Template Version | v0.3 |
 | Last Updated | 2026-07-24 |
 | Author | SEMS Documentation Team |
 | Status | Template |
@@ -13,21 +13,21 @@
 | Participants | _Pending_ |
 | Evidence / Recording Reference | _Pending_ |
 
-## Agenda
+## ระเบียบวาระ
 
 1. _Pending_
 
-## Discussion Notes
+## บันทึกการหารือ
 
 _Record facts, alternatives and source evidence. Do not infer approval._
 
-## Decisions
+## มติและการตัดสินใจ
 
 | Decision ID | Decision | Status | Decision Owner | Evidence | Effective Date |
 |---|---|---|---|---|---|
 | _Pending_ | _Pending_ | Pending | _Pending_ | _Pending_ | _Pending_ |
 
-## Open Questions
+## คำถามที่ยังต้องติดตาม
 
 | ID | Question | Owner | Due Date | Impact |
 |---|---|---|---|---|
@@ -43,5 +43,6 @@ _Record facts, alternatives and source evidence. Do not infer approval._
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Classified the reusable artifact explicitly as a Template. |
 | v0.1 | YYYY-MM-DD | _Pending_ | Initial meeting note. |

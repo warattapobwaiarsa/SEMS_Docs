@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -28,108 +28,108 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 ### SCR-D-001 All Maximum
 
-**Input:** ทุก criterion = max
+**ข้อมูลนำเข้า (Input):** ทุก criterion = max
 
-**Expected:** evaluator total = 100
+**ผลที่คาดหวัง (Expected):** evaluator total = 100
 
 ### SCR-D-002 All Minimum
 
-**Input:** ทุก criterion = min
+**ข้อมูลนำเข้า (Input):** ทุก criterion = min
 
-**Expected:** evaluator total = 5 เพราะ `CRT-04` มีคะแนนต่ำสุด 5 และทุกเกณฑ์บังคับ
+**ผลที่คาดหวัง (Expected):** evaluator total = 5 เพราะ `CRT-04` มีคะแนนต่ำสุด 5 และทุกเกณฑ์บังคับ
 
 ### SCR-D-002A Embedded Point Is Not Weighted Twice
 
-**Input:** คะแนน 10 เกณฑ์รวม 75 และ metadata `weight_percent` รวม 100
+**ข้อมูลนำเข้า (Input):** คะแนน 10 เกณฑ์รวม 75 และ metadata `weight_percent` รวม 100
 
-**Expected:** evaluator total = 75; ห้ามคูณคะแนน option ด้วย `weight_percent` ซ้ำ
+**ผลที่คาดหวัง (Expected):** evaluator total = 75; ห้ามคูณคะแนน option ด้วย `weight_percent` ซ้ำ
 
 ### SCR-D-003 Mixed Lookup Options
 
-**Expected:** total เท่ากับผลรวม option จริง ไม่ใช้ display order หรือข้อความคล้ายกันผิดรายการ
+**ผลที่คาดหวัง (Expected):** total เท่ากับผลรวม option จริง ไม่ใช้ display order หรือข้อความคล้ายกันผิดรายการ
 
 ### SCR-D-004 Boundary Below/Above
 
 **Inputs:** -0.01, max+0.01, string, NaN, Infinity
 
-**Expected:** `SCORE_OUT_OF_RANGE`/validation error; DB unchanged
+**ผลที่คาดหวัง (Expected):** `SCORE_OUT_OF_RANGE`/validation error; DB unchanged
 
 ### SCR-D-005 Required Criterion Missing
 
-**Expected:** Save Draft ได้หรือไม่ได้ตาม draft policy แต่ Submit ต้อง reject; ระบุ criterion ที่ขาด
+**ผลที่คาดหวัง (Expected):** Save Draft ได้หรือไม่ได้ตาม draft policy แต่ Submit ต้อง reject; ระบุ criterion ที่ขาด
 
 ### SCR-D-006 Criterion Version Binding
 
-**Expected:** EvaluationScore ทุก row อ้าง criterion/version ที่ active ตอนสร้าง evaluation; criteria version ใหม่ไม่เปลี่ยนคะแนนย้อนหลัง
+**ผลที่คาดหวัง (Expected):** EvaluationScore ทุก row อ้าง criterion/version ที่ active ตอนสร้าง evaluation; criteria version ใหม่ไม่เปลี่ยนคะแนนย้อนหลัง
 
 ### SCR-D-007 Recalculate Evaluator Total Server-side
 
-**Input:** client ส่ง total ที่ดัดแปลง
+**ข้อมูลนำเข้า (Input):** client ส่ง total ที่ดัดแปลง
 
-**Expected:** backend ไม่เชื่อ client total; คำนวณจาก score rows เท่านั้น
+**ผลที่คาดหวัง (Expected):** backend ไม่เชื่อ client total; คำนวณจาก score rows เท่านั้น
 
 ## 3. Aggregation Tests
 
 ### SCR-D-008 One Submitted Only
 
-**Expected:** submitted count=1, state=In Progress, ไม่มี Result Summary ที่ถือเป็น complete/final
+**ผลที่คาดหวัง (Expected):** submitted count=1, state=`IN_PROGRESS`, ไม่มี Result Summary ที่ถือเป็น complete/final
 
 ### SCR-D-009 One Submitted + One Draft
 
-**Expected:** aggregate ใช้ 1 Submitted เท่านั้นและยังไม่สร้าง complete summary
+**ผลที่คาดหวัง (Expected):** aggregate ใช้ 1 Submitted เท่านั้นและยังไม่สร้าง complete summary
 
 ### SCR-D-010 Two Submitted
 
-**Input:** evaluator totals 80 และ 90
+**ข้อมูลนำเข้า (Input):** evaluator totals 80 และ 90
 
-**Expected:** submitted count=2; Minimum Complete; summary ตรงสูตรอนุมัติ; หาก average = 85.00
+**ผลที่คาดหวัง (Expected):** submitted count=2; `MINIMUM_COMPLETE`; summary ตรงสูตรอนุมัติ; หาก average = 85.00
 
 ### SCR-D-011 Two Submitted + One Draft
 
-**Expected:** summary ยังเท่ากับผล 2 Submitted; Draft ของคนที่ 3 ไม่เปลี่ยน score/state
+**ผลที่คาดหวัง (Expected):** summary ยังเท่ากับผล 2 Submitted; Draft ของคนที่ 3 ไม่เปลี่ยน score/state
 
 ### SCR-D-012 Third Submitted
 
-**Input:** third total=70
+**ข้อมูลนำเข้า (Input):** third total=70
 
-**Expected:** submitted count=3; Fully Complete; recompute จาก 3 คน; หาก average = 80.00
+**ผลที่คาดหวัง (Expected):** submitted count=3; `FULLY_COMPLETE`; recompute จาก 3 คน; หาก average = 80.00
 
 ### SCR-D-013 Duplicate Evaluator Corrupt Fixture
 
 **Purpose:** defense-in-depth test ด้วยการพยายาม insert duplicate ผ่าน DB/API
 
-**Expected:** constraint ปฏิเสธ; aggregate distinct evaluator IDs และแจ้ง data integrity error หากพบ legacy corruption
+**ผลที่คาดหวัง (Expected):** constraint ปฏิเสธ; aggregate distinct evaluator IDs และแจ้ง data integrity error หากพบ legacy corruption
 
 ### SCR-D-014 Cancelled Submitted/Reopened History
 
-**Expected:** ใช้เฉพาะ current active Submitted ตาม policy; historical/cancelled version ไม่ถูกนับซ้ำ
+**ผลที่คาดหวัง (Expected):** ใช้เฉพาะ current active Submitted ตาม policy; historical/cancelled version ไม่ถูกนับซ้ำ
 
 ### SCR-D-015 One Result Summary Only
 
-**Steps:** trigger recalculation หลายครั้ง/พร้อมกัน
+**ขั้นตอน (Steps):** trigger recalculation หลายครั้ง/พร้อมกัน
 
-**Expected:** unique applicant_round key; update version/timestamp; no duplicate summary
+**ผลที่คาดหวัง (Expected):** unique applicant_round key; update version/timestamp; no duplicate summary
 
 ### SCR-D-016 Rounding
 
 **Dataset:** Decimal totals `80.00`, `80.01` ให้ average `80.005`
 
-**Expected:** ปัดเฉพาะ Applicant Summary เป็น `80.01` แบบ `HALF_UP`; DB/UI/Export เท่ากัน และห้ามใช้ binary floating point
+**ผลที่คาดหวัง (Expected):** ปัดเฉพาะ Applicant Summary เป็น `80.01` แบบ `HALF_UP`; DB/UI/Export เท่ากัน และห้ามใช้ binary floating point
 
 ## 4. State Transition Tests
 
 | ID | Active/Draft | Submitted | Round | Expected |
 |---|---:|---:|---|---|
-| STA-D-001 | 0 | 0 | Open | Not Started |
-| STA-D-002 | 1 Draft | 0 | Open | In Progress |
-| STA-D-003 | 0 | 1 | Open | In Progress |
-| STA-D-004 | 2 Draft | 1 | Open | In Progress |
-| STA-D-005 | any | 2 | Open | Minimum Complete |
-| STA-D-006 | any | 3 | Open | Fully Complete |
+| STA-D-001 | 0 | 0 | Open | `NOT_STARTED` |
+| STA-D-002 | 1 Draft | 0 | Open | `IN_PROGRESS` |
+| STA-D-003 | 0 | 1 | Open | `IN_PROGRESS` |
+| STA-D-004 | 2 Draft | 1 | Open | `IN_PROGRESS` |
+| STA-D-005 | any | 2 | Open | `MINIMUM_COMPLETE` |
+| STA-D-006 | any | 3 | Open | `FULLY_COMPLETE` |
 | STA-D-007 | any | ≥2 | Closed | Finalized |
-| STA-D-008 | any | <2 | Closed | Closed Incomplete |
-| STA-D-009 | 1 Cancelled only | 0 | Open | Not Started |
-| STA-D-010 | 2 Submitted + 1 Cancelled | 2 | Open | Minimum Complete |
+| STA-D-008 | any | <2 | Closed | `CLOSED_INCOMPLETE` |
+| STA-D-009 | 1 Cancelled only | 0 | Open | `NOT_STARTED` |
+| STA-D-010 | 2 Submitted + 1 Cancelled | 2 | Open | `MINIMUM_COMPLETE` |
 
 ### Transition Guards
 
@@ -142,23 +142,23 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 ### DSH-D-001 Count by Submitted 0/1/2/3
 
-**Expected:** group counts sum to total applicants in selected round
+**ผลที่คาดหวัง (Expected):** group counts sum to total applicants in selected round
 
 ### DSH-D-002 Count by State
 
-**Expected:** state counts sum to total; no applicant in multiple state buckets
+**ผลที่คาดหวัง (Expected):** state counts sum to total; no applicant in multiple state buckets
 
 ### DSH-D-003 Score Visualization
 
-**Expected:** only Submitted-based summary; Not Started/In Progress without complete summary excludedหรือแสดง no score ตาม design
+**ผลที่คาดหวัง (Expected):** only Submitted-based summary; `NOT_STARTED`/`IN_PROGRESS` without complete summary excludedหรือแสดง no score ตาม design
 
 ### DSH-D-004 Third Submit Refresh
 
-**Expected:** Minimum Complete count -1, Fully Complete +1; score chart updates; no stale cache beyond SLA
+**ผลที่คาดหวัง (Expected):** `MINIMUM_COMPLETE` count -1, `FULLY_COMPLETE` +1; score chart updates; no stale cache beyond SLA
 
 ### DSH-D-005 Close Round Refresh
 
-**Expected:** open states map to Finalized/Closed Incomplete; counts reconcile
+**ผลที่คาดหวัง (Expected):** open states map to Finalized/`CLOSED_INCOMPLETE`; counts reconcile
 
 ## 6. Report/Export Tests
 
@@ -168,7 +168,7 @@ Criteria sample มีคะแนนเต็มรวม 100 คะแนน �
 
 ### REP-D-002 CSV Encoding and Escaping
 
-**Expected:** UTF-8, Thai readable, commas/newlines/quotes in comments escaped correctly
+**ผลที่คาดหวัง (Expected):** UTF-8, Thai readable, commas/newlines/quotes in comments escaped correctly
 
 ### REP-D-003 DB Reconciliation
 
@@ -181,42 +181,43 @@ For each row compare:
 - applicant state
 - summary score/version
 
-**Expected:** exact match; no hidden spreadsheet formula dependency required to obtain correct values
+**ผลที่คาดหวัง (Expected):** exact match; no hidden spreadsheet formula dependency required to obtain correct values
 
 ### REP-D-004 Draft and Cancelled Exclusion
 
-**Expected:** อาจแสดงสถานะ Draft ราย evaluator ได้หาก template ต้องการ แต่ห้ามนำคะแนนเข้าสรุป; cancelled ไม่ถูกนับ active/submitted
+**ผลที่คาดหวัง (Expected):** อาจแสดงสถานะ Draft ราย evaluator ได้หาก template ต้องการ แต่ห้ามนำคะแนนเข้าสรุป; cancelled ไม่ถูกนับ active/submitted
 
 ### REP-D-005 Third Submit
 
-**Expected:** export หลัง third submit แสดง 3 evaluators, Fully Complete และ summary ใหม่
+**ผลที่คาดหวัง (Expected):** export หลัง third submit แสดง 3 evaluators, `FULLY_COMPLETE` และ summary ใหม่
 
 ### REP-D-006 Finalized
 
-**Expected:** Closed + ≥2 แสดง Finalized และ final summary
+**ผลที่คาดหวัง (Expected):** Closed + ≥2 แสดง Finalized และ final summary
 
-### REP-D-007 Closed Incomplete
+### REP-D-007 `CLOSED_INCOMPLETE`
 
-**Expected:** state=Closed Incomplete; final score blank/null; submitted count จริง
+**ผลที่คาดหวัง (Expected):** state=`CLOSED_INCOMPLETE`; final score blank/null; submitted count จริง
 
 ### REP-D-008 Role Restriction
 
-**Expected:** evaluator direct export endpoint = 403; Admin export success
+**ผลที่คาดหวัง (Expected):** evaluator direct export endpoint = 403; Admin export success
 
 ### REP-D-009 Export Audit
 
-**Expected:** event มี actor, round, format, timestamp, filter, row count และ status; ไม่เก็บ file content/token
+**ผลที่คาดหวัง (Expected):** event มี actor, round, format, timestamp, filter, row count และ status; ไม่เก็บ file content/token
 
 ### REP-D-010 Concurrent Data Change During Export
 
 **Decision:** report ต้องใช้ snapshot/transaction หรือระบุ as-of time
 
-**Expected:** file ภายในชุดเดียวกัน consistent ไม่ครึ่งเก่า/ครึ่งใหม่
+**ผลที่คาดหวัง (Expected):** file ภายในชุดเดียวกัน consistent ไม่ครึ่งเก่า/ครึ่งใหม่
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS QA Team | Clarified that report-template expectations remain provisional under RD-021. |
 | v0.2 | 2026-07-23 | SEMS QA Team | Corrected minimum total to 5 and added embedded-point and Decimal HALF_UP regression cases. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial scoring, state, dashboard and report test draft. |

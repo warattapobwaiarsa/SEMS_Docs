@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.3** |
+| Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Draft** |
@@ -32,7 +32,7 @@
 5. ผู้ประเมินแก้ไขและ Submit ได้เฉพาะ Evaluation ของตนเอง
 6. Admin ตรวจสอบ Evaluation ได้ แต่ต้องไม่แก้คะแนน ความคิดเห็น หรือ Submit แทนผู้ประเมิน
 7. การ Reopen ผลหลัง Submit เป็นสิทธิ์ของ Admin ตามนโยบายที่ได้รับอนุมัติ และผู้ประเมินเจ้าของผลเป็นผู้แก้ไขและ Submit ใหม่
-8. เมื่อรอบทุน `Closed` หรือ `Archived` ห้ามสร้าง Evaluation ใหม่และห้าม Submit เพิ่ม เว้นแต่มีการเปิดรอบหรือ Reopen ตามขั้นตอนที่กำหนด
+8. เมื่อรอบทุน `CLOSED` หรือ `ARCHIVED` ห้ามสร้าง Evaluation ใหม่และห้าม Submit เพิ่ม เว้นแต่มีการเปิดรอบหรือ Reopen ตามขั้นตอนที่กำหนด
 9. การเข้าถึงไฟล์เอกสารต้องผ่าน Backend Authorization ห้ามเปิด File Path หรือ Object URL แบบสาธารณะ
 10. การปฏิเสธสิทธิ์และการดำเนินการสำคัญต้องบันทึก Audit Log ตามขอบเขตที่กำหนด
 
@@ -49,16 +49,16 @@
 | PM-005 | Dashboard งานประเมินของตนเอง | ⚠️ | ✅ | Admin ไม่จำเป็นต้องมีหน้าประเมินส่วนตัว; Evaluator เห็นเฉพาะรายการของตน |
 | PM-006 | จัดการผู้ใช้งาน SEMS | ✅ | ❌ | เชื่อม KKU Identity, กำหนดบทบาท, เปิด/ปิดสิทธิ์; ไม่จัดการรหัสผ่าน KKU |
 | PM-007 | ดูรายชื่อผู้ใช้งาน | ✅ | ❌ | จำกัดข้อมูลเท่าที่จำเป็นต่อการบริหารสิทธิ์ |
-| PM-008 | สร้างรอบทุน | ✅ | ❌ | รอบใหม่เริ่มต้นเป็น `Draft` |
+| PM-008 | สร้างรอบทุน | ✅ | ❌ | รอบใหม่เริ่มต้นเป็น `DRAFT` |
 | PM-009 | แก้ไขรอบทุน | ⚠️ | ❌ | จำกัดตามสถานะ และห้ามแก้ไขข้อมูลที่กระทบผลเมื่อมีการประเมินแล้ว |
 | PM-010 | เปลี่ยนสถานะรอบทุน | ⚠️ | ❌ | ใช้ State Transition ที่กำหนด เช่น Draft → Open → Closed → Archived |
-| PM-011 | ดูรายการรอบทุน | ✅ | ⚠️ | Evaluator เห็นเฉพาะรอบที่เกี่ยวข้อง โดยปกติคือรอบ `Open` และรายการของตนในรอบที่ผ่านมา |
+| PM-011 | ดูรายการรอบทุน | ✅ | ⚠️ | Evaluator เห็นเฉพาะรอบที่เกี่ยวข้อง โดยปกติคือรอบ `OPEN` และรายการของตนในรอบที่ผ่านมา |
 | PM-012 | Import ผู้สมัคร | ✅ | ❌ | รองรับ CSV/Excel, Preview, Mapping, Validation และ Confirm Import |
 | PM-013 | ดูประวัติการ Import | ✅ | ❌ | เห็นชื่อไฟล์ ผู้ดำเนินการ เวลา จำนวนสำเร็จและผิดพลาด |
 | PM-014 | แก้ไขข้อมูลผู้สมัคร | ⚠️ | ❌ | Admin แก้ได้ตามสถานะรอบและต้องไม่ทำลายความสอดคล้องของผลประเมิน |
 | PM-015 | ดูรายชื่อผู้สมัครในรอบเปิด | ✅ | ✅ | Evaluator เห็นเฉพาะข้อมูลขั้นต่ำสำหรับค้นหาและเลือก เช่น รหัส ชื่อ นามสกุล และสถานะที่จำเป็น |
 | PM-016 | ดูรายละเอียดผู้สมัคร | ✅ | ⚠️ | Evaluator ดูได้เฉพาะผู้สมัครที่ตนเลือกและมี Evaluation ที่ยังใช้งานอยู่ |
-| PM-017 | ค้นหา/กรองผู้สมัคร | ✅ | ⚠️ | Evaluator ค้นหาได้เฉพาะรอบที่ `Open` และข้อมูลที่อนุญาต |
+| PM-017 | ค้นหา/กรองผู้สมัคร | ✅ | ⚠️ | Evaluator ค้นหาได้เฉพาะรอบที่ `OPEN` และข้อมูลที่อนุญาต |
 | PM-018 | อัปโหลดเอกสารผู้สมัคร | ✅ | ❌ | ตรวจชนิดไฟล์ ขนาดไฟล์ และบันทึกผู้ Upload |
 | PM-019 | ลบ/แทนที่เอกสารผู้สมัคร | ⚠️ | ❌ | ต้องตรวจผลกระทบและเก็บ Audit; อาจจำกัดเมื่อเริ่มประเมินแล้ว |
 | PM-020 | เปิดดู/ดาวน์โหลดเอกสารผู้สมัคร | ✅ | ⚠️ | Evaluator เฉพาะผู้สมัครที่ตนเลือก; ตรวจสิทธิ์ทุกครั้งผ่าน Backend |
@@ -71,7 +71,7 @@
 | PM-027 | เลือกผู้สมัครเพื่อเริ่มประเมิน | ❌ | ⚠️ | บัญชี Active, รอบ Open, ไม่เลือกซ้ำ, จำนวน Evaluation ที่ใช้งานอยู่ < 3 |
 | PM-028 | ยกเลิกการเลือกก่อน Submit | 🔎 | ⚠️ | Evaluator ยกเลิกเฉพาะของตนตาม Policy; Admin ตรวจสอบได้และอาจดำเนินการเชิงบริหารตามสิทธิ์ที่อนุมัติ |
 | PM-029 | เปิดแบบประเมินของตน | ❌ | ⚠️ | ต้องเป็นเจ้าของ Evaluation และรายการยังไม่ถูกยกเลิก |
-| PM-030 | บันทึก Draft | ❌ | ⚠️ | เฉพาะของตนเอง และสถานะต้องเป็น `Draft` หรือ `Reopened/Draft` ตามโมเดลที่ใช้ |
+| PM-030 | บันทึก Draft | ❌ | ⚠️ | เฉพาะของตนเอง และสถานะต้องเป็น `DRAFT` หรือ `Reopened/Draft` ตามโมเดลที่ใช้ |
 | PM-031 | แก้ไขคะแนน/ความคิดเห็น Draft | ❌ | ⚠️ | เฉพาะของตนเอง; ตรวจช่วงคะแนนและกฎ Required Field |
 | PM-032 | Review Before Submit | ❌ | ⚠️ | เฉพาะของตนเองและต้องผ่าน Validation |
 | PM-033 | Submit ผลการประเมิน | ❌ | ⚠️ | เฉพาะของตนเอง, รอบ Open, สถานะ Draft, ข้อมูลครบถ้วน |
@@ -83,7 +83,7 @@
 | PM-039 | คำนวณคะแนนรวมรายผู้ประเมิน | ⚙️ ระบบ | ❌ | ระบบคำนวณจากผล Submitted ตามกฎคะแนน; ผู้ใช้ไม่แก้ค่าคำนวณโดยตรง |
 | PM-040 | คำนวณ Result Summary | ⚙️ ระบบ | ❌ | ใช้เฉพาะ Submitted จากผู้ประเมินไม่ซ้ำกัน 2–3 คน |
 | PM-041 | ดู Result Summary | ✅ | ⚠️ | Evaluator เห็นเฉพาะขอบเขตที่ได้รับอนุมัติ; ค่าเริ่มต้นแนะนำให้เห็นเฉพาะผลของตนและสถานะความครบถ้วน ไม่เห็นผลรายคนอื่น |
-| PM-042 | ปิดรอบทุน | ⚠️ | ❌ | Admin เท่านั้น; ต้องแสดงผลกระทบต่อ Finalized/Closed Incomplete ก่อนยืนยัน |
+| PM-042 | ปิดรอบทุน | ⚠️ | ❌ | Admin เท่านั้น; ต้องแสดงผลกระทบต่อ Finalized/`CLOSED_INCOMPLETE` ก่อนยืนยัน |
 | PM-043 | เปิดรอบทุนที่ปิดแล้ว | ⚠️ | ❌ | ต้องเป็นกระบวนการพิเศษ มีเหตุผล ผู้อนุมัติ และ Audit |
 | PM-044 | Export Excel/CSV | ✅ | ❌ | บันทึกผู้ส่งออก เวลา รอบทุน และเงื่อนไขการกรอง |
 | PM-045 | ดู Audit Log | ⚠️ | ❌ | Admin ตามหน้าที่; Audit Viewer แบบละเอียดอาจเป็นฟังก์ชันเสริม |
@@ -111,7 +111,7 @@
 | API-010 | POST | `/rounds` | ✅ | ❌ | Admin เท่านั้น |
 | API-011 | PATCH | `/rounds/:roundId` | ⚠️ | ❌ | ตรวจสถานะรอบและผลกระทบต่อข้อมูลที่มีอยู่ |
 | API-012 | POST | `/rounds/:roundId/open` | ⚠️ | ❌ | เกณฑ์และข้อมูลที่จำเป็นต้องพร้อม |
-| API-013 | POST | `/rounds/:roundId/close` | ⚠️ | ❌ | Finalize ผู้สมัครที่ Submitted ≥ 2 และกำหนด Closed Incomplete เมื่อ < 2 |
+| API-013 | POST | `/rounds/:roundId/close` | ⚠️ | ❌ | Finalize ผู้สมัครที่ Submitted ≥ 2 และกำหนด `CLOSED_INCOMPLETE` เมื่อ < 2 |
 | API-014 | POST | `/rounds/:roundId/archive` | ⚠️ | ❌ | รอบต้อง Closed และผ่านเงื่อนไขการเก็บรักษา |
 | API-015 | POST | `/rounds/:roundId/imports/preview` | ✅ | ❌ | Admin, ตรวจไฟล์และ Column Mapping |
 | API-016 | POST | `/rounds/:roundId/imports/validate` | ✅ | ❌ | Admin, คืน Row Error และ Error Code |
@@ -320,7 +320,7 @@ Authentication
 | PERM-DEC-001 | Evaluator เห็นคะแนนสรุปของผู้สมัครหรือไม่ | เห็นเฉพาะสถานะความครบถ้วนและผลของตน ไม่เห็นคะแนน/ความคิดเห็นของผู้อื่น |
 | PERM-DEC-002 | Admin ยกเลิก Draft ของผู้ประเมินได้หรือไม่ | อนุญาตเฉพาะกรณีบริหารระบบ มีเหตุผล และ Audit; ห้ามแก้เนื้อหา |
 | PERM-DEC-003 | Admin เปิดรอบ Closed กลับเป็น Open ได้หรือไม่ | **Confirmed Response:** exceptional request/approval only; Archived denied; prior Final snapshot becomes Superseded |
-| PERM-DEC-004 | Reopen เปลี่ยนสถานะเป็น `Reopened` หรือกลับ `Draft` ทันที | แนะนำให้มี `Reopened` ใน Audit/Workflow แล้วเปลี่ยนเป็น Draft ที่แก้ไขได้ |
+| PERM-DEC-004 | Reopen เปลี่ยนสถานะเป็น `REOPENED` หรือกลับ `DRAFT` ทันที | แนะนำให้มี `REOPENED` ใน Audit/Workflow แล้วเปลี่ยนเป็น Draft ที่แก้ไขได้ |
 | PERM-DEC-005 | ผู้ประเมินดูรายการของตนหลัง Archived ได้หรือไม่ | แนะนำให้ดูแบบ Read-only ได้ตามระยะเวลาเก็บข้อมูล |
 | PERM-DEC-006 | Access Denied ต่อข้อมูลละเอียดอ่อนใช้ 403 หรือ 404 | แนะนำ 404 สำหรับทรัพยากรที่ไม่ควรเปิดเผยการมีอยู่ และใช้มาตรฐานเดียวกันทั้งระบบ |
 
@@ -340,6 +340,7 @@ Authentication
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Design Team | Added explicit navigation from permission rules to the API contract artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Confirmed evaluator isolation, reopen separation of duties, correction/round/report/scan endpoint permissions. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`; audit-event names remain unchanged. |

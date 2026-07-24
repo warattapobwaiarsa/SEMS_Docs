@@ -3,11 +3,11 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-TRACE-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 
-Source order follows Proposal → PRD → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB/UI → Tests → UAT → approval evidence. `Provisional` means stakeholder confirmation is still required.
+ลำดับแหล่งอ้างอิงคือ Proposal → PRD → confirmed decisions → Decision Register → SRS → Stories/AC → Design/API/DB/UI → Tests → UAT → approval evidence โดย `Provisional` หมายถึงยังต้องได้รับการยืนยันจากผู้มีส่วนเกี่ยวข้อง
 
 | Trace ID | Core Flow / Proposal | Decision | SRS | User Story / AC | Process / State / Permission | API operationId | Database / Constraint | Test Case | Current Status |
 |---|---|---|---|---|---|---|---|---|---|
@@ -32,7 +32,7 @@ Source order follows Proposal → PRD → confirmed decisions → Decision Regis
 | TRC-019 | File security | RD-038–039 | FR-DOC-007 | US-SEC-004 | PF-DOC-SCAN | `uploadApplicantDocument`, `getDocumentScanStatus` | ApplicantDocument, DocumentScanStatus | CR-029..031 | Confirmed response; approval pending |
 | TRC-020 | Retention/backup/capacity | RD-030–033, RD-040–041 | NFR-RET-001, NFR-BCP-001, NFR-CAP-001 | Operational AC | Architecture operations controls | — | Retention jobs, backup evidence | CR-032..035 | Measurements pending where stated |
 
-## Linked document set
+## ชุดเอกสารที่เชื่อมโยง
 
 - Requirements: [PRD](./PRD/SEMS-PRD.md), [SRS](./SRS/SEMS-SRS.md) and [User Stories / Acceptance Criteria](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
 - Design: [System Architecture](../Design/Architecture/SEMS_System_Architecture.md), [Process Flows](../Design/Architecture/SEMS_Process_Flows.md), [Permission Matrix](../Design/Architecture/SEMS_Permission_Matrix.md), [State Transition Specification](../Design/Architecture/SEMS_State_Transition_Specification.md), [API Specification](../Design/API/SEMS_API_Specification.md), [OpenAPI](../Design/API/openapi.yaml), [ER / Prisma Data Dictionary](../Design/Database/SEMS_ER_Prisma_Data_Dictionary.md) and [Wireframe Specification](../Design/UI_UX/SEMS_Wireframe_Specification.md)
@@ -46,14 +46,14 @@ Source order follows Proposal → PRD → confirmed decisions → Decision Regis
 | UAT | Baseline checklist linked; per-TRC UAT IDs are pending |
 | Approval | Pending approval evidence; no formal approval is claimed |
 
-## Coverage Statement
+## สรุป Coverage
 
-- Core/cross-cutting flows mapped: **20/20**
-- Mapped flows with at least one linked test specification: **20/20**
-- Baseline candidate coverage is complete for changed Release 1 Must requirements. Formal approval and test execution are not claimed.
-- This table does not claim every SRS requirement or every AC is fully traced; detailed row-level completion remains a baseline action.
+- Mapping ของ core/cross-cutting flows: **20/20**
+- Flow ที่มี test specification เชื่อมโยงอย่างน้อยหนึ่งรายการ: **20/20**
+- Baseline candidate ครอบคลุม Release 1 Must requirements ที่เปลี่ยนแล้ว แต่ยังไม่อ้างว่าได้รับอนุมัติหรือดำเนินการทดสอบจริง
+- ตารางนี้ไม่อ้างว่าทุก SRS requirement หรือทุก AC มี trace ระดับรายการครบถ้วน; การตรวจระดับแถวยังคงเป็น baseline action
 
-## Decision, Approval and Test Evidence Status
+## สถานะ Decision, Approval และหลักฐานการทดสอบ
 
 | Scope | Open Decision | Approval Evidence | Test Specification | Test Execution Status |
 |---|---|---|---|---|
@@ -71,6 +71,7 @@ Source order follows Proposal → PRD → confirmed decisions → Decision Regis
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Documentation Team | Corrected the report download operation ID and added explicit requirements, design, test, UAT and pending-approval navigation. |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Added confirmed-response traceability for application identity, correction/reopen, reporting, account/session isolation, file security, retention, backup and capacity. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Separated decision/approval evidence and test definition, automation, execution, pass and UAT states without changing 17/17 core-flow coverage. |

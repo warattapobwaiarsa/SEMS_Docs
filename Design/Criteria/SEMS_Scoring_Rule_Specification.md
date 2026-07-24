@@ -3,7 +3,7 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v0.4** |
+| Version | **v0.5** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
 | Status | **Confirmed Response — Pending Formal Approval** |
@@ -369,7 +369,7 @@ ResultSummary
 | `SCR-009` | เลือก “อื่น ๆ ที่จำเป็น” แต่ไม่ระบุเหตุผล | ปฏิเสธด้วย `EVALUATION_INCOMPLETE` |
 | `SCR-010` | แก้ไขคะแนนตัวเลือกหลังมี Draft แล้ว | ปฏิเสธด้วย `CRITERIA_VERSION_LOCKED` |
 | `SCR-011` | ปิดรอบเมื่อมี Submitted อย่างน้อย 2 คน | ผลล่าสุดเป็น Finalized |
-| `SCR-012` | ปิดรอบเมื่อ Submitted น้อยกว่า 2 คน | Closed Incomplete และไม่มีคะแนนสุดท้าย |
+| `SCR-012` | ปิดรอบเมื่อ Submitted น้อยกว่า 2 คน | `CLOSED_INCOMPLETE` และไม่มีคะแนนสุดท้าย |
 
 ## 12. ประเด็นที่ต้องได้รับการอนุมัติก่อนใช้งานจริง
 
@@ -400,6 +400,7 @@ Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/S
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Design Team | Completed Criteria source/configuration links and added navigation to import mapping and validation artifacts. |
 | v0.3 | 2026-07-24 | SEMS Design Team | Marked confirmed-response status and aligned custom-score/custom-amount reasons and formal approval boundary. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned incomplete scoring/comment validation with canonical `EVALUATION_INCOMPLETE`. |

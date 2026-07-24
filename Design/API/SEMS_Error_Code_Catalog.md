@@ -3,7 +3,7 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-ERR-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Draft — System-wide Source of Truth** |
 
@@ -109,6 +109,7 @@ No aliases were created; all responses retain `{ code, message, details, traceId
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS Design Team | Added backlinks to the governing Markdown and OpenAPI specifications. |
 | v0.2 | 2026-07-24 | SEMS Design Team | Removed unused generic/round-state error codes and documented module-specific import, document and report codes already present in the allowed inventory. |
 | v0.1 | 2026-07-23 | SEMS Design Team | Established canonical error envelope, code names and retired aliases. |

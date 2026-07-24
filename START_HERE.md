@@ -1,8 +1,8 @@
-# 🚦 START HERE — SEMS Documentation
+# 🚦 เริ่มต้นใช้งานเอกสาร SEMS (START HERE)
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.5** |
+| Current Version | **v1.6** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
@@ -73,7 +73,7 @@
 
 > หมวด Deployment ยังไม่มี setup guide, operations guide หรือ user manual ที่จัดทำดัชนี
 
-## Complete File Index
+## ดัชนีไฟล์ทั้งหมด (Complete File Index)
 
 ### Repository
 
@@ -229,6 +229,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.6 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | Completed the testing/UAT and automated-validation indexes after the documentation linkage audit. |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | Indexed the synchronized baseline candidate and formal-approval handoff. |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and updated the reading index. |

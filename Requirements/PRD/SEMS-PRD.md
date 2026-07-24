@@ -3,88 +3,88 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-PRD-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
 | Status | **Baseline Candidate — Pending Formal Approval** |
 | Owner | SEMS Product Owner / Scholarship Office |
 
-## Problem Statement
+## ปัญหาที่ต้องแก้ไข (Problem Statement)
 
 กระบวนการประเมินทุนกระจายอยู่ในหลายไฟล์และหลายระบบ ทำให้ข้อมูลซ้ำ การตรวจเอกสารและคะแนนไม่ต่อเนื่อง การคำนวณ/รายงานผิดพลาดได้ และตรวจสอบย้อนหลังยาก
 
-## Product Goals
+## เป้าหมายผลิตภัณฑ์ (Product Goals)
 
 - รวมข้อมูลผู้สมัคร เอกสาร เกณฑ์ การประเมิน คะแนน และรายงานในระบบเดียว
 - บังคับใช้สิทธิ์และสถานะงานจาก Backend พร้อม Audit
 - ลดงานคำนวณและรวมผลด้วยมือ โดยผลลัพธ์ตรวจสอบย้อนกลับได้
 - รองรับผู้ประเมินไม่ซ้ำ 2–3 คนและคำนวณใหม่เมื่อคนที่ 3 Submit
 
-## Users
+## ผู้ใช้งาน (Users)
 
-| User | Need |
+| ผู้ใช้ | ความต้องการ |
 |---|---|
-| Admin / Scholarship Officer | จัดการผู้ใช้ รอบทุน Import เอกสาร เกณฑ์ ปิดรอบ Dashboard Export และ Audit |
-| Evaluator | เลือกผู้สมัคร ดูข้อมูลที่ได้รับสิทธิ์ บันทึก Draft Review และ Submit เฉพาะของตน |
+| ผู้ดูแลระบบ (`ADMIN`) / เจ้าหน้าที่งานทุน | จัดการผู้ใช้ รอบทุน การนำเข้าข้อมูล เอกสาร เกณฑ์ การปิดรอบ Dashboard การส่งออกรายงาน และ Audit |
+| ผู้ประเมิน (`EVALUATOR`) | เลือกผู้สมัคร ดูข้อมูลที่ได้รับสิทธิ์ บันทึก `DRAFT` ตรวจทาน และส่งผล (`SUBMITTED`) เฉพาะของตน |
 
-## Scope
+## ขอบเขต (Scope)
 
-### Core Features
+### ความสามารถหลัก (Core Features)
 
-KKU OAuth/OIDC, SEMS account/RBAC, scholarship round, applicant import `.xlsx`/`.csv`, applicant/document management, versioned criteria, evaluator selection, Draft/Review/Submit, scoring summary, third-evaluator recalculation, close/archive, dashboard, Excel/CSV export และ audit trail
+ครอบคลุม KKU OAuth/OIDC, บัญชี SEMS และ RBAC, รอบทุน, การนำเข้าผู้สมัครจาก `.xlsx`/`.csv`, การจัดการผู้สมัครและเอกสาร, เวอร์ชันเกณฑ์, การเลือกผู้ประเมิน, `DRAFT`/Review/`SUBMITTED`, ผลสรุปคะแนน, การคำนวณใหม่เมื่อมีผู้ประเมินคนที่ 3, การปิด/จัดเก็บรอบ, Dashboard, การส่งออก Excel/CSV และ Audit Trail
 
-### Controlled Release 1 Features
+### ความสามารถแบบควบคุมใน Release 1
 
-- Evaluation reopen with request, independent approval, immutable prior revision and resubmission
-- Exceptional `CLOSED → OPEN` round reopen; `ARCHIVED` is never reopened
-- Controlled Correction after any Evaluation exists
-- Immutable final report snapshots with `Superseded` replacement history
-- Account pre-provisioning, evaluator isolation, code-list administration and file quarantine/malware scanning
+- การ Reopen Evaluation ต้องมีคำขอ การอนุมัติที่เป็นอิสระ การเก็บ revision เดิมแบบ immutable และการส่งผลใหม่
+- การ Reopen รอบแบบยกเว้นจาก `CLOSED → OPEN`; รอบ `ARCHIVED` ห้ามเปิดใหม่
+- ใช้ Controlled Correction หลังมี Evaluation แล้ว
+- เก็บ final report snapshot แบบ immutable พร้อมประวัติการแทนที่ `Superseded`
+- รองรับ account pre-provisioning, การแยกข้อมูลผู้ประเมิน, การจัดการ code list และการ Quarantine/สแกน malware
 
-### Out of Scope
+### นอกขอบเขต (Out of Scope)
 
-การจัดการรหัสผ่าน KKU, การจ่ายเงินทุน, mobile native app, การแทนระบบทะเบียนกลาง และ national ID ทุกกรณีใน Release 1 Core Flow. National ID is `Out of Scope for Release 1 — requires separate lawful-need and security approval`.
+ไม่รวมการจัดการรหัสผ่าน KKU, การจ่ายเงินทุน, mobile native app, การแทนระบบทะเบียนกลาง และ National ID ทุกกรณีใน Release 1 Core Flow โดย National ID มีสถานะ `Out of Scope for Release 1 — requires separate lawful-need and security approval`
 
-## Success Metrics
+## ตัวชี้วัดความสำเร็จ (Success Metrics)
 
-Capacity design targets are recorded in RD-040, but are not measured facts. The current manual-process baseline and the proposed 50% improvement target remain `Confirmed Direction — Pending Measurement` under RD-045. Measure import success, evaluation time, reconciliation errors, authorization incidents, audit completeness, preparation/merge time, correction time, report time, staff count and rework.
+เป้าหมายด้าน capacity บันทึกไว้ใน RD-040 แต่ยังไม่ใช่ผลการวัดจริง ส่วน baseline ของกระบวนการ manual และเป้าหมายปรับปรุง 50% ยังเป็น `Confirmed Direction — Pending Measurement` ตาม RD-045 การวัดต้องครอบคลุมความสำเร็จของ Import, เวลาประเมิน, reconciliation error, authorization incident, ความครบถ้วนของ Audit, เวลาเตรียม/รวมข้อมูล, เวลาแก้ไข, เวลาสร้างรายงาน, จำนวนเจ้าหน้าที่ และ rework
 
-## Constraints
+## ข้อจำกัด (Constraints)
 
 - Proposal ที่ได้รับอนุมัติเป็น Source of Truth สูงสุด
 - Next.js, NestJS, PostgreSQL และ Prisma ตามข้อเสนอ/แบบร่างสถาปัตยกรรม
 - ข้อมูลส่วนบุคคลต้องใช้เท่าที่จำเป็น แยกสิทธิ์ และไม่รั่วผ่าน Error/Log/Export
-- Confirmed stakeholder responses are the working decision source; formal baseline approval is still pending.
+- คำตอบที่ยืนยันจากผู้มีส่วนเกี่ยวข้องเป็นแหล่งตัดสินใจสำหรับ working baseline แต่ยังรอการอนุมัติ baseline อย่างเป็นทางการ
 
-## Dependencies
+## สิ่งที่ต้องพึ่งพา (Dependencies)
 
 KKU OAuth/OIDC registration และ claims, PostgreSQL, file/object storage, deployment environment, backup/restore, เจ้าหน้าที่งานทุนผู้มีอำนาจตัดสินใจ และชุดข้อมูลสังเคราะห์สำหรับทดสอบ
 
-## Risks
+## ความเสี่ยง (Risks)
 
-| Risk | Mitigation |
+| ความเสี่ยง | การลดความเสี่ยง |
 |---|---|
-| Formal baseline evidence absent | Keep approval pending and use the Decision Register as the baseline candidate |
+| ยังไม่มีหลักฐานอนุมัติ baseline อย่างเป็นทางการ | คงสถานะ Pending และใช้ Decision Register เป็น baseline candidate |
 | PII ในไฟล์อ้างอิง | จำกัดการเข้าถึง ตรวจ source และแทนด้วย synthetic data เมื่อได้รับอนุญาต |
 | เลือกผู้ประเมินพร้อมกันเกิน 3 | Transaction, unique constraint/lock และ concurrency test |
 | Criteria เปลี่ยนย้อนหลัง | Version binding และ immutable referenced version |
 | Export ไม่ตรงฐานข้อมูล | Snapshot/as-of, reconciliation และ audit |
 
-## Remaining external records and measurements
+## บันทึกและผลการวัดจากภายนอกที่ยังต้องจัดหา
 
-No Release 1 Critical/High decision remains Open. Formal approver names, approval dates, signatures/evidence, operational assignees, production endpoints/claims and the RD-040/RD-045 measurements remain external follow-up items; see the [Decision Register](../SEMS_Requirement_Decision_Register.md) and [Traceability Matrix](../SEMS_Traceability_Matrix.md).
+ไม่มี decision ระดับ Critical/High ของ Release 1 ที่ยังเป็น Open รายการที่ต้องติดตามจากภายนอก ได้แก่ ชื่อผู้อนุมัติ วันที่อนุมัติ ลายเซ็น/หลักฐาน ผู้รับผิดชอบงานปฏิบัติการ production endpoints/claims และผลการวัด RD-040/RD-045 ดูรายละเอียดใน [Decision Register](../SEMS_Requirement_Decision_Register.md) และ [Traceability Matrix](../SEMS_Traceability_Matrix.md)
 
-## Milestones
+## หมุดหมายโครงการ (Milestones)
 
-1. Baseline candidate review and formal approval
-2. Requirement Baseline Approval
-3. System Design Review / Approval
-4. Implementation และ integration testing
-5. UAT / security / data migration rehearsal
-6. Release readiness และ production approval
+1. ตรวจทาน baseline candidate และอนุมัติอย่างเป็นทางการ
+2. อนุมัติ Requirement Baseline
+3. ตรวจทานและอนุมัติ System Design
+4. ดำเนินการ Implementation และ integration testing
+5. ทำ UAT, security testing และ data migration rehearsal
+6. ตรวจความพร้อม Release และอนุมัติ production
 
-## Requirement Baseline Status
+## สถานะ Requirement Baseline
 
-**Ready for Formal Review; Pending Formal Approval** — confirmed responses are synchronized, but no verifiable approver/date/signature evidence exists.
+**Ready for Formal Review; Pending Formal Approval** — ซิงก์คำตอบที่ยืนยันแล้ว แต่ยังไม่มีหลักฐานชื่อผู้อนุมัติ วันที่ หรือลายเซ็นที่ตรวจสอบได้
 
 ## Related Documents
 
@@ -94,6 +94,7 @@ No Release 1 Critical/High decision remains Open. Formal approver names, approva
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.3 | 2026-07-24 | SEMS Documentation Team | Added explicit lifecycle navigation to requirement decision analysis and registration. |
 | v0.2 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed Release 1 decisions, scope, measurements and baseline readiness without asserting approval. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline PRD compiled from repository sources; no stakeholder approval asserted. |

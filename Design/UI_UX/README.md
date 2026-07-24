@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.6** |
+| Current Version | **v1.7** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | Low-fidelity wireframes and user validation |
@@ -11,8 +11,8 @@
 
 | File | Version | Status |
 | :--- | :---: | :--- |
-| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.4 | Draft — User Validation |
-| [`Wireframe_UAT_Checklist.md`](./Wireframe_UAT_Checklist.md) | v0.2 | Draft — Ready for UAT |
+| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.5 | Draft — User Validation |
+| [`Wireframe_UAT_Checklist.md`](./Wireframe_UAT_Checklist.md) | v0.3 | Draft — Ready for UAT |
 | [`SEMS_Wireframe_Prototype.html`](./SEMS_Wireframe_Prototype.html) | v1.1 | Ready for UAT |
 | [`SEMS_Wireframe_Overview.png`](./SEMS_Wireframe_Overview.png) | v1.1 | Draft — English Captions |
 | [`screen_manifest.json`](./screen_manifest.json) | v1.1 | Draft |
@@ -28,6 +28,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.7 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.6 | 2026-07-24 | SEMS Documentation Team | Synchronized wireframe status/version and indexed explicit screen-manifest image paths. |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed Release 1 UI behavior and UAT scenarios. |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | Added interactive Admin and Evaluator UAT flows, explicit prototype feedback, and automated interaction checks. |

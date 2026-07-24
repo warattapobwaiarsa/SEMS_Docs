@@ -3,8 +3,8 @@
 | รายการ | รายละเอียด |
 | :--- | :--- |
 | ชื่อเอกสาร | Documentation Governance Policy |
-| Version | **v1.2** |
-| Last Updated | **2026-07-23** |
+| Version | **v1.3** |
+| Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | สถานะ | ฉบับใช้งาน |
 
@@ -87,7 +87,7 @@ README และไฟล์ Index ทุกฉบับต้องมีตา
 
 ### ขั้นตอนที่ 2: กำหนดหรือปรับเวอร์ชัน
 
-1. กำหนดเอกสารใหม่เป็น `v1.0`
+1. กำหนดเอกสารใหม่ที่ยังไม่ผ่าน Baseline เป็น `v0.1`; ใช้ `v1.0` เฉพาะ First Approved หรือ First Official Release
 2. ประเมินการเปลี่ยนแปลงว่าเป็น Major หรือ Minor
 3. อัปเดต Version, Last Updated และ Author
 4. เพิ่มรายการใน Revision History
@@ -146,7 +146,80 @@ Updated: REPOSITORY_TREE.md (v1.1 → v1.2)
 
 หากพบข้อมูลลับหรือข้อมูลจริง ให้หยุดเผยแพร่ไฟล์ แจ้งผู้รับผิดชอบ และดำเนินการลบข้อมูลออกจากประวัติ Repository ตามกระบวนการรักษาความปลอดภัยของโครงการ
 
-## 5. Checklist ก่อน Commit หรือ Pull Request
+## 5. นโยบายภาษาและคำศัพท์ (Language and Terminology Policy)
+
+### 5.1 หลักการ Thai-first
+
+- ใช้ภาษาไทยเป็นหลักสำหรับคำอธิบาย วัตถุประสงค์ ขั้นตอน เงื่อนไข เหตุผล ความเสี่ยง และผลที่คาดหวังซึ่งจัดทำสำหรับอาจารย์ที่ปรึกษา เจ้าหน้าที่งานทุน ผู้ประเมิน Product Owner และผู้มีส่วนเกี่ยวข้องทั่วไป
+- ชื่อมาตรฐาน เทคโนโลยี และคำศัพท์ทางเทคนิคอาจใช้ภาษาอังกฤษ โดยแนะนำคำไทยร่วมกับคำมาตรฐานในวงเล็บหรือ backticks เมื่อกล่าวครั้งแรก
+- หลีกเลี่ยงประโยคที่สลับภาษาโดยไม่จำเป็น เช่น “Admin ทำการ Manage และ Close Round”; ให้เขียนว่า “ผู้ดูแลระบบจัดการและปิดรอบทุน”
+- ไฟล์และข้อความอ้างอิงทางประวัติศาสตร์ไม่ต้องแปลย้อนหลัง หากการแก้ไขอาจทำให้ไม่ตรงกับหลักฐานหรือต้นฉบับ
+
+### 5.2 ตัวระบุทางเทคนิค
+
+รายการต่อไปนี้ต้องคงภาษาอังกฤษ รูปแบบตัวพิมพ์ และการสะกดเดิม:
+
+- Folder name, file name, Document ID, Requirement ID, Decision ID และ Test Case ID
+- HTTP method, API path, `operationId`, request/response field และ JSON key
+- Database entity/column, Prisma model/enum, constraint และ source-code identifier
+- Error code, role code, system state, protocol และ technology name
+
+ให้ใส่ backticks รอบตัวระบุเมื่อกล่าวใน prose เช่น `ADMIN`, `round_id`, `POST /evaluations` และ `EVALUATION_NOT_FOUND`
+
+### 5.3 บทบาทและสถานะ
+
+- ใช้ “ผู้ดูแลระบบ” ในคำอธิบาย และใช้ `ADMIN` เมื่อหมายถึง role code
+- ใช้ “ผู้ประเมิน” ในคำอธิบาย และใช้ `EVALUATOR` เมื่อหมายถึง role code
+- “เจ้าหน้าที่งานทุน”, “หัวหน้างานทุน” และ “ผู้อนุมัติ” เป็นหน้าที่ทางธุรกิจ ไม่ใช่คำแทน `ADMIN` โดยอัตโนมัติ
+- ค่าที่ระบบจัดเก็บหรือส่งผ่าน API ต้องใช้ canonical enum เช่น `DRAFT`, `OPEN`, `CLOSED`, `ARCHIVED`, `SUBMITTED`, `REOPENED`, `CANCELLED`, `NOT_STARTED`, `IN_PROGRESS`, `MINIMUM_COMPLETE`, `FULLY_COMPLETE`, `FINALIZED` และ `CLOSED_INCOMPLETE`
+- Title Case เช่น “Draft” หรือ “Minimum Complete” ใช้ได้เมื่อเป็นข้อความแสดงผลบนหน้าจอเท่านั้น; requirement, API contract และ expected result ต้องใช้ canonical enum
+
+### 5.4 หัวข้อ Metadata และไฟล์ Machine-readable
+
+- หัวข้อเชิงอธิบายใช้ภาษาไทยเป็นหลัก โดยคงชื่อมาตรฐาน เช่น API, RBAC, SRS และ UAT
+- ใช้ Metadata keys `Document ID`, `Version`, `Last Updated`, `Author` และ `Status` อย่างสม่ำเสมอเพื่อรองรับเครื่องมือตรวจเอกสาร
+- ห้ามแปลหรือ reformat ไฟล์ machine-readable เช่น YAML, JSON, CSV, Prisma, source code และ executable artifact เพื่อวัตถุประสงค์ด้านภาษา
+- Markdown ที่แปลงจาก PDF หรือ Workbook ต้องรักษาความสัมพันธ์กับต้นฉบับ และไม่แก้ข้อความเพียงเพื่อให้ตรงกับ style guide หากจะทำให้เนื้อหาไม่ตรงกัน
+
+### 5.5 คำศัพท์มาตรฐาน
+
+| แนวคิด | คำไทยที่ใช้ | คำเทคนิค/ค่าระบบ |
+| :--- | :--- | :--- |
+| System administrator | ผู้ดูแลระบบ | `ADMIN` / Admin |
+| Scholarship officer | เจ้าหน้าที่งานทุน | Scholarship Officer |
+| Evaluator | ผู้ประเมิน | `EVALUATOR` / Evaluator |
+| Applicant | ผู้สมัคร | Applicant |
+| Scholarship application | ใบสมัครทุน | Application |
+| Scholarship round | รอบทุน | Scholarship Round |
+| Evaluation | รายการประเมิน / ผลการประเมิน | Evaluation |
+| Save draft | บันทึกแบบร่าง | Save Draft / `DRAFT` |
+| Submit evaluation | ส่งผลการประเมิน | Submit / `SUBMITTED` |
+| Reopen evaluation | เปิดผลการประเมินให้แก้ไข | Reopen Evaluation / `REOPENED` |
+| Criteria set | ชุดเกณฑ์ | Criteria Set |
+| Criteria version | เวอร์ชันเกณฑ์ | Criteria Version |
+| Result summary | ผลสรุปคะแนน | Result Summary |
+| Latest score | คะแนนล่าสุด | Latest Score |
+| Final score | คะแนนสุดท้าย | Final Score |
+| Data import | การนำเข้าข้อมูล | Data Import |
+| Column mapping | การจับคู่คอลัมน์ | Column Mapping |
+| Error report | รายงานข้อผิดพลาด | Error Report |
+| Role-based access control | การควบคุมสิทธิ์ตามบทบาท | `RBAC` |
+| Audit trail | ประวัติการตรวจสอบย้อนหลัง | Audit Trail |
+| Controlled correction | การแก้ไขแบบควบคุม | Controlled Correction |
+| Report snapshot | ภาพบันทึกรายงาน | Report Snapshot |
+| Baseline candidate | เอกสารเสนอเป็น baseline | `Baseline Candidate` |
+| Pending formal approval | รอการอนุมัติอย่างเป็นทางการ | `Pending Formal Approval` |
+
+### 5.6 Checklist ด้านภาษา
+
+- [ ] คำอธิบายสำหรับผู้มีส่วนเกี่ยวข้องใช้ภาษาไทยเป็นหลัก
+- [ ] ตัวระบุทางเทคนิคและค่าระบบคงรูปเดิม
+- [ ] บทบาททางธุรกิจไม่ถูกใช้แทน role code โดยไม่มี mapping
+- [ ] ประโยคผสมภาษาอ่านได้ชัดเจนและไม่มี English verb ที่ไม่จำเป็น
+- [ ] Approval status และข้อความ Revision History เดิมไม่ถูกเปลี่ยนความหมาย
+- [ ] Machine-readable และ reference artifacts ไม่ถูกแก้เพียงเพื่อปรับภาษา
+
+## 6. Checklist ก่อน Commit หรือ Pull Request
 
 - [ ] เอกสารอยู่ในหมวดหมู่ที่ถูกต้อง
 - [ ] Version, Last Updated และ Author เป็นปัจจุบัน
@@ -162,6 +235,7 @@ Updated: REPOSITORY_TREE.md (v1.1 → v1.2)
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.3 | 2026-07-24 | SEMS Documentation Team | เพิ่มนโยบาย Thai-first คำศัพท์มาตรฐาน กฎตัวระบุทางเทคนิค และชี้แจงการเริ่มเวอร์ชัน `v0.1` สำหรับเอกสาร pre-baseline |
 | v1.2 | 2026-07-23 | SEMS Documentation Team | รองรับ `v0.x` สำหรับ Working Draft/Pre-baseline และสงวน `v1.0` สำหรับ First Approved/Official Release |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | เชื่อมโยงข้อกำหนด Commit, Branch และ Pull Request ไปยัง `CONTRIBUTING.md` |
 | v1.0 | 2026-07-23 | SEMS Documentation Team | จัดทำนโยบายการกำกับดูแลเอกสารและการควบคุมเวอร์ชันฉบับแรก |

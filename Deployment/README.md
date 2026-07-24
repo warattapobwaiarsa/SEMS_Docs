@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.4** |
+| Current Version | **v1.5** |
 | Last Updated | **2026-07-24** |
 | Scope | Setup guides, system administration, and user manuals |
 
@@ -31,6 +31,7 @@ Confirmed operational baseline: faculty/university IT owns server/database/backu
 
 | Version | Date | Document / Change |
 | :--- | :--- | :--- |
+| v1.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.4 | 2026-07-24 | Linked pending approval and delivery evidence templates without creating deployment deliverables. |
 | v1.3 | 2026-07-24 | Recorded confirmed operational role/RPO/RTO direction while keeping deployment guides and named assignees pending. |
 | v1.2 | 2026-07-23 | Linked the draft system architecture deployment, failure and backup/restore considerations; deployment guides remain pending. |

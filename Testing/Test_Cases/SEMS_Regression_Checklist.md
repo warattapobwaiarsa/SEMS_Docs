@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v0.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS QA Team** |
 | Status | **Draft** |
@@ -19,9 +19,9 @@
 - [ ] Import valid file และ preview ได้
 - [ ] Evaluator เลือก applicant และสร้าง Draft ได้
 - [ ] Save Draft แล้วเปิดกลับมาได้
-- [ ] Submit คนที่ 1 แล้ว state=In Progress
-- [ ] Submit คนที่ 2 แล้ว state=Minimum Complete
-- [ ] Submit คนที่ 3 แล้ว state=Fully Complete และ summary เปลี่ยน
+- [ ] Submit คนที่ 1 แล้ว state=`IN_PROGRESS`
+- [ ] Submit คนที่ 2 แล้ว state=`MINIMUM_COMPLETE`
+- [ ] Submit คนที่ 3 แล้ว state=`FULLY_COMPLETE` และ summary เปลี่ยน
 - [ ] Export Excel/CSV ได้โดย Admin
 
 ## P0 Data Integrity
@@ -35,7 +35,7 @@
 - [ ] Draft ไม่เข้า score/dashboard/export
 - [ ] third submit recompute ถูกต้อง
 - [ ] close complete → Finalized
-- [ ] close incomplete → Closed Incomplete/no final score
+- [ ] close incomplete → `CLOSED_INCOMPLETE`/no final score
 
 ## Import
 
@@ -90,5 +90,6 @@
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.2 | 2026-07-24 | SEMS QA Team | Retained provisional approval status for the RD-011 rounding regression. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Initial regression checklist. |

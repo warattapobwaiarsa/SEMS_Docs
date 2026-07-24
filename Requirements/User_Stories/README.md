@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.3** |
+| Current Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | User stories and acceptance criteria |
@@ -26,7 +26,7 @@
 | [Report Export](./SEMS_User_Stories_and_Acceptance_Criteria.md#report-export) | `US-RPT-*` |
 | [Central Traceability Matrix](../SEMS_Traceability_Matrix.md) | Cross-document trace |
 
-Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_User_Stories_and_Acceptance_Criteria.md) **v0.4 — Baseline Candidate, Pending Formal Approval**
+Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_User_Stories_and_Acceptance_Criteria.md) **v0.5 — Baseline Candidate, Pending Formal Approval**
 
 เอกสารรวมครอบคลุม Login, User Management, Scholarship Round, Applicant Import, Documents, Criteria, Evaluation, Scoring, Dashboard และ Report Export โดยใช้ Acceptance Criteria แบบ Given/When/Then
 
@@ -34,6 +34,7 @@ Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_U
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | Corrected the consolidated document version and baseline-candidate status. |
 | v1.2 | 2026-07-24 | SEMS Documentation Team | Synchronized the consolidated v0.3 document after canonical import error-code alignment. |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Replaced nonexistent per-module file references with stable anchors in the consolidated v0.2 document and linked the central traceability matrix. |

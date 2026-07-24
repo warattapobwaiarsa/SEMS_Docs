@@ -1,7 +1,7 @@
 ---
 document_id: SEMS-SRS-001
 title: Software Requirements Specification — Scholarship Evaluation Management System (SEMS)
-version: "v0.4"
+version: "v0.5"
 status: Baseline Candidate - Pending Formal Approval
 last_updated: 2026-07-24
 owner: SEMS Project Team
@@ -16,19 +16,20 @@ supersedes_on_approval: previous unapproved SEMS_SRS drafts
 
 | รายการ | รายละเอียด |
 |---|---|
-| Version | 0.4-draft |
+| Version | 0.5-draft |
 | วันที่จัดทำ | 24 กรกฎาคม 2026 |
 | สถานะ | Baseline Candidate - Pending Formal Approval |
 | รูปแบบ | สอดคล้องแนวทาง ISO/IEC/IEEE 29148 ในระดับโครงสร้าง |
 | ผลลัพธ์เป้าหมาย | Requirement ที่ออกแบบ พัฒนา และทดสอบได้ |
 
 > เอกสารนี้รวมข้อกำหนดจาก Proposal, Requirement Decision Register, Data Dictionary, Applicant Import Mapping, ไฟล์ Criteria และข้อมูล KKU OAuth/OIDC
-> Confirmed stakeholder responses are reflected as testable Release 1 requirements. The document remains a baseline candidate until formal approval evidence is recorded.
+> คำตอบที่ยืนยันจากผู้มีส่วนเกี่ยวข้องถูกแปลงเป็นข้อกำหนด Release 1 ที่ทดสอบได้แล้ว เอกสารยังคงเป็น Baseline Candidate จนกว่าจะมีหลักฐานอนุมัติอย่างเป็นทางการ
 
 ## Document History
 
 | Version | Date | Change | Status |
 |---|---|---|---|
+| 0.5-draft | 2026-07-24 | ปรับคำศัพท์บทบาท สถานะ และคำอธิบายให้เป็นไปตามนโยบาย Thai-first โดยไม่เปลี่ยน Requirement ID หรือ business rule | Pending Formal Approval |
 | 0.4-draft | 2026-07-24 | Synchronized lifecycle status and added navigation to consolidated user stories | Pending Formal Approval |
 | 0.3-draft | 2026-07-24 | Synchronized confirmed stakeholder decisions for Release 1 baseline review | Pending Formal Approval |
 | 2.2-draft | 2026-07-24 | Aligned all referenced error codes to the canonical allowed inventory and retained embedded-point scoring semantics | Pending Approval |
@@ -72,10 +73,10 @@ SEMS เป็น Web Application ภายในคณะวิศวกรร�
 
 1. [`SEMS-project-proposal.pdf`](../Proposal/SEMS-project-proposal.pdf)
 2. [`SEMS_Requirement_Decision_Analysis.md`](../SEMS_Requirement_Decision_Analysis.md)
-3. `SEMS_Data_Dictionary.xlsx` และ Data Dictionary/Import Mapping Draft
+3. [[SEMS_Data_Dictionary.xlsx]] และ Data Dictionary/Import Mapping Draft
 4. [`SEMS_Applicant_Import_Mapping_Specification.md`](../../Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md) และ workbook ประกอบ
 5. [`Criteria.xlsx`](../../Design/Criteria/Criteria.xlsx)
-6. `kku-oauth-summary.md`
+6. [[kku-oauth-summary.md]]
 
 ## 1.5 กติกาการเขียน Requirement
 

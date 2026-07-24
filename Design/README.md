@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.10** |
+| Current Version | **v1.11** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | Architecture, APIs, database, scoring criteria, data templates, and UI/UX |
@@ -23,18 +23,18 @@
 | Document | Version | Last Updated | Status |
 | :--- | :---: | :---: | :--- |
 | [`API/kku-oauth-summary.md`](./API/kku-oauth-summary.md) | v1.0 | 2026-07-23 | Current |
-| [`API/SEMS_API_Specification.md`](./API/SEMS_API_Specification.md) | v1.4 | 2026-07-24 | Draft — System Design Review |
-| [`API/SEMS_Error_Code_Catalog.md`](./API/SEMS_Error_Code_Catalog.md) | v0.3 | 2026-07-24 | Draft — System-wide Source of Truth |
+| [`API/SEMS_API_Specification.md`](./API/SEMS_API_Specification.md) | v1.5 | 2026-07-24 | Draft — System Design Review |
+| [`API/SEMS_Error_Code_Catalog.md`](./API/SEMS_Error_Code_Catalog.md) | v0.4 | 2026-07-24 | Draft — System-wide Source of Truth |
 | [`API/openapi.yaml`](./API/openapi.yaml) | v1.3 | 2026-07-24 | Draft |
 | [`API/endpoint-matrix.csv`](./API/endpoint-matrix.csv) | v1.2 | 2026-07-24 | Draft |
 | [`Architecture/SEMS_System_Architecture.md`](./Architecture/SEMS_System_Architecture.md) | v0.3 | 2026-07-24 | Draft — Pending System Design Approval |
-| [`Architecture/SEMS_Permission_Matrix.md`](./Architecture/SEMS_Permission_Matrix.md) | v1.3 | 2026-07-24 | Draft |
-| [`Architecture/SEMS_Process_Flows.md`](./Architecture/SEMS_Process_Flows.md) | v1.3 | 2026-07-24 | Draft for Review |
-| [`Architecture/SEMS_State_Transition_Specification.md`](./Architecture/SEMS_State_Transition_Specification.md) | v0.4 | 2026-07-24 | Confirmed Response — Pending Formal Approval |
+| [`Architecture/SEMS_Permission_Matrix.md`](./Architecture/SEMS_Permission_Matrix.md) | v1.4 | 2026-07-24 | Draft |
+| [`Architecture/SEMS_Process_Flows.md`](./Architecture/SEMS_Process_Flows.md) | v1.4 | 2026-07-24 | Draft for Review |
+| [`Architecture/SEMS_State_Transition_Specification.md`](./Architecture/SEMS_State_Transition_Specification.md) | v0.5 | 2026-07-24 | Confirmed Response — Pending Formal Approval |
 | [`Criteria/Criteria.xlsx`](./Criteria/Criteria.xlsx) | v1.0 | 2026-07-20 | Current |
 | [`Criteria/Criteria_Converted.md`](./Criteria/Criteria_Converted.md) | v1.1 | 2026-07-24 | Draft |
 | [`Criteria/SEMS_Criteria_Config.json`](./Criteria/SEMS_Criteria_Config.json) | v1.0 | 2026-07-23 | Draft |
-| [`Criteria/SEMS_Scoring_Rule_Specification.md`](./Criteria/SEMS_Scoring_Rule_Specification.md) | v0.4 | 2026-07-24 | Confirmed Response — Pending Formal Approval |
+| [`Criteria/SEMS_Scoring_Rule_Specification.md`](./Criteria/SEMS_Scoring_Rule_Specification.md) | v0.5 | 2026-07-24 | Confirmed Response — Pending Formal Approval |
 | [`Data_Templates/Data_import_to_web.xlsx`](./Data_Templates/Data_import_to_web.xlsx) | v1.0 | 2026-07-22 | Current |
 | [`Data_Templates/Data_import_to_web_Specification.md`](./Data_Templates/Data_import_to_web_Specification.md) | v1.0 | 2026-07-23 | Reference — Converted from Workbook |
 | [`Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md`](./Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md) | v0.4 | 2026-07-24 | Confirmed Response — Pending Formal Approval |
@@ -46,12 +46,13 @@
 | [`Database/SEMS_Data_Dictionary/README.md`](./Database/SEMS_Data_Dictionary/README.md) | v1.1 | 2026-07-23 | Reference — Converted from Workbook |
 | [`Database/SEMS_ER_Diagram.png`](./Database/SEMS_ER_Diagram.png) | v1.0 | 2026-07-23 | Draft |
 | [`Database/SEMS_ER_Prisma_Data_Dictionary.md`](./Database/SEMS_ER_Prisma_Data_Dictionary.md) | v0.4 | 2026-07-24 | Draft — Pre-Implementation Review |
-| [`UI_UX/README.md`](./UI_UX/README.md) | v1.6 | 2026-07-24 | Current Index |
+| [`UI_UX/README.md`](./UI_UX/README.md) | v1.7 | 2026-07-24 | Current Index |
 
 ## Revision History
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.11 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.10 | 2026-07-24 | SEMS Documentation Team | Synchronized post-audit design versions/statuses and lifecycle artifact navigation. |
 | v1.9 | 2026-07-24 | SEMS Documentation Team | Synchronized scoring, application model, API, architecture and UI/UX baseline candidate. |
 | v1.8 | 2026-07-24 | SEMS Documentation Team | Synchronized embedded-point API semantics and canonical module-specific error codes across API, architecture, scoring and import documents. |
