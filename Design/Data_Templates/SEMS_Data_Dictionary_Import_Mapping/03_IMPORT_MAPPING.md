@@ -9,6 +9,8 @@
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `03_IMPORT_MAPPING`
 
+> **Release 1 override (RD-015, RD-025, RD-029):** every application mapping includes `scholarship_type_id`; duplicate identity is `round_id + scholarship_type_id + student_id`. National ID is not a mapped field and must not be persisted, logged or exported.
+
 ## 1. `ลำดับ` → `round_applications.source_sequence`
 
 - **Header Alias:** No., sequence
@@ -31,7 +33,7 @@
 - **Validation:** ห้าม Scientific Notation; ตรวจซ้ำในไฟล์และรอบทุน
 - **Null Handling:** ห้ามว่าง
 - **ตัวอย่างจากไฟล์:** 683040000-1
-- **หมายเหตุ:** Business Key: round_id + student_id
+- **หมายเหตุ:** Business Key: round_id + scholarship_type_id + student_id
 
 ## 3. `คำนำหน้า` → `applicants.title`
 
@@ -109,7 +111,7 @@
 
 - **Header Alias:** applied_at, application_date
 - **Mapping Type:** Direct + Parse
-- **Source Required:** TBD
+- **Source Required:** Required before Evaluation
 - **Required Level:** Recommended
 - **Normalization:** Parse ISO/Thai/Excel Date; timezone Asia/Bangkok
 - **Validation:** ค่ากำกวม/แปลงไม่ได้เป็น Error
@@ -453,19 +455,13 @@
 - **ตัวอย่างจากไฟล์:** 16.379297..., 104.385420...
 - **หมายเหตุ:** ข้อมูลตำแหน่งเป็น Sensitive
 
-## 38. `[ไม่มีในไฟล์หลัก]` → `applicants.citizen_id_encrypted`
+## 38. Historical national-ID mapping proposal — not implemented
 
-- **Header Alias:** CITIZENID
-- **Mapping Type:** Excluded by Default
-- **Source Required:** No
-- **Required Level:** Open Decision
-- **Normalization:** ห้ามรับเป็น Number
-- **Validation:** 13 digits; encrypted storage
-- **Null Handling:** NULL
-- **ตัวอย่างจากไฟล์:** 1.4101E12 ในไฟล์เก่า
-- **หมายเหตุ:** แนะนำแยก Restricted Import หากจำเป็น
+- **Release 1:** `Out of Scope for Release 1 — requires separate lawful-need and security approval`
+- No alias, target column, normalization or persistence exists in the Release 1 importer.
+- If a source file contains such a column/value, Preview reports it as unsupported and Confirm does not persist or log the value.
 
-## 39. `[System-supplied]` → `import_batches + round_applications.round_id`
+## 39. `[System-supplied]` → `import_batches + round_applications.round_id + scholarship_type_id`
 
 - **Header Alias:** round_id
 - **Mapping Type:** System

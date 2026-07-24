@@ -8,7 +8,7 @@
 | Scope | Applicant Import จาก [`Data_import_to_web.xlsx`](./Data_import_to_web.xlsx) |
 | Source Structure | 37 คอลัมน์; รองรับ Legacy Continuation Row |
 | Target Database | PostgreSQL / Prisma Schema ของ SEMS |
-| Status | **Draft — Pending Open Decisions** |
+| Status | **Confirmed Response — Pending Formal Approval** |
 
 ## 1. วัตถุประสงค์
 
@@ -17,7 +17,7 @@
 ## 2. กฎกลางของการนำเข้า
 
 1. ผู้ดูแลต้องเลือกรอบทุน (`round_id`) ก่อน Import; ไม่ต้องมีคอลัมน์รอบทุนในไฟล์
-2. Business Key ฉบับร่างคือ `round_id + student_id` และต้องยืนยันกรณีหนึ่งคนสมัครหลายประเภททุนในรอบเดียว
+2. Release 1 Business Key คือ `round_id + scholarship_type_id + student_id`; one student may have independent applications for multiple scholarship types in the same round.
 3. ช่องว่าง, Whitespace และค่าที่เท่ากับ `-` ทั้ง Cell ให้แปลงเป็น `NULL`; ค่า `0` ต้องเก็บเป็นศูนย์ ไม่ใช่ `NULL`
 4. รหัสนักศึกษาและโทรศัพท์ต้องอ่านเป็น Text เพื่อคงเลขศูนย์นำหน้าและป้องกัน Scientific Notation
 5. แถวที่มี `student_id` เป็น Applicant Row; แถวที่ไม่มี `student_id` แต่มีเฉพาะ `กยศ`/`ทุน` เป็น Continuation Row
@@ -32,14 +32,14 @@
 |---|---|---|---|---|---|---|---|
 | 1 | A | ลำดับ | `applicants` | `sequence_no` | Optional | Trim; Integer; > 0 เมื่อมีค่า | ต้องว่าง |
 | 2 | B | รหัส | `applicants` | `student_id` | Hard Required | อ่านเป็น Text; Trim; คงเครื่องหมายขีดกลาง; ^\d{9}-\d$; Unique ภายในรอบทุน; ยังไม่ตรวจ check digit | ว่างได้เฉพาะ Continuation Row และสืบทอดจาก Applicant Row ก่อนหน้า |
-| 3 | C | คำนำหน้า | `applicants` | `title` | Provisional Required | Trim; Map กับ Code List; ต้องอยู่ในชุดค่าที่อนุญาต เช่น นาย/นาง/นางสาว/อื่น ๆ | ต้องว่าง |
+| 3 | C | คำนำหน้า | `applicants` | `title` | Required before Evaluation | Trim; Map กับ Code List; ต้องอยู่ในชุดค่าที่อนุญาต เช่น นาย/นาง/นางสาว/อื่น ๆ | ต้องว่าง |
 | 4 | D | ชือ | `applicants` | `first_name` | Hard Required | Trim; รองรับ Alias “ชื่อ”; ห้ามว่างหลัง Trim | ต้องว่าง |
 | 5 | E | สกุล | `applicants` | `last_name` | Hard Required | Trim; ห้ามว่างหลัง Trim | ต้องว่าง |
 | 6 | F | คณะ | `applicants` | `faculty_name` | Hard Required | Trim; Map กับข้อมูลอ้างอิง; ห้ามว่าง; ค่าไม่รู้จักให้ Warning/เลือก Mapping | ต้องว่าง |
 | 7 | G | สาขา | `applicants` | `major_name` | Hard Required | Trim; Map กับข้อมูลอ้างอิง; ห้ามว่าง; ค่าไม่รู้จักให้ Warning/เลือก Mapping | ต้องว่าง |
 | 8 | H | ชั้นปี | `applicants` | `year_level` | Hard Required | Integer; 1–8 (ช่วง Draft; ต้องยืนยันค่าสูงสุด) | ต้องว่าง |
-| 9 | I | วันที่สมัคร | `applicants` | `application_date` | Provisional Required | Parse ISO/Excel Date/เดือนภาษาไทย; ถ้า พ.ศ. ให้ลบ 543; timezone Asia/Bangkok; ต้อง Parse ได้และไม่กำกวม | ต้องว่าง |
-| 10 | J | gpa | `applicants` | `gpa` | Provisional Required | ลบช่องว่าง; Decimal(3,2); 0.00–4.00 | ต้องว่าง |
+| 9 | I | วันที่สมัคร | `applicants` | `application_date` | Required before Evaluation | Parse ISO/Excel Date/เดือนภาษาไทย; ถ้า พ.ศ. ให้ลบ 543; timezone Asia/Bangkok; ต้อง Parse ได้และไม่กำกวม | ต้องว่าง |
+| 10 | J | gpa | `applicants` | `gpa` | Required before Evaluation | ลบช่องว่าง; Decimal(3,2); 0.00–4.00 | ต้องว่าง |
 | 11 | K | โทรศัพท์ | `applicants` | `phone` | Conditional | อ่านเป็น Text; ลบช่องว่าง/ขีด; Normalize 0XXXXXXXXX หรือ +66XXXXXXXXX; ^0\d{8,9}$ หรือ ^\+66\d{8,9}$; อย่างน้อย phone หรือ email | ต้องว่าง |
 | 12 | L | อีเมล์ | `applicants` | `email` | Conditional | Trim; lowercase; รูปแบบอีเมลถูกต้อง; อย่างน้อย phone หรือ email | ต้องว่าง |
 | 13 | M | ที่พัก | `applicants` | `residence_type` | Optional | Trim; Map กับ Code List; ค่าไม่รู้จักให้ Warning และเก็บ raw value เพื่อ Mapping | ต้องว่าง |
@@ -50,17 +50,17 @@
 | 18 | R | รายได้เสริม | `applicants` | `supplementary_income_detail` | Optional | Trim; ค่าว่างหรือ '-' → NULL; ข้อความตามความยาวที่กำหนด | ต้องว่าง |
 | 19 | S | บิดา อายุ | `parent_information` | `age (parent_type=FATHER)` | Optional | Integer; 15–120; ถ้าเสียชีวิตอาจว่างได้ | ต้องว่าง |
 | 20 | T | บิดา อาชีพ | `parent_information` | `occupation (parent_type=FATHER)` | Optional | Trim; Map Code List เมื่อมี; ค่าไม่รู้จักให้ Warning | ต้องว่าง |
-| 21 | U | บิดา รายได้ | `parent_information` | `monthly_income (parent_type=FATHER)` | Optional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; รอยืนยันหน่วยเป็นรายเดือน | ต้องว่าง |
+| 21 | U | บิดา รายได้ | `parent_information` | `monthly_income (parent_type=FATHER)` | Optional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; หน่วยบาทต่อเดือน | ต้องว่าง |
 | 22 | V | บิดา สภาพ | `parent_information` | `life_status (parent_type=FATHER)` | Optional | Trim; Map Code List; เช่น มีชีวิตอยู่/เสียชีวิต/ไม่ทราบ | ต้องว่าง |
 | 23 | W | มารดา อายุ | `parent_information` | `age (parent_type=MOTHER)` | Optional | Integer; 15–120; ถ้าเสียชีวิตอาจว่างได้ | ต้องว่าง |
 | 24 | X | มารดา อาชีพ | `parent_information` | `occupation (parent_type=MOTHER)` | Optional | Trim; Map Code List เมื่อมี; ค่าไม่รู้จักให้ Warning | ต้องว่าง |
-| 25 | Y | มารดา รายได้ | `parent_information` | `monthly_income (parent_type=MOTHER)` | Optional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; รอยืนยันหน่วยเป็นรายเดือน | ต้องว่าง |
+| 25 | Y | มารดา รายได้ | `parent_information` | `monthly_income (parent_type=MOTHER)` | Optional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; หน่วยบาทต่อเดือน | ต้องว่าง |
 | 26 | Z | มารดา สภาพ | `parent_information` | `life_status (parent_type=MOTHER)` | Optional | Trim; Map Code List; เช่น มีชีวิตอยู่/เสียชีวิต/ไม่ทราบ | ต้องว่าง |
 | 27 | AA | สภาพบิดา-มารดา | `education_support` | `parents_relationship_status` | Optional | Trim; Map Code List; ค่าไม่รู้จักให้ Warning | ต้องว่าง |
 | 28 | AB | คนออกเงินเรียน | `education_support` | `tuition_payer` | Optional | Trim; Map Code List; เช่น บิดา-มารดา/ตนเอง/ญาติ/อื่น ๆ | ต้องว่าง |
 | 29 | AC | อุปการะ-ความเกี่ยวข้อง | `education_support` | `supporter_relationship` | Conditional | Trim; Required เมื่อ tuition_payer เป็นบุคคลอื่น | ต้องว่าง |
 | 30 | AD | อุปการะ-อาชีพ | `education_support` | `supporter_occupation` | Conditional | Trim; Required เมื่อมีข้อมูลผู้อุปการะ | ต้องว่าง |
-| 31 | AE | อุปการะ-รายได้ | `education_support` | `supporter_monthly_income` | Conditional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; Required เมื่อมีข้อมูลผู้อุปการะ; รอยืนยันหน่วย | ต้องว่าง |
+| 31 | AE | อุปการะ-รายได้ | `education_support` | `supporter_monthly_income` | Conditional | ลบ comma/ช่องว่าง; Decimal(12,2); >= 0; Required เมื่อมีข้อมูลผู้อุปการะ; หน่วยบาทต่อเดือน | ต้องว่าง |
 | 32 | AF | พี่น้อง-ทำงาน | `sibling_summaries` | `working_count` | Optional | Integer; >= 0 | ต้องว่าง |
 | 33 | AG | พี่น้อง-ไม่ทำงาน | `sibling_summaries` | `not_working_count` | Optional | Integer; >= 0 | ต้องว่าง |
 | 34 | AH | พี่น้อง-เรียน | `sibling_summaries` | `studying_count` | Optional | Integer; >= 0 | ต้องว่าง |
@@ -188,18 +188,18 @@
 | `TC-IMP-014` | Duplicate in database, no evaluation — พบ applicant เดิมใน round | Default Skip; Admin เลือก Update ได้ |
 | `TC-IMP-015` | Duplicate in database, has evaluation — พบ applicant เดิมและมี Evaluation | IMPORT_STATE_INVALID |
 
-## 9. Open Decisions ก่อน Baseline v1.0
+## 9. Historical open decisions resolved for the baseline candidate
 
 | Decision ID | ประเด็น | ข้อเสนอปัจจุบัน | Owner | Status |
 |---|---|---|---|---|
-| RD-015 | Business Key เมื่อหนึ่งคนสมัครหลายประเภททุนในรอบเดียว | Draft ใช้ round_id + student_id | งานทุน/ทีมพัฒนา | Pending Confirmation |
-| RD-017 | จะรองรับ Legacy Continuation Row ถึงเมื่อใด | Template ใหม่แยก Sheet; Legacy รองรับช่วงเปลี่ยนผ่าน | งานทุน/ทีมพัฒนา | Pending Confirmation |
-| RD-018 | Duplicate กับข้อมูลเดิม Update ได้หรือไม่ | Default Skip; Update เฉพาะผู้ดูแลเลือกและยังไม่มี Evaluation | งานทุน | Pending Confirmation |
-| RD-019 | รายการ Hard Required / Required before Evaluation สุดท้าย | Hard Required 6 ฟิลด์; title/date/GPA เป็น Provisional | งานทุน/ผู้ประเมิน | Pending Confirmation |
-| RD-020 | รูปแบบวันที่/โทรศัพท์ที่รองรับอย่างเป็นทางการ | Template ISO; Legacy parser เฉพาะรูปแบบที่ประกาศ | งานทุน/ทีมพัฒนา | Pending Confirmation |
-| DD-OD-003 | ค่าอุปกรณ์การศึกษาเป็นต่อเดือน/ภาค/ปี | เพิ่ม expense_period ใน Template ใหม่ | งานทุน | Open |
-| DD-OD-005 | Reference Values ทางการ | อนุมัติ Code List สำหรับที่พัก สถานะครอบครัว ผู้จ่ายค่าเรียน อาชีพ | งานทุน | Open |
-| DD-OD-009 | ประวัติ กยศ./ทุนเป็นระดับ Applicant หรือ Snapshot ต่อรอบ | เก็บระดับ Applicant พร้อม source import; ต้องยืนยัน | งานทุน/ทีมพัฒนา | Open |
+| RD-015 | Business Key | `round_id + scholarship_type_id + student_id` | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
+| RD-017 | Legacy Continuation Row | UAT and first production transition round only | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
+| RD-018 | Duplicate policy | file duplicate Error; DB duplicate Skip; explicit update before Evaluation; never auto-Upsert | งานทุน | Confirmed Response — Pending Formal Record |
+| RD-019/RD-028 | Required levels | Hard Import / Required Before Evaluation / Optional | งานทุน/ผู้ประเมิน | Confirmed Response — Pending Formal Record |
+| RD-020 | Date/phone normalization | ISO new; declared legacy formats normalized in Preview; blank/`-`→NULL and zero preserved | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
+| DD-OD-003 | ค่าอุปกรณ์การศึกษา | ต่อภาคการศึกษา; store period/unit | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-005 | Reference Values | versioned DB Code Lists, never frontend hardcode | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-009 | ประวัติ กยศ./ทุน | Snapshot per application/round | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
 
 ## 10. Acceptance Criteria
 

@@ -9,6 +9,8 @@
 
 แหล่งข้อมูล: [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](../SEMS_Data_Dictionary_Import_Mapping.xlsx), ชีต `04_VALIDATION_RULES`
 
+> **Confirmed Release 1 validation:** duplicate rows in one file are errors; existing application defaults to Skip; automatic Upsert is forbidden. Normal update is allowed only before any Evaluation and cannot change student, round or scholarship type. After an Evaluation exists, score-affecting changes require Controlled Correction. Hard Import / Required Before Evaluation / Optional field levels are defined by RD-028.
+
 | Rule ID | ระดับ | ใช้กับ | เงื่อนไข | ผลเมื่อไม่ผ่าน | ข้อความที่แสดง | สถานะ |
 | --- | --- | --- | --- | --- | --- | --- |
 | VAL-001 | ERROR | รหัส, ชื่อ, สกุล, คณะ, สาขา, ชั้นปี | Hard Required ต้องไม่ว่างและไม่ใช่ '-' | Reject row | ข้อมูลบังคับไม่ครบ | Draft |

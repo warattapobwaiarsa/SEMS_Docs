@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Pre-Implementation Review** |
@@ -245,6 +245,14 @@ enum AuditOutcome {
   DENIED
 }
 
+enum DocumentScanStatus {
+  QUARANTINED
+  SCANNING
+  CLEAN
+  REJECTED
+  SCAN_UNAVAILABLE
+}
+
 model User {
   id              String        @id @default(uuid()) @db.Uuid
   kkuSubject      String        @unique @map("kku_subject") @db.VarChar(191)
@@ -329,6 +337,7 @@ model ScholarshipRound {
 
   createdBy      User?            @relation("RoundCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
   applicantRounds ApplicantRound[]
+  scholarshipTypes ScholarshipType[]
   criteriaSets    CriteriaSet[]
   importBatches   ImportBatch[]
   auditLogs       AuditLog[]
@@ -336,6 +345,20 @@ model ScholarshipRound {
   @@index([status])
   @@index([academicYear, semester])
   @@map("scholarship_rounds")
+}
+
+model ScholarshipType {
+  id            String   @id @default(uuid()) @db.Uuid
+  scholarshipRoundId String @map("scholarship_round_id") @db.Uuid
+  code          String   @db.VarChar(50)
+  name          String   @db.VarChar(200)
+  amountCeiling Decimal? @map("amount_ceiling") @db.Decimal(12, 2)
+  isActive      Boolean  @default(true) @map("is_active")
+  applications  ApplicantRound[]
+
+  scholarshipRound ScholarshipRound @relation(fields: [scholarshipRoundId], references: [id], onDelete: Restrict)
+  @@unique([scholarshipRoundId, code])
+  @@map("scholarship_types")
 }
 
 model Applicant {
@@ -353,6 +376,7 @@ model ApplicantRound {
   id                     String    @id @default(uuid()) @db.Uuid
   applicantId            String    @map("applicant_id") @db.Uuid
   scholarshipRoundId     String    @map("scholarship_round_id") @db.Uuid
+  scholarshipTypeId      String    @map("scholarship_type_id") @db.Uuid
   importBatchId          String?   @map("import_batch_id") @db.Uuid
   applicationSequence    Int?      @map("application_sequence")
   applicationDate        DateTime? @map("application_date") @db.Timestamptz(3)
@@ -386,6 +410,7 @@ model ApplicantRound {
 
   applicant        Applicant        @relation(fields: [applicantId], references: [id], onDelete: Restrict)
   scholarshipRound ScholarshipRound @relation(fields: [scholarshipRoundId], references: [id], onDelete: Restrict)
+  scholarshipType  ScholarshipType  @relation(fields: [scholarshipTypeId], references: [id], onDelete: Restrict)
   importBatch      ImportBatch?     @relation(fields: [importBatchId], references: [id], onDelete: SetNull)
   expense          ApplicantExpense?
   parents          Parent[]
@@ -395,7 +420,7 @@ model ApplicantRound {
   evaluations      Evaluation[]
   resultSummary    ResultSummary?
 
-  @@unique([applicantId, scholarshipRoundId])
+  @@unique([applicantId, scholarshipRoundId, scholarshipTypeId])
   @@unique([scholarshipRoundId, applicationSequence])
   @@index([scholarshipRoundId, lastName, firstName])
   @@index([importBatchId])
@@ -473,6 +498,9 @@ model ApplicantDocument {
   sizeBytes        BigInt   @map("size_bytes")
   storageKey       String   @unique @map("storage_key")
   checksumSha256   String?  @map("checksum_sha256") @db.VarChar(64)
+  scanStatus       DocumentScanStatus @default(QUARANTINED) @map("scan_status")
+  scannedAt        DateTime? @map("scanned_at") @db.Timestamptz(3)
+  scanReference    String?  @map("scan_reference") @db.VarChar(255)
   uploadedAt       DateTime @default(now()) @map("uploaded_at") @db.Timestamptz(3)
 
   applicantRound ApplicantRound @relation(fields: [applicantRoundId], references: [id], onDelete: Cascade)
@@ -480,6 +508,93 @@ model ApplicantDocument {
 
   @@index([applicantRoundId, documentType])
   @@map("applicant_documents")
+}
+
+model EvaluationRevision {
+  id             String   @id @default(uuid()) @db.Uuid
+  evaluationId   String   @map("evaluation_id") @db.Uuid
+  revision       Int
+  submittedData  Json     @map("submitted_data")
+  submittedAt    DateTime @map("submitted_at") @db.Timestamptz(3)
+  checksumSha256 String   @map("checksum_sha256") @db.VarChar(64)
+  @@unique([evaluationId, revision])
+  @@map("evaluation_revisions")
+}
+
+model EvaluationReopenRequest {
+  id            String   @id @default(uuid()) @db.Uuid
+  evaluationId  String   @map("evaluation_id") @db.Uuid
+  requestedById String   @map("requested_by_id") @db.Uuid
+  onBehalfOfId  String?  @map("on_behalf_of_id") @db.Uuid
+  reason        String
+  reference     String   @db.VarChar(100)
+  status        String   @db.VarChar(30)
+  decidedById   String?  @map("decided_by_id") @db.Uuid
+  decidedAt     DateTime? @map("decided_at") @db.Timestamptz(3)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@index([evaluationId, status])
+  @@map("evaluation_reopen_requests")
+}
+
+model ControlledCorrection {
+  id               String   @id @default(uuid()) @db.Uuid
+  applicantRoundId String   @map("applicant_round_id") @db.Uuid
+  requestedById    String   @map("requested_by_id") @db.Uuid
+  approvedById     String?  @map("approved_by_id") @db.Uuid
+  reason           String
+  beforeSnapshot   Json     @map("before_snapshot")
+  afterSnapshot    Json     @map("after_snapshot")
+  status           String   @db.VarChar(30)
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  appliedAt        DateTime? @map("applied_at") @db.Timestamptz(3)
+  @@index([applicantRoundId, status])
+  @@map("controlled_corrections")
+}
+
+model ReportExport {
+  id                 String   @id @default(uuid()) @db.Uuid
+  scholarshipRoundId String   @map("scholarship_round_id") @db.Uuid
+  profile            String   @db.VarChar(30)
+  format             String   @db.VarChar(10)
+  storageKey         String?  @map("storage_key")
+  fileHash           String?  @map("file_hash") @db.VarChar(64)
+  expiresAt          DateTime? @map("expires_at") @db.Timestamptz(3)
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@index([scholarshipRoundId, createdAt])
+  @@map("report_exports")
+}
+
+model ReportSnapshot {
+  id                 String   @id @default(uuid()) @db.Uuid
+  scholarshipRoundId String   @map("scholarship_round_id") @db.Uuid
+  reportExportId     String   @unique @map("report_export_id") @db.Uuid
+  status             String   @default("FINAL") @db.VarChar(20)
+  supersededById     String?  @map("superseded_by_id") @db.Uuid
+  retainedUntil      DateTime @map("retained_until") @db.Timestamptz(3)
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@index([scholarshipRoundId, status])
+  @@map("report_snapshots")
+}
+
+model CodeList {
+  id      String @id @default(uuid()) @db.Uuid
+  code    String @unique @db.VarChar(50)
+  name    String @db.VarChar(200)
+  version Int    @default(1)
+  values  CodeListValue[]
+  @@map("code_lists")
+}
+
+model CodeListValue {
+  id         String   @id @default(uuid()) @db.Uuid
+  codeListId String   @map("code_list_id") @db.Uuid
+  code       String   @db.VarChar(50)
+  label      String   @db.VarChar(200)
+  isActive   Boolean  @default(true) @map("is_active")
+  validFrom  DateTime @default(now()) @map("valid_from") @db.Timestamptz(3)
+  codeList CodeList @relation(fields: [codeListId], references: [id], onDelete: Restrict)
+  @@unique([codeListId, code])
+  @@map("code_list_values")
 }
 
 model CriteriaSet {
@@ -709,7 +824,7 @@ model AuditLog {
 
 ## 1. Core design decisions
 
-- `Applicant` is the stable student master keyed by `studentId`; `ApplicantRound` is the per-round snapshot so historical reports do not change when profile data changes later.
+- `Applicant` is the reusable student identity keyed by `studentId`; `ApplicantRound` is the logical **Application** and per-round/type snapshot. Its business key is `(scholarshipRoundId, scholarshipTypeId, applicant.studentId)`.
 - Expense, parent, loan, scholarship-history and document records belong to `ApplicantRound`, matching the imported file snapshot and its continuation rows.
 - `CriteriaSet` carries the version. Every `Evaluation` is pinned to one set, and `EvaluationScore.criteriaSetId` is protected by composite foreign keys in `database_constraints.sql`.
 - `CriterionOption` is added because the supplied criteria workbook contains selectable descriptions with fixed scores. Non-scoring questions are represented with `BOOLEAN`, `TEXT` or `MONEY` criteria and `includeInTotal=false`.
@@ -736,7 +851,7 @@ model AuditLog {
 | ScholarshipRound | semester | INTEGER | Yes |  | Semester number | 1-3 when used | 1 | Internal |
 | ScholarshipRound | status | RoundStatus | No |  | Round lifecycle state | DRAFT → OPEN → CLOSED → ARCHIVED | OPEN | Internal |
 | Applicant | studentId | VARCHAR(20) | No | UK | Stable student identifier across rounds | Pattern ^\d{9}-\d$; check digit policy separately confirmed | 683040000-1 | Personal |
-| ApplicantRound | applicantId + scholarshipRoundId | UUID + UUID | No | UK | One application snapshot per student per round | Unique pair |  | Internal |
+| ApplicantRound (Application) | applicantId + scholarshipRoundId + scholarshipTypeId | UUID + UUID + UUID | No | UK | One independent application per student, round and scholarship type | Unique triplet |  | Internal |
 | ApplicantRound | applicationSequence | INTEGER | Yes | UK within round | Source file sequence number | Positive; unique in round | 1 | Internal |
 | ApplicantRound | applicationDate | TIMESTAMPTZ | Yes |  | Date/time application was submitted | Convert Buddhist Era to Common Era | 2569-07-09 13:36 | Personal |
 | ApplicantRound | title / firstName / lastName | VARCHAR | Mixed |  | Applicant name snapshot used in reports | firstName and lastName required | นาย สมชาย ใจดี | Personal |
@@ -812,7 +927,7 @@ model AuditLog {
 
 | Rule | Database implementation |
 |---|---|
-| One application per student per round | `UNIQUE(applicant_id, scholarship_round_id)` on `applicant_rounds` |
+| One application per student/type/round | `UNIQUE(applicant_id, scholarship_round_id, scholarship_type_id)` on `applicant_rounds` |
 | Same evaluator cannot assess the same applicant twice while active | Partial unique index on `(applicant_round_id, evaluator_id) WHERE cancelled_at IS NULL` |
 | Maximum 3 active evaluations per applicant-round, concurrency-safe | Trigger locks the `applicant_rounds` row and rejects a fourth active evaluation |
 | One result summary per applicant per round | `UNIQUE(applicant_round_id)` on `result_summaries` |
@@ -887,11 +1002,14 @@ model AuditLog {
 - Do not store KKU Account passwords. Do not write access tokens, refresh tokens, client secrets or session tokens into `AuditLog`.
 - Treat applicant contact, GPA, household income, expenses, histories, coordinates, documents, scores and comments as personal/sensitive data.
 - Store document binaries in server/object storage; PostgreSQL stores only metadata and the storage key.
-- Define retention and deletion policy with the faculty before production deployment. Audit and evaluation records should normally be immutable or soft-cancelled rather than physically deleted.
+- Release 1 stores no national ID. Historical mention is `Out of Scope for Release 1 — requires separate lawful-need and security approval`.
+- Retain core application/evaluation/audit data and final snapshots for six years from round close, interim export files for at most 30 days, and rotating backups for at least 90 days; securely delete after retention unless Legal Hold/university policy overrides.
 
-## 9. Database Freeze Blockers
+## 9. Historical database freeze questions (resolved for the baseline candidate)
 
-Database schema remains **Draft** and must not be declared Final until RD-024–RD-029 are decided with evidence.
+The following table preserves the former blocker questions. RD-024–RD-029 are now resolved in the Decision Register by confirmed stakeholder response; formal baseline approval remains pending.
+
+> For RD-029 specifically, the former storage alternatives are historical only: `Out of Scope for Release 1 — requires separate lawful-need and security approval`.
 
 | Decision | Open Question | Entity | Unique Constraint | Foreign Key | Import Mapping | API | Report | Migration Impact |
 |---|---|---|---|---|---|---|---|---|
@@ -906,5 +1024,6 @@ Database schema remains **Draft** and must not be declared Final until RD-024–
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Added scholarship-type application key, revision/reopen/correction/report/code-list/scan structures, confirmed retention and resolved RD-024–RD-029. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Added Database Freeze Blockers and standardized AuditLog correlation field to `traceId`; schema remains Draft. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated ER/Prisma/Data Dictionary pre-implementation draft. |

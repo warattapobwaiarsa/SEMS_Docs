@@ -2392,6 +2392,7 @@ paths:
       - Evaluations
       summary: เปิดผล Submitted ให้แก้ไขตามนโยบาย
       operationId: reopenEvaluation
+      deprecated: true
       responses:
         '200':
           description: เปลี่ยนสถานะเป็น REOPENED
@@ -2417,9 +2418,9 @@ paths:
       - INVALID_ROUND_STATUS_TRANSITION
       - CSRF_INVALID
       x-validation:
-      - ต้องมีเหตุผล
-      - ต้องเป็นไปตาม Reopen Policy
-      - ผลสรุปเดิมต้องถูกทำเครื่องหมาย stale และคำนวณใหม่เมื่อ Submit ซ้ำ
+      - Compatibility operation only; new clients use reopen-request and decision endpoints
+      - An approved reopen request is required; technical Admin cannot self-approve
+      - Preserve immutable submitted revision and recalculate only after resubmission
       x-audit-events:
       - EVALUATION_REOPENED
       parameters:
@@ -2853,6 +2854,332 @@ paths:
           type: string
           format: uuid
         description: รหัส Audit Log
+  /evaluations/{evaluationId}/reopen-requests:
+    post:
+      tags: [Evaluations]
+      summary: Request controlled reopen of a Submitted Evaluation
+      operationId: requestEvaluationReopen
+      x-roles: [ADMIN, EVALUATOR]
+      x-error-codes: [EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_NOT_SUBMITTED, REOPEN_NOT_ALLOWED, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Evaluator must own the Evaluation; Admin may act on behalf only with onBehalfOf and reason
+        - Evaluation must be Submitted and round normally Open
+        - Idempotency-Key returns the original request for a retried payload
+      x-audit-events: [EVALUATION_REOPEN_REQUESTED]
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, maxLength: 100}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason, reference]
+              properties:
+                reason: {type: string, minLength: 1}
+                reference: {type: string, minLength: 1, maxLength: 100}
+                onBehalfOf: {type: string, format: uuid}
+      responses:
+        '202': {description: Reopen request accepted}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/UnprocessableEntity'}
+  /evaluation-reopen-requests/{requestId}/decision:
+    post:
+      tags: [Evaluations]
+      summary: Approve or reject an Evaluation reopen request
+      operationId: decideEvaluationReopen
+      x-roles: [ADMIN]
+      x-error-codes: [FORBIDDEN, REOPEN_NOT_ALLOWED, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Head of Scholarship Office or official delegate only
+        - Technical administrator must not approve their own request
+        - Approval stores immutable submitted revision and returns editable work to Draft
+      x-audit-events: [EVALUATION_REOPEN_DECIDED]
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision, reason, version]
+              properties:
+                decision: {type: string, enum: [APPROVE, REJECT]}
+                reason: {type: string, minLength: 1}
+                version: {type: integer, minimum: 1}
+      responses:
+        '200': {description: Decision and current Evaluation state}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/UnprocessableEntity'}
+  /evaluations/{evaluationId}/resubmit:
+    post:
+      tags: [Evaluations]
+      summary: Resubmit a reopened Evaluation and recalculate the summary
+      operationId: resubmitEvaluation
+      x-roles: [EVALUATOR]
+      x-error-codes: [EVALUATION_NOT_FOUND, EVALUATION_NOT_OWNER, EVALUATION_INCOMPLETE, SCORE_OUT_OF_RANGE, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Owner only; Evaluation must be editable Draft created by approved reopen
+        - Sum ten Embedded Point criteria without multiplying weight_percent
+        - Recalculate arithmetic mean of distinct Submitted totals after commit
+      x-audit-events: [EVALUATION_RESUBMITTED, RESULT_SUMMARY_RECALCULATED]
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, maxLength: 100}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [confirmation, version]
+              properties:
+                confirmation: {type: boolean, const: true}
+                version: {type: integer, minimum: 1}
+      responses:
+        '200': {description: Evaluation and recalculated Result Summary}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/UnprocessableEntity'}
+  /applications/{applicationId}/controlled-corrections:
+    post:
+      tags: [Applicants]
+      summary: Create an audited Controlled Correction
+      operationId: createControlledCorrection
+      x-roles: [ADMIN]
+      x-error-codes: [APPLICANT_NOT_FOUND, FORBIDDEN, VALIDATION_ERROR, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Admin must have object access to the application
+        - student_id, scholarship_round_id and scholarship_type_id are immutable
+        - Store reason and before/after snapshots; apply with expected version
+      x-audit-events: [CONTROLLED_CORRECTION_CREATED]
+      parameters:
+        - name: applicationId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason, changes, version]
+              properties:
+                reason: {type: string, minLength: 1}
+                changes: {type: object, additionalProperties: true}
+                version: {type: integer, minimum: 1}
+      responses:
+        '201': {description: Controlled Correction record}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/UnprocessableEntity'}
+  /scholarship-rounds/{roundId}/reopen-requests:
+    post:
+      tags: [Scholarship Rounds]
+      summary: Request exceptional reopen of a Closed round
+      operationId: requestRoundReopen
+      x-roles: [ADMIN]
+      x-error-codes: [ROUND_NOT_FOUND, ROUND_ARCHIVED, INVALID_ROUND_STATUS_TRANSITION, CSRF_INVALID]
+      x-validation:
+        - Head of Scholarship Office or System Owner only
+        - Closed only; Archived rounds cannot reopen
+        - Idempotency-Key returns the original request for a retried payload
+      x-audit-events: [ROUND_REOPEN_REQUESTED]
+      parameters:
+        - name: roundId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, maxLength: 100}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason, reference]
+              properties:
+                reason: {type: string, minLength: 1}
+                reference: {type: string, minLength: 1, maxLength: 100}
+      responses:
+        '202': {description: Round reopen request accepted}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /round-reopen-requests/{requestId}/decision:
+    post:
+      tags: [Scholarship Rounds]
+      summary: Approve or reject a Closed-round reopen request
+      operationId: decideRoundReopen
+      x-roles: [ADMIN]
+      x-error-codes: [FORBIDDEN, ROUND_ARCHIVED, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Designated faculty approver only
+        - Approval marks prior Final report snapshot Superseded in the same transaction
+      x-audit-events: [ROUND_REOPEN_DECIDED, REPORT_SNAPSHOT_SUPERSEDED]
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision, reason, version]
+              properties:
+                decision: {type: string, enum: [APPROVE, REJECT]}
+                reason: {type: string, minLength: 1}
+                version: {type: integer, minimum: 1}
+      responses:
+        '200': {description: Decision and round state}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /scholarship-rounds/{roundId}/report-snapshots:
+    get:
+      tags: [Reports]
+      summary: List immutable final report snapshots
+      operationId: listReportSnapshots
+      x-roles: [ADMIN]
+      x-error-codes: [ROUND_NOT_FOUND, FORBIDDEN]
+      x-validation: [Admin must have object access to the round]
+      x-audit-events: [REPORT_SNAPSHOT_LISTED]
+      parameters:
+        - name: roundId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Final and Superseded snapshots}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /code-lists:
+    get:
+      tags: [Code Lists]
+      summary: List versioned code lists
+      operationId: listCodeLists
+      x-roles: [ADMIN, EVALUATOR]
+      x-error-codes: [FORBIDDEN]
+      x-validation: [Return active selection values and retain historical referenced values]
+      x-audit-events: [CODE_LIST_VIEWED]
+      responses:
+        '200': {description: Code lists}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+    post:
+      tags: [Code Lists]
+      summary: Create or version a code list
+      operationId: upsertCodeList
+      x-roles: [ADMIN]
+      x-error-codes: [FORBIDDEN, VALIDATION_ERROR, CONCURRENCY_CONFLICT, CSRF_INVALID]
+      x-validation:
+        - Used values are made inactive and never physically deleted
+        - version provides optimistic concurrency
+      x-audit-events: [CODE_LIST_CHANGED]
+      parameters:
+        - name: X-CSRF-Token
+          in: header
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, name, values, version]
+              properties:
+                code: {type: string, maxLength: 50}
+                name: {type: string, maxLength: 200}
+                values: {type: array, items: {type: object}}
+                version: {type: integer, minimum: 1}
+      responses:
+        '201': {description: Code list version}
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/UnprocessableEntity'}
+  /documents/{documentId}/scan-status:
+    get:
+      tags: [Documents]
+      summary: Read quarantine and malware-scan status
+      operationId: getDocumentScanStatus
+      x-roles: [ADMIN, EVALUATOR]
+      x-error-codes: [DOCUMENT_NOT_FOUND, DOCUMENT_ACCESS_DENIED]
+      x-validation:
+        - User must have object access to the application and document
+        - Response contains status only and never file bytes
+      x-audit-events: [DOCUMENT_SCAN_STATUS_VIEWED]
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Quarantined, Scanning, Clean, Rejected or Scan Unavailable
+        '401': {$ref: '#/components/responses/Unauthenticated'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
 components:
   securitySchemes:
     cookieAuth:
@@ -3295,6 +3622,7 @@ components:
       required:
       - applicantRoundId
       - roundId
+      - scholarshipTypeId
       - studentId
       - fullName
       - faculty
@@ -3310,6 +3638,10 @@ components:
         roundId:
           type: string
           format: uuid
+        scholarshipTypeId:
+          type: string
+          format: uuid
+          description: Part of the Release 1 business key with roundId and studentId
         studentId:
           type: string
           pattern: ^\d{9}-\d$
@@ -3475,6 +3807,7 @@ components:
       - sizeBytes
       - uploadedBy
       - uploadedAt
+      - scanStatus
       properties:
         id:
           type: string
@@ -3507,6 +3840,10 @@ components:
         uploadedAt:
           type: string
           format: date-time
+        scanStatus:
+          type: string
+          enum: [QUARANTINED, SCANNING, CLEAN, REJECTED, SCAN_UNAVAILABLE]
+          description: File bytes are viewable/downloadable only when CLEAN
     Criterion:
       type: object
       required:
@@ -3992,6 +4329,7 @@ components:
       required:
       - roundId
       - format
+      - profile
       additionalProperties: false
       properties:
         roundId:
@@ -4002,6 +4340,10 @@ components:
           enum:
           - XLSX
           - CSV
+        profile:
+          type: string
+          enum: [INTERNAL_FULL, SUMMARY_MASKED]
+          description: Evaluators cannot call report export; standard profiles never contain national ID or applicant contact information
         statusFilter:
           type: array
           items:

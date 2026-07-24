@@ -7,6 +7,8 @@
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
 
+> **Release 1 confirmed-response overlay:** `Applicant` is reusable student identity and `ApplicantRound` is the independent Application snapshot keyed by `round_id + scholarship_type_id + student_id`. National ID is absent from the Core Schema. Add `ScholarshipType`, `EvaluationRevision`, `EvaluationReopenRequest`, `ControlledCorrection`, `ReportExport`, `ReportSnapshot`, `CodeList`, `CodeListValue`, and document scan status as specified in [`../SEMS_ER_Prisma_Data_Dictionary.md`](../SEMS_ER_Prisma_Data_Dictionary.md).
+
 แหล่งข้อมูล: [`SEMS_Data_Dictionary.xlsx`](../SEMS_Data_Dictionary.xlsx), ชีต `Data Dictionary`
 
 รวม 115 ฟิลด์ใน 11 Entity/Table

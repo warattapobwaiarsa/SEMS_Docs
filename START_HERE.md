@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.3** |
+| Current Version | **v1.4** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
@@ -25,6 +25,8 @@
 9. ก่อนแก้ไขเอกสาร อ่าน [Documentation Policy](./DOCUMENTATION_POLICY.md) และ [Contributing Guide](./CONTRIBUTING.md)
 
 > `Requirements/Meeting_Notes/` มีรายการคำถามและคำตอบจากผู้มีส่วนเกี่ยวข้องที่ยืนยันแล้วแต่ยังรอบันทึกทางการ; คำตอบดังกล่าวยังไม่ใช่ Approved Requirement Baseline ส่วน `Testing/UAT/`, `Deployment/Guides/` และ `Deployment/User_Manuals/` ยังไม่มี deliverable ที่อนุมัติ
+
+> Baseline candidate rules are synchronized. Start formal review with the [Requirement Baseline Approval Record](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md); do not treat the candidate as Approved until real evidence is entered.
 
 ## เส้นทางการอ่านตามบทบาท
 
@@ -220,6 +222,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.4 | 2026-07-24 | SEMS Documentation Team | Indexed the synchronized baseline candidate and formal-approval handoff. |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and updated the reading index. |
 | v1.2 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and the clearly labeled advisor-answer simulation to the reading index. |
 | v1.1 | 2026-07-23 | SEMS Documentation Team | Added review report, PRD, traceability, architecture, error catalog, approval/meeting templates and scoring reference data. |

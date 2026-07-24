@@ -3,15 +3,15 @@
 | Metadata | Value |
 | :--- | :--- |
 | Specification ID | `SEMS-SCORING-RULE-001` |
-| Version | **v1.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
-| Status | **Draft — Pending Stakeholder Approval** |
+| Status | **Confirmed Response — Pending Formal Approval** |
 | Sources | [`Criteria.xlsx`](./Criteria.xlsx), [`SEMS-project-proposal.pdf`](../../Requirements/Proposal/SEMS-project-proposal.pdf) |
 
 > เอกสารนี้ถอดข้อมูลจากไฟล์ Criteria ให้เป็นกฎที่ระบบสามารถนำไปพัฒนาได้ พร้อมกำหนดค่ามาตรฐานในประเด็นที่ไฟล์ต้นฉบับยังไม่ได้ระบุชัดเจน ค่าที่เป็นข้อเสนอแนะต้องได้รับการอนุมัติก่อนเปลี่ยนสถานะชุดเกณฑ์เป็น Active
 
-> **Baseline Status:** สูตรทั้งหมดในเอกสารนี้เป็น Draft Provisional จนกว่างานทุนจะอนุมัติ RD-010–RD-014
+> **Baseline Status:** RD-010–RD-014 and RD-047 are synchronized with the confirmed stakeholder response. Formal baseline approval evidence is still pending.
 
 ## 1. ข้อสรุปสำคัญ
 
@@ -218,7 +218,7 @@ eligible = Evaluation ที่ status = SUBMITTED
 
 ## 6. กฎความคิดเห็น
 
-**ข้อกำหนดที่เสนอ:** ความคิดเห็นเพิ่มเติมโดยรวมเป็นข้อมูลไม่บังคับ แต่ระบบบังคับระบุเหตุผลอย่างน้อย 10 ตัวอักษรเมื่อ:
+ความคิดเห็นเพิ่มเติมโดยรวมเป็นข้อมูลไม่บังคับ แต่ระบบบังคับระบุเหตุผลที่ไม่ว่างเมื่อ:
 
 1. เลือก `CRT-04 / USE-OTHER-NECESSARY`
 2. เลือก `CRT-09 / JUDGMENT-URGENT`
@@ -395,6 +395,7 @@ Reference Dataset: [`SEMS_Scoring_Reference_Cases.md`](../../Testing/Test_Data/S
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Marked confirmed-response status and aligned custom-score/custom-amount reasons and formal approval boundary. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned incomplete scoring/comment validation with canonical `EVALUATION_INCOMPLETE`. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Marked all formula rules provisional, linked the actual machine-readable config and scoring reference dataset. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial scoring rule draft derived from Criteria workbook. |

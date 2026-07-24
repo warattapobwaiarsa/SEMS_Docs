@@ -7,6 +7,8 @@
 | Author | **SEMS Documentation Team** |
 | Status | **Reference - Converted from Workbook** |
 
+> **Baseline-candidate synchronization:** RD-024–RD-029 are resolved by the confirmed stakeholder response. Application uniqueness includes scholarship type; histories are per-application round snapshots; updates after Evaluation use Controlled Correction; and Release 1 stores no national ID. Historical proposals below are retained for backward traceability.
+
 แหล่งข้อมูล: [`SEMS_Data_Dictionary.xlsx`](../SEMS_Data_Dictionary.xlsx), ชีต `Design Decisions`
 
 ## DD-01: เอกลักษณ์ผู้สมัคร

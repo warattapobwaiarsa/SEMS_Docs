@@ -1,4 +1,4 @@
-# 06 OPEN DECISIONS
+# 06 HISTORICAL OPEN DECISIONS — RESOLUTION STATUS
 
 | Metadata | Value |
 | :--- | :--- |
@@ -11,13 +11,13 @@
 
 | Decision ID | ประเด็นที่ต้องยืนยันก่อน Baseline | ข้อเสนอปัจจุบัน | ผลกระทบ | Owner | สถานะ |
 | --- | --- | --- | --- | --- | --- |
-| DD-OD-001 | หนึ่งคนสมัครหลายประเภททุนในรอบเดียวได้หรือไม่ | หากได้ ให้ Business Key เป็น round_id + scholarship_type_id + student_id | Unique Constraint / Import Duplicate | งานทุน | Open |
-| DD-OD-002 | วันที่สมัครเป็นข้อมูลบังคับหรือไม่ | Recommended; ว่างได้ตอน Import หากกระบวนการไม่ใช้ | Validation | งานทุน | Open |
-| DD-OD-003 | ค่าอุปกรณ์การศึกษาเป็นต่อเดือน ต่อภาค หรือยอดรวม | เพิ่มหน่วยเวลาใน Template ใหม่ | ชื่อ Field / รายงาน / เกณฑ์ | งานทุน | Open |
-| DD-OD-004 | ต้องจัดเก็บเลขบัตรประชาชนใน SEMS หรือไม่ | ไม่อยู่ใน Import หลัก; หากจำเป็นให้แยก Restricted Flow และเข้ารหัส | PDPA / Security / Database | เจ้าของข้อมูล | Open |
-| DD-OD-005 | Reference Values ทางการของที่พัก สถานะครอบครัว และผู้จ่ายค่าเรียน | รวบรวมค่าจริงและอนุมัติ Code List | Validation / UI Filter | งานทุน | Open |
-| DD-OD-006 | จะรองรับ Continuation Row ถึงเมื่อใด | Template ใหม่แยก Sheet; Legacy รองรับช่วงเปลี่ยนผ่าน | Importer Complexity | งานทุน/ทีมพัฒนา | Open |
-| DD-OD-007 | Duplicate กับข้อมูลเดิมอนุญาต Update ฟิลด์ใดบ้าง | Default Skip; Update เฉพาะก่อนมี Evaluation | Data Integrity / Audit | งานทุน | Open |
-| DD-OD-008 | รูปแบบวันที่และโทรศัพท์ที่ต้องรองรับอย่างเป็นทางการ | Template ISO และ Text; Legacy parser เฉพาะรูปแบบประกาศ | Validation / Test Cases | งานทุน/ทีมพัฒนา | Open |
-| DD-OD-009 | ประวัติ กยศ./ทุนเป็นข้อมูลระดับ Applicant หรือ Snapshot รายรอบ | เก็บระดับ Applicant พร้อม source import และแสดงในทุกรอบ | Data Model / Duplicate | งานทุน | Open |
-| DD-OD-010 | Hard Required และ Required before Evaluation รายการสุดท้าย | ใช้รายการใน Draft นี้เป็นฐานประชุม | Import Acceptance | งานทุน/ผู้ประเมิน | Open |
+| DD-OD-001 | หนึ่งคนสมัครหลายประเภททุนในรอบเดียวได้หรือไม่ | Yes; business key `round_id + scholarship_type_id + student_id` | Unique Constraint / Import Duplicate | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-002 | วันที่สมัครเป็นข้อมูลบังคับหรือไม่ | Required Before Evaluation | Validation | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-003 | ค่าอุปกรณ์การศึกษาเป็นต่อเดือน ต่อภาค หรือยอดรวม | ต่อภาคการศึกษา; ทุก amount มี period/unit | ชื่อ Field / รายงาน / เกณฑ์ | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-004 | ต้องจัดเก็บเลขบัตรประชาชนใน SEMS หรือไม่ | No storage in Release 1 | PDPA / Security / Database | เจ้าของข้อมูล | Confirmed Response — Pending Formal Record |
+| DD-OD-005 | Reference Values ทางการ | Versioned DB Code Lists; used values become Inactive, never deleted | Validation / UI Filter | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-006 | จะรองรับ Continuation Row ถึงเมื่อใด | UAT and first production transition round only | Importer Complexity | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
+| DD-OD-007 | Duplicate กับข้อมูลเดิมอนุญาต Update ฟิลด์ใดบ้าง | Default Skip; explicit update before Evaluation; Controlled Correction after | Data Integrity / Audit | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-008 | รูปแบบวันที่และโทรศัพท์ที่รองรับ | ISO/Text new template; declared legacy formats normalize in Preview | Validation / Test Cases | งานทุน/ทีมพัฒนา | Confirmed Response — Pending Formal Record |
+| DD-OD-009 | ประวัติ กยศ./ทุนเป็นข้อมูลระดับ Applicant หรือ Snapshot รายรอบ | Snapshot per application/round; one aggregated loan amount per academic year | Data Model / Duplicate | งานทุน | Confirmed Response — Pending Formal Record |
+| DD-OD-010 | Hard Required และ Required before Evaluation | Three levels defined in RD-028 | Import Acceptance | งานทุน/ผู้ประเมิน | Confirmed Response — Pending Formal Record |

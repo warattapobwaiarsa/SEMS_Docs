@@ -36,6 +36,11 @@
 | R-16 | File upload ชนิด/ขนาดผิดหรือ path traversal | 3 | 5 | 15 | Critical | DOC-002–006, SEC-012 |
 | R-17 | Audit Log มี token/secret/PII เกินจำเป็น | 2 | 5 | 10 | High | AUD-005, SEC-013 |
 | R-18 | Migration/seed ทำให้ constraint หาย | 2 | 5 | 10 | High | schema verification + deployment smoke |
+| R-19 | Applications across scholarship types merge or collide | 3 | 5 | 15 | Critical | CR-001–002 |
+| R-20 | Reopen/correction destroys prior evidence | 3 | 5 | 15 | Critical | CR-007–011 |
+| R-21 | Evaluator peer data leaks | 3 | 5 | 15 | Critical | CR-018–019, CR-027 |
+| R-22 | Quarantined/malicious file becomes available | 3 | 5 | 15 | Critical | CR-020–022, CR-029–030 |
+| R-23 | Final report overwritten or backup restore inconsistent | 2 | 5 | 10 | High | CR-015, CR-023, CR-032–034 |
 
 ## 3. Requirement-to-Test Coverage
 
@@ -54,6 +59,7 @@
 | Dashboard | ✓ | ✓ | ✓ | ✓ |  | DSH-001–005 |
 | Report/Export | ✓ | ✓ | ✓ | ✓ | ✓ | REP-001–010 |
 | Audit | ✓ | ✓ | ✓ | ✓ | ✓ | AUD-001–006 |
+| Confirmed-response baseline | ✓ | ✓ | ✓ | ✓ | ✓ | CR-001–035 |
 
 ## 4. P0 Release Gate
 

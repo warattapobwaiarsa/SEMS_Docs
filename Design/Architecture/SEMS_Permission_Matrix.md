@@ -77,9 +77,9 @@
 | PM-033 | Submit ผลการประเมิน | ❌ | ⚠️ | เฉพาะของตนเอง, รอบ Open, สถานะ Draft, ข้อมูลครบถ้วน |
 | PM-034 | ดูผล Draft ของผู้ประเมิน | 🔎 | ⚠️ | Admin ดูเพื่อติดตามได้; Evaluator ดูเฉพาะ Draft ของตนเอง |
 | PM-035 | ดูผล Submitted ของตนเอง | 🔎 | ✅ | Evaluator ดูได้แต่แก้ไม่ได้จนกว่าจะได้รับ Reopen |
-| PM-036 | ดูผลของผู้ประเมินคนอื่น | 🔎 | ❌ | Admin ดูตามหน้าที่; Evaluator ห้ามเห็นคะแนน ความคิดเห็น และรายละเอียดผลของผู้อื่น |
+| PM-036 | ดูผลของผู้ประเมินคนอื่น | 🔎 | ❌ | Evaluator sees only own Evaluation, slot count, Submitted count and minimum-completion status; never peer identity, score, comment or amount recommendation. |
 | PM-037 | แก้ไขผลของผู้ประเมินคนอื่น | ❌ | ❌ | ห้ามทุกบทบาทแก้แทนเจ้าของผล |
-| PM-038 | Reopen ผล Submitted | ⚠️ | ❌ | Admin ดำเนินการตาม Reopen Policy พร้อมเหตุผลและ Audit; ผู้ประเมินเจ้าของผลเป็นผู้แก้และ Submit ใหม่ |
+| PM-038 | Reopen ผล Submitted | ⚠️ | ⚠️ | Owner may request; staff may request on behalf with reason; Head/delegate approves; technical Admin cannot self-approve; owner alone edits/resubmits. |
 | PM-039 | คำนวณคะแนนรวมรายผู้ประเมิน | ⚙️ ระบบ | ❌ | ระบบคำนวณจากผล Submitted ตามกฎคะแนน; ผู้ใช้ไม่แก้ค่าคำนวณโดยตรง |
 | PM-040 | คำนวณ Result Summary | ⚙️ ระบบ | ❌ | ใช้เฉพาะ Submitted จากผู้ประเมินไม่ซ้ำกัน 2–3 คน |
 | PM-041 | ดู Result Summary | ✅ | ⚠️ | Evaluator เห็นเฉพาะขอบเขตที่ได้รับอนุมัติ; ค่าเริ่มต้นแนะนำให้เห็นเฉพาะผลของตนและสถานะความครบถ้วน ไม่เห็นผลรายคนอื่น |
@@ -134,7 +134,13 @@
 | API-033 | POST | `/evaluations/:evaluationId/review` | ❌ | ⚠️ | Owner เท่านั้น; Validation แบบไม่เปลี่ยนสถานะสุดท้าย |
 | API-034 | POST | `/evaluations/:evaluationId/submit` | ❌ | ⚠️ | Owner + Open Round + Draft + Valid; เปลี่ยนเป็น Submitted แบบ Atomic |
 | API-035 | POST | `/evaluations/:evaluationId/cancel` | ⚠️ | ⚠️ | ก่อน Submit ตาม Policy; หลัง Submit ต้องใช้ Reopen/Cancel Workflow และ Audit |
-| API-036 | POST | `/evaluations/:evaluationId/reopen` | ⚠️ | ❌ | Admin, ต้องมีเหตุผลและบันทึกผู้ดำเนินการ/เวลา |
+| API-036 | POST | `/evaluations/:evaluationId/reopen-requests` | ⚠️ | ⚠️ | Owner or staff-on-behalf; reason/reference; object ownership enforced |
+| API-036A | POST | `/evaluation-reopen-requests/:requestId/decision` | ⚠️ | ❌ | Head/delegate only; separation of duties |
+| API-036B | POST | `/evaluations/:evaluationId/resubmit` | ❌ | ⚠️ | Owner only; approved reopen Draft; recalculates after commit |
+| API-036C | POST | `/applications/:applicationId/controlled-corrections` | ✅ | ❌ | Admin with application access; identity triplet immutable; before/after audit |
+| API-036D | POST | `/scholarship-rounds/:roundId/reopen-requests` | ⚠️ | ❌ | Head/System Owner; Closed only; Archived denied |
+| API-036E | GET | `/scholarship-rounds/:roundId/report-snapshots` | ✅ | ❌ | Round-scoped Admin; immutable Final/Superseded snapshots |
+| API-036F | GET | `/documents/:documentId/scan-status` | ✅ | ⚠️ | Evaluator needs active owned Evaluation for the application; no file bytes |
 | API-037 | GET | `/admin/evaluations` | ✅ | ❌ | Admin ดูรายการทุกผู้ประเมินตามหน้าที่ |
 | API-038 | GET | `/admin/evaluations/:evaluationId` | ✅ | ❌ | Read-only ต่อคะแนนและความคิดเห็น |
 | API-039 | PATCH | `/admin/evaluations/:evaluationId/scores` | ❌ | ❌ | ห้ามแก้คะแนนแทนเจ้าของผล |
@@ -313,7 +319,7 @@ Authentication
 |---|---|---|
 | PERM-DEC-001 | Evaluator เห็นคะแนนสรุปของผู้สมัครหรือไม่ | เห็นเฉพาะสถานะความครบถ้วนและผลของตน ไม่เห็นคะแนน/ความคิดเห็นของผู้อื่น |
 | PERM-DEC-002 | Admin ยกเลิก Draft ของผู้ประเมินได้หรือไม่ | อนุญาตเฉพาะกรณีบริหารระบบ มีเหตุผล และ Audit; ห้ามแก้เนื้อหา |
-| PERM-DEC-003 | Admin เปิดรอบ Closed กลับเป็น Open ได้หรือไม่ | **Provisional:** อนุญาตเป็นกรณีพิเศษ พร้อมเหตุผล ผู้อนุมัติ และ Audit |
+| PERM-DEC-003 | Admin เปิดรอบ Closed กลับเป็น Open ได้หรือไม่ | **Confirmed Response:** exceptional request/approval only; Archived denied; prior Final snapshot becomes Superseded |
 | PERM-DEC-004 | Reopen เปลี่ยนสถานะเป็น `Reopened` หรือกลับ `Draft` ทันที | แนะนำให้มี `Reopened` ใน Audit/Workflow แล้วเปลี่ยนเป็น Draft ที่แก้ไขได้ |
 | PERM-DEC-005 | ผู้ประเมินดูรายการของตนหลัง Archived ได้หรือไม่ | แนะนำให้ดูแบบ Read-only ได้ตามระยะเวลาเก็บข้อมูล |
 | PERM-DEC-006 | Access Denied ต่อข้อมูลละเอียดอ่อนใช้ 403 หรือ 404 | แนะนำ 404 สำหรับทรัพยากรที่ไม่ควรเปิดเผยการมีอยู่ และใช้มาตรฐานเดียวกันทั้งระบบ |
@@ -330,6 +336,7 @@ Authentication
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Confirmed evaluator isolation, reopen separation of duties, correction/round/report/scan endpoint permissions. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Replaced the inactive-account alias with canonical `USER_INACTIVE`; audit-event names remain unchanged. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Aligned canonical evaluation error codes and made controlled reopen explicitly provisional. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial permission matrix draft. |

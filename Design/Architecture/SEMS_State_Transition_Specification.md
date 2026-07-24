@@ -6,7 +6,7 @@
 | Version | **v0.3** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Design Team** |
-| Status | **Draft — Pending Reopen Policy Approval** |
+| Status | **Confirmed Response — Pending Formal Approval** |
 
 ---
 
@@ -37,7 +37,7 @@
 ### 2.1 การระบุแหล่งที่มาของข้อกำหนด
 
 - **[Confirmed from Proposal]** หมายถึงมีข้อกำหนดรองรับใน Proposal
-- **[Recommended Baseline]** หมายถึงข้อเสนอเพื่อให้ระบบสามารถออกแบบและทดสอบได้ครบถ้วน แต่ยังควรให้งานทุนยืนยัน
+- **[Confirmed Response]** means the transition is supported by the stakeholder response; formal baseline approval evidence is still pending.
 
 ---
 
@@ -82,10 +82,10 @@ stateDiagram-v2
 | Transition ID | From | To | ผู้ดำเนินการ | Guard Conditions | System Effects |
 |---|---|---|---|---|---|
 | `TR-RND-001` | ไม่มี | `Draft` | ผู้ดูแลระบบ | ผู้ใช้ Active และมีสิทธิ์จัดการรอบทุน | สร้าง `round_id`, กำหนด `created_at`, บันทึก Audit |
-| `TR-RND-002` | `Draft` | `Open` | ผู้ดูแลระบบ | ข้อมูลรอบทุนครบ, วันที่ถูกต้อง, มี Criteria Version ที่ผ่าน Validation และ Active, ไม่มี Critical Configuration Error และมี Applicant ≥1 (**Provisional RD-023**) | กำหนด `opened_at`, เปิดการค้นหาและเลือกผู้สมัคร, ล็อก Criteria Version ที่ใช้งาน |
+| `TR-RND-002` | `Draft` | `Open` | ผู้ดูแลระบบ | ข้อมูลรอบทุนครบ, วันที่ถูกต้อง, มี Active Criteria Version, ผ่าน Pre-open Validation และมี Application ≥1; ไม่มี Application เป็น Blocking Error `NO_APPLICANTS` | กำหนด `opened_at`, เปิดการค้นหา/เลือก และล็อก Criteria Version ที่ใช้งาน |
 | `TR-RND-003` | `Open` | `Closed` | ผู้ดูแลระบบ/ผู้มีสิทธิ์ปิดรอบ | ยืนยันการปิดรอบ, ไม่มี Transition อื่นกำลังทำงาน, ผ่านการตรวจสอบรายการค้างที่ระบบแสดง | กำหนด `closed_at`, ห้ามสร้าง/Submit Evaluation ใหม่, คำนวณสถานะผู้สมัครทุกคน, Finalize ผู้สมัครที่ Submitted ≥ 2 |
 | `TR-RND-004` | `Closed` | `Archived` | ผู้ดูแลระบบ | ผลสรุปและรายงานผ่านการตรวจสอบ, ไม่มีคำขอ Reopen ค้าง, ยืนยันการ Archive | กำหนด `archived_at`, เปลี่ยนเป็น Read-only, คง Audit และข้อมูลทั้งหมด |
-| `TR-RND-005` | `Closed` | `Open` | ผู้อนุมัติที่ได้รับมอบหมาย | **[Recommended Baseline]** มีคำขอพร้อมเหตุผล, ระบุช่วงเวลาที่เปิดใหม่, ยังไม่ Archived, ผู้อนุมัติมีสิทธิ์ | กำหนด `reopened_at`, ยกเลิก Final Flag ชั่วคราว, คำนวณ Applicant Status ใหม่, เปิดเฉพาะกิจกรรมที่ได้รับอนุมัติ |
+| `TR-RND-005` | `Closed` | `Open` | ผู้อนุมัติที่ได้รับมอบหมาย | **[Confirmed Response]** มีคำขอ เหตุผล เลขอ้างอิง, ยังไม่ Archived, ผู้อนุมัติมีสิทธิ์ | กำหนด `reopened_at`, ทำ Final Report เดิมเป็น immutable `Superseded`, คำนวณ Application Status ใหม่, เปิดเฉพาะกิจกรรมที่อนุมัติ |
 
 ## 4.4 เงื่อนไขก่อนเปิดรอบทุน
 
@@ -94,12 +94,12 @@ stateDiagram-v2
 - ชื่อและรหัสรอบทุนไม่ว่างและไม่ซ้ำตามกฎที่กำหนด
 - วันเริ่มต้นไม่มากกว่าวันสิ้นสุด
 - มี Criteria Version ที่ Active และผ่าน Validation
-- มีผู้สมัครอย่างน้อย 1 ราย (**Provisional blocking rule — RD-023**)
+- มี Application อย่างน้อย 1 ราย (Blocking Error เมื่อไม่มี)
 - คะแนนต่ำสุด คะแนนเต็ม น้ำหนัก และลำดับของทุกเกณฑ์ถูกต้อง
 - ผู้ดูแลยืนยันว่าข้อมูลรอบทุนพร้อมใช้งาน
 - ไม่มีการเปลี่ยนแปลง Criteria ที่ยังไม่ได้บันทึกหรือ Publish
 
-**[Provisional — RD-023]** Baseline ชั่วคราวกำหนดให้ไม่มีผู้สมัครเป็น Blocking Error `NO_APPLICANTS`; งานทุนต้องยืนยันว่าจะคง Blocking หรือเปลี่ยนเป็น Warning และ Import ภายหลัง
+**[Confirmed Response — RD-023]** ไม่มี Application เป็น Blocking Error `NO_APPLICANTS`; หลังเปิดรอบยัง Import ใบสมัครใหม่ได้
 
 ## 4.5 การดำเนินการที่อนุญาตตามสถานะรอบทุน
 
@@ -156,7 +156,7 @@ stateDiagram-v2
 | `TR-EVA-002` | `Draft` | `Draft` | เจ้าของ Evaluation | รอบ `Open`, ผู้ใช้เป็นเจ้าของ, Evaluation ไม่ถูกยกเลิก | บันทึกคะแนน/ความคิดเห็น, ปรับ `updated_at`, ไม่คำนวณ Result Summary |
 | `TR-EVA-003` | `Draft` | `Submitted` | เจ้าของ Evaluation | รอบ `Open`, คะแนนบังคับครบ, คะแนนอยู่ในช่วง, Validation ผ่าน, ผู้ใช้ยืนยันหน้า Review | กำหนด `submitted_at`, ล็อกการแก้ไข, คำนวณคะแนนรายผู้ประเมิน, คำนวณ Applicant Status และ Result Summary ใหม่ |
 | `TR-EVA-004` | `Draft` | `Cancelled` | เจ้าของ Evaluation หรือผู้ดูแลตามสิทธิ์ | ยังไม่เคย Submitted, ผู้ใช้ยืนยันการยกเลิก | กำหนด `cancelled_at`, บันทึกเหตุผล, คืนช่องผู้ประเมินภายใน Transaction, คำนวณ Applicant Status ใหม่ |
-| `TR-EVA-005` | `Submitted` | `Reopened` | ผู้อนุมัติ | **[Recommended Baseline]** รอบ `Open`; มีคำขอและเหตุผล; เก็บ Snapshot เดิม; ผู้อนุมัติมีสิทธิ์ | ผลเดิมหยุดถูกนำไปคำนวณ, กำหนด `reopened_at`, เพิ่ม Revision Number, คำนวณ Result Summary และ Applicant Status ใหม่ |
+| `TR-EVA-005` | `Submitted` | `Reopened` | Head/delegate | **[Confirmed Response]** owner/staff-on-behalf request, reason/reference, round `Open`; approver independent from technical requester; immutable Snapshot เดิม | ผลเดิมหยุดถูกนำไปคำนวณ, กำหนด `reopened_at`, เพิ่ม Revision Number, คำนวณ Result Summary และ Application Status ใหม่ |
 | `TR-EVA-006` | `Reopened` | `Draft` | เจ้าของ Evaluation | Reopen ยังไม่หมดอายุ, รอบ `Open`, ผู้ใช้เป็นเจ้าของ | เปิดฟอร์มแก้ไขจากสำเนาข้อมูลล่าสุด, บันทึก `revision_started_at` |
 | `TR-EVA-007` | `Draft` | `Submitted` | เจ้าของ Evaluation | เงื่อนไขเดียวกับ `TR-EVA-003`; กรณี Revision ต้องอ้างอิง Snapshot ก่อนหน้า | สร้าง Revision Audit, คำนวณผลใหม่, ปิดคำขอ Reopen |
 
@@ -190,13 +190,14 @@ AND active_evaluation_count(round, applicant) < 3
 
 ระบบควรรองรับ `idempotency_key` หรือการตรวจสอบสถานะซ้ำ เพื่อไม่ให้เกิดการ Submit ซ้ำ
 
-## 5.6 Reopen Policy — Proposed Baseline
+## 5.6 Reopen Policy — Confirmed Response
 
 **สถานะ:** รอผู้มีอำนาจยืนยัน
 
 แนวทางที่แนะนำ:
 
-- เจ้าของ Evaluation หรือผู้ดูแลระบบส่งคำขอ Reopen พร้อมเหตุผล
+- เจ้าของ Evaluation ส่งคำขอ; เจ้าหน้าที่งานทุนอาจส่งแทนโดยระบุผู้รับการดำเนินการแทนและเหตุผล
+- Head of Scholarship Office หรือผู้ได้รับมอบหมายอนุมัติ; technical Admin ห้ามอนุมัติคำขอของตนเอง
 - ผู้อนุมัติเป็นหัวหน้างานทุนหรือบทบาทที่ได้รับมอบหมาย
 - อนุญาตเฉพาะขณะที่รอบทุนเป็น `Open`
 - หากรอบปิดแล้ว ต้องดำเนินการ `Closed → Open` แบบ Controlled Reopen ก่อน
@@ -223,7 +224,7 @@ AND active_evaluation_count(round, applicant) < 3
 
 ## 6.1 ลักษณะของสถานะ
 
-Applicant Evaluation Status เป็น **Derived State** ต่อคู่ข้อมูล `round_id + applicant_id` ไม่ใช่สถานะที่ผู้ใช้แก้ไขโดยตรง ระบบคำนวณจาก:
+Applicant Evaluation Status เป็น **Derived State** ต่อ `round_application_id` (หนึ่งใบสมัครต่อประเภททุน) ไม่ใช่สถานะที่ผู้ใช้แก้ไขโดยตรง ระบบคำนวณจาก:
 
 - สถานะรอบทุน
 - จำนวน Active Evaluation
@@ -254,8 +255,8 @@ Constraint:
 |---:|---|---:|---|---|---|
 | 1 | `Closed` หรือ `Archived` | `>= 2` | ไม่เกี่ยวข้อง | `Finalized` | มี |
 | 2 | `Closed` หรือ `Archived` | `< 2` | ไม่เกี่ยวข้อง | `Closed Incomplete` | ไม่มี |
-| 3 | `Open` | `3` | `active_count = 3` | `Fully Complete` | มีแบบ Provisional |
-| 4 | `Open` | `2` | `active_count >= 2` | `Minimum Complete` | มีแบบ Provisional |
+| 3 | `Open` | `3` | `active_count = 3` | `Fully Complete` | Confirmed Response |
+| 4 | `Open` | `2` | `active_count >= 2` | `Minimum Complete` | Confirmed Response |
 | 5 | `Open` | `< 2` | `active_count >= 1` | `In Progress` | ไม่มี |
 | 6 | `Draft` หรือ `Open` | `0` | `active_count = 0` | `Not Started` | ไม่มี |
 
@@ -420,8 +421,8 @@ metadata
 | `EVALUATION_CANCELLED` | 409 | ดำเนินการกับรายการ Cancelled |
 | `EVALUATION_VALIDATION_FAILED` | 422 | คะแนนหรือข้อมูลบังคับไม่ครบ/ผิดช่วง |
 | `REOPEN_APPROVAL_REQUIRED` | 403 | พยายามแก้ Submitted โดยไม่มีอนุมัติ |
-| `REOPEN_NOT_ALLOWED_AFTER_CLOSE` | 409 | ขอ Reopen Evaluation ขณะรอบ Closed โดยยังไม่เปิดรอบ |
-| `REOPEN_WINDOW_EXPIRED` | 409 | คำอนุมัติ Reopen หมดอายุ |
+| `REOPEN_NOT_ALLOWED` | 409 | ขอ Reopen Evaluation ขณะรอบ Closed/Archived หรือไม่ผ่านคำขออนุมัติ |
+| `CONCURRENCY_CONFLICT` | 409 | Revision/version เปลี่ยนก่อนดำเนินการ |
 | `CONCURRENCY_CONFLICT` | 409 | มีการแข่งขันเลือกผู้สมัครพร้อมกัน |
 | `RESULT_SUMMARY_NOT_AVAILABLE` | 422 | Submitted ยังไม่ครบ 2 |
 
@@ -510,8 +511,8 @@ expires_at
 
 ## 11.3 Constraint ที่แนะนำ
 
-- Active Evaluation ต่อ `round_id + applicant_id` ต้องไม่เกิน 3
-- ผู้ประเมินคนเดิมมี Active Evaluation ต่อ `round_id + applicant_id + evaluator_id` ได้ไม่เกิน 1
+- Active Evaluation ต่อ `round_application_id` ต้องไม่เกิน 3
+- ผู้ประเมินคนเดิมมี Active Evaluation ต่อ `round_application_id + evaluator_id` ได้ไม่เกิน 1
 - ผู้สมัครมี Result Summary ต่อรอบทุนได้ไม่เกิน 1 รายการปัจจุบัน
 - Status Update ต้องใช้ Optimistic Lock (`version`) หรือเทคนิคเทียบเท่า
 - การสร้าง Evaluation ต้องทำพร้อมการตรวจนับและ Lock ภายใน Transaction
@@ -614,6 +615,7 @@ State Transition Specification ถือว่าพร้อมล็อกเ�
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| `v0.3` | 2026-07-24 | SEMS Design Team | Confirmed round/evaluation reopen, blocking open rule, immutable revisions and canonical errors while keeping formal approval pending. |
 | `v0.3` | 2026-07-24 | SEMS Design Team | Removed the redundant `ROUND_CLOSED` error; closed-round mutations use canonical `ROUND_NOT_OPEN` while `ROUND_CLOSED` remains an audit event. |
 | `v0.2` | 2026-07-23 | SEMS Design Team | ทำ Round baseline ให้เป็น DRAFT→OPEN→CLOSED→ARCHIVED, กำหนด Applicant ≥1 เป็น Provisional blocking และใช้ canonical error contract/code |
 | `v0.1` | 2026-07-23 | SEMS Requirements Team / AI-assisted draft | จัดทำ State Machine สำหรับรอบทุน Evaluation ผู้สมัคร และ Result Summary พร้อม Transition, Guard, Audit, Error Code และ Test Scenario |

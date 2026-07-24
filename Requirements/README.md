@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.10** |
+| Current Version | **v1.11** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Scope | PRD, SRS, proposals, user stories, and meeting notes |
@@ -22,14 +22,14 @@
 
 | Document | Version | Last Updated | Status |
 | :--- | :---: | :---: | :--- |
-| [`PRD/SEMS-PRD.md`](./PRD/SEMS-PRD.md) | v0.1 | 2026-07-23 | Draft — Pending Stakeholder Approval |
-| [`SRS/SEMS-SRS.md`](./SRS/SEMS-SRS.md) | v2.2 | 2026-07-24 | Draft — Pending Baseline |
+| [`PRD/SEMS-PRD.md`](./PRD/SEMS-PRD.md) | v0.2 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
+| [`SRS/SEMS-SRS.md`](./SRS/SEMS-SRS.md) | v0.3 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
 | [`User_Stories/README.md`](./User_Stories/README.md) | v1.2 | 2026-07-24 | Current Index |
-| [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.3 | 2026-07-24 | Draft |
+| [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.4 | 2026-07-24 | Baseline Candidate |
 | [`SEMS_Requirement_Decision_Analysis.md`](./SEMS_Requirement_Decision_Analysis.md) | v1.1 | 2026-07-23 | Draft — Pending Approval |
-| [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v1.3 | 2026-07-24 | Provisional Baseline — Pending Ratification |
-| [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.2 | 2026-07-24 | Draft — Partial Coverage |
-| [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md) | v0.1 | 2026-07-23 | Template — Pending |
+| [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v0.4 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
+| [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.3 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
+| [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md) | v0.2 | 2026-07-24 | Pending Formal Approval |
 | [`Approvals/System_Design_Approval_Record.md`](./Approvals/System_Design_Approval_Record.md) | v0.1 | 2026-07-23 | Template — Pending |
 | [`Meeting_Notes/README.md`](./Meeting_Notes/README.md) | v0.3 | 2026-07-24 | Working Index |
 | [`Meeting_Notes/SEMS_Stakeholder_Questions.md`](./Meeting_Notes/SEMS_Stakeholder_Questions.md) | v0.1 | 2026-07-24 | Draft — Meeting Preparation |
@@ -42,6 +42,7 @@
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.11 | 2026-07-24 | SEMS Documentation Team | Indexed synchronized baseline-candidate requirements and approval record. |
 | v1.10 | 2026-07-24 | SEMS Documentation Team | Renamed and reclassified the stakeholder response document as confirmed, pending a formal record. |
 | v1.9 | 2026-07-24 | SEMS Documentation Team | Added stakeholder questions and a clearly labeled advisor-answer simulation under `Meeting_Notes/`. |
 | v1.8 | 2026-07-24 | SEMS Documentation Team | Synchronized embedded-point decisions, canonical error codes, traceability evidence states and affected requirement document versions. |

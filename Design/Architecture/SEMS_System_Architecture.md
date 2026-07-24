@@ -97,20 +97,29 @@ Structured logs and metrics correlate by `traceId`; record endpoint, result, lat
 
 ## Backup/Restore Considerations
 
-Back up PostgreSQL plus storage metadata/content consistently, encrypt backups, restrict restore authority, define RPO/RTO/retention, and run restore tests that verify FK/unique constraints, criteria version bindings, result summaries and audit continuity.
+Back up PostgreSQL plus storage metadata/content consistently and encrypt backups. Confirmed baseline: RPO ≤24 hours, RTO ≤8 business hours, daily DB backup, weekly full backup, storage consistency, at least 90-day rotating retention, quarterly restore test and pre-go-live restore test.
 
 ## Open Architecture Decisions
 
 - Hosting topology, availability/SLO, capacity and rate limits
-- Object storage product, malware scanning, retention and signed access approach
+- Actual object-storage/scanner products and production endpoints (policy is confirmed: private Quarantine, scan-before-access, authorized short-lived download)
 - Session store and revocation strategy
 - Async job mechanism for import/export/recalculation
 - KKU claims, redirect/logout modes and client registration
-- Backup RPO/RTO and disaster-recovery owner
+- Named disaster-recovery assignees (RPO/RTO and role ownership are confirmed)
+
+## Confirmed operational architecture constraints
+
+- Sessions expire after 30 minutes idle and eight hours absolute; inactive SEMS account is denied on the next API request.
+- Core records/final snapshots retain six years from round closure; interim export files expire within 30 days.
+- Application identity is UUID plus unique round/type/student business key; national ID is absent from Release 1 Core Flow.
+- Capacity load-test targets are ≤5 Admin accounts, ≥100 evaluator accounts, ≥50 concurrent users, ≥1,000 applications/round and ≤10 files/application; these are targets pending measurement, not observed facts.
+- Evaluator DTOs expose only own Evaluation plus slot/Submitted/minimum-completion counts.
 - PII classification, lawful need for national ID and production data masking
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed session, retention, backup, file-security, application-key, isolation and capacity constraints. |
 | v0.1 | 2026-07-23 | SEMS Architecture Team | Initial draft aligned with proposal and current design documents; open decisions retained. |

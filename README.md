@@ -4,12 +4,14 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.15** |
+| Current Version | **v1.16** |
 | Last Updated | **2026-07-24** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
 
 คลังเอกสารสำหรับการวิเคราะห์ ออกแบบ ทดสอบ และนำระบบ SEMS ขึ้นใช้งาน โดยจัดเอกสารตามวงจรการพัฒนาระบบ
+
+> **Release 1 baseline readiness:** confirmed stakeholder decisions are synchronized across Requirements, Design, API, Database, UI/UX and Testing. Formal approval remains pending because no approver/date/signature evidence is recorded.
 
 ## 🚦 เริ่มต้นอ่านเอกสาร
 
@@ -55,6 +57,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.16 | 2026-07-24 | SEMS Documentation Team | Synchronized the Release 1 baseline candidate and retained Pending Formal Approval status. |
 | v1.15 | 2026-07-24 | SEMS Documentation Team | Reclassified the stakeholder responses as confirmed, pending a formal record, and synchronized repository indexes. |
 | v1.14 | 2026-07-24 | SEMS Documentation Team | Added and indexed stakeholder questions and the advisor-answer simulation under Requirements meeting notes. |
 | v1.13 | 2026-07-24 | SEMS Documentation Team | Clarified pre-baseline status and synchronized embedded-point, canonical error-code, traceability and validation-document updates. |

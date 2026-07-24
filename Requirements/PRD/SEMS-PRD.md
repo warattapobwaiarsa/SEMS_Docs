@@ -3,9 +3,9 @@
 | Metadata | Value |
 | :--- | :--- |
 | Document ID | `SEMS-PRD-001` |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
-| Status | **Draft — Pending Stakeholder Approval** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
+| Status | **Baseline Candidate — Pending Formal Approval** |
 | Owner | SEMS Product Owner / Scholarship Office |
 
 ## Problem Statement
@@ -32,26 +32,28 @@
 
 KKU OAuth/OIDC, SEMS account/RBAC, scholarship round, applicant import `.xlsx`/`.csv`, applicant/document management, versioned criteria, evaluator selection, Draft/Review/Submit, scoring summary, third-evaluator recalculation, close/archive, dashboard, Excel/CSV export และ audit trail
 
-### Optional Features
+### Controlled Release 1 Features
 
-- `.xls` import (Out of Scope for Release 1)
-- Controlled reopen ของรอบ `CLOSED → OPEN` (Provisional)
-- Reopen ผล Submitted ตามผู้อนุมัติและเงื่อนไขที่ต้องยืนยัน
+- Evaluation reopen with request, independent approval, immutable prior revision and resubmission
+- Exceptional `CLOSED → OPEN` round reopen; `ARCHIVED` is never reopened
+- Controlled Correction after any Evaluation exists
+- Immutable final report snapshots with `Superseded` replacement history
+- Account pre-provisioning, evaluator isolation, code-list administration and file quarantine/malware scanning
 
 ### Out of Scope
 
-การจัดการรหัสผ่าน KKU, การจ่ายเงินทุน, mobile native app, การแทนระบบทะเบียนกลาง และการเก็บเลขบัตรประชาชนโดยไม่มีฐานกฎหมาย/ความจำเป็นที่ยืนยันแล้ว
+การจัดการรหัสผ่าน KKU, การจ่ายเงินทุน, mobile native app, การแทนระบบทะเบียนกลาง และ national ID ทุกกรณีใน Release 1 Core Flow. National ID is `Out of Scope for Release 1 — requires separate lawful-need and security approval`.
 
 ## Success Metrics
 
-ค่าตัวเลขเป้าหมายยังเป็น **Open Decision**; ตัวชี้วัดที่ต้องกำหนด ได้แก่อัตรา Import สำเร็จ เวลาประเมินต่อผู้สมัคร ความคลาดเคลื่อนรายงาน จำนวน incident ด้านสิทธิ์ และความครบถ้วนของ Audit
+Capacity design targets are recorded in RD-040, but are not measured facts. The current manual-process baseline and the proposed 50% improvement target remain `Confirmed Direction — Pending Measurement` under RD-045. Measure import success, evaluation time, reconciliation errors, authorization incidents, audit completeness, preparation/merge time, correction time, report time, staff count and rework.
 
 ## Constraints
 
 - Proposal ที่ได้รับอนุมัติเป็น Source of Truth สูงสุด
 - Next.js, NestJS, PostgreSQL และ Prisma ตามข้อเสนอ/แบบร่างสถาปัตยกรรม
 - ข้อมูลส่วนบุคคลต้องใช้เท่าที่จำเป็น แยกสิทธิ์ และไม่รั่วผ่าน Error/Log/Export
-- กฎคะแนนในปัจจุบันเป็น **Draft Provisional**
+- Confirmed stakeholder responses are the working decision source; formal baseline approval is still pending.
 
 ## Dependencies
 
@@ -61,19 +63,19 @@ KKU OAuth/OIDC registration และ claims, PostgreSQL, file/object storage, d
 
 | Risk | Mitigation |
 |---|---|
-| Requirement/สูตรคะแนนยังไม่อนุมัติ | คง Provisional, ใช้ decision register และห้าม freeze |
+| Formal baseline evidence absent | Keep approval pending and use the Decision Register as the baseline candidate |
 | PII ในไฟล์อ้างอิง | จำกัดการเข้าถึง ตรวจ source และแทนด้วย synthetic data เมื่อได้รับอนุญาต |
 | เลือกผู้ประเมินพร้อมกันเกิน 3 | Transaction, unique constraint/lock และ concurrency test |
 | Criteria เปลี่ยนย้อนหลัง | Version binding และ immutable referenced version |
 | Export ไม่ตรงฐานข้อมูล | Snapshot/as-of, reconciliation และ audit |
 
-## Open Decisions
+## Remaining external records and measurements
 
-ดู [Requirement Decision Register](../SEMS_Requirement_Decision_Register.md) และ [Traceability Matrix](../SEMS_Traceability_Matrix.md) โดยเฉพาะสูตรคะแนน การเปิดรอบโดยไม่มีผู้สมัคร Database Freeze Blockers, Reopen, KKU claims, retention และ export fields
+No Release 1 Critical/High decision remains Open. Formal approver names, approval dates, signatures/evidence, operational assignees, production endpoints/claims and the RD-040/RD-045 measurements remain external follow-up items; see the [Decision Register](../SEMS_Requirement_Decision_Register.md) and [Traceability Matrix](../SEMS_Traceability_Matrix.md).
 
 ## Milestones
 
-1. Requirement reconciliation และ Open Decision review
+1. Baseline candidate review and formal approval
 2. Requirement Baseline Approval
 3. System Design Review / Approval
 4. Implementation และ integration testing
@@ -82,10 +84,11 @@ KKU OAuth/OIDC registration และ claims, PostgreSQL, file/object storage, d
 
 ## Requirement Baseline Status
 
-**Not Ready for Approval** — ยังมี Provisional/Open Decisions, PII remediation และ trace/test gaps ที่ระบุใน `DOCUMENTATION_REVIEW_REPORT.md`
+**Ready for Formal Review; Pending Formal Approval** — confirmed responses are synchronized, but no verifiable approver/date/signature evidence exists.
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed Release 1 decisions, scope, measurements and baseline readiness without asserting approval. |
 | v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline PRD compiled from repository sources; no stakeholder approval asserted. |

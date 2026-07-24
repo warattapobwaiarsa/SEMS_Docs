@@ -5,7 +5,7 @@
 | Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
-| Status | **Draft — Pre-Baseline** |
+| Status | **Baseline Candidate — Pending Formal Approval** |
 | Workbook | [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](./SEMS_Data_Dictionary_Import_Mapping.xlsx) |
 
 ## ขอบเขต
@@ -19,8 +19,8 @@
 3. จับคู่ Source Column กับ Target Field
 4. กำหนด Normalize และ Validation Rule
 5. แยกข้อมูลหลายค่า เช่น กยศ. และทุนย้อนหลังเป็น Child Rows
-6. ยืนยัน Open Decisions
-7. ล็อก Baseline v1.0 แล้วนำไปทำ ER Diagram, Prisma Schema และ Import API
+6. Apply confirmed Decision Register rules and record remaining formal evidence/measurements
+7. Obtain formal baseline approval, then issue v1.0 and implement ER/Prisma/Import API
 
 ## Target Entities
 
@@ -46,18 +46,18 @@
 - รอบทุน (`round_id`) ให้ผู้ดูแลเลือกจากหน้าจอก่อน Import ไม่ต้องกรอกซ้ำในไฟล์
 - ข้อมูลดิบทุกแถวควรเก็บใน `import_rows.raw_payload` เพื่อ Audit
 
-## จุดที่ต้องยืนยันก่อน Baseline
+## Confirmed-response resolutions for the baseline candidate
 
-1. ผู้สมัครหนึ่งคนสมัครหลายประเภททุนในรอบเดียวได้หรือไม่
-2. วันที่สมัครเป็น Required หรือไม่
-3. ค่าอุปกรณ์การศึกษาเป็นต่อเดือน ต่อภาค หรือยอดรวม
-4. ต้องจัดเก็บเลขบัตรประชาชนหรือไม่
-5. Reference Values ทางการ
-6. ระยะเวลารองรับ Continuation Row
-7. Duplicate Import อัปเดตฟิลด์ใดได้บ้าง
-8. รูปแบบวันที่และโทรศัพท์ที่รองรับ
-9. ประวัติ กยศ./ทุนเป็นระดับ Applicant หรือ Snapshot ต่อรอบ
-10. รายการ Hard Required สุดท้าย
+1. Multiple scholarship types are allowed; key is `round_id + scholarship_type_id + student_id`.
+2. Application date is Required Before Evaluation.
+3. Education equipment is per semester; all amounts carry a period/unit.
+4. National ID is not stored in Release 1.
+5. Reference values use versioned database Code Lists.
+6. Continuation rows end after UAT and the first production transition round.
+7. Duplicate defaults Skip; explicit update only before Evaluation; Controlled Correction after.
+8. New dates are ISO; declared legacy formats normalize in Preview.
+9. Loan/scholarship histories are per-application round snapshots.
+10. Required levels follow RD-028.
 
 รายละเอียดครบถ้วนอยู่ในไฟล์ [`SEMS_Data_Dictionary_Import_Mapping.xlsx`](./SEMS_Data_Dictionary_Import_Mapping.xlsx) และฉบับอ่านบน GitHub แยกตามชีตอยู่ที่ [`SEMS_Data_Dictionary_Import_Mapping/README.md`](./SEMS_Data_Dictionary_Import_Mapping/README.md)
 

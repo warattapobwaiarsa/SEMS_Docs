@@ -39,12 +39,12 @@
 
 - **Alias ที่ยอมรับ:** title
 - **ปลายทาง:** `applicants.title`
-- **ระดับความจำเป็น:** Provisional Required
+- **ระดับความจำเป็น:** Required before Evaluation
 - **Parsing / Normalization:** Trim; Map กับ Code List
 - **Validation:** ต้องอยู่ในชุดค่าที่อนุญาต เช่น นาย/นาง/นางสาว/อื่น ๆ
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** นาย
-- **หมายเหตุ:** Current Data Dictionary กำหนด Required; รอยืนยัน RD-019
+- **หมายเหตุ:** ว่างได้ตอน Upload/Preview แต่ต้องครบก่อนเริ่ม Evaluation ตาม RD-019/Q-025
 
 ### 4. `D` - `ชือ`
 
@@ -105,18 +105,18 @@
 
 - **Alias ที่ยอมรับ:** application_date
 - **ปลายทาง:** `applicants.application_date`
-- **ระดับความจำเป็น:** Provisional Required
+- **ระดับความจำเป็น:** Required before Evaluation
 - **Parsing / Normalization:** Parse ISO/Excel Date/เดือนภาษาไทย; ถ้า พ.ศ. ให้ลบ 543; timezone Asia/Bangkok
 - **Validation:** ต้อง Parse ได้และไม่กำกวม
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** 09 ก.ค. 2569 13:36 → 2026-07-09T13:36:00+07:00
-- **หมายเหตุ:** รอยืนยันรายการรูปแบบที่รองรับ RD-020
+- **หมายเหตุ:** ใช้รูปแบบมาตรฐานและ documented legacy normalization ตาม RD-020/Q-030
 
 ### 10. `J` - `gpa`
 
 - **Alias ที่ยอมรับ:** GPA
 - **ปลายทาง:** `applicants.gpa`
-- **ระดับความจำเป็น:** Provisional Required
+- **ระดับความจำเป็น:** Required before Evaluation
 - **Parsing / Normalization:** ลบช่องว่าง; Decimal(3,2)
 - **Validation:** 0.00–4.00
 - **Continuation Row:** ต้องว่าง
@@ -239,7 +239,7 @@
 - **ปลายทาง:** `parent_information.monthly_income (parent_type=FATHER)`
 - **ระดับความจำเป็น:** Optional
 - **Parsing / Normalization:** ลบ comma/ช่องว่าง; Decimal(12,2)
-- **Validation:** >= 0; รอยืนยันหน่วยเป็นรายเดือน
+- **Validation:** >= 0; หน่วยบาทต่อเดือน
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** 1200
 - **หมายเหตุ:** 0 = ไม่มีรายได้; NULL = ไม่ทราบ/ไม่กรอก
@@ -283,7 +283,7 @@
 - **ปลายทาง:** `parent_information.monthly_income (parent_type=MOTHER)`
 - **ระดับความจำเป็น:** Optional
 - **Parsing / Normalization:** ลบ comma/ช่องว่าง; Decimal(12,2)
-- **Validation:** >= 0; รอยืนยันหน่วยเป็นรายเดือน
+- **Validation:** >= 0; หน่วยบาทต่อเดือน
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** 1200
 - **หมายเหตุ:** 0 = ไม่มีรายได้; NULL = ไม่ทราบ/ไม่กรอก
@@ -349,7 +349,7 @@
 - **ปลายทาง:** `education_support.supporter_monthly_income`
 - **ระดับความจำเป็น:** Conditional
 - **Parsing / Normalization:** ลบ comma/ช่องว่าง; Decimal(12,2)
-- **Validation:** >= 0; Required เมื่อมีข้อมูลผู้อุปการะ; รอยืนยันหน่วย
+- **Validation:** >= 0; Required เมื่อมีข้อมูลผู้อุปการะ; หน่วยบาทต่อเดือน
 - **Continuation Row:** ต้องว่าง
 - **ตัวอย่าง:** 15000
 - **หมายเหตุ:** -

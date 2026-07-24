@@ -157,7 +157,7 @@
 - **Role:** ADMIN
 - **Request:** Path + CSRF
 - **Response:** ScholarshipRound
-- **Validation:** สถานะเดิมต้อง DRAFT; ต้องมี Criteria Set ACTIVE, ผ่าน Pre-open Validation และมีผู้สมัครอย่างน้อย 1 ราย (**Provisional RD-023**)
+- **Validation:** สถานะเดิมต้อง DRAFT; ต้องมี Criteria Set ACTIVE, ผ่าน Pre-open Validation และมี Application อย่างน้อย 1 ราย; ไม่มี Application เป็น Blocking Error `NO_APPLICANTS`
 - **Error Code:** ROUND_NOT_FOUND, INVALID_ROUND_STATUS_TRANSITION, ACTIVE_CRITERIA_REQUIRED, NO_APPLICANTS, CSRF_INVALID
 - **Audit Event:** ROUND_OPENED
 
@@ -600,15 +600,31 @@ Source of Truth: [`SEMS_Error_Code_Catalog.md`](./SEMS_Error_Code_Catalog.md)
 
 Endpoint ต้องใช้ชื่อ canonical ใน catalog โดยเฉพาะ `DUPLICATE_EVALUATION`, `EVALUATOR_LIMIT_REACHED`, `EVALUATION_NOT_OWNER`, `INVALID_ROUND_STATUS_TRANSITION`, `UNSUPPORTED_FILE_TYPE` และ `traceId`.
 
-## 5. ประเด็นที่ต้องยืนยันก่อน Freeze API v1
+## 5. Confirmed-response API additions
 
-1. สูตรคะแนน น้ำหนัก คะแนนเต็ม และหลักการปัดเศษสุดท้าย
-2. Reopen Policy: ผู้อนุมัติ ช่วงเวลาที่อนุญาต และผลต่อรอบที่ปิดแล้ว
-3. ขนาดไฟล์สูงสุด, อายุไฟล์รายงาน, Rate Limit และ Retention Policy
-4. Claims ที่ KKU SSO ส่งจริง, Client Registration, Redirect URI และ Logout Mode
-5. รูปแบบ Fixed Template ของ Excel/CSV และคอลัมน์ที่ต้องแสดงตามสิทธิ์
+Every mutation below requires the SEMS session, CSRF token, object-level authorization, optimistic concurrency/idempotency where shown, canonical error envelope `{code, message, details, traceId, timestamp}`, and the listed audit event.
 
-## 6. ไฟล์ Machine-readable
+| Method / URL | Role and object authorization | Request / validation / concurrency | Response | Canonical errors | Audit event |
+|---|---|---|---|---|---|
+| `POST /evaluations/{id}/reopen-requests` | owner Evaluator; Admin only on behalf of owner | reason, reference, optional `onBehalfOf`; Submitted; normally Open round; idempotency key | request `PENDING` | `EVALUATION_NOT_FOUND`, `EVALUATION_NOT_OWNER`, `EVALUATION_NOT_SUBMITTED`, `REOPEN_NOT_ALLOWED`, `CONCURRENCY_CONFLICT` | `EVALUATION_REOPEN_REQUESTED` |
+| `POST /evaluation-reopen-requests/{id}/decision` | Head/delegate; technical Admin cannot decide own request | approve/reject, reason, expected version; preserve revision; return editable state to Draft | request + Evaluation | `FORBIDDEN`, `REOPEN_NOT_ALLOWED`, `CONCURRENCY_CONFLICT` | `EVALUATION_REOPEN_DECIDED` |
+| `POST /evaluations/{id}/resubmit` | Evaluation owner only | complete scores, confirmation, expected version; Embedded Point; after commit recalculate Submitted mean | Evaluation + Result Summary | existing submit errors | `EVALUATION_RESUBMITTED`, `RESULT_SUMMARY_RECALCULATED` |
+| `DELETE /evaluations/{id}` | Draft owner only | reason, expected version; soft-cancel atomically releases slot | `204` | existing cancel errors | `EVALUATION_CANCELLED` |
+| `POST /applications/{id}/controlled-corrections` | Admin with application access; independent approval when required | reason, before/after fields, expected version; identity triplet immutable | correction record | `APPLICANT_NOT_FOUND`, `FORBIDDEN`, `VALIDATION_ERROR`, `CONCURRENCY_CONFLICT` | `CONTROLLED_CORRECTION_CREATED` |
+| `POST /scholarship-rounds/{id}/reopen-requests` | Head/System Owner | reason, reference; Closed only; Archived rejected; idempotency key | request `PENDING` | `ROUND_NOT_FOUND`, `ROUND_ARCHIVED`, `INVALID_ROUND_STATUS_TRANSITION` | `ROUND_REOPEN_REQUESTED` |
+| `POST /round-reopen-requests/{id}/decision` | designated faculty approver | approve/reject, reason, expected version; supersede old Final snapshot atomically | request + Round | `FORBIDDEN`, `ROUND_ARCHIVED`, `CONCURRENCY_CONFLICT` | `ROUND_REOPEN_DECIDED`, `REPORT_SNAPSHOT_SUPERSEDED` |
+| `GET /scholarship-rounds/{id}/report-snapshots` | Admin with round access | filter status; immutable records | snapshots | `ROUND_NOT_FOUND`, `FORBIDDEN` | `REPORT_SNAPSHOT_LISTED` |
+| `POST /reports/exports` | Admin with round access | format XLSX/CSV, profile `INTERNAL_FULL`/`SUMMARY_MASKED`; idempotency key | export job | existing report errors | `REPORT_EXPORT_REQUESTED` |
+| `GET/POST /code-lists` | read: authorized users; mutate: Admin | version/concurrency; used values become Inactive, never deleted | code-list data | `FORBIDDEN`, `VALIDATION_ERROR`, `CONCURRENCY_CONFLICT` | `CODE_LIST_CHANGED` |
+| `GET /documents/{id}/scan-status` | user authorized for the application/document | no file bytes; state only | Quarantined/Scanning/Clean/Rejected/Unavailable | `DOCUMENT_NOT_FOUND`, `DOCUMENT_ACCESS_DENIED` | `DOCUMENT_SCAN_STATUS_VIEWED` |
+
+Confirmed limits: PDF 20 MB, JPG/PNG 10 MB, 10 applicant files, XLSX/CSV import 20 MB. Production download/view is denied until scan status is Clean. Evaluator responses expose only own Evaluation plus slot/Submitted/minimum-completion counts.
+
+## 6. Remaining external API records
+
+Formal approval evidence, KKU production client/claims/URIs, actual domains, rate limits based on measured traffic and infrastructure assignments remain pending. Scoring, reopen, report, retention, session and file-security business rules are no longer Open.
+
+## 7. ไฟล์ Machine-readable
 
 ดูรายละเอียด schema, request/response และ custom extensions (`x-roles`, `x-validation`, `x-error-codes`, `x-audit-events`) ใน [`openapi.yaml`](./openapi.yaml) และดูสรุป endpoint แบบตารางใน [`endpoint-matrix.csv`](./endpoint-matrix.csv)
 
@@ -616,6 +632,7 @@ Endpoint ต้องใช้ชื่อ canonical ใน catalog โดยเ
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Design Team | Added confirmed reopen/correction/round/report/code-list/scan contracts and object-authorization/concurrency/audit rules. |
 | v1.3 | 2026-07-24 | SEMS Design Team | Made the embedded-point total and arithmetic-mean summary formula explicit across submit and recalculation operations. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Standardized error catalog/aliases, Release 1 import types and provisional round-opening validation. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Initial API draft indexed for System Design Review. |

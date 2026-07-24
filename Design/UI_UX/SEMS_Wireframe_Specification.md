@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.2** |
+| Version | **v0.3** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — User Validation** |
@@ -308,18 +308,24 @@ flowchart TD
 - ปุ่มอันตรายใช้คำกริยาชัดเจน เช่น “ปิดรอบทุน” ไม่ใช้ “ตกลง”
 - ข้อผิดพลาดต้องบอกตำแหน่ง สาเหตุ และวิธีแก้
 
-## 10. Open Decisions for User Validation
+## 10. Confirmed Release 1 UI behavior
 
-1. หน้า Evaluator ควรแสดง GPA และสาขาในหน้าค้นหาหรือแสดงเฉพาะหลังเลือก
-2. ความคิดเห็นเป็น Required ทุกครั้งหรือ Required เฉพาะบางเกณฑ์
-3. ต้องการ Preview คะแนนรวมระหว่าง Draft หรือไม่
-4. รูปแบบเอกสารที่ต้องเปิดแบบ Side-by-side ระหว่างสัมภาษณ์
-5. Import ต้องอนุญาต Warning แล้วนำเข้าได้หรือไม่
-6. Admin แก้ข้อมูลผู้สมัครหลัง Import ได้ระดับใด
-7. Modal ปิดรอบต้องบังคับใส่เหตุผลหรือไม่
-8. Export ต้องมี Fixed Template กี่แบบ
-9. ต้องการให้ Evaluator เห็นว่ามีผู้ประเมินกี่คนแล้ว แต่ไม่เห็นชื่อหรือไม่
-10. ต้องการ Autosave ในรุ่นแรกหรือคง Manual Save ตาม Core Scope
+| Context | Required behavior |
+|---|---|
+| Application identity | Admin selects scholarship type; the same student may appear in multiple type-specific applications, each clearly labeled and independently evaluated. |
+| Open round | Pre-open panel shows Active Criteria, validation and applicant count. Zero applications is a Blocking Error. Open round import remains available. |
+| Correction | Normal update is available only before any Evaluation. After Draft/Submitted exists, score-affecting fields route to Controlled Correction with reason, before/after diff and approval status. |
+| Evaluation reopen | Owner sees Request Reopen; staff can request on behalf with actor/reason. Head/delegate sees Approve/Reject. Technical requester cannot self-approve. Approved work returns to Draft and shows prior revision read-only. |
+| Draft cancellation | Owner confirmation requires reason, explains slot release and states that history is retained. |
+| Close/reopen round | Incomplete close modal lists affected applications, warns no Final Score, and requires explicit confirmation/reason. Closed reopen is exceptional; Archived has no reopen action. |
+| Scoring | Custom Score accepts integer 0–10; reason appears only outside standard options/config. Custom Amount shows round/type ceiling and requires reason. Neither amount nor general comment appears in the 100-point total. |
+| Evaluator isolation | Evaluator sees own Evaluation plus slot count, Submitted count and minimum-completion status only; no peer identity, scores, comments or amount recommendation. |
+| Reports | Profile selector offers `INTERNAL_FULL` and `SUMMARY_MASKED`; Excel describes two sheets and CSV two files/optional ZIP. Snapshot history shows Final/Superseded and never offers overwrite/delete. |
+| Documents | Status badge shows Quarantined/Scanning/Clean/Rejected/Scanner unavailable. View/download is disabled until Clean. |
+| Session | Safe expiry message distinguishes idle/absolute expiry only as needed and sends user to login without rendering protected data. |
+| Data minimization | No national-ID field, column, filter, export option or sample value appears in Release 1 screens. |
+
+Remaining wireframe validation is usability only (layout, wording, document side-by-side behavior and autosave), not a Release 1 business-rule decision.
 
 ## 11. Definition of Done for Wireframe Approval
 
@@ -335,5 +341,6 @@ Wireframe ถือว่าผ่านเมื่อผู้แทน Admin 
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Added confirmed application, reopen/correction, report, isolation, quarantine, session and data-minimization UI behavior. |
 | v1.2 | 2026-07-23 | SEMS Design Team | Aligned Release 1 import file types with SRS/API. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Updated wireframe specification for user validation. |

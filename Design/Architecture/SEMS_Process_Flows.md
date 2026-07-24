@@ -502,7 +502,7 @@ flowchart TD
 
 ## 15. PF-EVA-003: Reopen Evaluation Flow
 
-> นโยบายที่แนะนำ: การ Reopen ต้องมีคำขอ เหตุผล ผู้อนุมัติ และประวัติเวอร์ชันเดิม ห้ามแก้ Submitted แบบ In-place โดยไม่มี Audit Trail
+> Confirmed response: owner requests (or staff acts on behalf with reason); Head/delegate independently approves; preserve immutable submitted revision; technical Admin cannot self-approve.
 
 ```mermaid
 flowchart TD
@@ -519,12 +519,12 @@ flowchart TD
     H -- ใช่ --> L["เริ่ม Transaction"]
     K --> L
     L --> M["เก็บ Snapshot ของ Submitted Version เดิม"]
-    M --> N["เปลี่ยน Submitted เป็น Reopened"]
+    M --> N["บันทึก Revision เดิมแบบ immutable<br/>และเปลี่ยนเป็น Reopened/Revision Pending"]
     N --> O["เปลี่ยนเป็น Draft สำหรับเจ้าของ Evaluation"]
     O --> P["บันทึกผู้อนุมัติ เหตุผล เวลา<br/>และ Reopen Version"]
     P --> Q["คำนวณ Result Summary ใหม่<br/>โดยไม่ใช้รายการที่ถูกเปิดแก้ไข"]
     Q --> R["Commit Transaction"]
-    R --> S["แจ้ง Evaluator ให้แก้ไข"]
+    R --> S["คืน editable copy เป็น Draft<br/>และแจ้ง Evaluator เจ้าของ"]
     S --> T["Evaluator แก้คะแนน/ความคิดเห็น"]
     T --> U["ดำเนิน Draft–Review–Submit Flow"]
     U --> V["เรียก Score Calculation Flow"]
@@ -621,10 +621,29 @@ flowchart TD
 8. ระยะเวลาจัดเก็บ Export File, Import File และ Audit Log
 9. รูปแบบ Logout ที่ใช้: ออกจาก SEMS เท่านั้น หรือ Full KKU SSO Logout
 
+## Confirmed additional controlled flows
+
+### PF-COR-001 — Controlled Correction
+
+`Admin request → verify application/version → reject student/round/type change → authorize → store before/after snapshot + reason → apply transaction → recalculate affected summaries → audit`.
+
+### PF-RND-002 — Round Reopen and report replacement
+
+`Head/System Owner request → designated approval → reject Archived → mark prior Final snapshot Superseded → reopen Closed round → permitted corrections/resubmissions → recalculate → create new immutable Final snapshot`.
+
+### PF-DOC-001 — Quarantine and malware scan
+
+`Validate extension/MIME/signature/size → store private Quarantined → scan → Clean enables authorized short-lived download; Rejected/Unavailable remains inaccessible → audit`.
+
+### PF-AUTH-004 — Pre-provisioned account and inactive account
+
+`KKU callback → find pre-provisioned SEMS account → bind stable sub on first login → deny USER_NOT_PROVISIONED or inactive → enforce 30-minute idle/8-hour absolute session → revoke on inactive`.
+
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.3 | 2026-07-24 | SEMS Design Team | Confirmed reopen and added Controlled Correction, round/report, quarantine and account/session flows. |
 | v1.2 | 2026-07-24 | SEMS Design Team | Aligned import and closed-round errors with module-specific canonical codes. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Standardized observability correlation on `traceId`. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial process flow specification draft. |

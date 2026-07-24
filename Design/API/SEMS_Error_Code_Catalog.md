@@ -47,7 +47,7 @@
 | `ROUND_NOT_OPEN` | 409 | กิจกรรมนี้ต้องใช้รอบ OPEN |
 | `INVALID_ROUND_STATUS_TRANSITION` | 409 | Transition ไม่อยู่ใน state machine |
 | `ACTIVE_CRITERIA_REQUIRED` | 409 | ไม่มี Active Criteria Set |
-| `NO_APPLICANTS` | 422 | ไม่มีผู้สมัครก่อนเปิดรอบ; **Provisional blocking rule** |
+| `NO_APPLICANTS` | 422 | ไม่มีผู้สมัครก่อนเปิดรอบ; confirmed Blocking Error per RD-023/Q-021 |
 | `DUPLICATE_EVALUATION` | 409 | ผู้ประเมินมี active evaluation เดิม |
 | `EVALUATOR_LIMIT_REACHED` | 409 | มี active evaluator ครบ 3 |
 | `EVALUATION_NOT_OWNER` | 403 | ไม่ใช่เจ้าของ evaluation |
@@ -82,6 +82,17 @@
 | `EVALUATION_NOT_OWNED` | `EVALUATION_NOT_OWNER` |
 
 Retired aliases ห้ามปรากฏใน contract ใหม่ และใช้ได้เฉพาะ revision history ที่อธิบายการย้ายชื่อ
+
+## Confirmed-response reuse rules
+
+- Reopen request/decision reuses `EVALUATION_NOT_FOUND`, `EVALUATION_NOT_OWNER`, `EVALUATION_NOT_SUBMITTED`, `REOPEN_NOT_ALLOWED`, `FORBIDDEN` and `CONCURRENCY_CONFLICT`.
+- Controlled Correction reuses `APPLICANT_NOT_FOUND`, `VALIDATION_ERROR`, `FORBIDDEN` and `CONCURRENCY_CONFLICT`.
+- Round reopen reuses `ROUND_NOT_FOUND`, `ROUND_ARCHIVED`, `INVALID_ROUND_STATUS_TRANSITION`, `FORBIDDEN` and `CONCURRENCY_CONFLICT`.
+- Report snapshots reuse `REPORT_EXPORT_NOT_FOUND`, `REPORT_NOT_READY`, `REPORT_EXPIRED`, `FORBIDDEN` and `CONCURRENCY_CONFLICT`.
+- Code-list validation reuses `VALIDATION_ERROR`, `FORBIDDEN` and `CONCURRENCY_CONFLICT`.
+- Scan status reuses `DOCUMENT_NOT_FOUND`, `DOCUMENT_ACCESS_DENIED` and `FILE_STORAGE_ERROR`.
+
+No aliases were created; all responses retain `{ code, message, details, traceId, timestamp }`.
 
 ## Allowed Code Inventory
 

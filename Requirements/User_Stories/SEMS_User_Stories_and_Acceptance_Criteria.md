@@ -1,8 +1,8 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.3"
-status: "Draft — รอยืนยัน Requirement Baseline"
+version: "v0.4"
+status: "Baseline Candidate — Pending Formal Approval"
 last_updated: 2026-07-24
 owner: SEMS Project Team
 author: SEMS Requirements Team
@@ -44,7 +44,7 @@ Acceptance Criteria ใช้โครงสร้าง **Given / When / Then**
 5. ข้อผิดพลาดต้องมี `error_code` ที่คงที่และข้อความภาษาไทยที่ผู้ใช้เข้าใจได้
 6. ข้อมูลผู้สมัครและเอกสารต้องจำกัดตามบทบาท รอบทุน และความเป็นเจ้าของ Evaluation
 7. การคำนวณและ Visualization ด้านคะแนนใช้เฉพาะ Evaluation สถานะ `Submitted` ที่ยังไม่ถูกยกเลิก
-8. ข้อกำหนดที่ยังไม่ผ่านการยืนยันถูกทำเครื่องหมาย `[รอยืนยัน ...]` และไม่ควร Freeze เป็น Baseline จนกว่าผู้มีอำนาจจะอนุมัติ
+8. Confirmed responses may define the baseline candidate; formal approval evidence is still required before Freeze/Approved status.
 
 ## Definition of Ready
 
@@ -61,7 +61,7 @@ Story ถือว่าเสร็จเมื่อ:
 - ไม่มี Critical Defect ที่ขัดขวาง Core Flow
 - เอกสาร API, Data Model หรือคู่มือได้รับการปรับปรุงเมื่อ Story ทำให้พฤติกรรมระบบเปลี่ยน
 
-## Open Decisions ที่กระทบชุด Story นี้
+## Confirmed decisions that govern this story set
 
 | Decision | ประเด็น | Story ที่ได้รับผลกระทบ |
 |---|---|---|
@@ -84,6 +84,49 @@ Story ถือว่าเสร็จเมื่อ:
 - [`Criteria.xlsx`](../../Design/Criteria/Criteria.xlsx)
 - `kku-oauth-summary.md`
 
+
+## Confirmed-response Release 1 stories
+
+### US-APP-004 — Multiple scholarship applications
+
+- **Given** student `S1` already has an application for type `T1` in round `R1`, **when** Admin imports type `T2`, **then** a separate application is created.
+- **Given** `(R1,T1,S1)` already exists, **when** the same triplet is imported, **then** default action is Skip and automatic Upsert never occurs.
+
+### US-COR-001 — Controlled Correction
+
+- **Given** no Evaluation exists, **when** Admin explicitly updates mutable data, **then** the update succeeds without changing student, round or type.
+- **Given** any Draft/Submitted Evaluation exists, **when** score-affecting data changes, **then** normal update is rejected and Controlled Correction requires authorization, reason, before/after snapshot and audit.
+
+### US-EVA-010 — Reopen and cancel
+
+- **Given** an owned Submitted Evaluation before round close, **when** owner/staff submits a reasoned request and an independent Head/delegate approves, **then** prior submission becomes an immutable revision and editable work returns to Draft.
+- **Given** a reopened Evaluation is resubmitted, **then** the Result Summary recalculates from current Submitted totals.
+- **Given** an owned Draft, **when** evaluator cancels with reason, **then** state is Cancelled, the row remains, an audit event is written and the slot is released atomically.
+
+### US-RND-004 — Controlled close and reopen
+
+- **Given** incomplete applications, **when** Admin closes, **then** the UI warns, lists them, requires explicit confirmation/reason, marks them Closed Incomplete and produces no Final Score.
+- **Given** a Closed round, **when** an approved exceptional reopen occurs, **then** the old Final report is immutable and Superseded.
+- **Given** an Archived round, **when** reopen is attempted, **then** access is denied.
+
+### US-RPT-003 — Report profiles and snapshots
+
+- **Given** authorized Admin, **when** exporting, **then** Excel has Summary/Evaluator Detail and CSV has two files (optionally ZIP), using `INTERNAL_FULL` or `SUMMARY_MASKED`.
+- **Given** an evaluator, **when** requesting another evaluator’s identity, scores, comments or amount recommendation, **then** the system returns no restricted data.
+- **Given** an interim export older than 30 days, **then** its file is unavailable while audit metadata remains.
+- **Given** a Final snapshot, **when** overwrite/delete is attempted, **then** the mutation is rejected.
+
+### US-SEC-004 — Account, session and file safety
+
+- **Given** a KKU user without a pre-provisioned SEMS account, **when** login completes, **then** `USER_NOT_PROVISIONED` is shown and no role is granted.
+- **Given** 30 minutes idle or 8 hours absolute lifetime, **when** the next protected action occurs, **then** the session expires with a safe message.
+- **Given** an inactive SEMS account, **when** the next API request occurs, **then** access is denied.
+- **Given** an invalid/oversize/MIME-mismatched file, **then** upload is rejected; otherwise production content remains Quarantined until malware scan passes.
+
+### US-DAT-005 — Release 1 data minimization
+
+- **Given** import, UI, API, database, export, log or test data, **when** national ID is encountered, **then** it is rejected/not persisted/not rendered and the check fails.
+- **Given** round/type Criteria configuration adds `required_before_evaluation`, **when** data is missing, **then** Evaluation creation is blocked without a source-code change.
 
 <div style="page-break-after: always;"></div>
 
@@ -230,7 +273,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### Notes / Open Decisions
 
-- [รอยืนยัน] เลือก Per-application logout หรือ Full SSO logout เป็นนโยบายมาตรฐานของ SEMS
+- Default logout ends the SEMS application session; optional full KKU logout is shown only when KKU supports it and the user explicitly confirms.
 
 ---
 
@@ -324,7 +367,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### Notes / Open Decisions
 
-- [รอยืนยัน KKU SSO] Claim ถาวรที่ใช้เป็น Unique Identity เช่น `sub` และวิธีตรวจกรณีบุคลากรเปลี่ยนอีเมล
+- KKU `sub` is the stable identity; email is display/contact data and never the primary identity.
 
 ---
 
@@ -458,7 +501,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** เงื่อนไขเปิดรอบครบ
 - **When:** Admin ยืนยันเปลี่ยนเป็น Open
-- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Open` และอนุญาต Evaluator ที่ Active ค้นหาและเลือกผู้สมัคร โดย Baseline ชั่วคราวกำหนดให้มี Applicant ≥1 (**Provisional RD-023**)
+- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Open` และอนุญาต Evaluator ที่ Active ค้นหา/เลือก Application; pre-open requires Application ≥1 and zero is Blocking `NO_APPLICANTS`
 #### US-RND-002-AC-04
 
 - **Given:** รอบเป็น Open
@@ -510,7 +553,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** มีความจำเป็นต้องนำ Archived กลับมาใช้งาน
 - **When:** Admin ร้องขอเปลี่ยนสถานะ
-- **Then:** [รอยืนยัน] ต้องเป็นไปตามนโยบาย Reopen Round และบันทึกเหตุผล/ผู้อนุมัติ
+- **Then:** exceptional Round Reopen requires request, reason/reference, designated approval and Audit; Archived is rejected and prior Final report becomes Superseded
 
 ---
 
@@ -660,7 +703,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** ผู้สมัครซ้ำกับฐานข้อมูลในรอบเดียวกัน
 - **When:** ยังไม่มี Evaluation
-- **Then:** ค่าเริ่มต้นต้อง Skip และ [รอยืนยัน RD-018] อนุญาต Update เฉพาะเมื่อ Admin เลือกอย่างชัดเจนและมี Audit ค่าเดิม/ใหม่
+- **Then:** ค่าเริ่มต้นต้อง Skip; never auto-Upsert; explicit Update เฉพาะก่อนมี Evaluation; หลังจากนั้นใช้ Controlled Correction พร้อม before/after Audit
 #### US-IMP-003-AC-04
 
 - **Given:** ผู้สมัครซ้ำและมี Evaluation แล้ว
@@ -733,7 +776,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### Notes / Open Decisions
 
-- [รอยืนยัน] ขนาดไฟล์สูงสุด จำนวนไฟล์ต่อผู้สมัคร การสแกน Malware และนโยบายลบ/Retention
+- PDF 20 MB, JPG/PNG 10 MB, 10 files/application, import 20 MB; production files stay Quarantined until malware scan passes.
 
 ---
 
@@ -886,8 +929,8 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### Notes / Open Decisions
 
-- [รอยืนยัน RD-012] Template เริ่มต้น 10 หัวข้อรวม 100 คะแนน
-- [รอยืนยัน RD-013] เกณฑ์ดุลพินิจรับจำนวนเต็ม 0–10 หรือเฉพาะ 0/5/10
+- Confirmed: Template เริ่มต้น 10 scoring criteria รวม 100 คะแนน.
+- Confirmed: เกณฑ์ดุลพินิจรับจำนวนเต็ม 0–10; non-standard option requires reason.
 
 ---
 
@@ -1054,7 +1097,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน |
-| Priority | Should — รอยืนยัน |
+| Priority | Should |
 | Decision Reference | RD-009 |
 
 ### User Story
@@ -1074,7 +1117,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** เจ้าของ Draft เลือกยกเลิก
 - **When:** ยืนยันใน Dialog
-- **Then:** [รอยืนยัน RD-009] ระบบต้องเปลี่ยนสถานะเป็น `Cancelled` แบบ Soft Delete และไม่ลบประวัติ
+- **Then:** ระบบต้องเปลี่ยนสถานะเป็น `Cancelled` แบบ Soft Delete, ไม่ลบประวัติ, Audit และคืน slot atomically
 #### US-SEL-003-AC-02
 
 - **Given:** ยกเลิกสำเร็จ
@@ -1198,7 +1241,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 ### Notes / Open Decisions
 
-- [รอยืนยัน] ความคิดเห็นรวมเป็น Required หรือไม่ และ Criterion ใดต้องมีเหตุผลประกอบ
+- Overall comment is optional; reason is required for non-standard Custom Score, Custom Amount, reopen/cancel/override/correction, or criterion configured `comment_required=true`.
 
 ---
 
@@ -1373,7 +1416,7 @@ Story ถือว่าเสร็จเมื่อ:
 | รายการ | รายละเอียด |
 |---|---|
 | Actor | อาจารย์ผู้ประเมิน / ผู้ดูแลระบบ / ผู้อนุมัติ |
-| Priority | Should — รอยืนยัน |
+| Priority | Should |
 | Decision Reference | RD-008 |
 
 ### User Story
@@ -1393,7 +1436,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** เจ้าของ Evaluation หรือ Admin สร้างคำขอ
 - **When:** กรอกเหตุผลและข้อมูลอ้างอิงครบ
-- **Then:** [รอยืนยัน RD-008] ระบบต้องสร้าง Reopen Request สถานะ Pending โดยยังไม่ปลดล็อกคะแนน
+- **Then:** ระบบต้องสร้าง Reopen Request สถานะ Pending โดยยังไม่ปลดล็อกคะแนน; Head/delegate decision is independent
 #### US-SUB-003-AC-02
 
 - **Given:** ผู้มีอำนาจอนุมัติอนุมัติคำขอ
@@ -1462,7 +1505,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** Criterion มีน้ำหนัก
 - **When:** คำนวณ
-- **Then:** [รอยืนยัน RD-010] ระบบต้องใช้สูตรตาม Scoring Rule Specification และไม่ Hardcode สูตรต่างจาก Version
+- **Then:** ระบบต้องใช้ Embedded Point sum and equal-weight 2–3 Submitted arithmetic mean from the bound Criteria Version
 #### US-SCR-001-AC-04
 
 - **Given:** เกิดคะแนนผิดช่วง ข้อมูลเกณฑ์ไม่ครบ หรือสูตรไม่พร้อม
@@ -1525,7 +1568,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** สูตรและการปัดเศษถูกกำหนด
 - **When:** คำนวณ
-- **Then:** [รอยืนยัน RD-010/RD-011] ใช้สูตรเดียวกันกับ Report และ Dashboard และเก็บ Calculation Version/Inputs เพื่อ Audit
+- **Then:** ใช้สูตรเดียวกันกับ Report/Dashboard, retain full precision, round only applicant summary with `ROUND_HALF_UP`, and keep calculation version/inputs
 
 ---
 
@@ -1680,7 +1723,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** มี Reopen ที่ได้รับอนุมัติภายหลัง
 - **When:** ข้อมูล Submitted เปลี่ยนและรอบถูกปิดใหม่
-- **Then:** [รอยืนยัน RD-008] ระบบต้องคำนวณและ Finalize ใหม่พร้อมเก็บ Revision/Audit เดิม
+- **Then:** ระบบต้องคำนวณและ Finalize ใหม่พร้อมเก็บ immutable Revision/Audit เดิมและ Superseded report history
 
 ---
 
@@ -1873,12 +1916,12 @@ Story ถือว่าเสร็จเมื่อ:
 
 - **Given:** Admin เลือก Template มาตรฐาน
 - **When:** ระบบสร้างไฟล์
-- **Then:** ต้องส่งออกเฉพาะคอลัมน์ที่กำหนดและไม่รวมเลขบัตรประชาชนหรือข้อมูล Restricted โดยค่าเริ่มต้น
+- **Then:** ต้องส่งออกเฉพาะคอลัมน์ที่กำหนด; Release 1 ห้ามมีเลขบัตรประชาชนและ standard export ห้ามมี applicant contact information
 #### US-RPT-002-AC-02
 
 - **Given:** Template มีข้อมูล Contact/Restricted
 - **When:** Admin ขอ Export
-- **Then:** [รอยืนยัน RD-022] ระบบต้องตรวจ Permission เพิ่มเติมและอาจบังคับกรอกเหตุผล/วัตถุประสงค์
+- **Then:** ระบบตรวจ profile permission; evaluator cannot export peer data; standard export excludes national ID and applicant contact information
 #### US-RPT-002-AC-03
 
 - **Given:** Export สำเร็จ
@@ -1915,6 +1958,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.4 | 2026-07-24 | SEMS Requirements Team | Added measurable confirmed-response stories for multi-type applications, corrections, reopen/cancel, report lifecycle, account/session/file safety and data minimization. |
 | v0.3 | 2026-07-24 | SEMS Requirements Team | Replaced retired/non-canonical import aliases with the central allowed error-code inventory. |
 | v0.2 | 2026-07-23 | SEMS Requirements Team | Replaced nonexistent per-module files with stable section anchors, linked the central traceability matrix, limited Release 1 import, and aligned provisional round opening. |
 | v0.1 | 2026-07-23 | SEMS Requirements Team | Initial consolidated user stories and acceptance criteria draft. |

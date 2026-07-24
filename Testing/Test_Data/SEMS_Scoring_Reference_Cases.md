@@ -3,9 +3,9 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-SCORE-DATA-001` |
-| Version | **v0.1** |
-| Last Updated | **2026-07-23** |
-| Status | **Draft Provisional — Pending Scholarship Office Approval** |
+| Version | **v0.2** |
+| Last Updated | **2026-07-24** |
+| Status | **Confirmed Response — Pending Formal Approval** |
 
 กฎ: `EMBEDDED_POINT`; คะแนน option เป็นคะแนนหลังถ่วงน้ำหนักแล้ว, `weight_percent` เป็น metadata และห้ามคูณซ้ำ ใช้ Decimal, Submitted ที่ผู้ประเมินไม่ซ้ำ 2–3 คนเท่านั้น และปัด Applicant Summary สุดท้าย 2 ตำแหน่งแบบ `HALF_UP`
 
@@ -37,10 +37,13 @@
 - Embedded point case `75` remains `75`; multiplying by weight again is a failure.
 - Every current required criterion gives minimum total **5**, not 0, because `CRT-04` minimum is 5.
 - Criteria version on every score row must match the Evaluation binding; mismatch returns `CRITERION_VERSION_MISMATCH`.
+- Criteria Version is locked from the first Evaluation creation, including Draft; every later revision remains bound to that version.
+- Custom discretion score is an integer 0–10; a non-standard option needs a reason. Custom Amount and general comments never enter the 100-point total.
 - Rounding engine boundary fixture: Decimal totals `80.00` and `80.01` average to `80.005` and must produce `80.01` with `HALF_UP`. This fixture tests the Decimal/rounding function, not the current integer-only option set.
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS QA Team | Confirmed scoring status and added criteria-lock/custom-score/non-scoring assertions. |
 | v0.1 | 2026-07-23 | SEMS QA Team | Added provisional min/max, two/three evaluator, exclusion, embedded-point, version and rounding reference cases. |

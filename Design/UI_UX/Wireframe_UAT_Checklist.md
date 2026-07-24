@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Version | **v1.1** |
+| Version | **v0.2** |
 | Last Updated | **2026-07-23** |
 | Author | **SEMS Design Team** |
 | Status | **Draft — Ready for UAT** |
@@ -80,12 +80,27 @@
 - [ ] Admin Representative Approved
 - [ ] Evaluator Representative Approved
 - [ ] Requirement Owner Approved
-- [ ] Open Decisions ได้รับคำตอบหรือมีผู้รับผิดชอบ/กำหนดเวลา
+- [ ] Confirmed Release 1 rules are represented; formal baseline approval evidence remains separate
 - [ ] Critical และ Major Issues ถูกแก้ใน Wireframe รุ่นถัดไป
+
+## F. Confirmed-response scenario checks
+
+- [ ] Same student can be shown under two scholarship types without merging applications.
+- [ ] Zero-applicant pre-open validation blocks Open; Open-round import remains available.
+- [ ] Incomplete close lists affected applications and requires confirmation/reason.
+- [ ] Reopen request, independent decision and returned Draft revision are understandable.
+- [ ] Controlled Correction shows before/after and does not allow student/round/type change.
+- [ ] Custom Score/Amount reason and amount ceiling validations are visible.
+- [ ] Evaluator cannot see peer identity, scores, comments or amount recommendation.
+- [ ] Report profile and Final/Superseded snapshot states are clear.
+- [ ] Quarantined/Scanning content cannot be opened or downloaded.
+- [ ] Idle/absolute session expiry returns safely to login.
+- [ ] No national ID appears anywhere in the Release 1 flow.
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.2 | 2026-07-24 | SEMS Design Team | Added confirmed-response UAT scenarios; approval remains pending. |
 | v1.1 | 2026-07-23 | SEMS Design Team | Removed trailing whitespace for automated documentation checks; approval remains pending. |
 | v1.0 | 2026-07-23 | SEMS Design Team | Initial wireframe UAT checklist draft. |

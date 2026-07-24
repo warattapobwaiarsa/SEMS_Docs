@@ -26,6 +26,7 @@
 6. ตรวจสอบไฟล์นำเข้า 37 คอลัมน์ รวมถึงผู้สมัครหนึ่งคนที่กินพื้นที่หลายแถว
 7. ป้องกันการเข้าถึงข้อมูลและเอกสารนอกสิทธิ์
 8. ยืนยันว่า Dashboard, Result Summary, Excel และ CSV ตรงกับฐานข้อมูล
+9. ยืนยัน multi-scholarship business key, Controlled Correction, reopen/revision, report snapshots, retention, session, quarantine/malware scanning, backup/restore and national-ID absence
 
 ## 2. Test Basis
 
@@ -43,7 +44,7 @@
 - กรณี Draft, Submitted 2 คน, Submitted 3 คน และผู้ประเมินคนที่ 4 ถูกต้องทุกกรณี
 - Import ตรวจพบข้อมูลไม่ครบ ผิดรูปแบบ ซ้ำ และ continuation row ผิดกฎ
 - Excel/CSV, Dashboard และ Result Summary ตรงกับฐานข้อมูล
-- UAT โดยตัวแทน Evaluator อย่างน้อย 2 คน และ Admin/เจ้าหน้าที่อย่างน้อย 2 คนสำเร็จโดยไม่มี Critical Defect
+- UAT โดย Evaluator อย่างน้อย 2 คน, Admin/เจ้าหน้าที่อย่างน้อย 2 คน และ IT/Infrastructure อย่างน้อย 1 คนสำหรับ deployment/backup scenario สำเร็จโดยไม่มี Critical Defect
 
 ## 4. ขอบเขตการทดสอบ
 

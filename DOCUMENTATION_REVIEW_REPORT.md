@@ -3,154 +3,189 @@
 | Metadata | Value |
 |---|---|
 | Document ID | `SEMS-DOC-REVIEW-001` |
-| Version | **v0.3** |
+| Version | **v0.4** |
 | Last Updated | **2026-07-24** |
-| Status | **Draft — Pending Stakeholder Review** |
-| Review Scope | Requirements, Design, API/OpenAPI, Database, UI/UX, Testing, Deployment, binary reference files and repository indexes |
-| Current Branch | `main` |
-| Current Commit SHA | `feed2c1c2854857634f9a59a9aebbfa55b9a5e1d` (review-start baseline; follow-up SHA is reported after commit) |
-| Review Date | **2026-07-24** |
-| Validation Status | **Partial — local links, versions, JSON, structural OpenAPI metadata and error inventory passed; Redocly execution unavailable** |
-| Approval Status | **Pending** |
+| Status | **Ready for Formal Stakeholder Review — Pending Formal Approval** |
+| Review Scope | Requirements, architecture, API/OpenAPI, data model, scoring, UI/UX, testing, deployment, workbooks and repository indexes |
+| Branch | `main` |
+| Review-start Commit | `f7bc385` |
+| Approval Status | **Pending — no approver name, decision date or signed record was supplied** |
 
-## Executive Summary
+## 1. Executive Summary
 
-การปรับปรุงเอกสารชุดนี้อยู่บน Branch `main` แล้ว การมีเอกสารบน `main` ไม่ได้หมายความว่า Requirement Baseline, System Design หรือ Production Readiness ได้รับการอนุมัติ เอกสารยังเป็น pre-baseline: User Stories ใช้ consolidated source พร้อม stable anchors, error contract/code ใช้มาตรฐานเดียว, round/import/scoring rules ตรงกันในเอกสารที่เกี่ยวข้อง และ core traceability มี test link ครบ 17/17 flows
+The repository has been synchronized with the 61 responses in
+[`SEMS_Stakeholder_Responses.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md).
+The Decision Register is now the working source of truth for confirmed business direction,
+while preserving superseded proposals and the absence of formal approval evidence.
 
-**ยังไม่พร้อม Freeze/Approve** เพราะพบไฟล์ที่อาจมี PII จริง, Open Decisions ด้านคะแนน/ฐานข้อมูล/การเปิดรอบยังไม่อนุมัติ และยังไม่ได้ผลจาก independent OpenAPI 3.1 validator ในเครื่องนี้
+The documentation set is **ready for formal stakeholder review**. It is **not an approved
+Requirement Baseline, approved System Design, or production-readiness declaration**.
+No Release 1 Critical/High business-rule decision remains Open; the remaining gaps require
+formal signatures, external configuration, measured evidence, or test execution.
 
-## Critical
+## 2. Readiness Assessment
 
-### C-01 Potential real PII in public repository — Open
-
-ห้าม Push/Public ต่อจนเจ้าของข้อมูลยืนยันและอนุมัติ remediation:
-
-| File | Data Type | Likely Real/Synthetic/Unknown | Public Risk | Required Action | Owner |
-|---|---|---|---|---|---|
-| `README.md` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or redact from the public copy | Project Authors |
-| `Requirements/Proposal/SEMS-project-proposal.md` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or redact from the public copy | Project Authors |
-| `Requirements/Proposal/SEMS-project-proposal.pdf` | Personal data of project authors — publication requires owner consent | Unknown — Requires Owner Confirmation | High | Record consent or replace the public PDF after approval; do not overwrite the source binary automatically | Project Authors |
-| `Design/Criteria/Criteria.xlsx` | Applicant-like student ID, national ID and email | Unknown — Requires Data Owner Confirmation | Critical | Temporarily make the repository private until confirmed synthetic or an approved sanitized public copy replaces it | Data Owner / Scholarship Office |
-| Data Dictionary and Import Mapping Markdown/workbooks | Applicant-like ID, phone, email, address, coordinates, income, financial and family examples | Unknown — Requires Data Owner Confirmation | Critical | Confirm all examples are synthetic before public release; sanitize an approved copy if not | Data Owner |
-| UI placeholder/reference data | Applicant-like names and profile attributes | Unknown — Requires Data Owner Confirmation | Critical | Confirm the source is synthetic before public release | Product Owner / Data Owner |
-
-ไม่ได้ลบหรือแก้ไฟล์ต้นฉบับตามข้อห้ามของงานนี้ และไม่มีหลักฐานเพียงพอให้กล่าวว่าเกิด Data Breach ข้อเสนอ: หยุดเผยแพร่ไฟล์ที่อาจเป็นข้อมูลผู้สมัครจริง, จำกัดสิทธิ์, ทำสำเนาสำรองที่ควบคุมการเข้าถึง และแทน public copy ด้วย synthetic names/IDs/national ID/phone/email/address/coordinates/income/financial/family data หลังได้รับอนุญาต
-
-## High
-
-- **H-01 OpenAPI independent validation pending:** structural audit วันที่ 2026-07-24 พบ 60 operations, 60 unique `operationId`, ทุก endpoint มี `x-roles`, ทุก mutation 33 รายการมี CSRF + audit metadata และ OpenAPI/endpoint matrix ใช้ Allowed Inventory ตรงกัน 90 codes; แต่ Redocly CLI รันไม่ได้เพราะการอนุมัติ external package execution ถูกปฏิเสธ จึงห้ามระบุว่า OpenAPI ผ่าน Redocly/OpenAPI 3.1 validator จน CI หรือผู้ใช้รันคำสั่งสำเร็จ
-- **H-02 Database Freeze Blockers open:** RD-024–RD-029 ยังไม่มีข้อสรุป; schema คง Draft
-- **H-03 Scoring rule provisional:** EMBEDDED_POINT, 5–100, arithmetic mean, third evaluator recalculation, Decimal/HALF_UP ยังรอ Scholarship Office approval
-- **H-04 Round opening provisional:** Applicant ≥1 เป็น Blocking Error ชั่วคราวตาม RD-023; งานทุนต้องเลือกระหว่าง Blocking กับ Warning
-- **H-05 PII examples requiring classification:** Data Dictionary/import-mapping workbooksและ Markdown มีรูปแบบ ID/phone/email ที่ดูเป็นตัวอย่าง (`student@example.com`/เลขทดสอบ) แต่ต้องให้ Data Owner ยืนยันว่า synthetic ก่อน Public release
-
-## Medium
-
-- Deployment ยังไม่มี setup/operations/user manuals; มีเพียง architecture considerations
-- Mermaid diagrams ใช้ syntax ที่ GitHub รองรับ แต่ยังไม่มี local automated Mermaid parser ในผลรอบนี้
-- Full row-level traceability ของ SRS/AC ทั้งหมดไม่ครบ; matrix ปัจจุบันครอบคลุม core flows เท่านั้น
-- UI overview แสดง placeholder applicant data; visual review ไม่พบข้อมูลที่ยืนยันว่าเป็นบุคคลจริง แต่ต้องยืนยันแหล่ง synthetic data
-
-## Low
-
-- ชื่อ `README.md` ซ้ำตามโครงสร้างโฟลเดอร์เป็นเรื่องปกติ; automated check ตรวจ case-colliding relative path แทนการห้าม basename `README.md`
-- เวอร์ชัน pre-baseline เดิมมีทั้ง v0.x/v1.x/v2.x; policy ใหม่รักษาประวัติเดิมและห้ามใช้เลขเวอร์ชันเป็นหลักฐานอนุมัติ
-
-## Fixed
-
-- Decision Register index mismatch: document/index/tree ใช้ v1.2 ตรงกัน
-- Documentation Policy รองรับ `v0.x` Working Draft/Pre-baseline และสงวน v1.0 สำหรับ First Approved/Official Release
-- User Stories index เปลี่ยนจากไฟล์ที่ไม่มีจริงเป็น stable section anchors; traceability ใช้ไฟล์กลางไม่คัดลอกซ้ำ
-- Error response เป็น `{code,message,details[],traceId,timestamp}` และ OpenAPI ใช้ schema กลาง
-- Canonical aliases: `DUPLICATE_EVALUATION`, `EVALUATOR_LIMIT_REACHED`, `EVALUATION_NOT_OWNER`
-- Round state baseline เป็น `DRAFT → OPEN → CLOSED → ARCHIVED`; ไม่มี `DRAFT → ARCHIVED`; controlled reopen เป็น Provisional; Archived read-only
-- Release 1 import รับ `.xlsx`/`.csv`; `.xls` เป็น Optional / Out of Scope
-- Scoring test range แก้เป็น 5–100; เพิ่ม embedded-point, min/max, 2/3 evaluator, rounding, exclusion, recalculation and version-binding reference cases
-- Functional Test Catalog เพิ่ม `Linked Requirement` และ `Linked Decision`
-- Database document เพิ่ม Database Freeze Blockers
-- เพิ่ม PRD, System Architecture, approval/meeting templates, error catalog, traceability matrix, scoring reference data และ documentation workflow/scripts
-
-## Pending Stakeholder Decision
-
-1. RD-023: ไม่มี Applicant ก่อนเปิดรอบเป็น Blocking หรือ Warning
-2. RD-024: ผู้สมัครหนึ่งคนสมัครหลายประเภททุนในรอบเดียวได้หรือไม่
-3. RD-025: Business Key รวม `scholarship_type_id` หรือไม่
-4. RD-026: Loan/Scholarship History เป็น Applicant-level หรือ per-round snapshot
-5. RD-027: Duplicate Applicant update fields ใดได้และถึงจุดใด
-6. RD-028: Required fields ขั้นสุดท้าย
-7. RD-029: ความจำเป็น/ฐานกฎหมาย/retention/access ของเลขบัตรประชาชน
-8. RD-008–RD-014: Reopen, scoring formula, HALF_UP, criteria/custom score rules
-9. KKU claims/client registration/redirect/logout, session timeout, retention, rate/file limits
-10. Export fields/template, snapshot/as-of policy และ report retention
-
-## Validation Results
-
-| Check | Before | After / Current Result |
+| Area | Assessment | Reason |
 |---|---|---|
-| Broken relative file paths | 0 | PASS — checked 62 Markdown files; 0 link/path/anchor errors |
-| Broken internal anchors | 10 converted Data Dictionary anchor mismatches found by strict checker | 0 after stable anchors |
-| Index references to nonexistent User Story files | 14 conceptual file references | 0; replaced by stable sections |
-| Version consistency | Decision Register v1.1 vs indexes v1.0 plus changed-document drift | PASS — checked 58 versioned Markdown documents; 0 errors |
-| JSON | Not recorded | PASS — tracked JSON 2/2 files parse successfully |
-| YAML/OpenAPI syntax | Existing file readable | Structural inspection passes; independent YAML/Redocly parse **Pending** because external CLI execution was rejected |
-| OpenAPI metadata | Not recorded | PASS — 60/60 operations have unique operationId/roles; 33/33 mutations have CSRF and audit metadata |
-| Error code consistency | Generic codes and aliases present in older documents | PASS — 90/90 Allowed Inventory codes match OpenAPI and endpoint matrix; retired aliases remain only in Retired Aliases |
-| Secret pattern review | Not recorded | No committed credential value detected; placeholders/references only |
-| PII review | Not recorded | Critical potential PII locations listed above; no source binary modified |
+| Requirement content | Ready for formal review | Confirmed responses are reconciled through PRD, SRS, stories, decisions and traceability. |
+| Architecture/API/data model | Ready for formal design review | Reopen/correction/report lifecycle, application key, audit and data-minimization rules are represented. |
+| QA specification | Ready for test preparation | New CR-001..CR-035 cases and UAT checklist cover the confirmed-response baseline. |
+| Requirement Baseline approval | **Pending** | No signed approval record or formal approver/date evidence exists. |
+| System Design approval | **Pending** | Independent OpenAPI validation, infrastructure choices and design sign-off remain outstanding. |
+| Production readiness | **Not ready** | System/UAT/security/load/restore tests and operational evidence have not been executed. |
+| Public repository release | **Blocked pending owner confirmation** | Applicant-like examples and author information require classification as synthetic/approved or sanitization. |
 
-## Traceability and Test Coverage
+## 3. Confirmed Decisions Incorporated
 
-- Core flow traceability: **17/17 mapped**
-- Core flows linked to at least one test: **17/17**
-- Required P0 scenarios present across Functional/High-Risk/Import/Scoring/Security suites: login state/nonce/token/inactive, role denial, duplicate/fourth/concurrent/double-click selection, Draft/Cancelled exclusion, second/third submit, complete/incomplete close, invalid/orphan/duplicate/rollback import, document IDOR, criteria version mismatch, DB report reconciliation, embedded-point regression and secret-in-log
-- Baseline traceability completeness: **Partial**, not “Complete,” until every Must requirement/AC has executable evidence and all provisional decisions are resolved
+- Evaluation: maximum three active evaluators, duplicate/ownership protection, Draft cancellation,
+  request/approval-based reopen, immutable revisions and recalculation only after resubmission.
+- Scoring: weighted criterion calculation, equal evaluator weighting, final-only 2-decimal
+  `HALF_UP` rounding, version binding, configurable comments and Custom amount with a non-empty reason.
+- Round lifecycle: applicant + Active Criteria + validation required to open; controlled exceptional
+  reopen for Closed rounds; Archived remains immutable.
+- Applicant/import: UUID internal key and unique
+  `(scholarship_round_id, scholarship_type_id, student_id)`; multiple scholarship types per student;
+  no automatic upsert; new multi-sheet template with transitional legacy-row support.
+- Data minimization: national ID excluded from Release 1 Core Flow; original imports, hashes, raw rows,
+  normalized values and validation messages retained under restricted access.
+- Documents/reporting: malware quarantine, purpose-based export profiles, snapshot/as-of reporting,
+  immutable superseded final reports and auditable export retention.
+- Security/operations: KKU OIDC direction, 30-minute idle and 8-hour absolute sessions, controlled
+  provisioning/deactivation, 6-year core retention, 30-day backup retention and documented RPO/RTO direction.
 
-## Files Added
+## 4. Remaining Contradictions and Unresolved Items
+
+These are not unresolved Release 1 business rules; they are evidence/configuration gaps that must not
+be represented as formally approved:
+
+| Item | Current treatment | Required external confirmation/evidence |
+|---|---|---|
+| Official code-list values | Database-backed, versioned and effective-dated; sample values remain provisional | Scholarship Office-approved values and effective dates |
+| KKU identity integration | OIDC flow and required claims documented | Registered client ID, exact claims, redirect/logout URIs and IdP owner confirmation |
+| Capacity/performance | Direction recorded; SRS thresholds remain provisional | UAT/first-production measurements and agreed SLOs |
+| Hosting and malware scanning | Responsibilities and quarantine behavior documented | Named production platform, storage choice and selected scanning service |
+| Reports | Required fields, profiles and snapshot lifecycle documented | Approved visual templates and authorization matrix |
+| PII examples | National ID is excluded from Release 1; historical references are clearly marked | Data Owner classification/sanitization of binary and example data before public release |
+| Approval | Approval record populated without invented names/dates | Signed Requirement Baseline and System Design records |
+
+Historical analysis, revision-history text and source meeting notes may still contain the words
+“provisional” or superseded choices. They are retained as history and are not normative.
+
+## 5. Traceability and Test Coverage
+
+- Core and confirmed-response flows in the matrix: **20 mapped flows**.
+- New confirmed-response QA specification: **CR-001..CR-035**.
+- Covered risk areas include scoring, 2nd/3rd evaluator behavior, Draft cancellation, evaluation and
+  round reopen, multiple scholarship types, duplicate import handling, national-ID exclusion,
+  file limits/malware quarantine, retention, session timeout, access control, report snapshots and audit.
+- UAT entry/exit, business-owner participation and approval fields are explicit.
+- Execution status remains **Not Yet Executed**; specifications are not test evidence.
+
+## 6. Files Changed
+
+### Root and indexes
 
 - `DOCUMENTATION_REVIEW_REPORT.md`
-- `.github/workflows/documentation-check.yml`
-- `scripts/check-documentation-links.py`
-- `scripts/check-document-versions.py`
+- `README.md`
+- `START_HERE.md`
+- `REPOSITORY_TREE.md`
+- `Requirements/README.md`
+- `Design/README.md`
+- `Design/UI_UX/README.md`
+- `Testing/README.md`
+- `Deployment/README.md`
+
+### Requirements and approvals
+
 - `Requirements/PRD/SEMS-PRD.md`
+- `Requirements/SRS/SEMS-SRS.md`
+- `Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`
+- `Requirements/SEMS_Requirement_Decision_Register.md`
 - `Requirements/SEMS_Traceability_Matrix.md`
 - `Requirements/Approvals/Requirement_Baseline_Approval_Record.md`
-- `Requirements/Approvals/System_Design_Approval_Record.md`
-- `Requirements/Meeting_Notes/README.md`
-- `Requirements/Meeting_Notes/MEETING_NOTE_TEMPLATE.md`
+
+### Architecture, API, scoring and UI
+
 - `Design/Architecture/SEMS_System_Architecture.md`
+- `Design/Architecture/SEMS_Process_Flows.md`
+- `Design/Architecture/SEMS_State_Transition_Specification.md`
+- `Design/Architecture/SEMS_Permission_Matrix.md`
+- `Design/API/SEMS_API_Specification.md`
 - `Design/API/SEMS_Error_Code_Catalog.md`
+- `Design/API/openapi.yaml`
+- `Design/API/endpoint-matrix.csv`
+- `Design/Criteria/SEMS_Scoring_Rule_Specification.md`
+- `Design/UI_UX/SEMS_Wireframe_Specification.md`
+- `Design/UI_UX/Wireframe_UAT_Checklist.md`
+
+### Database, import mapping and workbooks
+
+- `Design/Database/SEMS_ER_Prisma_Data_Dictionary.md`
+- `Design/Database/SEMS_Data_Dictionary/01_Data_Dictionary.md`
+- `Design/Database/SEMS_Data_Dictionary/04_Design_Decisions.md`
+- `Design/Data_Templates/Data_import_to_web.xlsx`
+- `Design/Data_Templates/Data_import_to_web_Specification.md`
+- `Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.xlsx`
+- `Design/Data_Templates/SEMS_Applicant_Import_Mapping_Specification.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping.xlsx`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/00_README.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/01_ENTITY_MODEL.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/02_DATA_DICTIONARY.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/03_IMPORT_MAPPING.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/04_VALIDATION_RULES.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/06_OPEN_DECISIONS.md`
+- `Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping_Guide.md`
+
+### Testing
+
 - `Testing/Test_Data/SEMS_Scoring_Reference_Cases.md`
+- `Testing/Test_Plans/SEMS_Master_Test_Plan.md`
+- `Testing/Test_Plans/SEMS_Risk_and_Coverage_Matrix.md`
+- `Testing/Test_Cases/SEMS_Confirmed_Response_Baseline_Test_Cases.md` (new)
+- `Testing/UAT/SEMS_UAT_Baseline_Checklist.md` (new)
 
-## Files Modified
+No file was moved or deleted. No branch, commit, push or pull request was created.
 
-Root/index/governance: `.gitignore`, `README.md`, `START_HERE.md`, `REPOSITORY_TREE.md`, `DOCUMENTATION_POLICY.md`; Requirements: README, SRS, Decision Register, User Stories index/consolidated document; Design: README, API spec/OpenAPI/endpoint matrix, state/permission, scoring, database/data-dictionary indexes, import mapping, UI/UX index/spec/UAT; Testing: README, master plan, functional/high-risk/scoring test documents; Deployment README
+## 7. Validation Results
 
-## Files Moved or Deleted
+| Check | Result |
+|---|---|
+| Documentation links/anchors | PASS — 66 Markdown files, 0 errors |
+| Document/index version consistency | PASS — 62 versioned Markdown files, 0 errors |
+| Wireframe interactions | PASS — 15 screens, 103 buttons, 27 actions |
+| Repository JSON parsing | PASS — 2 files |
+| OpenAPI operation IDs | PASS — 70 operations, 70 unique |
+| OpenAPI ↔ endpoint matrix | PASS — 70/70; no missing or extra operation |
+| Role/mutation metadata | PASS — 70 operations; all 40 mutations contain required metadata |
+| Error-code inventory | PASS — 90 used codes; all in the allowed inventory |
+| Secret-pattern scan | PASS — no credential value detected by the repository scan |
+| Spreadsheet content/formula scan | PASS — changed workbooks re-imported, inspected and rendered; no spreadsheet error token found |
+| Git whitespace check | PASS — no whitespace error |
 
-**None.** Source files and binary references were preserved. งานแก้ไขอยู่บน Branch `main`; รอบติดตามนี้ยังไม่ Push และไม่ได้สร้างหรือเปลี่ยน Branch
+Unavailable in this environment:
 
-## Recommendations Before Requirement Baseline Approval
+- Independent OpenAPI 3.1/Redocly validation: no YAML/OpenAPI validator is installed.
+- Automated Mermaid parsing: no Mermaid parser is installed.
+- System, integration, UAT, security, load, backup-restore and production monitoring evidence:
+  not executed because this repository contains documentation, not a running SEMS deployment.
 
-1. Resolve C-01 and record Data Owner authorization/remediation evidence.
-2. Answer RD-023–RD-029 and RD-008–RD-014; update Decision Register without inventing approver/date.
-3. Run documentation workflow, require Redocly success and attach output.
-4. Expand traceability from core-flow level to every Must SRS/AC and attach test execution evidence.
-5. Complete UAT and use the pending approval template only after evidence exists.
+## 8. Recommended Next Action
 
-> Commit message เดิมเป็นเพียงประวัติการเปลี่ยนแปลง ไม่ใช่หลักฐานการอนุมัติ Requirement Baseline, System Design หรือ Production Readiness
+1. Have the Scholarship Office/Data Owner review the Decision Register and traceability matrix.
+2. Classify or sanitize applicant-like examples and record public-release authorization.
+3. Supply the identity/infrastructure/report-template details listed above.
+4. Run independent OpenAPI and Mermaid validation in CI.
+5. Execute the CR/UAT suites, attach evidence, and only then complete the approval records.
 
-## Recommendations Before System Design Approval
+Recommended commit message:
 
-1. Freeze business key, history scope, required fields and national-ID decision before schema/migration approval.
-2. Confirm KKU integration, session/CSRF, object authorization, storage, retention, backup RPO/RTO and observability/SLO.
-3. Validate OpenAPI 3.1 independently; review excessive data exposure and object-level authorization responses.
-4. Approve scoring/reference dataset and prove DB/UI/API/export reconciliation.
-5. Complete deployment/operations/security/restore runbooks and threat/security review.
+`docs: align SEMS baseline candidate with confirmed stakeholder responses`
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---|---|---|---|
-| v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded factual main-branch metadata, pre-baseline/approval status, PII classification and current validation evidence/limitations. |
-| v0.2 | 2026-07-23 | SEMS Documentation Team | Record final link/version/JSON/table checks, generated-cache exclusion, and independent OpenAPI validator limitation. |
-| v0.1 | 2026-07-23 | SEMS Documentation Team | Initial pre-baseline repository reconciliation report; open findings and pending approvals retained. |
+| v0.4 | 2026-07-24 | SEMS Documentation Team | Synchronized confirmed responses across requirements/design/data/API/UI/testing, updated workbooks, added test/UAT coverage and retained formal approval boundaries. |
+| v0.3 | 2026-07-24 | SEMS Documentation Team | Recorded pre-baseline repository metadata, PII risks and partial validation evidence. |
+| v0.2 | 2026-07-23 | SEMS Documentation Team | Recorded link/version/JSON checks and independent validator limitation. |
+| v0.1 | 2026-07-23 | SEMS Documentation Team | Initial repository reconciliation report. |

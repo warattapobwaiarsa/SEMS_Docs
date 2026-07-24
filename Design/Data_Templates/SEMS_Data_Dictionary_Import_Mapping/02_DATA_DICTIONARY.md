@@ -269,7 +269,7 @@
 - **Required Level:** Hard Required
 - **Nullable:** No
 - **Default / Source:** Trim จากไฟล์
-- **Validation / Allowed Values:** เก็บเป็น Text; ห้าม Scientific Notation; รูปแบบจริงรอยืนยัน
+- **Validation / Allowed Values:** เก็บเป็น Text; ห้าม Scientific Notation; รองรับรูปแบบมาตรฐานและ documented legacy normalization ตาม RD-020/Q-030
 - **Unique / Index:** UNIQUE, INDEX
 - **PII Classification:** Direct Identifier
 - **Source Column:** รหัส
@@ -345,19 +345,11 @@
 - **Source Column:** อีเมล์ / อีเมล
 - **สถานะ / หมายเหตุ:** -
 
-## `applicants.citizen_id_encrypted`
+## Historical draft field: `applicants.citizen_id_encrypted`
 
-- **ชื่อภาษาไทย:** เลขบัตรประชาชน
-- **คำอธิบาย:** ข้อมูลจำกัดสิทธิ์ หากได้รับอนุมัติให้จัดเก็บ
-- **PostgreSQL Type:** TEXT
-- **Required Level:** Not in default import
-- **Nullable:** Yes
-- **Default / Source:** ไม่มีใน Template หลัก
-- **Validation / Allowed Values:** 13 หลัก; ต้องเข้ารหัส/จำกัดสิทธิ์
-- **Unique / Index:** Restricted index only if required
-- **PII Classification:** Restricted Direct Identifier
-- **Source Column:** [Excluded by default]
-- **สถานะ / หมายเหตุ:** Open Decision; ไม่ใช้เป็น PK
+- **Release 1 status:** `Out of Scope for Release 1 — requires separate lawful-need and security approval`
+- **Confirmed rule:** no column, import mapping, UI, export, log or test value is implemented for national ID in the Release 1 Core Schema.
+- **Traceability:** RD-016 and RD-029 supersede the former optional-field proposal while preserving this historical note.
 
 ## `round_applications.id`
 
@@ -427,7 +419,7 @@
 - **Unique / Index:** INDEX
 - **PII Classification:** Operational
 - **Source Column:** วันที่สมัคร
-- **สถานะ / หมายเหตุ:** ความเป็น Required รอยืนยัน
+- **สถานะ / หมายเหตุ:** Required before Evaluation ตาม RD-019/Q-025–Q-026
 
 ## `round_applications.faculty_name_snapshot`
 
@@ -535,11 +527,11 @@
 - **Required Level:** Optional
 - **Nullable:** Yes
 - **Default / Source:** Parse decimal
-- **Validation / Allowed Values:** >= 0; ต้องยืนยันว่าเป็นต่อเดือน/ภาค/ปี
+- **Validation / Allowed Values:** >= 0; period = `SEMESTER`
 - **Unique / Index:** -
 - **PII Classification:** Financial Sensitive
 - **Source Column:** ค่าอุปกรณ์การศึกษา
-- **สถานะ / หมายเหตุ:** Open Decision เรื่องหน่วยเวลา
+- **สถานะ / หมายเหตุ:** Confirmed Response — ต่อภาคการศึกษา
 
 ## `round_applications.electronic_devices`
 
