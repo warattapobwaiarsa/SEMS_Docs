@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.7** |
-| Last Updated | **2026-07-24** |
+| Current Version | **v1.8** |
+| Last Updated | **2026-07-25** |
 | Author | **SEMS Documentation Team** |
 | Status | **Current** |
 | Scope | Main entry point and complete repository document index |
@@ -16,7 +16,7 @@
 
 1. [README.md](./README.md) → [Project Proposal](./Requirements/Proposal/SEMS-project-proposal.md) → [Documentation Review Report](./DOCUMENTATION_REVIEW_REPORT.md)
 2. [PRD](./Requirements/PRD/SEMS-PRD.md) → [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md) → [Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
-3. [SRS](./Requirements/SRS/SEMS-SRS.md) → [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) → [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
+3. [SRS](./Requirements/SRS/SEMS-SRS.md) → [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) → [MoSCoW Feature Prioritization](./Requirements/SEMS_MoSCoW_Feature_Prioritization.md) → [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
 4. [Requirement Baseline Approval Record](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md) — Pending Formal Approval
 5. [Design Overview](./Design/README.md) → Architecture → API → Database → Scoring → Import Mapping → UI/UX
 6. [System Design Approval Record](./Requirements/Approvals/System_Design_Approval_Record.md) — Template, Pending
@@ -105,6 +105,7 @@
 - [User Stories and Acceptance Criteria](./Requirements/User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
 - [Requirement Decision Analysis](./Requirements/SEMS_Requirement_Decision_Analysis.md)
 - [Requirement Decision Register](./Requirements/SEMS_Requirement_Decision_Register.md)
+- [MoSCoW Feature Prioritization](./Requirements/SEMS_MoSCoW_Feature_Prioritization.md)
 - [Traceability Matrix](./Requirements/SEMS_Traceability_Matrix.md)
 - [Requirement Baseline Approval Record Template](./Requirements/Approvals/Requirement_Baseline_Approval_Record.md)
 - [System Design Approval Record Template](./Requirements/Approvals/System_Design_Approval_Record.md)
@@ -240,6 +241,7 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.8 | 2026-07-25 | SEMS Documentation Team | เพิ่ม MoSCoW Feature Prioritization ในลำดับการอ่านและดัชนี Requirements |
 | v1.7 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.6 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | Completed the testing/UAT and automated-validation indexes after the documentation linkage audit. |

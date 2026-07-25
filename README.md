@@ -4,8 +4,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.19** |
-| Last Updated | **2026-07-24** |
+| Current Version | **v1.20** |
+| Last Updated | **2026-07-25** |
 | Author | **SEMS Documentation Team** |
 | Repository Type | Documentation |
 
@@ -47,7 +47,7 @@ Markdown ทุกไฟล์มี breadcrumb และ navigation footer ม�
 
 | Category                                        | Scope                                                                    | Key Documents                                                                                                                                                                                                                                             |
 | :---------------------------------------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.7 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.7 |
+| 🚦 **Recommended Entry Point** | Reading order, baseline status and complete index | [`START_HERE.md`](./START_HERE.md) (v1.8 Current), [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) v0.7 |
 | 📖 **Repository Governance** | Versioning, contribution and automated checks | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) (v1.4), [`CONTRIBUTING.md`](./CONTRIBUTING.md) (v1.2) |
 | 📋 **[Requirements](./Requirements/README.md)** | PRD, SRS, decisions, stories, traceability and stakeholder records | [PRD](./Requirements/PRD/SEMS-PRD.md) v0.5 Baseline Candidate, [SRS](./Requirements/SRS/SEMS-SRS.md) v0.6 Baseline Candidate, [Stakeholder Questions](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) v0.2, [Stakeholder Responses](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) v0.5 Pending Formal Record |
 | 🎨 **[Design](./Design/README.md)** | Architecture, API, database, scoring, import and UI/UX | [System Architecture](./Design/Architecture/SEMS_System_Architecture.md), [Error Catalog](./Design/API/SEMS_Error_Code_Catalog.md), OpenAPI, database and scoring drafts |
@@ -66,6 +66,7 @@ Markdown ทุกไฟล์มี breadcrumb และ navigation footer ม�
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.20 | 2026-07-25 | SEMS Documentation Team | ซิงก์เวอร์ชัน START HERE หลังเพิ่ม MoSCoW Feature Prioritization ในดัชนีเอกสาร |
 | v1.19 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.18 | 2026-07-24 | SEMS Documentation Team | เพิ่มมาตรฐาน Thai-first และเชื่อมโยงนโยบายภาษาและคำศัพท์ของ Repository |
 | v1.17 | 2026-07-24 | SEMS Documentation Team | Corrected entry-point and requirement versions and linked the Project Proposal from the repository overview. |

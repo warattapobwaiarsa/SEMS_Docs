@@ -429,6 +429,17 @@
       "previous": "Requirements/SEMS_Requirement_Decision_Analysis.md",
       "next": "Requirements/SRS/SEMS-SRS.md"
     },
+    "Requirements/SEMS_MoSCoW_Feature_Prioritization.md": {
+      "title": "การจัดลำดับความสำคัญ Feature ด้วยวิธี MoSCoW — SEMS",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md",
+      "next_action": {
+        "text": "ตรวจสอบการเชื่อมโยง Feature กับ Requirement และ Test Case ที่",
+        "targets": [
+          "Requirements/SEMS_Traceability_Matrix.md"
+        ]
+      }
+    },
     "Requirements/SEMS_Traceability_Matrix.md": {
       "title": "SEMS Traceability Matrix",
       "section_index": "Requirements/README.md",

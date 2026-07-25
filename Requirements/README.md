@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.14** |
-| Last Updated | **2026-07-24** |
+| Current Version | **v1.15** |
+| Last Updated | **2026-07-25** |
 | Author | **SEMS Documentation Team** |
 | Scope | PRD, SRS, proposals, user stories, and meeting notes |
 
@@ -30,6 +30,7 @@
 | [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.6 | 2026-07-24 | Baseline Candidate |
 | [`SEMS_Requirement_Decision_Analysis.md`](./SEMS_Requirement_Decision_Analysis.md) | v1.2 | 2026-07-23 | Draft — Pending Approval |
 | [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v0.7 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
+| [`SEMS_MoSCoW_Feature_Prioritization.md`](./SEMS_MoSCoW_Feature_Prioritization.md) | v0.1 | 2026-07-25 | Draft — Pending Review |
 | [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.6 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
 | [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md) | v0.5 | 2026-07-24 | Pending Formal Approval |
 | [`Approvals/System_Design_Approval_Record.md`](./Approvals/System_Design_Approval_Record.md) | v0.3 | 2026-07-23 | Template — Pending |
@@ -44,7 +45,7 @@
 
 1. **ทำความเข้าใจโครงการ:** [Project Proposal](./Proposal/SEMS-project-proposal.md) → [Documentation Review Report](../DOCUMENTATION_REVIEW_REPORT.md) → [PRD](./PRD/SEMS-PRD.md)
 2. **ยืนยัน Requirement:** [Decision Analysis](./SEMS_Requirement_Decision_Analysis.md) → [Decision Register](./SEMS_Requirement_Decision_Register.md) → [SRS](./SRS/SEMS-SRS.md) → [User Stories](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md)
-3. **ตรวจ Traceability:** [Traceability Matrix](./SEMS_Traceability_Matrix.md)
+3. **ตรวจ Priority และ Traceability:** [MoSCoW Feature Prioritization](./SEMS_MoSCoW_Feature_Prioritization.md) → [Traceability Matrix](./SEMS_Traceability_Matrix.md)
 4. **บันทึก Approval:** [Requirement Baseline Approval Record](./Approvals/Requirement_Baseline_Approval_Record.md) โดยคงสถานะ Pending จนมีหลักฐานจริง
 5. **เตรียม Meeting:** [Meeting Notes Index](./Meeting_Notes/README.md) → [Stakeholder Questions](./Meeting_Notes/SEMS_Stakeholder_Questions.md) → [Stakeholder Responses](./Meeting_Notes/SEMS_Stakeholder_Responses.md) → [Meeting Note Template](./Meeting_Notes/MEETING_NOTE_TEMPLATE.md)
 
@@ -52,6 +53,7 @@
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.15 | 2026-07-25 | SEMS Documentation Team | เพิ่ม `SEMS_MoSCoW_Feature_Prioritization.md` v0.1 (Draft — Pending Review) และอัปเดตลำดับการอ่าน |
 | v1.14 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.13 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.12 | 2026-07-24 | SEMS Documentation Team | Synchronized post-audit requirement, traceability, meeting-note and proposal versions and statuses. |
