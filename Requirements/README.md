@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.17** |
+| Current Version | **v1.18** |
 | Last Updated | **2026-07-25** |
 | Author | **SEMS Documentation Team** |
 | Scope | PRD, SRS, proposals, user stories, and meeting notes |
@@ -30,7 +30,7 @@
 | [`User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md`](./User_Stories/SEMS_User_Stories_and_Acceptance_Criteria.md) | v0.6 | 2026-07-24 | Baseline Candidate |
 | [`SEMS_Requirement_Decision_Analysis.md`](./SEMS_Requirement_Decision_Analysis.md) | v1.2 | 2026-07-23 | Draft — Pending Approval |
 | [`SEMS_Requirement_Decision_Register.md`](./SEMS_Requirement_Decision_Register.md) | v0.7 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
-| [`SEMS_MoSCoW_Feature_Prioritization.md`](./SEMS_MoSCoW_Feature_Prioritization.md) | v0.3 | 2026-07-25 | Draft — Pending Review |
+| [`SEMS_MoSCoW_Feature_Prioritization.md`](./SEMS_MoSCoW_Feature_Prioritization.md) | v0.4 | 2026-07-25 | Draft — Pending Review |
 | [`SEMS_Traceability_Matrix.md`](./SEMS_Traceability_Matrix.md) | v0.6 | 2026-07-24 | Baseline Candidate — Pending Formal Approval |
 | [`Approvals/Requirement_Baseline_Approval_Record.md`](./Approvals/Requirement_Baseline_Approval_Record.md) | v0.5 | 2026-07-24 | Pending Formal Approval |
 | [`Approvals/System_Design_Approval_Record.md`](./Approvals/System_Design_Approval_Record.md) | v0.3 | 2026-07-23 | Template — Pending |
@@ -53,6 +53,7 @@
 
 | Version | Date | Author | Document / Change |
 | :--- | :---: | :--- | :--- |
+| v1.18 | 2026-07-25 | SEMS Documentation Team | อัปเดต `SEMS_MoSCoW_Feature_Prioritization.md` เป็น v0.4 หลังปรับภาษาไทย โดยไม่เปลี่ยนกลุ่ม MoSCoW ขอบเขต หรือการตรวจสอบย้อนกลับ |
 | v1.17 | 2026-07-25 | SEMS Documentation Team | อัปเดต `SEMS_MoSCoW_Feature_Prioritization.md` เป็น v0.3 หลังแยกตาราง Functional Features ตามกลุ่ม MoSCoW |
 | v1.16 | 2026-07-25 | SEMS Documentation Team | อัปเดต `SEMS_MoSCoW_Feature_Prioritization.md` เป็น v0.2 หลังแยก Functional/Supporting Requirements และทบทวน Priority |
 | v1.15 | 2026-07-25 | SEMS Documentation Team | เพิ่ม `SEMS_MoSCoW_Feature_Prioritization.md` v0.1 (Draft — Pending Review) และอัปเดตลำดับการอ่าน |

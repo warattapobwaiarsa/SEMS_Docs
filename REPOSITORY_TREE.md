@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.23** |
+| Current Version | **v1.24** |
 | Last Updated | **2026-07-25** |
 | Author | **SEMS Documentation Team** |
 | Scope | Versioned documentation and standard SEMS directories |
@@ -32,8 +32,8 @@ SEMS_Docs/
 │   ├── User_Stories/
 │   │   ├── README.md [v1.5]
 │   │   └── SEMS_User_Stories_and_Acceptance_Criteria.md [v0.6 Baseline Candidate]
-│   ├── README.md [v1.17]
-│   ├── SEMS_MoSCoW_Feature_Prioritization.md [v0.3 Draft]
+│   ├── README.md [v1.18]
+│   ├── SEMS_MoSCoW_Feature_Prioritization.md [v0.4 Draft]
 │   ├── SEMS_Requirement_Decision_Analysis.md [v1.2 Draft]
 │   ├── SEMS_Requirement_Decision_Register.md [v0.7 Baseline Candidate]
 │   └── SEMS_Traceability_Matrix.md [v0.6 Baseline Candidate]
@@ -138,7 +138,7 @@ SEMS_Docs/
 ├── DOCUMENTATION_POLICY.md [v1.4]
 ├── DOCUMENTATION_REVIEW_REPORT.md [v0.7 Ready for Formal Review]
 ├── README.md [v1.20]
-├── REPOSITORY_TREE.md [v1.23]
+├── REPOSITORY_TREE.md [v1.24]
 └── START_HERE.md [v1.8 Current]
 ```
 
@@ -150,12 +150,12 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 | :--- | :--- | :---: | :---: |
 | Repository | [`README.md`](./README.md) | v1.20 | 2026-07-25 |
 | Repository | [`START_HERE.md`](./START_HERE.md) | v1.8 (Current) | 2026-07-25 |
-| Repository | [`REPOSITORY_TREE.md`](./REPOSITORY_TREE.md) | v1.23 | 2026-07-25 |
+| Repository | [`REPOSITORY_TREE.md`](./REPOSITORY_TREE.md) | v1.24 | 2026-07-25 |
 | Repository | [`CONTRIBUTING.md`](./CONTRIBUTING.md) | v1.2 | 2026-07-23 |
 | Repository | [`DOCUMENTATION_POLICY.md`](./DOCUMENTATION_POLICY.md) | v1.4 | 2026-07-23 |
 | Repository | [`DOCUMENTATION_REVIEW_REPORT.md`](./DOCUMENTATION_REVIEW_REPORT.md) | v0.7 (Ready for Formal Review) | 2026-07-24 |
-| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.17 | 2026-07-25 |
-| Requirements | [`Requirements/SEMS_MoSCoW_Feature_Prioritization.md`](./Requirements/SEMS_MoSCoW_Feature_Prioritization.md) | v0.3 (Draft — Pending Review) | 2026-07-25 |
+| Requirements | [`Requirements/README.md`](./Requirements/README.md) | v1.18 | 2026-07-25 |
+| Requirements | [`Requirements/SEMS_MoSCoW_Feature_Prioritization.md`](./Requirements/SEMS_MoSCoW_Feature_Prioritization.md) | v0.4 (Draft — Pending Review) | 2026-07-25 |
 | Requirements | [`Requirements/Meeting_Notes/README.md`](./Requirements/Meeting_Notes/README.md) | v0.6 | 2026-07-24 |
 | Requirements | [`Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Questions.md) | v0.2 (Draft) | 2026-07-24 |
 | Requirements | [`Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md`](./Requirements/Meeting_Notes/SEMS_Stakeholder_Responses.md) | v0.5 (Confirmed/Pending Formal Record) | 2026-07-24 |
@@ -176,6 +176,7 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.24 | 2026-07-25 | SEMS Documentation Team | ซิงก์เอกสารจัดลำดับความสำคัญด้วย MoSCoW v0.4 หลังปรับภาษาไทย และดัชนี Requirements v1.18 |
 | v1.23 | 2026-07-25 | SEMS Documentation Team | ซิงก์ MoSCoW Feature Prioritization v0.3 และ Requirements index v1.17 |
 | v1.22 | 2026-07-25 | SEMS Documentation Team | ซิงก์ MoSCoW Feature Prioritization v0.2 และ Requirements index v1.16 |
 | v1.21 | 2026-07-25 | SEMS Documentation Team | เพิ่ม MoSCoW Feature Prioritization และซิงก์เวอร์ชัน Index ที่ได้รับผลกระทบ |
