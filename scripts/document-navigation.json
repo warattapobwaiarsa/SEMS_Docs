@@ -440,6 +440,11 @@
         ]
       }
     },
+    "Requirements/SEMS_MoSCoW_Stakeholder_Summary.md": {
+      "title": "สรุปการจัดกลุ่มความสามารถของระบบด้วย MoSCoW สำหรับผู้พิจารณา — SEMS",
+      "section_index": "Requirements/README.md",
+      "home": "START_HERE.md"
+    },
     "Requirements/SEMS_Traceability_Matrix.md": {
       "title": "SEMS Traceability Matrix",
       "section_index": "Requirements/README.md",
