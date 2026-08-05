@@ -1,9 +1,9 @@
 ---
 document_id: SEMS-US-INDEX
 title: "SEMS User Stories and Acceptance Criteria — Index"
-version: "v0.6"
+version: "v0.7"
 status: "Baseline Candidate — Pending Formal Approval"
-last_updated: 2026-07-24
+last_updated: 2026-08-05
 owner: SEMS Project Team
 author: SEMS Requirements Team
 source_sections: "Proposal 5.1–5.5; Requirement Decision Register; Import Mapping; KKU OAuth Summary"
@@ -43,7 +43,7 @@ Acceptance Criteria ใช้โครงสร้าง **Given / When / Then**
 2. การดำเนินการที่เปลี่ยนข้อมูลสำคัญต้องบันทึกผู้ดำเนินการ วันเวลา รายการอ้างอิง และผลลัพธ์ลง Audit Log
 3. ระบบต้องไม่บันทึกรหัสผ่าน KKU Account, Access Token, Refresh Token, Session Secret หรือข้อมูลลับลง Audit Log
 4. เวลาในหน้าจอและรายงานใช้เขตเวลา `Asia/Bangkok`; เวลาในฐานข้อมูลควรจัดเก็บแบบ timezone-aware
-5. ข้อผิดพลาดต้องมี `error_code` ที่คงที่และข้อความภาษาไทยที่ผู้ใช้เข้าใจได้
+5. API Error Response ต้องใช้ `{code, message, details[], traceId, timestamp}` โดยไม่มี object `error` ครอบ และ `code` ต้องเป็นค่าคงที่จาก Error Code Catalog
 6. ข้อมูลผู้สมัครและเอกสารต้องจำกัดตามบทบาท รอบทุน และความเป็นเจ้าของ Evaluation
 7. การคำนวณและ Visualization ด้านคะแนนใช้เฉพาะ Evaluation สถานะ `SUBMITTED` ที่ยังไม่ถูกยกเลิก
 8. Confirmed responses may define the baseline candidate; formal approval evidence is still required before Freeze/Approved status.
@@ -1960,6 +1960,7 @@ Story ถือว่าเสร็จเมื่อ:
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| v0.7 | 2026-08-05 | SEMS Documentation Team | ทำ API Error Response Contract ให้ใช้ `code` และ envelope เดียวกับ SRS, API Specification, Error Code Catalog และ OpenAPI |
 | v0.6 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v0.5 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v0.4 | 2026-07-24 | SEMS Requirements Team | Added measurable confirmed-response stories for multi-type applications, corrections, reopen/cancel, report lifecycle, account/session/file safety and data minimization. |

@@ -2,8 +2,8 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.5** |
-| Last Updated | **2026-07-24** |
+| Current Version | **v1.6** |
+| Last Updated | **2026-08-05** |
 | Author | **SEMS Documentation Team** |
 | Scope | User stories and acceptance criteria |
 
@@ -28,7 +28,7 @@
 | [Report Export](./SEMS_User_Stories_and_Acceptance_Criteria.md#report-export) | `US-RPT-*` |
 | [Central Traceability Matrix](../SEMS_Traceability_Matrix.md) | Cross-document trace |
 
-Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_User_Stories_and_Acceptance_Criteria.md) **v0.6 — Baseline Candidate, Pending Formal Approval**
+Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_User_Stories_and_Acceptance_Criteria.md) **v0.7 — Baseline Candidate, Pending Formal Approval**
 
 เอกสารรวมครอบคลุม Login, User Management, Scholarship Round, Applicant Import, Documents, Criteria, Evaluation, Scoring, Dashboard และ Report Export โดยใช้ Acceptance Criteria แบบ Given/When/Then
 
@@ -41,6 +41,7 @@ Consolidated document: [`SEMS_User_Stories_and_Acceptance_Criteria.md`](./SEMS_U
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.6 | 2026-08-05 | SEMS Documentation Team | ซิงก์ User Stories และ Acceptance Criteria v0.7 หลังทำ API Error Response Contract ให้ตรงกัน |
 | v1.5 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.4 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.3 | 2026-07-24 | SEMS Documentation Team | Corrected the consolidated document version and baseline-candidate status. |

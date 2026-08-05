@@ -19,7 +19,7 @@ STATUS = re.compile(
 )
 STATUS_EXPECTATIONS = {
     "Requirements/SRS/SEMS-SRS.md": (
-        "Baseline Candidate - Pending Formal Approval",
+        "Baseline Candidate — Pending Formal Approval",
         "Requirements/README.md",
         "Baseline Candidate — Pending Formal Approval",
     ),
