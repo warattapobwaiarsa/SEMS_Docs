@@ -2,10 +2,10 @@
 
 | Metadata | Value |
 | :--- | :--- |
-| Current Version | **v1.8** |
-| Last Updated | **2026-07-24** |
+| Current Version | **v1.13** |
+| Last Updated | **2026-08-05** |
 | Author | **SEMS Documentation Team** |
-| Scope | Low-fidelity wireframes and user validation |
+| Scope | Clickable prototype, stakeholder review and formative evaluation |
 
 [START HERE](../../START_HERE.md) › [🎨 Design](../README.md) › Design/UI_UX
 
@@ -13,18 +13,22 @@
 
 | File | Version | Status |
 | :--- | :---: | :--- |
-| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.6 | Draft — User Validation |
-| [`Wireframe_UAT_Checklist.md`](./Wireframe_UAT_Checklist.md) | v0.4 | Draft — Ready for UAT |
-| [`SEMS_Wireframe_Prototype.html`](./SEMS_Wireframe_Prototype.html) | v1.1 | Ready for UAT |
+| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.11 | Draft — Phase 3.6 Authentication Invariant |
+| [`Wireframe_UAT_Checklist.md`](./Wireframe_UAT_Checklist.md) | v0.9 | Draft — Phase 3.6 Regression Checklist |
+| [`SEMS_Wireframe_Prototype.html`](./SEMS_Wireframe_Prototype.html) | v1.4 | Phase 3.6 — Authentication Hotfix; browser verification pending |
 | [`SEMS_Wireframe_Overview.png`](./SEMS_Wireframe_Overview.png) | v1.1 | Draft — English Captions |
-| [`screen_manifest.json`](./screen_manifest.json) | v1.1 | Draft |
-| [`screens/`](./screens/) | v1.0 | 15 screen previews |
+| [`screen_manifest.json`](./screen_manifest.json) | v1.4 | Phase 3.5 Screen-level Static Mapping |
+| [`screens/`](./screens/) | v1.0 | 15 existing previews; WF-16 deferred to Phase 6 |
 
 ## Usage
 
 1. เปิด `SEMS_Wireframe_Prototype.html`
-2. ทดสอบ flow ด้วย `Wireframe_UAT_Checklist.md`
+2. ทำ Stakeholder Review, Prototype Evaluation หรือ Usability Walkthrough ด้วย `Wireframe_UAT_Checklist.md`
 3. บันทึกข้อเสนอแนะก่อนเริ่มพัฒนา Frontend
+
+> กิจกรรมนี้เป็น Formative Evaluation ไม่ใช่ Formal UAT และ Prototype ใช้ข้อมูลสังเคราะห์โดยไม่เชื่อม Production API, KKU OAuth/OIDC จริง หรือบริการภายนอก
+
+`prototype_status` ใน Screen Manifest เป็นสถานะระดับหน้าจอหรือ interaction เท่านั้น ไม่ใช่ Formal Requirement Approval; ให้ยึด Coverage Matrix 27 รายการใน Wireframe Specification สำหรับสถานะ Feature โดย Item 3–6 มี Static Evidence หลัง Phase 3.5 แต่ยังเป็น `partial` จนผ่าน Browser walkthrough ส่วน Item 10–11 ยังคง Must-have Gap และ Export ถูก disable จน Phase 4 ฟิลด์ `coverage_scope`, `feature_coverage` และ `coverage_note` เป็น additive metadata; consumer เดิมที่อ่าน `id`/`image` ยังคงใช้โครงสร้าง JSON array เดิม
 
 ## ลำดับการอ่านที่แนะนำ
 
@@ -37,6 +41,11 @@
 
 | Version | Date | Author | Change |
 | :--- | :---: | :--- | :--- |
+| v1.13 | 2026-08-05 | SEMS Documentation Team | Recorded the Phase 3.6 shared authentication invariant, direct-handler guards, eight-scenario catalogue and accessibility fix; Item 3–6 remain partial and Item 10–11 remain disabled. |
+| v1.12 | 2026-08-05 | SEMS Documentation Team | Recorded Phase 3.5 import guard, Application-owned documents, Criteria edit buffer, isolated scenarios, disabled Item 11 export, readiness traceability and partial static coverage pending browser verification. |
+| v1.11 | 2026-08-05 | SEMS Documentation Team | Recorded Phase 3 Item 3–6 ADMIN preparation workflows, integrated Demo State/scenarios, updated screen-level manifest evidence and retained Items 10–11 as gaps. |
+| v1.10 | 2026-08-05 | SEMS Documentation Team | Recorded Phase 2.5 role/session stabilization, semantic form/button cleanup, disabled Phase 3 placeholders and additive screen-level manifest coverage metadata. |
+| v1.9 | 2026-08-05 | SEMS Documentation Team | Updated the UI/UX package for the approved Phase 1–2 scope baseline, formative-evaluation terminology, 16-screen manifest and deferred Phase 6 screenshots. |
 | v1.8 | 2026-07-24 | SEMS Documentation Team | เพิ่มและปรับ document navigation |
 | v1.7 | 2026-07-24 | SEMS Documentation Team | ปรับภาษาไทยเป็นหลักและทำให้คำศัพท์ทางเทคนิคสอดคล้องกับนโยบายเอกสาร |
 | v1.6 | 2026-07-24 | SEMS Documentation Team | Synchronized wireframe status/version and indexed explicit screen-manifest image paths. |
