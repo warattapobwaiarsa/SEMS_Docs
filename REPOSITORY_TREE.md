@@ -77,6 +77,48 @@ SEMS_Docs/
 │   │   │   ├── 02_DATA_DICTIONARY.md [v1.1]
 │   │   │   ├── 03_IMPORT_MAPPING.md [v1.1]
 │   │   │   ├── 04_VALIDATION_RULES.md [v1.1]
+│   ├── SEMS_Requirement_Decision_Analysis.md [v1.2 Draft]
+│   ├── SEMS_Requirement_Decision_Register.md [v0.7 Baseline Candidate]
+│   └── SEMS_Traceability_Matrix.md [v0.6 Baseline Candidate]
+├── 🎨 Design/
+│   ├── API/
+│   │   ├── endpoint-matrix.csv [v1.2 Draft]
+│   │   ├── kku-oauth-summary.md [v1.1]
+│   │   ├── openapi.yaml [v1.3 Draft]
+│   │   ├── SEMS_API_Specification.md [v1.6 Draft]
+│   │   └── SEMS_Error_Code_Catalog.md [v0.5 Draft]
+│   ├── Architecture/
+│   │   ├── SEMS_Permission_Matrix.md [v1.5 Draft]
+│   │   ├── SEMS_Process_Flows.md [v1.5 Draft]
+│   │   ├── SEMS_State_Transition_Specification.md [v0.6 Confirmed Response]
+│   │   └── SEMS_System_Architecture.md [v0.4 Draft]
+│   ├── Criteria/
+│   │   ├── Criteria.xlsx [v1.0]
+│   │   ├── Criteria_Converted.md [v1.2 Draft]
+│   │   ├── SEMS_Criteria_Config.json [v1.0 Draft]
+│   │   └── SEMS_Scoring_Rule_Specification.md [v0.6 Confirmed Response]
+│   ├── Database/
+│   │   ├── SEMS_Data_Dictionary/
+│   │   │   ├── 00_Workbook_Overview.md [v1.1]
+│   │   │   ├── 01_Data_Dictionary.md [v1.2]
+│   │   │   ├── 02_Import_Column_Mapping.md [v1.1]
+│   │   │   ├── 03_Value_Sets.md [v1.1]
+│   │   │   ├── 04_Design_Decisions.md [v1.1]
+│   │   │   └── README.md [v1.2]
+│   │   ├── SEMS_Data_Dictionary.xlsx [v1.0 Draft]
+│   │   ├── SEMS_ER_Diagram.png [v1.0 Draft]
+│   │   └── SEMS_ER_Prisma_Data_Dictionary.md [v0.5 Draft]
+│   ├── Data_Templates/
+│   │   ├── Data_import_to_web.xlsx [v1.0]
+│   │   ├── Data_import_to_web_Specification.md [v1.1]
+│   │   ├── SEMS_Applicant_Import_Mapping_Specification.md [v0.5 Confirmed Response]
+│   │   ├── SEMS_Applicant_Import_Mapping_Specification.xlsx [v0.1 Draft]
+│   │   ├── SEMS_Data_Dictionary_Import_Mapping/
+│   │   │   ├── 00_README.md [v1.1]
+│   │   │   ├── 01_ENTITY_MODEL.md [v1.1]
+│   │   │   ├── 02_DATA_DICTIONARY.md [v1.1]
+│   │   │   ├── 03_IMPORT_MAPPING.md [v1.1]
+│   │   │   ├── 04_VALIDATION_RULES.md [v1.1]
 │   │   │   ├── 05_REFERENCE_VALUES.md [v1.1]
 │   │   │   ├── 06_OPEN_DECISIONS.md [v1.1]
 │   │   │   └── README.md [v1.1]
@@ -99,12 +141,12 @@ SEMS_Docs/
 │   │   │   ├── 13-review.png [v1.0 Draft]
 │   │   │   ├── 14-summary.png [v1.0 Draft]
 │   │   │   └── 15-export.png [v1.0 Draft]
-│   │   ├── README.md [v1.8]
-│   │   ├── screen_manifest.json [v1.1 Draft]
+│   │   ├── README.md [v1.13]
+│   │   ├── screen_manifest.json [v1.4 Phase 3.5]
 │   │   ├── SEMS_Wireframe_Overview.png [v1.1 Draft]
-│   │   ├── SEMS_Wireframe_Prototype.html [v1.1 Ready for UAT]
-│   │   ├── SEMS_Wireframe_Specification.md [v0.6 Draft]
-│   │   └── Wireframe_UAT_Checklist.md [v0.4 Draft]
+│   │   ├── SEMS_Wireframe_Prototype.html [v1.4 Phase 3.6]
+│   │   ├── SEMS_Wireframe_Specification.md [v0.11 Draft]
+│   │   └── Wireframe_UAT_Checklist.md [v0.9 Draft]
 │   └── README.md [v1.12]
 ├── 🧪 Testing/
 │   ├── Test_Cases/
@@ -164,13 +206,9 @@ Ignored local workspace metadata (`.git/`, `.obsidian/`, and `.tmp-sheet-inspect
 | Requirements | [`Requirements/Proposal/SEMS-project-proposal.md`](./Requirements/Proposal/SEMS-project-proposal.md) | v1.2 | 2026-07-24 |
 | Requirements | [`Requirements/SRS/SEMS-SRS.md`](./Requirements/SRS/SEMS-SRS.md) | v0.6 (Baseline Candidate) | 2026-08-05 |
 | Requirements | [`Requirements/User_Stories/README.md`](./Requirements/User_Stories/README.md) | v1.6 | 2026-08-05 |
-| Design | [`Design/README.md`](./Design/README.md) | v1.12 | 2026-07-24 |
-| Design | [`Design/API/openapi.yaml`](./Design/API/openapi.yaml) | v1.3 (Draft) | 2026-07-24 |
-| Design | [`Design/Database/SEMS_Data_Dictionary/README.md`](./Design/Database/SEMS_Data_Dictionary/README.md) | v1.2 | 2026-07-23 |
-| Design | [`Design/Database/SEMS_ER_Prisma_Data_Dictionary.md`](./Design/Database/SEMS_ER_Prisma_Data_Dictionary.md) | v0.5 (Draft — Pre-Implementation Review) | 2026-07-24 |
 | Design | [`Design/Data_Templates/Data_import_to_web_Specification.md`](./Design/Data_Templates/Data_import_to_web_Specification.md) | v1.1 | 2026-07-23 |
 | Design | [`Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md`](./Design/Data_Templates/SEMS_Data_Dictionary_Import_Mapping/README.md) | v1.1 | 2026-07-23 |
-| Design | [`Design/UI_UX/README.md`](./Design/UI_UX/README.md) | v1.8 | 2026-07-24 |
+| Design | [`Design/UI_UX/README.md`](./Design/UI_UX/README.md) | v1.13 | 2026-07-24 |
 | Testing | [`Testing/README.md`](./Testing/README.md) | v1.8 | 2026-07-24 |
 | Deployment | [`Deployment/README.md`](./Deployment/README.md) | v1.6 | 2026-07-24 |
 

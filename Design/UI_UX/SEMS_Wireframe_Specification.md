@@ -5,7 +5,7 @@
 | Version | **v0.11** |
 | Last Updated | **2026-08-05** |
 | Author | **SEMS Design Team** |
-| Status | **Draft — Phase 3.6 Authentication Invariant Hotfix / Formative Prototype Evaluation** |
+| Status | **Draft — User Validation** |
 | Primary Users | Admin and Evaluator |
 
 [START HERE](../../START_HERE.md) › [Design/UI_UX](./README.md) › SEMS Wireframe Specification

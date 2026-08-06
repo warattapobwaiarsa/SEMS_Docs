@@ -48,7 +48,7 @@
 | [`Database/SEMS_Data_Dictionary/README.md`](./Database/SEMS_Data_Dictionary/README.md) | v1.2 | 2026-07-23 | Reference — Converted from Workbook |
 | [`Database/SEMS_ER_Diagram.png`](./Database/SEMS_ER_Diagram.png) | v1.0 | 2026-07-23 | Draft |
 | [`Database/SEMS_ER_Prisma_Data_Dictionary.md`](./Database/SEMS_ER_Prisma_Data_Dictionary.md) | v0.5 | 2026-07-24 | Draft — Pre-Implementation Review |
-| [`UI_UX/README.md`](./UI_UX/README.md) | v1.8 | 2026-07-24 | Current Index |
+| [`UI_UX/README.md`](./UI_UX/README.md) | v1.13 | 2026-07-24 | Current Index |
 
 ## ลำดับการอ่านที่แนะนำ
 

@@ -13,7 +13,7 @@
 
 | File | Version | Status |
 | :--- | :---: | :--- |
-| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.11 | Draft — Phase 3.6 Authentication Invariant |
+| [`SEMS_Wireframe_Specification.md`](./SEMS_Wireframe_Specification.md) | v0.11 | Draft — User Validation |
 | [`Wireframe_UAT_Checklist.md`](./Wireframe_UAT_Checklist.md) | v0.9 | Draft — Phase 3.6 Regression Checklist |
 | [`SEMS_Wireframe_Prototype.html`](./SEMS_Wireframe_Prototype.html) | v1.4 | Phase 3.6 — Authentication Hotfix; browser verification pending |
 | [`SEMS_Wireframe_Overview.png`](./SEMS_Wireframe_Overview.png) | v1.1 | Draft — English Captions |
